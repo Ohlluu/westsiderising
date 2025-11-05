@@ -161,10 +161,15 @@
     gap: 2.5rem;
 }
 
+/* Three columns for Exceptional Leadership and Community Impact Awards */
+.awardees-grid.three-columns {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Two columns for Legendary Awards (Matriarch and Patriarch side by side) */
 .legendary-grid {
-    grid-template-columns: 1fr;
-    max-width: 800px;
-    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
 }
 
 .awardee-card {
@@ -183,8 +188,8 @@
 }
 
 .legendary-card {
-    flex-direction: row;
-    padding: 3rem;
+    flex-direction: column;
+    padding: 0;
 }
 
 .awardee-photo {
@@ -196,11 +201,9 @@
 }
 
 .legendary-photo {
-    width: 250px;
-    min-width: 250px;
-    padding-top: 0;
-    height: 250px;
-    border-radius: var(--border-radius);
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 0;
 }
 
 .photo-placeholder {
@@ -231,7 +234,7 @@
 }
 
 .legendary-card .awardee-content {
-    padding: 0 0 0 3rem;
+    padding: 2rem;
 }
 
 .awardee-content h3 {
@@ -393,23 +396,10 @@
         font-size: 1rem;
     }
 
-    .awardees-grid {
+    .awardees-grid,
+    .awardees-grid.three-columns,
+    .legendary-grid {
         grid-template-columns: 1fr;
-    }
-
-    .legendary-card {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .legendary-photo {
-        width: 100%;
-        min-width: 100%;
-        height: 300px;
-    }
-
-    .legendary-card .awardee-content {
-        padding: 2rem;
     }
 
     .cta-card {
@@ -467,7 +457,7 @@
         font-size: 1rem;
     }
 
-    .legendary-photo {
-        height: 250px;
+    .awardees-grid.three-columns {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
