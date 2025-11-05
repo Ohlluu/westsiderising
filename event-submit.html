@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit your event to be featured on the Westside Rising website.">
+    <title>Submit Your Event | Westside Rising</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/events.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="assets/images/WR logo.jpg" alt="Westside Rising Logo">
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="events.html" class="nav-link active">Events</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards.html" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved.html" class="nav-link">Get Involved</a></li>
+                <li><a href="donate.html" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero submit-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>SHARE YOUR EVENT</h1>
+                <p>Help us spread the word about community events</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Submission Form -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <div class="form-intro">
+                    <div class="form-icon">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <h2>Submit Your Community Event</h2>
+                    <p>
+                        Share your event with the Greater West Side community! Fill out the form below and we'll review your submission
+                        for featuring on our events calendar. All fields marked with an asterisk (*) are required.
+                    </p>
+                </div>
+
+                <form class="event-form" id="event-submission-form">
+                    <!-- Organization Name -->
+                    <div class="form-group">
+                        <label for="org-name">Organization Name<span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="org-name"
+                            name="org-name"
+                            placeholder="Enter your organization name"
+                            required
+                        >
+                    </div>
+
+                    <!-- Event Title -->
+                    <div class="form-group">
+                        <label for="event-title">Event Title<span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="event-title"
+                            name="event-title"
+                            placeholder="Give your event a catchy title"
+                            required
+                        >
+                    </div>
+
+                    <!-- Event Date and Time -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-month">Event Date<span class="required">*</span></label>
+                            <div class="date-inputs">
+                                <select id="event-month" name="event-month" required>
+                                    <option value="">Month</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <input type="number" id="event-day" name="event-day" placeholder="Day" min="1" max="31" required>
+                                <input type="number" id="event-year" name="event-year" placeholder="Year" min="2024" max="2030" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-hour">Event Time</label>
+                            <div class="time-inputs">
+                                <input type="number" id="event-hour" name="event-hour" placeholder="HH" min="1" max="12">
+                                <span>:</span>
+                                <input type="number" id="event-minute" name="event-minute" placeholder="MM" min="0" max="59">
+                                <select id="event-ampm" name="event-ampm">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label for="event-location">Location<span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="event-location"
+                            name="event-location"
+                            placeholder="Enter event address or venue name"
+                            required
+                        >
+                    </div>
+
+                    <!-- Event Description -->
+                    <div class="form-group">
+                        <label for="event-description">Event Description</label>
+                        <textarea
+                            id="event-description"
+                            name="event-description"
+                            rows="6"
+                            placeholder="Describe your event, what attendees can expect, and any other relevant details..."
+                        ></textarea>
+                        <span class="form-hint">Tell us about your event in detail (optional but recommended)</span>
+                    </div>
+
+                    <!-- Event Flyer Upload -->
+                    <div class="form-group">
+                        <label for="event-flyer">Event Flyer</label>
+                        <div class="file-upload-wrapper">
+                            <input
+                                type="file"
+                                id="event-flyer"
+                                name="event-flyer"
+                                accept="image/*,.pdf"
+                                class="file-input"
+                            >
+                            <label for="event-flyer" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span class="file-upload-text">Choose File or Drag Here</span>
+                                <span class="file-name" id="file-name">No file chosen</span>
+                            </label>
+                        </div>
+                        <span class="form-hint">Upload a flyer or promotional image (JPG, PNG, or PDF - Max 5MB)</span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Event
+                        </button>
+                        <a href="events.html" class="btn btn-secondary btn-large">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="assets/images/WR logo.jpg" alt="Westside Rising Logo" class="footer-logo">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="leadership-awards.html">Leadership Awards</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate.html" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 Westside Rising. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/event-form.js"></script>
+</body>
+</html>
