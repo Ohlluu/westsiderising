@@ -195,35 +195,33 @@
 .awardee-photo {
     position: relative;
     width: 100%;
-    padding-top: 100%;
+    height: 400px;
     background: linear-gradient(135deg, var(--light-gray) 0%, #e0e0e0 100%);
     overflow: hidden;
 }
 
 .awardee-photo img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
+    display: block;
 }
 
 .legendary-photo {
+    position: relative;
     width: 100%;
-    padding-top: 100%;
+    height: 450px;
     border-radius: 0;
+    overflow: hidden;
 }
 
 .legendary-photo img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
+    display: block;
 }
 
 .photo-placeholder {
@@ -422,6 +420,14 @@
         grid-template-columns: 1fr;
     }
 
+    .awardee-photo {
+        height: 350px;
+    }
+
+    .legendary-photo {
+        height: 400px;
+    }
+
     .cta-card {
         flex-direction: column;
         text-align: center;
@@ -479,5 +485,13 @@
 
     .awardees-grid.three-columns {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .awardee-photo {
+        height: 300px;
+    }
+
+    .legendary-photo {
+        height: 350px;
     }
 }
