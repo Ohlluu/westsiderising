@@ -1,0 +1,544 @@
+/* ===================================
+   GET INVOLVED PAGE STYLES
+   =================================== */
+
+/* ===== INVOLVEMENT INTRO ===== */
+.involvement-intro {
+    padding: 60px 0;
+    background: var(--white);
+}
+
+.involvement-intro .intro-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.involvement-intro p {
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: var(--medium-gray);
+}
+
+/* ===== INVOLVEMENT OPTIONS ===== */
+.involvement-options {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.option-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+}
+
+.option-icon {
+    padding: 3rem;
+    background: var(--gradient-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option-icon i {
+    font-size: 4rem;
+    color: var(--white);
+}
+
+.option-content {
+    padding: 2.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.option-content h3 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.option-content > p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 1.5rem;
+}
+
+.option-details {
+    list-style: none;
+    margin: 1.5rem 0 2rem 0;
+    flex: 1;
+}
+
+.option-details li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--dark-gray);
+}
+
+.option-details li i {
+    color: var(--primary-red);
+    font-size: 1.1rem;
+    min-width: 20px;
+}
+
+.option-content .btn {
+    align-self: flex-start;
+}
+
+.social-share-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    font-size: 1.3rem;
+}
+
+.social-btn.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: var(--white);
+}
+
+.social-btn.facebook {
+    background: #1877f2;
+    color: var(--white);
+}
+
+.social-btn.twitter {
+    background: #1da1f2;
+    color: var(--white);
+}
+
+.social-btn.youtube {
+    background: #ff0000;
+    color: var(--white);
+}
+
+.social-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ===== VOLUNTEER FORM ===== */
+.volunteer-form-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.form-header {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.form-header p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+}
+
+.volunteer-form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--light-gray);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.8rem;
+}
+
+.required {
+    color: var(--primary-red);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+    color: var(--dark-gray);
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.checkbox-label:hover {
+    background: rgba(227, 30, 36, 0.05);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-red);
+}
+
+.checkbox-label.consent {
+    grid-column: 1 / -1;
+    background: var(--white);
+    padding: 1.2rem;
+    border-radius: 8px;
+}
+
+.checkbox-label.consent span {
+    font-size: 0.95rem;
+}
+
+.btn-large {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    justify-content: center;
+}
+
+/* Success Message */
+.success-message {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4rem 3rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.success-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    animation: scaleIn 0.5s ease;
+}
+
+.success-icon i {
+    font-size: 3rem;
+    color: var(--white);
+}
+
+.success-message h3 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+}
+
+.success-message p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 2rem;
+}
+
+.success-message p strong {
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===== VOLUNTEER IMPACT ===== */
+.volunteer-impact {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.impact-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.impact-stat {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.impact-stat:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-red);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+}
+
+.stat-icon i {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+
+.stat-number {
+    font-family: var(--font-primary);
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary-red);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+}
+
+/* ===== QUESTIONS CTA ===== */
+.questions-cta {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.questions-cta .cta-card {
+    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    padding: 4rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.questions-cta .cta-icon {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-red);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+}
+
+.questions-cta .cta-icon i {
+    font-size: 3.5rem;
+    color: var(--white);
+}
+
+.questions-cta .cta-content h2 {
+    font-family: var(--font-primary);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--black);
+    margin-bottom: 1rem;
+}
+
+.questions-cta .cta-content p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 2rem;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 968px) {
+    .options-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+
+    .impact-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .questions-cta .cta-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 3rem 2rem;
+    }
+
+    .questions-cta .cta-icon {
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+    }
+
+    .questions-cta .cta-icon i {
+        font-size: 3rem;
+    }
+
+    .contact-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .involvement-intro p {
+        font-size: 1.1rem;
+    }
+
+    .option-icon {
+        padding: 2rem;
+    }
+
+    .option-icon i {
+        font-size: 3rem;
+    }
+
+    .option-content {
+        padding: 2rem;
+    }
+
+    .option-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .volunteer-form {
+        padding: 2rem 1.5rem;
+    }
+
+    .impact-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .questions-cta .cta-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .questions-cta .cta-content p {
+        font-size: 1rem;
+    }
+
+    .contact-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .contact-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

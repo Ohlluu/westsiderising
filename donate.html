@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support Westside Rising with a donation. Help us build a just, livable, and vibrant Greater West Side.">
+    <title>Donate | Westside Rising</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/donate.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="assets/images/WR logo.jpg" alt="Westside Rising Logo">
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="events.html" class="nav-link">Events</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards.html" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved.html" class="nav-link">Get Involved</a></li>
+                <li><a href="donate.html" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero donate-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>Make a Difference Today</h1>
+                <p>Your generosity empowers our community to thrive</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Impact -->
+    <section class="donation-impact">
+        <div class="container">
+            <div class="impact-intro fade-in-up">
+                <h2 class="section-title">Your Impact</h2>
+                <p>
+                    Every donation to Westside Rising directly supports programs and initiatives that strengthen our community.
+                    From youth development to leadership training, your contribution creates lasting change in the Greater West Side.
+                </p>
+            </div>
+
+            <div class="impact-grid">
+                <div class="impact-card fade-in-up">
+                    <div class="impact-amount">$50</div>
+                    <div class="impact-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Educational Materials</h3>
+                    <p>Provides educational resources and supplies for 5 youth in our mentorship programs.</p>
+                </div>
+
+                <div class="impact-card fade-in-up">
+                    <div class="impact-amount">$150</div>
+                    <div class="impact-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Leadership Training</h3>
+                    <p>Funds one leadership development workshop for emerging community leaders.</p>
+                </div>
+
+                <div class="impact-card fade-in-up">
+                    <div class="impact-amount">$300</div>
+                    <div class="impact-icon">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <h3>Community Event</h3>
+                    <p>Sponsors a full community engagement event bringing neighbors together.</p>
+                </div>
+
+                <div class="impact-card fade-in-up">
+                    <div class="impact-amount">$500</div>
+                    <div class="impact-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Training Series</h3>
+                    <p>Supports a complete capacity-building training series for local organizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Form -->
+    <section class="donation-form-section">
+        <div class="container">
+            <div class="donation-form-grid">
+                <!-- Donation Form -->
+                <div class="donation-form-container">
+                    <h2 class="form-title fade-in-up">Choose Your Contribution</h2>
+
+                    <form class="donation-form fade-in-up" id="donationForm">
+                        <!-- Donation Type -->
+                        <div class="donation-type-selector">
+                            <label class="type-option active" data-type="one-time">
+                                <input type="radio" name="donationType" value="one-time" checked>
+                                <span class="type-label">One-Time</span>
+                            </label>
+                            <label class="type-option" data-type="monthly">
+                                <input type="radio" name="donationType" value="monthly">
+                                <span class="type-label">Monthly</span>
+                            </label>
+                        </div>
+
+                        <!-- Amount Selection -->
+                        <div class="amount-selector">
+                            <label class="amount-option" data-amount="50">
+                                <input type="radio" name="amount" value="50">
+                                <span class="amount-label">$50</span>
+                            </label>
+                            <label class="amount-option" data-amount="150">
+                                <input type="radio" name="amount" value="150">
+                                <span class="amount-label">$150</span>
+                            </label>
+                            <label class="amount-option" data-amount="300">
+                                <input type="radio" name="amount" value="300">
+                                <span class="amount-label">$300</span>
+                            </label>
+                            <label class="amount-option" data-amount="500">
+                                <input type="radio" name="amount" value="500">
+                                <span class="amount-label">$500</span>
+                            </label>
+                            <label class="amount-option" data-amount="1000">
+                                <input type="radio" name="amount" value="1000">
+                                <span class="amount-label">$1,000</span>
+                            </label>
+                            <label class="amount-option custom-amount" data-amount="custom">
+                                <input type="radio" name="amount" value="custom">
+                                <span class="amount-label">Custom</span>
+                            </label>
+                        </div>
+
+                        <!-- Custom Amount Input -->
+                        <div class="form-group custom-amount-group" style="display: none;">
+                            <label for="customAmount">Enter Amount</label>
+                            <div class="amount-input-wrapper">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="customAmount" name="customAmount" min="5" placeholder="Enter amount">
+                            </div>
+                        </div>
+
+                        <!-- Donor Information -->
+                        <div class="form-section">
+                            <h3>Your Information</h3>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="donorFirstName">First Name <span class="required">*</span></label>
+                                    <input type="text" id="donorFirstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donorLastName">Last Name <span class="required">*</span></label>
+                                    <input type="text" id="donorLastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="donorEmail">Email Address <span class="required">*</span></label>
+                                <input type="email" id="donorEmail" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="donorPhone">Phone Number</label>
+                                <input type="tel" id="donorPhone" name="phone">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="anonymous" id="anonymous">
+                                    <span>Make this donation anonymous</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="mailingList" id="mailingList" checked>
+                                    <span>Send me updates about Westside Rising's impact and events</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Dedication (Optional) -->
+                        <div class="form-section">
+                            <h3>Dedicate This Gift (Optional)</h3>
+
+                            <div class="dedication-options">
+                                <label class="radio-label">
+                                    <input type="radio" name="dedicationType" value="none" checked>
+                                    <span>No dedication</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="dedicationType" value="honor">
+                                    <span>In honor of</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="dedicationType" value="memory">
+                                    <span>In memory of</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group dedication-name-group" style="display: none;">
+                                <label for="dedicationName">Honoree Name</label>
+                                <input type="text" id="dedicationName" name="dedicationName">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-heart"></i>
+                            Complete Donation
+                        </button>
+
+                        <p class="secure-notice">
+                            <i class="fas fa-lock"></i>
+                            Your donation is secure and tax-deductible
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Donation Info Sidebar -->
+                <div class="donation-sidebar">
+                    <!-- Tax Information -->
+                    <div class="sidebar-card fade-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3>Tax Deductible</h3>
+                        <p>
+                            Westside Rising is a 501(c)(3) nonprofit organization. Your donation is tax-deductible
+                            to the extent allowed by law. Tax ID: XX-XXXXXXX
+                        </p>
+                    </div>
+
+                    <!-- Secure Donation -->
+                    <div class="sidebar-card fade-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure & Safe</h3>
+                        <p>
+                            All transactions are encrypted and secure. We never store your payment information
+                            on our servers. Your privacy and security are our top priorities.
+                        </p>
+                    </div>
+
+                    <!-- Transparency -->
+                    <div class="sidebar-card fade-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>How We Use Funds</h3>
+                        <div class="fund-breakdown">
+                            <div class="fund-item">
+                                <span class="fund-label">Programs & Services</span>
+                                <span class="fund-percentage">80%</span>
+                            </div>
+                            <div class="fund-item">
+                                <span class="fund-label">Operations</span>
+                                <span class="fund-percentage">15%</span>
+                            </div>
+                            <div class="fund-item">
+                                <span class="fund-label">Fundraising</span>
+                                <span class="fund-percentage">5%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="sidebar-card fade-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>Questions?</h3>
+                        <p>
+                            For questions about donations, corporate giving, or planned giving opportunities,
+                            please contact us.
+                        </p>
+                        <a href="mailto:wr.info@westsiderising.org" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            wr.info@westsiderising.org
+                        </a>
+                        <a href="tel:7734176605" class="contact-link">
+                            <i class="fas fa-phone"></i>
+                            (773) 417-6605
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Ways to Give -->
+    <section class="other-ways-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Other Ways to Give</h2>
+
+            <div class="ways-grid">
+                <!-- Corporate Matching -->
+                <div class="way-card fade-in-up">
+                    <div class="way-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Corporate Matching</h3>
+                    <p>
+                        Many employers match charitable donations. Check if your company participates and
+                        double your impact at no additional cost to you.
+                    </p>
+                    <a href="mailto:wr.info@westsiderising.org?subject=Corporate Matching Inquiry" class="text-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Planned Giving -->
+                <div class="way-card fade-in-up">
+                    <div class="way-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Planned Giving</h3>
+                    <p>
+                        Leave a lasting legacy by including Westside Rising in your will, trust, or estate plan.
+                        Help ensure our work continues for generations to come.
+                    </p>
+                    <a href="mailto:wr.info@westsiderising.org?subject=Planned Giving Inquiry" class="text-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Stock Donations -->
+                <div class="way-card fade-in-up">
+                    <div class="way-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Stock & Securities</h3>
+                    <p>
+                        Donating appreciated stocks or securities can be more tax-efficient than cash donations.
+                        Contact us to learn about transferring securities.
+                    </p>
+                    <a href="mailto:wr.info@westsiderising.org?subject=Stock Donation Inquiry" class="text-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- DAF -->
+                <div class="way-card fade-in-up">
+                    <div class="way-icon">
+                        <i class="fas fa-donate"></i>
+                    </div>
+                    <h3>Donor-Advised Fund</h3>
+                    <p>
+                        Recommend a grant to Westside Rising from your donor-advised fund. A simple and
+                        tax-advantageous way to support our mission.
+                    </p>
+                    <a href="mailto:wr.info@westsiderising.org?subject=DAF Grant Inquiry" class="text-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- In-Kind Donations -->
+                <div class="way-card fade-in-up">
+                    <div class="way-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h3>In-Kind Donations</h3>
+                    <p>
+                        Donate goods, services, or professional expertise. From office supplies to pro bono
+                        consulting, your in-kind contributions are valued.
+                    </p>
+                    <a href="mailto:wr.info@westsiderising.org?subject=In-Kind Donation Inquiry" class="text-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Sponsorships -->
+                <div class="way-card fade-in-up">
+                    <div class="way-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Event Sponsorships</h3>
+                    <p>
+                        Sponsor one of our events or programs and receive recognition while supporting
+                        community engagement and leadership development.
+                    </p>
+                    <a href="mailto:wr.info@westsiderising.org?subject=Sponsorship Inquiry" class="text-link">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Statement -->
+    <section class="impact-statement">
+        <div class="container">
+            <div class="statement-content fade-in-up">
+                <div class="statement-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <blockquote>
+                    "Every dollar donated to Westside Rising is an investment in the future of the Greater West Side.
+                    Together, we're building a community where everyone has the opportunity to thrive, lead, and create
+                    positive change. Your generosity makes this vision a reality."
+                </blockquote>
+                <div class="statement-attribution">
+                    <strong>Westside Rising Team</strong>
+                    <span>Building Community Together</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="assets/images/WR logo.jpg" alt="Westside Rising Logo" class="footer-logo">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="leadership-awards.html">Leadership Awards</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate.html" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 Westside Rising. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/donate-form.js"></script>
+</body>
+</html>
