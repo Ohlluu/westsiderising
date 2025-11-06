@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event dates (for demonstration - these would come from a database)
     const eventDates = {
+        '2025-12-4': 'holiday-soiree-2025',  // Holiday Soiree
         '2024-3-15': 1,  // Event ID 1
         '2024-3-22': 2,  // Event ID 2
         '2024-4-5': 3,   // Event ID 3
