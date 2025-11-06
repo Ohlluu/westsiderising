@@ -10,6 +10,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== CONDITIONAL FIELDS =====
 
+    // Show/hide "Other" text field for partnership type
+    const partnershipTypeOtherCheckbox = document.getElementById('partnershipTypeOther');
+    const partnershipTypeOtherText = document.getElementById('partnershipTypeOtherText');
+    const partnershipTypeOtherInput = document.getElementById('partnershipTypeOtherInput');
+
+    if (partnershipTypeOtherCheckbox) {
+        partnershipTypeOtherCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                partnershipTypeOtherText.style.display = 'block';
+                partnershipTypeOtherInput.required = true;
+            } else {
+                partnershipTypeOtherText.style.display = 'none';
+                partnershipTypeOtherInput.required = false;
+                partnershipTypeOtherInput.value = '';
+            }
+        });
+    }
+
     // Show/hide "Other" text field for commitments
     const commitmentsOtherCheckbox = document.getElementById('commitmentsOther');
     const commitmentsOtherText = document.getElementById('commitmentsOtherText');
@@ -29,48 +47,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Show/hide "Other" text field for support needed
-    const supportNeededSelect = document.getElementById('supportNeeded');
-    const supportNeededOtherText = document.getElementById('supportNeededOtherText');
-    const supportNeededOtherInput = document.getElementById('supportNeededOtherInput');
+    const supportOtherRadio = document.getElementById('supportOther');
+    const supportOtherText = document.getElementById('supportOtherText');
+    const supportOtherInput = document.getElementById('supportOtherInput');
 
-    if (supportNeededSelect) {
-        supportNeededSelect.addEventListener('change', function() {
-            if (this.value === 'other') {
-                supportNeededOtherText.style.display = 'block';
-                supportNeededOtherInput.required = true;
+    if (supportOtherRadio) {
+        const supportRadios = document.querySelectorAll('input[name="support"]');
+        supportRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'other') {
+                    supportOtherText.style.display = 'block';
+                    supportOtherInput.required = true;
+                } else {
+                    supportOtherText.style.display = 'none';
+                    supportOtherInput.required = false;
+                    supportOtherInput.value = '';
+                }
+            });
+        });
+    }
+
+    // Show/hide "Other" text field for agreement terms
+    const agreementOtherCheckbox = document.getElementById('agreementOther');
+    const agreementOtherText = document.getElementById('agreementOtherText');
+    const agreementOtherInput = document.getElementById('agreementOtherInput');
+
+    if (agreementOtherCheckbox) {
+        agreementOtherCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                agreementOtherText.style.display = 'block';
+                agreementOtherInput.required = true;
             } else {
-                supportNeededOtherText.style.display = 'none';
-                supportNeededOtherInput.required = false;
-                supportNeededOtherInput.value = '';
+                agreementOtherText.style.display = 'none';
+                agreementOtherInput.required = false;
+                agreementOtherInput.value = '';
             }
         });
     }
 
-    // ===== PHONE NUMBER FORMATTING =====
-    const phoneInputs = [
-        document.getElementById('primaryPhone'),
-        document.getElementById('secondaryPhone')
-    ];
-
-    phoneInputs.forEach(phoneInput => {
-        if (phoneInput) {
-            phoneInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-
-                if (value.length > 10) {
-                    value = value.slice(0, 10);
-                }
-
-                if (value.length >= 6) {
-                    e.target.value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
-                } else if (value.length >= 3) {
-                    e.target.value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-                } else {
-                    e.target.value = value;
-                }
-            });
-        }
-    });
 
     // ===== FORM SUBMISSION =====
     partnershipForm.addEventListener('submit', function(e) {
@@ -90,36 +104,51 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Validate agreement terms
-        const agreementChecked = document.getElementById('agreementTerms').checked;
-        if (!agreementChecked) {
-            alert('Please agree to the terms of the partnership agreement.');
+        // Validate agreement terms - must check "I understand and agree"
+        const agreementAgreeChecked = document.getElementById('agreementAgree').checked;
+        if (!agreementAgreeChecked) {
+            alert('Please check "I understand and agree" to accept the partnership agreement terms.');
             return;
         }
 
         // Collect form data
+        const email = document.getElementById('partnerEmail').value;
+        const emailAddress = document.getElementById('partnerEmailAddress').value;
+        const entityName = document.getElementById('entityName').value;
+        const partnershipType = Array.from(partnershipTypeChecked).map(cb => cb.value);
+        const partnershipTypeOther = partnershipTypeOtherInput ? partnershipTypeOtherInput.value : null;
+        const contacts = document.getElementById('contacts').value;
+        const commitments = Array.from(commitmentsChecked).map(cb => cb.value);
+        const commitmentsOther = commitmentsOtherInput ? commitmentsOtherInput.value : null;
+
+        // Get support needed
+        const supportChecked = partnershipForm.querySelector('input[name="support"]:checked');
+        const support = supportChecked ? supportChecked.value : null;
+        const supportOther = supportOtherInput ? supportOtherInput.value : null;
+
+        // Get agreement terms
+        const agreementTermsChecked = partnershipForm.querySelectorAll('input[name="agreementTerms"]:checked');
+        const agreementTerms = Array.from(agreementTermsChecked).map(cb => cb.value);
+        const agreementOther = agreementOtherInput ? agreementOtherInput.value : null;
+
+        const authorizedRep = document.getElementById('authorizedRep').value;
+        const completionDate = document.getElementById('completionDate').value;
+
         const formData = {
-            email: document.getElementById('partnerEmail').value,
-            entityName: document.getElementById('entityName').value,
-            partnershipType: Array.from(partnershipTypeChecked).map(cb => cb.value),
-            primaryContact: {
-                name: document.getElementById('primaryName').value,
-                title: document.getElementById('primaryTitle').value,
-                email: document.getElementById('primaryEmail').value,
-                phone: document.getElementById('primaryPhone').value
-            },
-            secondaryContact: {
-                name: document.getElementById('secondaryName').value,
-                title: document.getElementById('secondaryTitle').value,
-                email: document.getElementById('secondaryEmail').value,
-                phone: document.getElementById('secondaryPhone').value
-            },
-            commitments: Array.from(commitmentsChecked).map(cb => cb.value),
-            commitmentsOther: commitmentsOtherInput.value || null,
-            supportNeeded: supportNeededSelect.value,
-            supportNeededOther: supportNeededOtherInput.value || null,
-            authorizedRep: document.getElementById('authorizedRep').value,
-            completionDate: document.getElementById('completionDate').value
+            email,
+            emailAddress,
+            entityName,
+            partnershipType,
+            partnershipTypeOther,
+            contacts,
+            commitments,
+            commitmentsOther,
+            support,
+            supportOther,
+            agreementTerms,
+            agreementOther,
+            authorizedRep,
+            completionDate
         };
 
         console.log('Partnership Form Data:', formData);
@@ -133,11 +162,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <h3>Partnership Application Submitted!</h3>
             <p>
-                Thank you for your interest in partnering with Westside Rising. We've received your application
-                for <strong>${formData.entityName}</strong> and will review it within 3-5 business days.
+                Thank you for your interest in partnering with Westside Rising. We've received your partnership application
+                for <strong>${entityName}</strong> and will review it within 3-5 business days.
             </p>
             <p>
-                A confirmation email has been sent to <strong>${formData.email}</strong> with your application details.
+                A confirmation email has been sent to <strong>${email}</strong> with your application details.
                 Our team will reach out to discuss next steps and partnership opportunities.
             </p>
             <button class="btn btn-primary" onclick="location.reload()">

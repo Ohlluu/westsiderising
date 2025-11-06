@@ -68,29 +68,46 @@
     <section class="partnership-form-section">
         <div class="container">
             <div class="form-header fade-in-up">
-                <h2 class="section-title">Partnership Agreement Application</h2>
+                <h2 class="section-title">WESTSIDE RISING Partnership Agreement</h2>
                 <p>
-                    Complete the form below to establish a partnership with Westside Rising.
-                    We'll review your application and get back to you within 3-5 business days.
+                    This is a partnership agreement between individuals, organizations, and institutions to work with WESTSIDE RISING as a PARTNER to build a just, livable, and vibrant Greater West Side.
+                </p>
+                <p>
+                    Together, we will work to provide information, resources, and opportunities for capacity building, leadership development, civic engage, and other activities that support the activation of residents and stakeholders in West Side Communities.
+                </p>
+                <p>
+                    As partners, we emphasize trust, honesty, transparency, accountability, and responsibility among ourselves and in the work we do together. Let's Partner!
+                </p>
+                <p class="contact-info-text">
+                    <strong>www.westsiderising.org</strong><br>
+                    WR.info@westsiderising.org<br>
+                    Office: 833.974.7464<br>
+                    Admin: 773.417.6605
                 </p>
             </div>
 
             <form class="partnership-form fade-in-up" id="partnershipForm">
                 <!-- Email -->
                 <div class="form-group">
-                    <label for="partnerEmail">Email Address <span class="required">*</span></label>
+                    <label for="partnerEmail">Email <span class="required">*</span></label>
                     <input type="email" id="partnerEmail" name="email" required>
+                </div>
+
+                <!-- Email address -->
+                <div class="form-group">
+                    <label for="partnerEmailAddress">Email address <span class="required">*</span></label>
+                    <input type="email" id="partnerEmailAddress" name="emailAddress" required>
                 </div>
 
                 <!-- Partnership Entity Name -->
                 <div class="form-group">
-                    <label for="entityName">Partnership Entity Name <span class="required">*</span></label>
-                    <input type="text" id="entityName" name="entityName" required placeholder="Enter your organization's/Institution's name OR YOUR name if you are an individual leader">
+                    <label for="entityName">This PARTNERSHIP Agreement is between WESTSIDE RISING and... (Enter your organization's/Institution's name OR YOUR name if you are an individual leader). <span class="required">*</span></label>
+                    <input type="text" id="entityName" name="entityName" required>
                 </div>
 
                 <!-- Partnership Type -->
                 <div class="form-group">
-                    <label>Partnership Type <span class="required">*</span></label>
+                    <label>I agree to PARTNER with WESTSIDE RISING as an ORGANIZATION/INSTITUTION or INDIVIDUAL. (Check all that apply) <span class="required">*</span></label>
                     <div class="checkbox-group">
                         <label class="checkbox-label">
                             <input type="checkbox" name="partnershipType" value="individual">
@@ -105,138 +122,114 @@
                             <span>Institution</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="partnershipType" value="other">
-                            <span>Other</span>
+                            <input type="checkbox" name="partnershipType" value="other" id="partnershipTypeOther">
+                            <span>Other:</span>
                         </label>
                     </div>
-                </div>
-
-                <!-- Primary Contact -->
-                <div class="form-section">
-                    <h3>Primary Contact <span class="required">*</span></h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="primaryName">Full Name <span class="required">*</span></label>
-                            <input type="text" id="primaryName" name="primaryName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="primaryTitle">Title <span class="required">*</span></label>
-                            <input type="text" id="primaryTitle" name="primaryTitle" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="primaryEmail">Email <span class="required">*</span></label>
-                            <input type="email" id="primaryEmail" name="primaryEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="primaryPhone">Phone <span class="required">*</span></label>
-                            <input type="tel" id="primaryPhone" name="primaryPhone" required>
-                        </div>
+                    <div class="form-group" id="partnershipTypeOtherText" style="display: none;">
+                        <input type="text" id="partnershipTypeOtherInput" name="partnershipTypeOther">
                     </div>
                 </div>
 
-                <!-- Secondary Contact -->
-                <div class="form-section">
-                    <h3>Secondary Contact <span class="required">*</span></h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="secondaryName">Full Name <span class="required">*</span></label>
-                            <input type="text" id="secondaryName" name="secondaryName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="secondaryTitle">Title <span class="required">*</span></label>
-                            <input type="text" id="secondaryTitle" name="secondaryTitle" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="secondaryEmail">Email <span class="required">*</span></label>
-                            <input type="email" id="secondaryEmail" name="secondaryEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="secondaryPhone">Phone <span class="required">*</span></label>
-                            <input type="tel" id="secondaryPhone" name="secondaryPhone" required>
-                        </div>
-                    </div>
+                <!-- Contacts -->
+                <div class="form-group">
+                    <label for="contacts">Who are the primary and secondary contacts for participation and interaction with WESTSIDE RISING? (Please list their name, title, email, and phone number for BOTH representatives). <span class="required">*</span></label>
+                    <textarea id="contacts" name="contacts" rows="6" required></textarea>
                 </div>
 
                 <!-- Partnership Commitments -->
                 <div class="form-group">
-                    <label>Partnership Commitments <span class="required">*</span></label>
-                    <p class="field-description">Select at least one commitment (check all that apply)</p>
+                    <label>As PARTNERS, I agree to the following (Check all that apply, select at least 1 item). Provide additional information if needed in the "other" section. WESTSIDE RISING will reciprocate. <span class="required">*</span></label>
                     <div class="checkbox-group">
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="collaborate-events">
-                            <span>Collaborate on events/activities</span>
+                            <input type="checkbox" name="commitments" value="collaborate">
+                            <span>Will collaborate and partner to host and/or facilitate events or activities that support the activation and development of West Side residents and communities.</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="share-info">
-                            <span>Share information via multiple channels</span>
+                            <input type="checkbox" name="commitments" value="promote">
+                            <span>Promote and share information about resources, community, and partner activities and events via email, text, social media, etc.</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="represent-positively">
-                            <span>Represent partnership positively</span>
+                            <input type="checkbox" name="commitments" value="represent">
+                            <span>Positively and effectively represent this partnership, its purpose, and work.</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="attend-meetings">
-                            <span>Attend monthly meetings</span>
+                            <input type="checkbox" name="commitments" value="meetings">
+                            <span>Will support and attend monthly partner meetings.</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="logo-permission">
-                            <span>Obtain written permission for logo/brand use</span>
+                            <input type="checkbox" name="commitments" value="logos">
+                            <span>Both parties will obtain written permission via email to use and display organization's logos, brand, or likeness on literature or other promotional materials.</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="provide-expertise">
-                            <span>Provide expertise/knowledge</span>
+                            <input type="checkbox" name="commitments" value="expertise">
+                            <span>Provide knowledge and expertise to support the partnership.</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="commitments" value="community-organizing">
-                            <span>Participate in community organizing for social justice</span>
+                            <input type="checkbox" name="commitments" value="organizing">
+                            <span>I/We want to participate in Community Organizing efforts for Social Justice/Impact and systemic change.</span>
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" name="commitments" value="other" id="commitmentsOther">
-                            <span>Other</span>
+                            <span>Other:</span>
                         </label>
                     </div>
                     <div class="form-group" id="commitmentsOtherText" style="display: none;">
-                        <label for="commitmentsOtherInput">Please specify:</label>
-                        <textarea id="commitmentsOtherInput" name="commitmentsOtherText" rows="2"></textarea>
+                        <textarea id="commitmentsOtherInput" name="commitmentsOther" rows="2"></textarea>
                     </div>
                 </div>
 
                 <!-- Support Needed -->
                 <div class="form-group">
-                    <label for="supportNeeded">Support Needed <span class="required">*</span></label>
-                    <select id="supportNeeded" name="supportNeeded" required>
-                        <option value="">Select support type</option>
-                        <option value="organic-collaboration">Organic collaboration and partnership</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="supportNeededOtherText" style="display: none;">
-                    <label for="supportNeededOtherInput">Please specify:</label>
-                    <textarea id="supportNeededOtherInput" name="supportNeededOtherText" rows="3"></textarea>
+                    <label>How can WESTSIDE RISING Support you/your organization/institution? Please provide specifics about the services or supports desired, or questions for clarity in the "other" section. <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="support" value="organic" required>
+                            <span>Organic collaboration and partnership</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="support" value="other" id="supportOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="supportOtherText" style="display: none;">
+                        <textarea id="supportOtherInput" name="supportOther" rows="3"></textarea>
+                    </div>
                 </div>
 
                 <!-- Agreement Terms -->
                 <div class="form-group">
-                    <label class="checkbox-label consent">
-                        <input type="checkbox" name="agreementTerms" id="agreementTerms" required>
-                        <span>I understand and agree to the terms of this partnership agreement <span class="required">*</span></span>
-                    </label>
+                    <label>This Partnership Agreement is effective immediately upon completion and is perpetual or will terminate on the date indicated in the "other" option.
+
+Otherwise, this agreement can be terminated at any time through a written notice by and authorized representative, signed, dated, and emailed to wr.info@westsiderising.org. <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agreementTerms" value="agree" id="agreementAgree" required>
+                            <span>I understand and agree</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agreementTerms" value="stipulations" id="agreementStipulations">
+                            <span>Other or additional stipulations are below.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agreementTerms" value="other" id="agreementOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="agreementOtherText" style="display: none;">
+                        <textarea id="agreementOtherInput" name="agreementOther" rows="2"></textarea>
+                    </div>
                 </div>
 
                 <!-- Authorized Representative Name -->
                 <div class="form-group">
-                    <label for="authorizedRep">Authorized Representative Name (Digital Signature) <span class="required">*</span></label>
-                    <input type="text" id="authorizedRep" name="authorizedRep" required placeholder="Type your full name as digital signature">
+                    <label for="authorizedRep">Type the name of the authorized representative for you/your organization/institution (this is a digital signature). <span class="required">*</span></label>
+                    <input type="text" id="authorizedRep" name="authorizedRep" required>
                 </div>
 
                 <!-- Completion Date -->
                 <div class="form-group">
-                    <label for="completionDate">Completion Date <span class="required">*</span></label>
+                    <label for="completionDate">Please enter the date this form was completed. <span class="required">*</span></label>
                     <input type="date" id="completionDate" name="completionDate" required>
                 </div>
 
