@@ -341,6 +341,39 @@
     margin-top: 3rem;
 }
 
+.partner-logo {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid var(--light-gray);
+}
+
+.partner-logo:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-red);
+}
+
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: var(--transition);
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%);
+}
+
 .partner-logo-placeholder {
     background: var(--white);
     padding: 2rem;
