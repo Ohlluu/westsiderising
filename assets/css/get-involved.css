@@ -156,6 +156,39 @@
     background: var(--white);
 }
 
+/* ===== PARTNERSHIP FORM ===== */
+.partnership-form-section {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.partnership-form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.field-description {
+    font-size: 0.9rem;
+    color: var(--medium-gray);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: var(--white);
+    transition: var(--transition);
+}
+
 .form-header {
     max-width: 800px;
     margin: 0 auto 3rem;
