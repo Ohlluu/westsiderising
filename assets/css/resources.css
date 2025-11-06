@@ -467,6 +467,182 @@
     margin: 0;
 }
 
+/* ===== ONE SUMMER CHICAGO SECTION ===== */
+.osc-details-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.osc-intro {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.osc-intro h2 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.osc-intro p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+}
+
+.osc-highlights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+}
+
+.highlight-card {
+    background: var(--white);
+    border: 2px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-red);
+}
+
+.highlight-icon {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-red);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+}
+
+.highlight-icon i {
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.highlight-content h3 {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.highlight-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin: 0;
+}
+
+.application-info {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    background: linear-gradient(135deg, #fff8e1, #fffde7);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    border-left: 5px solid #ffc107;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffc107;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+}
+
+.info-icon i {
+    font-size: 1.8rem;
+    color: var(--white);
+}
+
+.info-content h3 {
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.info-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--dark-gray);
+    margin: 0;
+}
+
+.osc-website {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.website-card-large {
+    background: linear-gradient(135deg, var(--light-gray), var(--white));
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--light-gray);
+}
+
+.website-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-red);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.website-icon i {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+
+.website-content h3 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.website-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 2rem;
+}
+
 /* ===== HELP SECTION ===== */
 .help-section {
     padding: 80px 0;
@@ -849,6 +1025,20 @@
 
     .enlace-services {
         grid-template-columns: 1fr;
+    }
+
+    .osc-highlights {
+        grid-template-columns: 1fr;
+    }
+
+    .highlight-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .application-info {
+        flex-direction: column;
+        text-align: center;
     }
 
     .help-card {
