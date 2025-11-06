@@ -178,38 +178,10 @@
     border-color: var(--primary-red);
 }
 
-.pantry-card.general-search {
-    background: linear-gradient(135deg, var(--primary-red), #ff4444);
-    color: var(--white);
-    border: none;
-}
-
-.pantry-card.general-search .pantry-header h3 {
-    color: var(--white);
-}
-
-.pantry-card.general-search .pantry-description {
-    color: var(--white);
-}
-
-.pantry-card.general-search .pantry-website a {
-    color: var(--white);
-    text-decoration: underline;
-}
-
-.pantry-card.general-search i {
-    color: var(--white);
-}
-
 .pantry-header {
     background: var(--light-gray);
     padding: 1.5rem 2rem;
     border-bottom: 2px solid #e5e7eb;
-}
-
-.pantry-card.general-search .pantry-header {
-    background: rgba(255, 255, 255, 0.2);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .pantry-header h3 {
@@ -244,10 +216,6 @@
     font-size: 1.1rem;
     min-width: 20px;
     margin-top: 0.2rem;
-}
-
-.pantry-card.general-search .pantry-details i {
-    color: var(--white);
 }
 
 .pantry-details a {
