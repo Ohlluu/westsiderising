@@ -643,6 +643,194 @@
     margin-bottom: 2rem;
 }
 
+/* ===== CATHOLIC CHARITIES SECTION ===== */
+.cc-details-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.cc-intro {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.cc-intro p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 1rem;
+}
+
+.services-section {
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+}
+
+.services-section h2 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.services-section .services-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 2px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-red);
+}
+
+.service-item i {
+    font-size: 1.5rem;
+    color: var(--primary-red);
+    min-width: 24px;
+    margin-top: 0.2rem;
+}
+
+.service-item span {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--dark-gray);
+}
+
+.service-item a {
+    color: var(--primary-red);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.service-item a:hover {
+    text-decoration: underline;
+}
+
+.contact-regions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+}
+
+.region-card {
+    background: var(--white);
+    border: 2px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.region-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-red);
+}
+
+.region-header {
+    background: var(--light-gray);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.region-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-red);
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+}
+
+.region-icon i {
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.region-header h3 {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin: 0;
+}
+
+.region-contacts {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-row i {
+    font-size: 1.3rem;
+    color: var(--primary-red);
+    min-width: 24px;
+    margin-top: 0.3rem;
+}
+
+.contact-row strong {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    margin-bottom: 0.3rem;
+}
+
+.contact-row a {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-red);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-row a:hover {
+    text-decoration: underline;
+}
+
+.cc-website {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 /* ===== HELP SECTION ===== */
 .help-section {
     padding: 80px 0;
@@ -1034,6 +1222,14 @@
     .highlight-card {
         flex-direction: column;
         text-align: center;
+    }
+
+    .services-section .services-list {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-regions {
+        grid-template-columns: 1fr;
     }
 
     .application-info {
