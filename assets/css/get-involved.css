@@ -178,6 +178,22 @@
     font-style: italic;
 }
 
+.partnership-form .form-group input[type="text"],
+.partnership-form .form-group input[type="email"],
+.partnership-form .form-group input[type="tel"],
+.partnership-form .form-group input[type="date"],
+.partnership-form .form-group select,
+.partnership-form .form-group textarea {
+    border: 2px solid var(--primary-red);
+}
+
+.partnership-form .form-group input:focus,
+.partnership-form .form-group select:focus,
+.partnership-form .form-group textarea:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
+}
+
 .form-group input[type="date"] {
     width: 100%;
     padding: 1rem 1.2rem;
