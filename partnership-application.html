@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply for partnership with Westside Rising. Complete the partnership agreement form.">
+    <title>Partnership Application | Westside Rising</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/get-involved.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="assets/images/WR logo.jpg" alt="Westside Rising Logo">
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="events.html" class="nav-link">Events</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards.html" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved.html" class="nav-link active">Get Involved</a></li>
+                <li><a href="donate.html" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>Partnership Application</h1>
+                <p>Join us in building a stronger Greater West Side</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Get Involved -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <a href="get-involved.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Get Involved
+            </a>
+        </div>
+    </section>
+
+    <!-- Partnership Application Form -->
+    <section class="partnership-form-section">
+        <div class="container">
+            <div class="form-header fade-in-up">
+                <h2 class="section-title">Partnership Agreement Application</h2>
+                <p>
+                    Complete the form below to establish a partnership with Westside Rising.
+                    We'll review your application and get back to you within 3-5 business days.
+                </p>
+            </div>
+
+            <form class="partnership-form fade-in-up" id="partnershipForm">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="partnerEmail">Email Address <span class="required">*</span></label>
+                    <input type="email" id="partnerEmail" name="email" required>
+                </div>
+
+                <!-- Partnership Entity Name -->
+                <div class="form-group">
+                    <label for="entityName">Partnership Entity Name <span class="required">*</span></label>
+                    <input type="text" id="entityName" name="entityName" required placeholder="Enter your organization's/Institution's name OR YOUR name if you are an individual leader">
+                </div>
+
+                <!-- Partnership Type -->
+                <div class="form-group">
+                    <label>Partnership Type <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="individual">
+                            <span>Individual</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="organization">
+                            <span>Organization</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="institution">
+                            <span>Institution</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="other">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Primary Contact -->
+                <div class="form-section">
+                    <h3>Primary Contact <span class="required">*</span></h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="primaryName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="primaryName" name="primaryName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="primaryTitle">Title <span class="required">*</span></label>
+                            <input type="text" id="primaryTitle" name="primaryTitle" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="primaryEmail">Email <span class="required">*</span></label>
+                            <input type="email" id="primaryEmail" name="primaryEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="primaryPhone">Phone <span class="required">*</span></label>
+                            <input type="tel" id="primaryPhone" name="primaryPhone" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Contact -->
+                <div class="form-section">
+                    <h3>Secondary Contact <span class="required">*</span></h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="secondaryName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="secondaryName" name="secondaryName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="secondaryTitle">Title <span class="required">*</span></label>
+                            <input type="text" id="secondaryTitle" name="secondaryTitle" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="secondaryEmail">Email <span class="required">*</span></label>
+                            <input type="email" id="secondaryEmail" name="secondaryEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="secondaryPhone">Phone <span class="required">*</span></label>
+                            <input type="tel" id="secondaryPhone" name="secondaryPhone" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partnership Commitments -->
+                <div class="form-group">
+                    <label>Partnership Commitments <span class="required">*</span></label>
+                    <p class="field-description">Select at least one commitment (check all that apply)</p>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="collaborate-events">
+                            <span>Collaborate on events/activities</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="share-info">
+                            <span>Share information via multiple channels</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="represent-positively">
+                            <span>Represent partnership positively</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="attend-meetings">
+                            <span>Attend monthly meetings</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="logo-permission">
+                            <span>Obtain written permission for logo/brand use</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="provide-expertise">
+                            <span>Provide expertise/knowledge</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="community-organizing">
+                            <span>Participate in community organizing for social justice</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="other" id="commitmentsOther">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="commitmentsOtherText" style="display: none;">
+                        <label for="commitmentsOtherInput">Please specify:</label>
+                        <textarea id="commitmentsOtherInput" name="commitmentsOtherText" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Support Needed -->
+                <div class="form-group">
+                    <label for="supportNeeded">Support Needed <span class="required">*</span></label>
+                    <select id="supportNeeded" name="supportNeeded" required>
+                        <option value="">Select support type</option>
+                        <option value="organic-collaboration">Organic collaboration and partnership</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="supportNeededOtherText" style="display: none;">
+                    <label for="supportNeededOtherInput">Please specify:</label>
+                    <textarea id="supportNeededOtherInput" name="supportNeededOtherText" rows="3"></textarea>
+                </div>
+
+                <!-- Agreement Terms -->
+                <div class="form-group">
+                    <label class="checkbox-label consent">
+                        <input type="checkbox" name="agreementTerms" id="agreementTerms" required>
+                        <span>I understand and agree to the terms of this partnership agreement <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <!-- Authorized Representative Name -->
+                <div class="form-group">
+                    <label for="authorizedRep">Authorized Representative Name (Digital Signature) <span class="required">*</span></label>
+                    <input type="text" id="authorizedRep" name="authorizedRep" required placeholder="Type your full name as digital signature">
+                </div>
+
+                <!-- Completion Date -->
+                <div class="form-group">
+                    <label for="completionDate">Completion Date <span class="required">*</span></label>
+                    <input type="date" id="completionDate" name="completionDate" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Partnership Application
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="assets/images/WR logo.jpg" alt="Westside Rising Logo" class="footer-logo">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="leadership-awards.html">Leadership Awards</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate.html" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 Westside Rising. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/partnership-form.js"></script>
+</body>
+</html>
