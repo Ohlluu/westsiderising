@@ -182,9 +182,14 @@
 .partnership-form .form-group input[type="email"],
 .partnership-form .form-group input[type="tel"],
 .partnership-form .form-group input[type="date"],
+.partnership-form .form-group input[type="file"],
 .partnership-form .form-group select,
 .partnership-form .form-group textarea {
     border: 2px solid var(--primary-red);
+}
+
+.partnership-form .form-group input[type="file"] {
+    padding: 0.8rem;
 }
 
 .partnership-form .form-group input:focus,
