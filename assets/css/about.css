@@ -366,12 +366,7 @@
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: grayscale(100%);
     transition: var(--transition);
-}
-
-.partner-logo:hover img {
-    filter: grayscale(0%);
 }
 
 .partner-logo-placeholder {
@@ -446,12 +441,7 @@
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: grayscale(100%);
     transition: var(--transition);
-}
-
-.sponsor-logo:hover img {
-    filter: grayscale(0%);
 }
 
 .sponsor-logo-placeholder {
