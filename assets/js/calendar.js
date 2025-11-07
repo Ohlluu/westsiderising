@@ -9,15 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentMonth = currentDate.getMonth();
     let currentYear = currentDate.getFullYear();
 
-    // Event dates (for demonstration - these would come from a database)
+    // Event dates - now supports multiple events per date
     const eventDates = {
-        '2025-12-4': 'holiday-soiree-2025',  // Holiday Soiree
-        '2024-3-15': 1,  // Event ID 1
-        '2024-3-22': 2,  // Event ID 2
-        '2024-4-5': 3,   // Event ID 3
-        '2024-4-18': 4,  // Event ID 4
-        '2024-5-10': 5,  // Event ID 5
-        '2024-5-25': 6   // Event ID 6
+        '2025-12-4': [
+            {
+                id: 'holiday-soiree-2025',
+                title: 'Better Together Holiday Soiree',
+                time: '5:45 PM',
+                location: '3020 W. Carroll, Chicago, IL',
+                type: 'Gala',
+                image: 'assets/images/events/WR Holiday Soiree 2025.png'
+            }
+        ]
     };
 
     const monthNames = [
@@ -30,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const monthYearDisplay = document.getElementById('calendar-month-year');
     const prevMonthBtn = document.getElementById('prev-month');
     const nextMonthBtn = document.getElementById('next-month');
+    const sidebar = document.getElementById('calendar-sidebar');
+    const sidebarDate = document.getElementById('sidebar-date');
+    const sidebarContent = document.getElementById('sidebar-content');
+    const sidebarClose = document.getElementById('sidebar-close');
 
     // Check if calendar elements exist (only on events page)
     if (!calendarGrid) return;
@@ -54,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
             currentYear++;
         }
         renderCalendar(currentMonth, currentYear);
+    });
+
+    // Sidebar close button
+    sidebarClose.addEventListener('click', function() {
+        sidebar.classList.remove('active');
     });
 
     // Render calendar function
@@ -112,14 +124,64 @@ document.addEventListener('DOMContentLoaded', function() {
             dayCell.classList.add('has-event');
             dayCell.style.cursor = 'pointer';
 
-            // Add click event to navigate to event detail page
+            // Add click event to show sidebar with events
             dayCell.addEventListener('click', function() {
-                const eventId = eventDates[dateKey];
-                window.location.href = `event-detail.html?id=${eventId}`;
+                showEventsSidebar(dateKey);
             });
         }
 
         return dayCell;
+    }
+
+    // Show events sidebar
+    function showEventsSidebar(dateKey) {
+        const events = eventDates[dateKey];
+        if (!events || events.length === 0) return;
+
+        // Parse the date
+        const [year, month, day] = dateKey.split('-').map(Number);
+        const date = new Date(year, month - 1, day);
+        const dateString = date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Update sidebar header
+        sidebarDate.textContent = dateString;
+
+        // Clear previous content
+        sidebarContent.innerHTML = '';
+
+        // Create event cards
+        events.forEach(event => {
+            const eventCard = document.createElement('a');
+            eventCard.href = `event-detail.html?id=${event.id}`;
+            eventCard.className = 'sidebar-event-card';
+
+            eventCard.innerHTML = `
+                <div class="sidebar-event-image">
+                    ${event.image ?
+                        `<img src="${event.image}" alt="${event.title}">` :
+                        `<div class="sidebar-event-placeholder">
+                            <i class="fas fa-calendar"></i>
+                        </div>`
+                    }
+                </div>
+                <div class="sidebar-event-info">
+                    <span class="sidebar-event-type">${event.type}</span>
+                    <h4>${event.title}</h4>
+                    <p><i class="far fa-clock"></i> ${event.time}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>
+                </div>
+            `;
+
+            sidebarContent.appendChild(eventCard);
+        });
+
+        // Show sidebar
+        sidebar.classList.add('active');
     }
 
     // Check if date is today
