@@ -62,30 +62,11 @@
                 <h2 class="section-title">Join Us at Our Events</h2>
             </div>
 
-            <div class="events-grid">
-                <!-- Event Card 1 - Holiday Soiree -->
-                <div class="event-card fade-in-up">
-                    <a href="event-detail.html?id=holiday-soiree-2025" class="event-link">
-                        <div class="event-image">
-                            <img src="assets/images/events/WR Holiday Soiree 2025.png" alt="Better Together Holiday Soiree">
-                            <div class="event-date-badge">
-                                <span class="month">DEC</span>
-                                <span class="day">04</span>
-                            </div>
-                        </div>
-                        <div class="event-content">
-                            <div class="event-meta">
-                                <span class="event-time"><i class="far fa-clock"></i> 5:45 PM</span>
-                                <span class="event-location"><i class="fas fa-map-marker-alt"></i> 3020 W. Carroll, Chicago, IL</span>
-                            </div>
-                            <h3>Better Together Holiday Soiree</h3>
-                            <p>Join us for an evening of celebration featuring DJ, food, drinks, raffles & prizes, and our Leadership Awards presentation. Dress in your finest red, black & gold attire. All are welcome!</p>
-                            <div class="event-footer">
-                                <span class="event-type">Gala</span>
-                                <span class="learn-more">Learn More <i class="fas fa-arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </a>
+            <div class="events-grid" id="events-grid">
+                <!-- Events will be loaded dynamically from Firebase -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary-red); margin-bottom: 1rem;"></i>
+                    <p style="color: var(--medium-gray); font-size: 1.1rem;">Loading events...</p>
                 </div>
             </div>
         </div>
@@ -245,6 +226,8 @@
     </button>
 
     <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/load-events.js"></script>
+    <script type="module" src="assets/js/load-calendar-events.js"></script>
     <script src="assets/js/calendar.js"></script>
 </body>
 </html>

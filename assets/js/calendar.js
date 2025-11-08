@@ -9,18 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentMonth = currentDate.getMonth();
     let currentYear = currentDate.getFullYear();
 
-    // Event dates - now supports multiple events per date
-    const eventDates = {
-        '2025-12-4': [
-            {
-                id: 'holiday-soiree-2025',
-                title: 'Better Together Holiday Soiree',
-                time: '5:45 PM',
-                location: '3020 W. Carroll, Chicago, IL',
-                type: 'Gala',
-                image: 'assets/images/events/WR Holiday Soiree 2025.png'
-            }
-        ]
+    // Event dates - will be loaded from Firebase
+    let eventDates = window.firebaseEventDates || {};
+
+    // Function to reload calendar with Firebase events
+    window.reloadCalendar = function() {
+        eventDates = window.firebaseEventDates || {};
+        renderCalendar(currentMonth, currentYear);
     };
 
     const monthNames = [
