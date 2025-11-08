@@ -78,3 +78,22 @@ if (registrationRequired && registrationLinkGroup) {
         }
     });
 }
+
+// File upload feedback
+const fileInput = document.getElementById('eventImage');
+const fileName = document.getElementById('file-name');
+
+if (fileInput && fileName) {
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+            const file = this.files[0];
+            fileName.textContent = file.name;
+            fileName.style.color = 'var(--primary-red)';
+            fileName.style.fontWeight = '600';
+        } else {
+            fileName.textContent = 'No file chosen';
+            fileName.style.color = '';
+            fileName.style.fontWeight = '';
+        }
+    });
+}

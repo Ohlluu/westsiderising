@@ -69,77 +69,65 @@
                     </p>
                 </div>
 
-                <form class="event-form" id="event-submission-form">
-                    <!-- Organization Name -->
-                    <div class="form-group">
-                        <label for="org-name">Organization Name<span class="required">*</span></label>
-                        <input
-                            type="text"
-                            id="org-name"
-                            name="org-name"
-                            placeholder="Enter your organization name"
-                            required
-                        >
-                    </div>
-
+                <form class="event-form" id="event-submit-form">
                     <!-- Event Title -->
                     <div class="form-group">
-                        <label for="event-title">Event Title<span class="required">*</span></label>
+                        <label for="eventTitle">Event Title<span class="required">*</span></label>
                         <input
                             type="text"
-                            id="event-title"
-                            name="event-title"
+                            id="eventTitle"
+                            name="eventTitle"
                             placeholder="Give your event a catchy title"
                             required
                         >
                     </div>
 
+                    <!-- Event Type -->
+                    <div class="form-group">
+                        <label for="eventType">Event Type<span class="required">*</span></label>
+                        <select id="eventType" name="eventType" required>
+                            <option value="">Select event type</option>
+                            <option value="Community Meeting">Community Meeting</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Gala">Gala</option>
+                            <option value="Fundraiser">Fundraiser</option>
+                            <option value="Volunteer Event">Volunteer Event</option>
+                            <option value="Cultural Event">Cultural Event</option>
+                            <option value="Youth Program">Youth Program</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
                     <!-- Event Date and Time -->
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="event-month">Event Date<span class="required">*</span></label>
-                            <div class="date-inputs">
-                                <select id="event-month" name="event-month" required>
-                                    <option value="">Month</option>
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
-                                </select>
-                                <input type="number" id="event-day" name="event-day" placeholder="Day" min="1" max="31" required>
-                                <input type="number" id="event-year" name="event-year" placeholder="Year" min="2024" max="2030" required>
-                            </div>
+                            <label for="eventDate">Event Date<span class="required">*</span></label>
+                            <input
+                                type="date"
+                                id="eventDate"
+                                name="eventDate"
+                                required
+                            >
                         </div>
 
                         <div class="form-group">
-                            <label for="event-hour">Event Time</label>
-                            <div class="time-inputs">
-                                <input type="number" id="event-hour" name="event-hour" placeholder="HH" min="1" max="12">
-                                <span>:</span>
-                                <input type="number" id="event-minute" name="event-minute" placeholder="MM" min="0" max="59">
-                                <select id="event-ampm" name="event-ampm">
-                                    <option value="AM">AM</option>
-                                    <option value="PM">PM</option>
-                                </select>
-                            </div>
+                            <label for="eventTime">Event Time<span class="required">*</span></label>
+                            <input
+                                type="time"
+                                id="eventTime"
+                                name="eventTime"
+                                required
+                            >
                         </div>
                     </div>
 
                     <!-- Location -->
                     <div class="form-group">
-                        <label for="event-location">Location<span class="required">*</span></label>
+                        <label for="eventLocation">Location<span class="required">*</span></label>
                         <input
                             type="text"
-                            id="event-location"
-                            name="event-location"
+                            id="eventLocation"
+                            name="eventLocation"
                             placeholder="Enter event address or venue name"
                             required
                         >
@@ -147,39 +135,114 @@
 
                     <!-- Event Description -->
                     <div class="form-group">
-                        <label for="event-description">Event Description</label>
+                        <label for="eventDescription">Event Description<span class="required">*</span></label>
                         <textarea
-                            id="event-description"
-                            name="event-description"
+                            id="eventDescription"
+                            name="eventDescription"
                             rows="6"
                             placeholder="Describe your event, what attendees can expect, and any other relevant details..."
+                            required
                         ></textarea>
-                        <span class="form-hint">Tell us about your event in detail (optional but recommended)</span>
+                        <span class="form-hint">Tell us about your event in detail</span>
                     </div>
 
                     <!-- Event Flyer Upload -->
                     <div class="form-group">
-                        <label for="event-flyer">Event Flyer</label>
+                        <label for="eventImage">Event Flyer/Image</label>
                         <div class="file-upload-wrapper">
                             <input
                                 type="file"
-                                id="event-flyer"
-                                name="event-flyer"
-                                accept="image/*,.pdf"
+                                id="eventImage"
+                                name="eventImage"
+                                accept="image/*"
                                 class="file-input"
                             >
-                            <label for="event-flyer" class="file-upload-label">
+                            <label for="eventImage" class="file-upload-label">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <span class="file-upload-text">Choose File or Drag Here</span>
                                 <span class="file-name" id="file-name">No file chosen</span>
                             </label>
                         </div>
-                        <span class="form-hint">Upload a flyer or promotional image (JPG, PNG, or PDF - Max 5MB)</span>
+                        <span class="form-hint">Upload a flyer or promotional image (JPG, PNG - Max 5MB)</span>
+                    </div>
+
+                    <!-- Organizer Information -->
+                    <h3 style="margin: 2rem 0 1rem; color: var(--dark-gray); border-bottom: 2px solid var(--primary-red); padding-bottom: 0.5rem;">Organizer Information</h3>
+
+                    <div class="form-group">
+                        <label for="organizerName">Your Name<span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="organizerName"
+                            name="organizerName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="organizerEmail">Email Address<span class="required">*</span></label>
+                            <input
+                                type="email"
+                                id="organizerEmail"
+                                name="organizerEmail"
+                                placeholder="your.email@example.com"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="organizerPhone">Phone Number<span class="required">*</span></label>
+                            <input
+                                type="tel"
+                                id="organizerPhone"
+                                name="organizerPhone"
+                                placeholder="(123) 456-7890"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Additional Details -->
+                    <h3 style="margin: 2rem 0 1rem; color: var(--dark-gray); border-bottom: 2px solid var(--primary-red); padding-bottom: 0.5rem;">Additional Details</h3>
+
+                    <div class="form-group">
+                        <label for="expectedAttendees">Expected Number of Attendees</label>
+                        <input
+                            type="number"
+                            id="expectedAttendees"
+                            name="expectedAttendees"
+                            placeholder="Approximate number"
+                            min="1"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input
+                                type="checkbox"
+                                id="registrationRequired"
+                                name="registrationRequired"
+                            >
+                            <label for="registrationRequired">Registration Required</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="registrationLinkGroup" style="display: none;">
+                        <label for="registrationLink">Registration Link</label>
+                        <input
+                            type="url"
+                            id="registrationLink"
+                            name="registrationLink"
+                            placeholder="https://example.com/register"
+                        >
+                        <span class="form-hint">Provide the URL where people can register for your event</span>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary btn-large">
+                        <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
                             <i class="fas fa-paper-plane"></i>
                             Submit Event
                         </button>
