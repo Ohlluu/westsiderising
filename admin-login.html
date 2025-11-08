@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="I AM ABLE - Faith-based trauma-informed care agency providing mental health and crisis response services.">
-    <title>I AM ABLE | Westside Rising</title>
+    <meta name="description" content="Admin Login - Westside Rising">
+    <title>Admin Login | Westside Rising</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/resources.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="events.html" class="nav-link">Events</a></li>
-                <li><a href="resources.html" class="nav-link active">Resources</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
                 <li><a href="leadership-awards.html" class="nav-link">Leadership Awards</a></li>
                 <li><a href="get-involved.html" class="nav-link">Get Involved</a></li>
                 <li><a href="donate.html" class="btn-donate-nav">Donate</a></li>
@@ -43,94 +43,46 @@
         </div>
     </nav>
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <div class="page-hero-overlay"></div>
+    <!-- Admin Login Section -->
+    <section class="admin-login-section">
         <div class="container">
-            <div class="page-hero-content fade-in-up">
-                <h1>I AM ABLE</h1>
-                <p>Faith-based trauma-informed care from birth to end-of-life</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Back to Resources -->
-    <section class="breadcrumb-section">
-        <div class="container">
-            <a href="resources.html" class="back-link">
-                <i class="fas fa-arrow-left"></i>
-                Back to Resources
-            </a>
-        </div>
-    </section>
-
-    <!-- I AM ABLE Details Section -->
-    <section class="enlace-details-section">
-        <div class="container">
-            <div class="enlace-intro fade-in-up">
-                <p>
-                    I AM ABLE is a faith-based trauma-informed care agency providing services from birth to the end-of-life.
-                    We are dedicated to responding to, recovering from, reducing and removing trauma and violence in our community.
-                </p>
-            </div>
-
-            <!-- Services -->
-            <div class="enlace-services">
-                <!-- Clinical Department -->
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Clinical Department</h3>
-                        <p>
-                            Provides therapeutic services to clients referred from the Department of Children and Family Services (DCFS),
-                            schools, hospitals, religious organizations, and more. We accept self-referrals and serve children and adults of all ages.
-                        </p>
-                    </div>
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>Admin Login</h1>
+                    <p>Access the event management dashboard</p>
                 </div>
 
-                <!-- TR4IM Program -->
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-hands-helping"></i>
+                <form class="login-form" id="admin-login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" required placeholder="admin@westsiderising.org">
+                        </div>
                     </div>
-                    <div class="service-content">
-                        <h3>TR4IM Program</h3>
-                        <p>
-                            Our Trauma Response and Intervention Movement (TR4IM) is our social cohesion, public health, new community
-                            policing model. We are Responding to, Recovering from, Reducing and Removing Trauma and Violence 8-Blocks at a Time.
-                        </p>
-                    </div>
-                </div>
 
-                <!-- WELLNESS H.E.A.L.S. -->
-                <div class="service-card language-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-heartbeat"></i>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" required placeholder="Enter your password">
+                        </div>
                     </div>
-                    <div class="service-content">
-                        <h3>WELLNESS H.E.A.L.S.</h3>
-                        <p>
-                            I AM ABLE's Mental Health Crisis Response System for the North Lawndale Community. Available to ANYONE, ANYWHERE, ANYTIME (24/7/365).
-                            Designed to reduce emergency room visits and psychiatric hospitalization, as well as prevent legal and criminal justice involvement.
-                        </p>
-                    </div>
-                </div>
 
-                <!-- Website Link -->
-                <div class="service-card website-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-external-link-alt"></i>
+                    <div class="form-error" id="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="error-text"></span>
                     </div>
-                    <div class="service-content">
-                        <h3>Learn More</h3>
-                        <p>Visit the I AM ABLE website to learn more about our programs and services.</p>
-                        <a href="https://www.iamablecenter.org" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">
-                            <i class="fas fa-globe"></i>
-                            Visit I AM ABLE
-                        </a>
-                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="login-footer">
+                    <p><i class="fas fa-info-circle"></i> Admin access only. Contact support if you need access.</p>
                 </div>
             </div>
         </div>
@@ -208,5 +160,6 @@
     </button>
 
     <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/admin-login.js"></script>
 </body>
 </html>
