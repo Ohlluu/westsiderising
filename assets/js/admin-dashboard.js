@@ -86,6 +86,10 @@ function displayPendingEvents(events) {
                     <h3>${event.eventTitle || 'Untitled Event'}</h3>
                     <span class="event-badge">${event.eventType || 'Event'}</span>
                 </div>
+                <button class="btn-view-details" onclick="toggleDetails('${event.id}')">
+                    <i class="fas fa-chevron-down"></i>
+                    View Details
+                </button>
             </div>
 
             <div class="event-card-info">
@@ -107,11 +111,37 @@ function displayPendingEvents(events) {
                 </div>
             </div>
 
-            ${event.eventDescription ? `
-                <div style="margin-bottom: 1.5rem; color: var(--medium-gray); font-size: 0.95rem;">
-                    <strong>Description:</strong> ${event.eventDescription.substring(0, 150)}${event.eventDescription.length > 150 ? '...' : ''}
+            <!-- Expandable Details Section -->
+            <div class="event-details-expand" id="details-${event.id}" style="display: none;">
+                <div class="details-section">
+                    <h4><i class="fas fa-info-circle"></i> Event Description</h4>
+                    <p>${event.eventDescription || 'No description provided'}</p>
                 </div>
-            ` : ''}
+
+                ${event.eventImage ? `
+                    <div class="details-section">
+                        <h4><i class="fas fa-image"></i> Event Flyer</h4>
+                        <img src="${event.eventImage}" alt="Event Flyer" style="max-width: 100%; border-radius: 8px; margin-top: 0.5rem;">
+                    </div>
+                ` : ''}
+
+                <div class="details-section">
+                    <h4><i class="fas fa-user-circle"></i> Organizer Contact</h4>
+                    <div class="contact-info">
+                        <p><strong>Name:</strong> ${event.organizerName || 'N/A'}</p>
+                        <p><strong>Email:</strong> ${event.organizerEmail ? `<a href="mailto:${event.organizerEmail}">${event.organizerEmail}</a>` : 'N/A'}</p>
+                        <p><strong>Phone:</strong> ${event.organizerPhone ? `<a href="tel:${event.organizerPhone}">${event.organizerPhone}</a>` : 'N/A'}</p>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h4><i class="fas fa-clipboard-list"></i> Additional Information</h4>
+                    <p><strong>Expected Attendees:</strong> ${event.expectedAttendees || 'Not specified'}</p>
+                    <p><strong>Registration Required:</strong> ${event.registrationRequired ? 'Yes' : 'No'}</p>
+                    ${event.registrationLink ? `<p><strong>Registration Link:</strong> <a href="${event.registrationLink}" target="_blank">${event.registrationLink}</a></p>` : ''}
+                    <p><strong>Submitted:</strong> ${formatDate(event.submittedAt)}</p>
+                </div>
+            </div>
 
             <div class="event-card-actions">
                 <button class="btn-approve" onclick="approveEvent('${event.id}')">
@@ -187,5 +217,19 @@ window.rejectEvent = async function(eventId) {
     } catch (error) {
         console.error('Error rejecting event:', error);
         alert('Error rejecting event. Please try again.');
+    }
+};
+
+// Toggle event details
+window.toggleDetails = function(eventId) {
+    const detailsSection = document.getElementById(`details-${eventId}`);
+    const button = document.querySelector(`[data-event-id="${eventId}"] .btn-view-details`);
+
+    if (detailsSection.style.display === 'none') {
+        detailsSection.style.display = 'block';
+        button.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Details';
+    } else {
+        detailsSection.style.display = 'none';
+        button.innerHTML = '<i class="fas fa-chevron-down"></i> View Details';
     }
 };

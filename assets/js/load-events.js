@@ -1,5 +1,5 @@
 import { db } from './firebase-config.js';
-import { collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Load approved events for the events page
 async function loadEvents() {
@@ -12,13 +12,25 @@ async function loadEvents() {
         const eventsRef = collection(db, 'events');
         const q = query(
             eventsRef,
-            where('status', '==', 'approved'),
-            orderBy('eventDate', 'desc')
+            where('status', '==', 'approved')
         );
 
         const querySnapshot = await getDocs(q);
 
-        if (querySnapshot.empty) {
+        // Sort events by date in JavaScript
+        const events = [];
+        querySnapshot.forEach((doc) => {
+            events.push({ id: doc.id, data: doc.data() });
+        });
+
+        // Sort by event date (newest first)
+        events.sort((a, b) => {
+            const dateA = new Date(a.data.eventDate);
+            const dateB = new Date(b.data.eventDate);
+            return dateB - dateA;
+        });
+
+        if (events.length === 0) {
             eventsGrid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
                     <i class="fas fa-calendar" style="font-size: 4rem; color: var(--medium-gray); opacity: 0.3; margin-bottom: 1rem;"></i>
@@ -31,10 +43,9 @@ async function loadEvents() {
         // Clear existing events
         eventsGrid.innerHTML = '';
 
-        // Add each approved event to the grid
-        querySnapshot.forEach((doc) => {
-            const event = doc.data();
-            const eventCard = createEventCard(event, doc.id);
+        // Add each approved event to the grid (sorted)
+        events.forEach((eventDoc) => {
+            const eventCard = createEventCard(eventDoc.data, eventDoc.id);
             eventsGrid.appendChild(eventCard);
         });
 
