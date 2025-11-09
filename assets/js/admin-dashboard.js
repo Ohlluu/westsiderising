@@ -34,6 +34,7 @@ async function loadDashboard() {
         let pendingCount = 0;
         let approvedCount = 0;
         const pendingEvents = [];
+        const approvedEvents = [];
 
         eventsSnapshot.forEach((doc) => {
             const event = { id: doc.id, ...doc.data() };
@@ -43,6 +44,7 @@ async function loadDashboard() {
                 pendingEvents.push(event);
             } else if (event.status === 'approved') {
                 approvedCount++;
+                approvedEvents.push(event);
             }
         });
 
@@ -53,6 +55,9 @@ async function loadDashboard() {
 
         // Display pending events
         displayPendingEvents(pendingEvents);
+
+        // Display approved events
+        displayApprovedEvents(approvedEvents);
 
     } catch (error) {
         console.error('Error loading dashboard:', error);
@@ -231,5 +236,125 @@ window.toggleDetails = function(eventId) {
     } else {
         detailsSection.style.display = 'none';
         button.innerHTML = '<i class="fas fa-chevron-down"></i> View Details';
+    }
+};
+
+// Display approved events
+function displayApprovedEvents(events) {
+    const container = document.getElementById('approved-events-container');
+
+    if (events.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-check-circle"></i>
+                <p>No approved events</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Sort events by date (newest first)
+    events.sort((a, b) => {
+        const dateA = new Date(a.eventDate);
+        const dateB = new Date(b.eventDate);
+        return dateB - dateA;
+    });
+
+    container.innerHTML = events.map(event => `
+        <div class="event-card-admin approved-event-card" data-event-id="${event.id}">
+            <div class="event-card-header">
+                <div>
+                    <h3>${event.eventTitle || 'Untitled Event'}</h3>
+                    <span class="event-badge approved-badge">${event.eventType || 'Event'}</span>
+                </div>
+                <button class="btn-view-details" onclick="toggleDetails('${event.id}')">
+                    <i class="fas fa-chevron-down"></i>
+                    View Details
+                </button>
+            </div>
+
+            <div class="event-card-info">
+                <div class="info-item">
+                    <i class="far fa-calendar"></i>
+                    <span>${formatDate(event.eventDate)}</span>
+                </div>
+                <div class="info-item">
+                    <i class="far fa-clock"></i>
+                    <span>${event.eventTime || 'N/A'}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${event.eventLocation || 'N/A'}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-user"></i>
+                    <span>${event.organizerName || 'N/A'}</span>
+                </div>
+            </div>
+
+            <!-- Expandable Details Section -->
+            <div class="event-details-expand" id="details-${event.id}" style="display: none;">
+                <div class="details-section">
+                    <h4><i class="fas fa-info-circle"></i> Event Description</h4>
+                    <p>${event.eventDescription || 'No description provided'}</p>
+                </div>
+
+                ${event.eventImage ? `
+                    <div class="details-section">
+                        <h4><i class="fas fa-image"></i> Event Flyer</h4>
+                        <img src="${event.eventImage}" alt="Event Flyer" style="max-width: 100%; border-radius: 8px; margin-top: 0.5rem;">
+                    </div>
+                ` : ''}
+
+                <div class="details-section">
+                    <h4><i class="fas fa-user-circle"></i> Organizer Contact</h4>
+                    <div class="contact-info">
+                        <p><strong>Name:</strong> ${event.organizerName || 'N/A'}</p>
+                        <p><strong>Email:</strong> ${event.organizerEmail ? `<a href="mailto:${event.organizerEmail}">${event.organizerEmail}</a>` : 'N/A'}</p>
+                        <p><strong>Phone:</strong> ${event.organizerPhone ? `<a href="tel:${event.organizerPhone}">${event.organizerPhone}</a>` : 'N/A'}</p>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h4><i class="fas fa-clipboard-list"></i> Additional Information</h4>
+                    <p><strong>Expected Attendees:</strong> ${event.expectedAttendees || 'Not specified'}</p>
+                    <p><strong>Registration Required:</strong> ${event.registrationRequired ? 'Yes' : 'No'}</p>
+                    ${event.registrationLink ? `<p><strong>Registration Link:</strong> <a href="${event.registrationLink}" target="_blank">${event.registrationLink}</a></p>` : ''}
+                    <p><strong>Approved:</strong> ${formatDate(event.approvedAt)}</p>
+                </div>
+            </div>
+
+            <div class="event-card-actions">
+                <a href="event-detail.html?id=${event.id}" class="btn-view-event" target="_blank">
+                    <i class="fas fa-eye"></i>
+                    View on Site
+                </a>
+                <button class="btn-delete" onclick="deleteEvent('${event.id}')">
+                    <i class="fas fa-trash"></i>
+                    Delete Event
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Delete approved event
+window.deleteEvent = async function(eventId) {
+    if (!confirm('Are you sure you want to delete this event? This action cannot be undone and will remove it from the website.')) return;
+
+    try {
+        const eventRef = doc(db, 'events', eventId);
+
+        // Delete the event
+        await deleteDoc(eventRef);
+
+        alert('Event deleted successfully.');
+
+        // Reload dashboard
+        loadDashboard();
+
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        alert('Error deleting event. Please try again.');
     }
 };
