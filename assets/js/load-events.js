@@ -1,6 +1,32 @@
 import { db } from './firebase-config.js';
 import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Helper function to format time from 24-hour to 12-hour format with AM/PM
+function formatTime(timeString) {
+    if (!timeString) return 'TBA';
+
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12; // Convert 0 to 12 for midnight
+
+    return `${displayHour}:${minutes} ${ampm}`;
+}
+
+// Helper function to parse date string in local timezone (not UTC)
+function parseDateSafe(dateString) {
+    if (!dateString) return null;
+
+    // If it's already a full ISO string with time, use it directly
+    if (dateString.includes('T')) {
+        return new Date(dateString);
+    }
+
+    // Otherwise, parse as local date by splitting and creating date manually
+    const [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+    return new Date(year, month - 1, day); // month is 0-indexed
+}
+
 // Load approved events for the events page
 async function loadEvents() {
     const eventsGrid = document.getElementById('events-grid');
@@ -25,8 +51,8 @@ async function loadEvents() {
 
         // Sort by event date (newest first)
         events.sort((a, b) => {
-            const dateA = new Date(a.data.eventDate);
-            const dateB = new Date(b.data.eventDate);
+            const dateA = parseDateSafe(a.data.eventDate);
+            const dateB = parseDateSafe(b.data.eventDate);
             return dateB - dateA;
         });
 
@@ -65,7 +91,7 @@ function createEventCard(event, eventId) {
     const eventCard = document.createElement('div');
     eventCard.className = 'event-card fade-in-up';
 
-    const eventDate = new Date(event.eventDate);
+    const eventDate = parseDateSafe(event.eventDate);
     const month = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
     const day = eventDate.getDate();
 
@@ -86,7 +112,7 @@ function createEventCard(event, eventId) {
             </div>
             <div class="event-content">
                 <div class="event-meta">
-                    <span class="event-time"><i class="far fa-clock"></i> ${event.eventTime || 'TBA'}</span>
+                    <span class="event-time"><i class="far fa-clock"></i> ${formatTime(event.eventTime)}</span>
                     <span class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.eventLocation || 'TBA'}</span>
                 </div>
                 <h3>${event.eventTitle}</h3>

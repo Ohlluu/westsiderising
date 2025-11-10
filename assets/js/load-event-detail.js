@@ -1,6 +1,32 @@
 import { db } from './firebase-config.js';
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Helper function to format time from 24-hour to 12-hour format with AM/PM
+function formatTime(timeString) {
+    if (!timeString) return 'TBA';
+
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12; // Convert 0 to 12 for midnight
+
+    return `${displayHour}:${minutes} ${ampm}`;
+}
+
+// Helper function to parse date string in local timezone (not UTC)
+function parseDateSafe(dateString) {
+    if (!dateString) return null;
+
+    // If it's already a full ISO string with time, use it directly
+    if (dateString.includes('T')) {
+        return new Date(dateString);
+    }
+
+    // Otherwise, parse as local date by splitting and creating date manually
+    const [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+    return new Date(year, month - 1, day); // month is 0-indexed
+}
+
 // Get event ID from URL parameter
 const urlParams = new URLSearchParams(window.location.search);
 const eventId = urlParams.get('id');
@@ -39,7 +65,7 @@ async function loadEventDetail() {
         if (eventType) eventType.textContent = event.eventType || 'Event';
 
         // Update event meta
-        const eventDate = new Date(event.eventDate);
+        const eventDate = parseDateSafe(event.eventDate);
         const formattedDate = eventDate.toLocaleDateString('en-US', {
             weekday: 'long',
             year: 'numeric',
@@ -49,7 +75,7 @@ async function loadEventDetail() {
 
         const metaItems = document.querySelectorAll('.event-detail-meta .meta-item span');
         if (metaItems[0]) metaItems[0].textContent = formattedDate;
-        if (metaItems[1]) metaItems[1].textContent = event.eventTime || 'TBA';
+        if (metaItems[1]) metaItems[1].textContent = formatTime(event.eventTime);
         if (metaItems[2]) metaItems[2].textContent = event.eventLocation || 'TBA';
 
         // Update event image
@@ -70,7 +96,7 @@ async function loadEventDetail() {
         // Update sidebar info
         const sidebarInfo = document.querySelectorAll('.event-detail-info .info-value');
         if (sidebarInfo[0]) sidebarInfo[0].textContent = formattedDate;
-        if (sidebarInfo[1]) sidebarInfo[1].textContent = event.eventTime || 'TBA';
+        if (sidebarInfo[1]) sidebarInfo[1].textContent = formatTime(event.eventTime);
         if (sidebarInfo[2]) sidebarInfo[2].textContent = event.eventLocation || 'TBA';
 
         // Update registration link if available

@@ -26,6 +26,7 @@ submitForm.addEventListener('submit', async (e) => {
             organizerName: document.getElementById('organizerName').value,
             organizerEmail: document.getElementById('organizerEmail').value,
             organizerPhone: document.getElementById('organizerPhone').value,
+            westsideRisingPartner: document.getElementById('westsideRisingPartner').checked,
             expectedAttendees: document.getElementById('expectedAttendees').value,
             registrationRequired: document.getElementById('registrationRequired').checked,
             registrationLink: document.getElementById('registrationLink')?.value || '',

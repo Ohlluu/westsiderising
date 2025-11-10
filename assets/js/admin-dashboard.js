@@ -2,6 +2,32 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, query, where, getDocs, doc, updateDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// Helper function to format time from 24-hour to 12-hour format with AM/PM
+function formatTime(timeString) {
+    if (!timeString) return 'N/A';
+
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12; // Convert 0 to 12 for midnight
+
+    return `${displayHour}:${minutes} ${ampm}`;
+}
+
+// Helper function to parse date string in local timezone (not UTC)
+function parseDateSafe(dateString) {
+    if (!dateString) return null;
+
+    // If it's already a full ISO string with time, use it directly
+    if (dateString.includes('T')) {
+        return new Date(dateString);
+    }
+
+    // Otherwise, parse as local date by splitting and creating date manually
+    const [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+    return new Date(year, month - 1, day); // month is 0-indexed
+}
+
 // Check if user is logged in
 onAuthStateChanged(auth, (user) => {
     if (!user) {
@@ -104,7 +130,7 @@ function displayPendingEvents(events) {
                 </div>
                 <div class="info-item">
                     <i class="far fa-clock"></i>
-                    <span>${event.eventTime || 'N/A'}</span>
+                    <span>${formatTime(event.eventTime)}</span>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-map-marker-alt"></i>
@@ -141,6 +167,7 @@ function displayPendingEvents(events) {
 
                 <div class="details-section">
                     <h4><i class="fas fa-clipboard-list"></i> Additional Information</h4>
+                    <p><strong>Wants Westside Rising as Partner:</strong> ${event.westsideRisingPartner ? 'Yes' : 'No'}</p>
                     <p><strong>Expected Attendees:</strong> ${event.expectedAttendees || 'Not specified'}</p>
                     <p><strong>Registration Required:</strong> ${event.registrationRequired ? 'Yes' : 'No'}</p>
                     ${event.registrationLink ? `<p><strong>Registration Link:</strong> <a href="${event.registrationLink}" target="_blank">${event.registrationLink}</a></p>` : ''}
@@ -165,7 +192,8 @@ function displayPendingEvents(events) {
 // Format date for display
 function formatDate(dateString) {
     if (!dateString) return 'N/A';
-    const date = new Date(dateString);
+    const date = parseDateSafe(dateString);
+    if (!date) return 'N/A';
     return date.toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
@@ -255,8 +283,8 @@ function displayApprovedEvents(events) {
 
     // Sort events by date (newest first)
     events.sort((a, b) => {
-        const dateA = new Date(a.eventDate);
-        const dateB = new Date(b.eventDate);
+        const dateA = parseDateSafe(a.eventDate);
+        const dateB = parseDateSafe(b.eventDate);
         return dateB - dateA;
     });
 
@@ -280,7 +308,7 @@ function displayApprovedEvents(events) {
                 </div>
                 <div class="info-item">
                     <i class="far fa-clock"></i>
-                    <span>${event.eventTime || 'N/A'}</span>
+                    <span>${formatTime(event.eventTime)}</span>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-map-marker-alt"></i>
@@ -317,6 +345,7 @@ function displayApprovedEvents(events) {
 
                 <div class="details-section">
                     <h4><i class="fas fa-clipboard-list"></i> Additional Information</h4>
+                    <p><strong>Wants Westside Rising as Partner:</strong> ${event.westsideRisingPartner ? 'Yes' : 'No'}</p>
                     <p><strong>Expected Attendees:</strong> ${event.expectedAttendees || 'Not specified'}</p>
                     <p><strong>Registration Required:</strong> ${event.registrationRequired ? 'Yes' : 'No'}</p>
                     ${event.registrationLink ? `<p><strong>Registration Link:</strong> <a href="${event.registrationLink}" target="_blank">${event.registrationLink}</a></p>` : ''}
