@@ -106,7 +106,7 @@
 
 .donation-form-container {
     background: var(--white);
-    padding: 3rem 3rem 1.5rem 3rem;
+    padding: 3rem 3rem 1.25rem 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
 }
@@ -114,6 +114,7 @@
 .donation-form {
     margin: 0;
     padding: 0;
+    padding-bottom: 0 !important;
 }
 
 .form-title {
@@ -345,8 +346,9 @@
 
 .secure-notice {
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 0;
+    padding-bottom: 0;
     font-size: 0.95rem;
     color: var(--medium-gray);
     display: flex;
