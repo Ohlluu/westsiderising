@@ -65,51 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== DEDICATION OPTIONS =====
-    const dedicationRadios = document.querySelectorAll('input[name="dedicationType"]');
-    const dedicationNameGroup = document.querySelector('.dedication-name-group');
-    const dedicationNameInput = document.getElementById('dedicationName');
-
-    dedicationRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.value === 'none') {
-                dedicationNameGroup.style.display = 'none';
-                dedicationNameInput.value = '';
-                dedicationNameInput.required = false;
-            } else {
-                dedicationNameGroup.style.display = 'block';
-                dedicationNameInput.required = true;
-
-                // Update label based on selection
-                const label = dedicationNameGroup.querySelector('label');
-                if (this.value === 'honor') {
-                    label.innerHTML = 'Honoree Name <span class="required">*</span>';
-                } else {
-                    label.innerHTML = 'Name of Loved One <span class="required">*</span>';
-                }
-            }
-        });
-    });
-
-    // ===== PHONE NUMBER FORMATTING =====
-    const phoneInput = document.getElementById('donorPhone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-
-            if (value.length > 10) {
-                value = value.slice(0, 10);
-            }
-
-            if (value.length >= 6) {
-                e.target.value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
-            } else if (value.length >= 3) {
-                e.target.value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-            } else {
-                e.target.value = value;
-            }
-        });
-    }
 
     // ===== FORM SUBMISSION =====
     donationForm.addEventListener('submit', function(e) {
@@ -141,30 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             donationAmount = parseFloat(amountRadio.value);
         }
 
-        // Get dedication info
-        const dedicationType = document.querySelector('input[name="dedicationType"]:checked').value;
-        let dedication = null;
-        if (dedicationType !== 'none') {
-            dedication = {
-                type: dedicationType,
-                name: dedicationNameInput.value
-            };
-        }
-
-        // Collect form data
-        const formData = {
-            type: donationType,
-            amount: donationAmount,
-            firstName: document.getElementById('donorFirstName').value,
-            lastName: document.getElementById('donorLastName').value,
-            email: document.getElementById('donorEmail').value,
-            phone: phoneInput ? phoneInput.value : '',
-            anonymous: document.getElementById('anonymous').checked,
-            mailingList: document.getElementById('mailingList').checked,
-            dedication: dedication
-        };
-
-        console.log('Donation Data:', formData);
+        console.log('Donation Type:', donationType, 'Amount:', donationAmount);
 
         // ===== STRIPE PAYMENT LINKS =====
         const stripeLinks = {
@@ -195,68 +127,5 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(`Payment processing for $${donationAmount} ${donationType} donations is being set up. Please contact us at wr.info@westsiderising.org or call (773) 417-6605 to complete your donation. Thank you!`);
         }
     });
-
-    // ===== SUCCESS MESSAGE =====
-    function showSuccessMessage(data) {
-        const successMessage = document.createElement('div');
-        successMessage.className = 'success-message fade-in-up';
-
-        const frequencyText = data.type === 'monthly' ? 'monthly donation' : 'donation';
-        const amountFormatted = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(data.amount);
-
-        successMessage.innerHTML = `
-            <div class="success-icon">
-                <i class="fas fa-heart"></i>
-            </div>
-            <h3>Thank You for Your Generosity!</h3>
-            <p>
-                Your ${frequencyText} of <strong>${amountFormatted}</strong> will make a meaningful impact
-                in the Greater West Side community. We've sent a confirmation email to <strong>${data.email}</strong>
-                with your tax receipt and donation details.
-            </p>
-            ${data.dedication ? `
-                <p class="dedication-message">
-                    <i class="fas fa-star"></i>
-                    This gift has been made <strong>${data.dedication.type === 'honor' ? 'in honor of' : 'in memory of'}</strong>
-                    <strong>${data.dedication.name}</strong>
-                </p>
-            ` : ''}
-            <div class="success-actions">
-                <a href="index.html" class="btn btn-primary">
-                    <i class="fas fa-home"></i>
-                    Return Home
-                </a>
-                <button class="btn btn-secondary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Make Another Donation
-                </button>
-            </div>
-            <div class="share-donation">
-                <p>Share your support:</p>
-                <div class="social-share">
-                    <a href="#" class="share-btn facebook" aria-label="Share on Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="share-btn twitter" aria-label="Share on Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="share-btn email" aria-label="Share via Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-        `;
-
-        // Replace form with success message
-        const formContainer = donationForm.closest('.donation-form-container');
-        formContainer.innerHTML = '';
-        formContainer.appendChild(successMessage);
-
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
 
 });
