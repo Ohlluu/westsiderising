@@ -106,7 +106,7 @@
 
 .donation-form-container {
     background: var(--white);
-    padding: 3rem 3rem 0.75rem 3rem;
+    padding: 3rem 3rem 0.5rem 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
 }
@@ -346,7 +346,7 @@
 
 .secure-notice {
     text-align: center;
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
     font-size: 0.95rem;
@@ -926,7 +926,7 @@ blockquote {
     }
 
     .donation-form-container {
-        padding: 2rem 1.5rem 0.75rem 1.5rem;
+        padding: 2rem 1.5rem 0.5rem 1.5rem;
     }
 
     .form-title {
