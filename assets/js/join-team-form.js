@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <h3>Application Submitted Successfully!</h3>
             <p>
-                Thank you for your interest in joining the Westside Rising team, <strong>${formData.firstName} ${formData.lastName}</strong>.
+                Thank you for your interest in joining the WESTSIDE RISING team, <strong>${formData.firstName} ${formData.lastName}</strong>.
                 We've received your application for the <strong>${formData.positionInterest === 'other' ? formData.positionOther : positionSelect.options[positionSelect.selectedIndex].text}</strong> position.
             </p>
             <p>

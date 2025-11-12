@@ -55,7 +55,7 @@ async function loadEventDetail() {
         }
 
         // Update page title
-        document.title = `${event.eventTitle} | Westside Rising`;
+        document.title = `${event.eventTitle} | WESTSIDE RISING`;
 
         // Update event detail header
         const eventTitle = document.querySelector('.event-detail-title');

@@ -167,7 +167,7 @@ function displayPendingEvents(events) {
 
                 <div class="details-section">
                     <h4><i class="fas fa-clipboard-list"></i> Additional Information</h4>
-                    <p><strong>Wants Westside Rising as Partner:</strong> ${event.westsideRisingPartner ? 'Yes' : 'No'}</p>
+                    <p><strong>Wants WESTSIDE RISING as Partner:</strong> ${event.westsideRisingPartner ? 'Yes' : 'No'}</p>
                     <p><strong>Expected Attendees:</strong> ${event.expectedAttendees || 'Not specified'}</p>
                     <p><strong>Registration Required:</strong> ${event.registrationRequired ? 'Yes' : 'No'}</p>
                     ${event.registrationLink ? `<p><strong>Registration Link:</strong> <a href="${event.registrationLink}" target="_blank">${event.registrationLink}</a></p>` : ''}
@@ -345,7 +345,7 @@ function displayApprovedEvents(events) {
 
                 <div class="details-section">
                     <h4><i class="fas fa-clipboard-list"></i> Additional Information</h4>
-                    <p><strong>Wants Westside Rising as Partner:</strong> ${event.westsideRisingPartner ? 'Yes' : 'No'}</p>
+                    <p><strong>Wants WESTSIDE RISING as Partner:</strong> ${event.westsideRisingPartner ? 'Yes' : 'No'}</p>
                     <p><strong>Expected Attendees:</strong> ${event.expectedAttendees || 'Not specified'}</p>
                     <p><strong>Registration Required:</strong> ${event.registrationRequired ? 'Yes' : 'No'}</p>
                     ${event.registrationLink ? `<p><strong>Registration Link:</strong> <a href="${event.registrationLink}" target="_blank">${event.registrationLink}</a></p>` : ''}

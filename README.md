@@ -1,10 +1,10 @@
-# Westside Rising Website
+# WESTSIDE RISING Website
 
-Modern, responsive website for Westside Rising - a nonprofit organization building a just, livable and vibrant Greater West Side.
+Modern, responsive website for WESTSIDE RISING - a nonprofit organization building a just, livable and vibrant Greater West Side.
 
 ## About
 
-Westside Rising is a nonprofit entity established by a coalition of community organizations and leaders that work together to provide opportunities for training, capacity-building, leadership development, organizing, and civic engagement.
+WESTSIDE RISING is a nonprofit entity established by a coalition of community organizations and leaders that work together to provide opportunities for training, capacity-building, leadership development, organizing, and civic engagement.
 
 ### Mission
 To engage and unite a network of local residents and organizations through training and capacity-building to leverage our collective power and shape our communities.
@@ -72,11 +72,11 @@ This site can be deployed to:
 
 ## Contact
 
-**Westside Rising**
+**WESTSIDE RISING**
 - Location: Chicago, IL 60644
 - Phone: (773) 417-6605
 - Email: wr.info@westsiderising.org
 
 ## License
 
-© 2024 Westside Rising. All rights reserved.
+© 2024 WESTSIDE RISING. All rights reserved.

@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <h3>Partnership Application Submitted!</h3>
             <p>
-                Thank you for your interest in partnering with Westside Rising. We've received your partnership application
+                Thank you for your interest in partnering with WESTSIDE RISING. We've received your partnership application
                 for <strong>${entityName}</strong> and will review it within 3-5 business days.
             </p>
             <p>

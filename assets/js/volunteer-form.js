@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const consentChecked = volunteerForm.querySelector('input[name="consent"]:checked');
 
         if (!consentChecked) {
-            alert('Please agree to receive communications from Westside Rising.');
+            alert('Please agree to receive communications from WESTSIDE RISING.');
             return;
         }
 

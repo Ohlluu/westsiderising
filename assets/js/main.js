@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // ===== CONSOLE MESSAGE =====
-    console.log('%cWestside Rising', 'color: #E31E24; font-size: 24px; font-weight: bold;');
+    console.log('%cWESTSIDE RISING', 'color: #E31E24; font-size: 24px; font-weight: bold;');
     console.log('%cBuilding a just, livable and vibrant Greater West Side', 'color: #666; font-size: 14px;');
 
 });
