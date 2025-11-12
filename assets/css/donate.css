@@ -349,6 +349,7 @@
     margin-top: 0.5rem;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+    line-height: 1 !important;
     font-size: 0.95rem;
     color: var(--medium-gray);
     display: flex;
@@ -359,6 +360,17 @@
 
 .secure-notice i {
     color: #28a745;
+}
+
+/* Force no bottom spacing on form */
+.donation-form-container form {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.donation-form-container form > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 /* Success Message */
