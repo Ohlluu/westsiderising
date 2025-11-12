@@ -312,7 +312,7 @@ ul {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-xl);
-    animation: floatImage 6s ease-in-out infinite;
+    animation: floatImage 12s ease-in-out infinite;
     transform: scale(1.1);
 }
 
@@ -358,7 +358,7 @@ ul {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
     transform: rotate(3deg);
     transition: var(--transition);
-    animation: floatAccent 5s ease-in-out infinite;
+    animation: floatAccent 10s ease-in-out infinite;
     z-index: 2;
 }
 
