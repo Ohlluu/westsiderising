@@ -134,6 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 customAmountInput.focus();
                 return;
             }
+            // Redirect to custom amount Stripe link
+            window.location.href = 'https://donate.stripe.com/dRm14oaS9dW56vSdBt67S05';
+            return;
         } else {
             donationAmount = parseFloat(amountRadio.value);
         }
@@ -163,40 +166,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('Donation Data:', formData);
 
-        // Show success message
-        showSuccessMessage(formData);
+        // ===== STRIPE PAYMENT LINKS =====
+        const stripeLinks = {
+            'one-time': {
+                50: 'https://donate.stripe.com/3cI8wQ4tL7xH07ueFx67S00',
+                100: 'https://donate.stripe.com/aFaaEY6BT2dnaM80OH67S01',
+                250: 'https://donate.stripe.com/5kQ9AU5xP9FP07u2WP67S02',
+                500: 'https://donate.stripe.com/dRmbJ22lD9FP3jG54X67S03',
+                1000: 'https://donate.stripe.com/4gM28s4tL19j5rO0OH67S04'
+            },
+            'monthly': {
+                50: 'https://donate.stripe.com/5kQ14of8p7xH8E0dBt67S06',
+                100: 'https://donate.stripe.com/8x2eVe6BTf099I41SL67S07',
+                250: 'https://donate.stripe.com/7sY4gA1hz19j7zWbtl67S08',
+                500: 'https://donate.stripe.com/bJefZif8pbNXdYk40T67S09',
+                1000: 'https://donate.stripe.com/8x228s0dv6tD3jGfJB67S0a'
+            }
+        };
 
-        // In production, you would integrate with a payment processor here:
-        //
-        // Example with Stripe:
-        // stripe.redirectToCheckout({
-        //     lineItems: [{
-        //         price: 'price_xxxxxx', // Price ID from Stripe
-        //         quantity: 1,
-        //     }],
-        //     mode: donationType === 'monthly' ? 'subscription' : 'payment',
-        //     successUrl: window.location.origin + '/donation-success.html',
-        //     cancelUrl: window.location.origin + '/donate.html',
-        //     customerEmail: formData.email,
-        // });
-        //
-        // Example with PayPal:
-        // paypal.Buttons({
-        //     createOrder: function(data, actions) {
-        //         return actions.order.create({
-        //             purchase_units: [{
-        //                 amount: {
-        //                     value: formData.amount.toString()
-        //                 }
-        //             }]
-        //         });
-        //     },
-        //     onApprove: function(data, actions) {
-        //         return actions.order.capture().then(function(details) {
-        //             showSuccessMessage(formData);
-        //         });
-        //     }
-        // }).render('#paypal-button-container');
+        // Check if Stripe link exists for this amount and type
+        const stripeLink = stripeLinks[donationType][donationAmount];
+
+        if (stripeLink && stripeLink !== '') {
+            // Redirect to Stripe payment link
+            window.location.href = stripeLink;
+        } else {
+            // Show message if link not available yet
+            alert(`Payment processing for $${donationAmount} ${donationType} donations is being set up. Please contact us at wr.info@westsiderising.org or call (773) 417-6605 to complete your donation. Thank you!`);
+        }
     });
 
     // ===== SUCCESS MESSAGE =====
