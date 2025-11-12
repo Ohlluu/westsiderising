@@ -658,104 +658,6 @@ section {
     font-size: 1.05rem;
 }
 
-/* ===== COMMUNITY SHOWCASE SECTION ===== */
-.community-showcase {
-    padding: 100px 0;
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
-}
-
-.showcase-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.showcase-image {
-    position: relative;
-}
-
-.showcase-frame {
-    position: relative;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-xl);
-    transition: var(--transition);
-}
-
-.showcase-frame:hover {
-    transform: scale(1.02);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.showcase-frame img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-.showcase-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(227, 30, 36, 0.1), rgba(185, 20, 25, 0.05));
-    opacity: 0;
-    transition: var(--transition);
-}
-
-.showcase-frame:hover .showcase-overlay {
-    opacity: 1;
-}
-
-.showcase-content {
-    padding: 2rem 0;
-}
-
-.showcase-text {
-    font-size: 1.15rem;
-    line-height: 1.9;
-    color: var(--medium-gray);
-    margin: 2rem 0;
-}
-
-.showcase-features {
-    margin: 2.5rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--white);
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
-}
-
-.feature-item:hover {
-    transform: translateX(10px);
-    box-shadow: var(--shadow-md);
-}
-
-.feature-item i {
-    font-size: 1.5rem;
-    color: var(--primary-red);
-}
-
-.feature-item span {
-    font-family: var(--font-primary);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--dark-gray);
-}
-
 /* ===== IMPACT SECTION ===== */
 .impact {
     background: var(--light-gray);
@@ -1204,19 +1106,6 @@ section {
 
     .mission-grid {
         grid-template-columns: 1fr;
-    }
-
-    .showcase-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .showcase-image {
-        order: 2;
-    }
-
-    .showcase-content {
-        order: 1;
     }
 
     .impact-grid {
