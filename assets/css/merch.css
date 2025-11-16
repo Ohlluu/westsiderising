@@ -145,23 +145,39 @@
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--dark-gray);
+    margin-bottom: 0.8rem;
 }
 
-.option-group select {
-    padding: 0.8rem 1rem;
-    font-family: var(--font-secondary);
-    font-size: 1rem;
+.size-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.size-btn {
+    min-width: 50px;
+    padding: 0.7rem 1rem;
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    background: var(--white);
     border: 2px solid var(--light-gray);
     border-radius: 8px;
-    background: var(--white);
     cursor: pointer;
     transition: var(--transition);
 }
 
-.option-group select:focus {
-    outline: none;
+.size-btn:hover {
     border-color: var(--primary-red);
-    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
+    transform: translateY(-2px);
+}
+
+.size-btn.active {
+    background: var(--gradient-red);
+    color: var(--white);
+    border-color: var(--primary-red);
+    box-shadow: var(--shadow-sm);
 }
 
 .add-to-cart {

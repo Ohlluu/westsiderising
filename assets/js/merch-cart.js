@@ -16,6 +16,18 @@ const addToCartButtons = document.querySelectorAll('.add-to-cart');
 // Initialize
 updateCartUI();
 
+// Size button selection handlers
+document.querySelectorAll('.size-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        // Remove active class from siblings
+        const siblings = this.parentElement.querySelectorAll('.size-btn');
+        siblings.forEach(btn => btn.classList.remove('active'));
+
+        // Add active class to clicked button
+        this.classList.add('active');
+    });
+});
+
 // Add to cart event listeners
 addToCartButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -24,12 +36,9 @@ addToCartButtons.forEach(button => {
         const productName = this.dataset.productName;
         const productPrice = parseFloat(this.dataset.productPrice);
 
-        // Get selected options
-        const sizeSelect = productCard.querySelector('.size-select');
-        const colorSelect = productCard.querySelector('.color-select');
-
-        const size = sizeSelect ? sizeSelect.value : null;
-        const color = colorSelect ? colorSelect.value : null;
+        // Get selected size from active button
+        const activeSizeBtn = productCard.querySelector('.size-btn.active');
+        const size = activeSizeBtn ? activeSizeBtn.dataset.size : null;
 
         // Add to cart
         addToCart({
@@ -37,7 +46,6 @@ addToCartButtons.forEach(button => {
             name: productName,
             price: productPrice,
             size: size,
-            color: color,
             quantity: 1
         });
 
@@ -76,8 +84,7 @@ checkoutButton.addEventListener('click', () => {
 function addToCart(product) {
     const existingItem = cart.find(item =>
         item.id === product.id &&
-        item.size === product.size &&
-        item.color === product.color
+        item.size === product.size
     );
 
     if (existingItem) {
@@ -132,7 +139,7 @@ function updateCartUI() {
                 </div>
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.name}</div>
-                    ${item.size ? `<div class="cart-item-options">Size: ${item.size}${item.color ? `, Color: ${item.color}` : ''}</div>` : item.color ? `<div class="cart-item-options">Color: ${item.color}</div>` : ''}
+                    ${item.size ? `<div class="cart-item-options">Size: ${item.size}</div>` : ''}
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
                     <div class="cart-item-quantity">
                         <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">
