@@ -1,88 +1,8 @@
 /* ===================================
-   HOMEPAGE COLOR PALETTE
-   Community Empowerment & Activism Theme
+   HOMEPAGE COLOR OVERRIDES
    =================================== */
-
-/* Override root colors for homepage only */
-:root {
-    /* Bold Community Red - Strong and empowering */
-    --primary-red: #D32F2F;
-
-    /* Deep Action Red - Serious and committed */
-    --dark-red: #B71C1C;
-
-    /* Energetic Bright Red - Hope and vibrancy */
-    --light-red: #FF5252;
-
-    /* Rich Movement Red - Depth and solidarity */
-    --movement-red: #C62828;
-
-    /* New gradients with more dynamic range */
-    --gradient-red: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
-    --gradient-light: linear-gradient(135deg, #FF5252 0%, #D32F2F 100%);
-    --gradient-warm: linear-gradient(135deg, #E53935 0%, #C62828 50%, #B71C1C 100%);
-}
-
-/* Hero section with vibrant gradient */
-.hero {
-    background: linear-gradient(135deg, #D32F2F 0%, #C62828 50%, #B71C1C 100%);
-}
-
-/* Impact cards with varied red tones */
-.impact-card:nth-child(1) .impact-icon {
-    background: linear-gradient(135deg, #D32F2F 0%, #C62828 100%);
-}
-
-.impact-card:nth-child(2) .impact-icon {
-    background: linear-gradient(135deg, #E53935 0%, #D32F2F 100%);
-}
-
-.impact-card:nth-child(3) .impact-icon {
-    background: linear-gradient(135deg, #C62828 0%, #B71C1C 100%);
-}
-
-.impact-card:nth-child(4) .impact-icon {
-    background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
-}
-
-.impact-card:nth-child(5) .impact-icon {
-    background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
-}
 
 /* CTA section with deep, powerful red */
 .cta {
     background: linear-gradient(135deg, #B71C1C 0%, #8B1214 100%);
-}
-
-/* Buttons with energetic red */
-.btn-primary {
-    background: linear-gradient(135deg, #D32F2F 0%, #C62828 100%);
-    border: none;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(135deg, #E53935 0%, #D32F2F 100%);
-    transform: translateY(-3px);
-}
-
-/* About card accent with warm red */
-.about-card {
-    border-left: 5px solid #D32F2F;
-}
-
-.about-icon {
-    background: linear-gradient(135deg, #FF5252 0%, #D32F2F 100%);
-}
-
-/* Newsletter section */
-.newsletter {
-    background: linear-gradient(135deg, #C62828 0%, #B71C1C 100%);
-}
-
-/* Gradient text variations */
-.gradient-text {
-    background: linear-gradient(135deg, #FF5252 0%, #D32F2F 50%, #B71C1C 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
