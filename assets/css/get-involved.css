@@ -73,7 +73,15 @@
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--dark-gray);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.option-subheader {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary-red);
+    margin-bottom: 1rem !important;
+    margin-top: 0 !important;
 }
 
 .option-content > p {
