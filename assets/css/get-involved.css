@@ -2,6 +2,11 @@
    GET INVOLVED PAGE STYLES
    =================================== */
 
+/* ===== GET INVOLVED HERO ===== */
+.page-hero .page-hero-content {
+    padding-top: 40px;
+}
+
 /* ===== INVOLVEMENT INTRO ===== */
 .involvement-intro {
     padding: 60px 0;
