@@ -6,6 +6,12 @@
 .donate-hero {
     background: linear-gradient(135deg, rgba(227, 30, 36, 0.95), rgba(185, 20, 25, 0.95)),
                 url('../images/homepage.jpg') center/cover;
+    display: flex;
+    align-items: center;
+}
+
+.donate-hero .page-hero-content {
+    margin-top: 0;
 }
 
 .donate-hero .page-hero-content h1,
