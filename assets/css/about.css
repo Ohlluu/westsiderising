@@ -115,6 +115,37 @@
     margin-top: 1.5rem;
 }
 
+.vision-mission-content {
+    margin-top: 2rem;
+}
+
+.vm-block {
+    margin-bottom: 3.5rem;
+}
+
+.vm-block:last-child {
+    margin-bottom: 0;
+}
+
+.vm-block h3 {
+    font-family: var(--font-primary);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.vm-block h3 i {
+    font-size: 1.4rem;
+}
+
+.vm-block .history-text {
+    margin-top: 0;
+}
+
 .history-image {
     opacity: 0;
     animation: fadeInRight 1s ease 0.3s forwards;
