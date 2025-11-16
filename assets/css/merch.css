@@ -151,12 +151,13 @@
 .size-buttons {
     display: flex;
     gap: 0.5rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .size-btn {
-    min-width: 50px;
-    padding: 0.7rem 1rem;
+    flex: 1;
+    min-width: 45px;
+    padding: 0.7rem 0.8rem;
     font-family: var(--font-primary);
     font-size: 0.95rem;
     font-weight: 600;
