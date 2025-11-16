@@ -2,6 +2,11 @@
    LEADERSHIP AWARDS PAGE STYLES
    =================================== */
 
+/* ===== LEADERSHIP AWARDS HERO ===== */
+.page-hero .page-hero-content {
+    margin-top: 40px;
+}
+
 /* ===== AWARDS INTRO ===== */
 .awards-intro {
     padding: 60px 0;
