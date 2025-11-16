@@ -2,6 +2,11 @@
    RESOURCES PAGES STYLES
    =================================== */
 
+/* ===== RESOURCES HERO ===== */
+.page-hero .page-hero-content {
+    margin-top: 40px;
+}
+
 /* ===== RESOURCES INTRO ===== */
 .resources-intro {
     padding: 60px 0;

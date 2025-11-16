@@ -2,6 +2,11 @@
    EVENTS PAGES STYLES
    =================================== */
 
+/* ===== EVENTS HERO ===== */
+.page-hero .page-hero-content {
+    margin-top: 40px;
+}
+
 /* ===== EVENTS GRID SECTION ===== */
 .events-section {
     padding: 80px 0;
