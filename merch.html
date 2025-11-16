@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop WESTSIDE RISING merchandise and support our mission.">
+    <title>Merch | WESTSIDE RISING</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/merch.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="assets/images/WR logo.jpg" alt="WESTSIDE RISING Logo">
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="events.html" class="nav-link">Events</a></li>
+                <li><a href="resources.html" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards.html" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved.html" class="nav-link">Get Involved</a></li>
+                <li><a href="merch.html" class="nav-link active">Merch</a></li>
+                <li><a href="donate.html" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/search/top?q=westside%20rising" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shopping Cart Button -->
+    <button class="cart-button" id="cart-button" aria-label="Shopping cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">0</span>
+    </button>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>WESTSIDE RISING Merch</h1>
+                <p>Wear your support and help build a stronger community</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merch Intro -->
+    <section class="merch-intro">
+        <div class="container">
+            <div class="intro-content fade-in-up">
+                <p>
+                    Show your pride and support for the Greater West Side! Every purchase helps fund our community programs,
+                    leadership development initiatives, and civic engagement efforts. Wear your commitment to positive change.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Shop</span>
+                <h2 class="section-title">Our Collection</h2>
+            </div>
+
+            <div class="products-grid">
+                <!-- T-Shirt 1 -->
+                <div class="product-card fade-in-up">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Product Image</span>
+                        </div>
+                        <div class="product-badge">New</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">WESTSIDE RISING Classic Tee</h3>
+                        <p class="product-description">Comfortable cotton t-shirt with our signature logo</p>
+                        <div class="product-price">$25.00</div>
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select class="size-select">
+                                    <option value="S">Small</option>
+                                    <option value="M" selected>Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="XL">X-Large</option>
+                                    <option value="2XL">2X-Large</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Color:</label>
+                                <select class="color-select">
+                                    <option value="Black">Black</option>
+                                    <option value="White">White</option>
+                                    <option value="Red" selected>Red</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary add-to-cart" data-product-id="1" data-product-name="WESTSIDE RISING Classic Tee" data-product-price="25.00">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hoodie -->
+                <div class="product-card fade-in-up">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Product Image</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Community Pride Hoodie</h3>
+                        <p class="product-description">Warm and comfortable hoodie perfect for any weather</p>
+                        <div class="product-price">$45.00</div>
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select class="size-select">
+                                    <option value="S">Small</option>
+                                    <option value="M" selected>Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="XL">X-Large</option>
+                                    <option value="2XL">2X-Large</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Color:</label>
+                                <select class="color-select">
+                                    <option value="Black">Black</option>
+                                    <option value="Gray" selected>Gray</option>
+                                    <option value="Red">Red</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary add-to-cart" data-product-id="2" data-product-name="Community Pride Hoodie" data-product-price="45.00">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- T-Shirt 2 -->
+                <div class="product-card fade-in-up">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Product Image</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Greater West Side Tee</h3>
+                        <p class="product-description">Show your neighborhood pride with this exclusive design</p>
+                        <div class="product-price">$25.00</div>
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select class="size-select">
+                                    <option value="S">Small</option>
+                                    <option value="M" selected>Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="XL">X-Large</option>
+                                    <option value="2XL">2X-Large</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Color:</label>
+                                <select class="color-select">
+                                    <option value="Black" selected>Black</option>
+                                    <option value="White">White</option>
+                                    <option value="Navy">Navy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary add-to-cart" data-product-id="3" data-product-name="Greater West Side Tee" data-product-price="25.00">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Long Sleeve -->
+                <div class="product-card fade-in-up">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Product Image</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Rising Together Long Sleeve</h3>
+                        <p class="product-description">Long sleeve tee for cooler days</p>
+                        <div class="product-price">$30.00</div>
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select class="size-select">
+                                    <option value="S">Small</option>
+                                    <option value="M" selected>Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="XL">X-Large</option>
+                                    <option value="2XL">2X-Large</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Color:</label>
+                                <select class="color-select">
+                                    <option value="Black">Black</option>
+                                    <option value="White" selected>White</option>
+                                    <option value="Red">Red</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary add-to-cart" data-product-id="4" data-product-name="Rising Together Long Sleeve" data-product-price="30.00">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Crewneck -->
+                <div class="product-card fade-in-up">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Product Image</span>
+                        </div>
+                        <div class="product-badge">Popular</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Community Builder Crewneck</h3>
+                        <p class="product-description">Classic crewneck sweatshirt for ultimate comfort</p>
+                        <div class="product-price">$40.00</div>
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select class="size-select">
+                                    <option value="S">Small</option>
+                                    <option value="M" selected>Medium</option>
+                                    <option value="L">Large</option>
+                                    <option value="XL">X-Large</option>
+                                    <option value="2XL">2X-Large</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Color:</label>
+                                <select class="color-select">
+                                    <option value="Black" selected>Black</option>
+                                    <option value="Gray">Gray</option>
+                                    <option value="Maroon">Maroon</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary add-to-cart" data-product-id="5" data-product-name="Community Builder Crewneck" data-product-price="40.00">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cap -->
+                <div class="product-card fade-in-up">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-hat-cowboy"></i>
+                            <span>Product Image</span>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">WESTSIDE RISING Cap</h3>
+                        <p class="product-description">Embroidered logo cap with adjustable strap</p>
+                        <div class="product-price">$20.00</div>
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label>Color:</label>
+                                <select class="color-select">
+                                    <option value="Black" selected>Black</option>
+                                    <option value="Red">Red</option>
+                                    <option value="Navy">Navy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary add-to-cart" data-product-id="6" data-product-name="WESTSIDE RISING Cap" data-product-price="20.00">
+                            <i class="fas fa-cart-plus"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" id="cart-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-content" id="cart-content">
+            <p class="cart-empty">Your cart is empty</p>
+        </div>
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-amount" id="total-amount">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-large" id="checkout-button">
+                <i class="fas fa-lock"></i>
+                Checkout with Stripe
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate.html" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="leadership-awards.html">Leadership Awards</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-shield"></i>
+                            <a href="admin-login.html">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/search/top?q=westside%20rising" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 WESTSIDE RISING. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/merch-cart.js"></script>
+</body>
+</html>
