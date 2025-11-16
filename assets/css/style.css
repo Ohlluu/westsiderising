@@ -105,6 +105,7 @@ ul {
     display: flex;
     align-items: center;
     gap: 2rem;
+    margin-left: 3rem;
 }
 
 .nav-link {
@@ -1115,6 +1116,7 @@ section {
         transition: var(--transition);
         align-items: flex-start;
         gap: 1.5rem;
+        margin-left: 0;
     }
 
     .nav-menu.active {
