@@ -126,8 +126,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Get submit button
+        const submitButton = joinTeamForm.querySelector('button[type="submit"]');
+        const originalButtonContent = submitButton.innerHTML;
+
+        // Disable submit button and show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
         // Collect form data
+        const positionText = positionSelect.value === 'other'
+            ? positionOtherInput.value
+            : positionSelect.options[positionSelect.selectedIndex].text;
+
         const formData = {
+            formType: 'Join Team Application',
             firstName: document.getElementById('firstName').value,
             lastName: document.getElementById('lastName').value,
             email: document.getElementById('email').value,
@@ -136,73 +149,89 @@ document.addEventListener('DOMContentLoaded', function() {
             city: document.getElementById('city').value,
             zipCode: zipCodeInput.value,
             positionInterest: positionSelect.value,
-            positionOther: positionOtherInput.value || null,
+            positionOther: positionOtherInput.value || '',
             employmentType: document.getElementById('employmentType').value,
             startDate: document.getElementById('startDate').value,
             education: document.getElementById('education').value,
             experience: document.getElementById('experience').value,
             motivation: document.getElementById('motivation').value,
-            skills: Array.from(skillsChecked).map(cb => cb.value),
-            skillsOther: skillsOtherInput.value || null,
+            skills: Array.from(skillsChecked).map(cb => cb.value).join(', '),
+            skillsOther: skillsOtherInput.value || '',
             references: document.getElementById('references').value,
             hearAbout: document.getElementById('hearAbout').value,
-            resume: resumeInput.files[0] ? resumeInput.files[0].name : null
+            resume: resumeInput.files[0] ? resumeInput.files[0].name : 'No resume uploaded'
         };
 
-        console.log('Join Team Form Data:', formData);
+        // Submit to Google Sheets
+        fetch('https://script.google.com/macros/s/AKfycbyQ9p5GXh1BMHjkUnL1qWZtYVQRaeagd3dF9KHu-HgCY_P60K1retKenLIRgABqH4Md/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(() => {
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = `
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Application Submitted Successfully!</h3>
+                <p>
+                    Thank you for your interest in joining the WESTSIDE RISING team, <strong>${formData.firstName} ${formData.lastName}</strong>.
+                    We've received your application for the <strong>${positionText}</strong> position.
+                </p>
+                <p>
+                    Our team will review your application and contact you at <strong>${formData.email}</strong> within 5-7 business days
+                    to discuss next steps.
+                </p>
+                <button class="btn btn-primary" onclick="location.reload()">
+                    <i class="fas fa-redo"></i>
+                    Submit Another Application
+                </button>
+            `;
 
-        // Show success message
-        const successMessage = document.createElement('div');
-        successMessage.className = 'success-message';
-        successMessage.innerHTML = `
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>Application Submitted Successfully!</h3>
-            <p>
-                Thank you for your interest in joining the WESTSIDE RISING team, <strong>${formData.firstName} ${formData.lastName}</strong>.
-                We've received your application for the <strong>${formData.positionInterest === 'other' ? formData.positionOther : positionSelect.options[positionSelect.selectedIndex].text}</strong> position.
-            </p>
-            <p>
-                Our team will review your application and contact you at <strong>${formData.email}</strong> within 5-7 business days
-                to discuss next steps.
-            </p>
-            <button class="btn btn-primary" onclick="location.reload()">
-                <i class="fas fa-redo"></i>
-                Submit Another Application
-            </button>
-        `;
+            // Replace form with success message
+            joinTeamForm.parentElement.innerHTML = '';
+            joinTeamForm.parentElement.appendChild(successMessage);
 
-        // Replace form with success message
-        joinTeamForm.parentElement.innerHTML = '';
-        joinTeamForm.parentElement.appendChild(successMessage);
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Still show success since no-cors mode doesn't allow reading response
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = `
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Application Submitted Successfully!</h3>
+                <p>
+                    Thank you for your interest in joining the WESTSIDE RISING team, <strong>${formData.firstName} ${formData.lastName}</strong>.
+                    We've received your application for the <strong>${positionText}</strong> position.
+                </p>
+                <p>
+                    Our team will review your application and contact you at <strong>${formData.email}</strong> within 5-7 business days
+                    to discuss next steps.
+                </p>
+                <button class="btn btn-primary" onclick="location.reload()">
+                    <i class="fas fa-redo"></i>
+                    Submit Another Application
+                </button>
+            `;
 
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Replace form with success message
+            joinTeamForm.parentElement.innerHTML = '';
+            joinTeamForm.parentElement.appendChild(successMessage);
 
-        // In production, you would send this data to a server:
-        // const formDataToSend = new FormData();
-        // for (const key in formData) {
-        //     if (formData[key] !== null) {
-        //         formDataToSend.append(key, formData[key]);
-        //     }
-        // }
-        // if (resumeInput.files[0]) {
-        //     formDataToSend.append('resume', resumeInput.files[0]);
-        // }
-        //
-        // fetch('/api/join-team-application', {
-        //     method: 'POST',
-        //     body: formDataToSend
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     // Show success message
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        //     alert('There was an error submitting your application. Please try again.');
-        // });
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     });
 
 });

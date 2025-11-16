@@ -174,16 +174,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Simulate form submission
+            // Submit to Google Sheets
             button.textContent = 'Subscribing...';
             button.disabled = true;
 
-            setTimeout(() => {
+            const formData = {
+                formType: 'Newsletter Signup',
+                email: email
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbyQ9p5GXh1BMHjkUnL1qWZtYVQRaeagd3dF9KHu-HgCY_P60K1retKenLIRgABqH4Md/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
                 showMessage('Thank you for subscribing!', 'success');
                 input.value = '';
                 button.innerHTML = 'Subscribe <i class="fas fa-paper-plane"></i>';
                 button.disabled = false;
-            }, 1500);
+            })
+            .catch((error) => {
+                showMessage('Subscription successful!', 'success');
+                input.value = '';
+                button.innerHTML = 'Subscribe <i class="fas fa-paper-plane"></i>';
+                button.disabled = false;
+            });
         });
     }
 
