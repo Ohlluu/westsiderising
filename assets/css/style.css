@@ -702,7 +702,7 @@ section {
 
 .impact-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 2rem;
 }
 
@@ -1146,7 +1146,7 @@ section {
     }
 
     .impact-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .newsletter-container {
@@ -1176,6 +1176,12 @@ section {
         width: 100%;
         max-width: 300px;
         justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
