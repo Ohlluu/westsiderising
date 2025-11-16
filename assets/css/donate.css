@@ -8,6 +8,10 @@
                 url('../images/homepage.jpg') center/cover;
 }
 
+.donate-hero .page-hero-content {
+    padding-top: 40px;
+}
+
 .donate-hero .page-hero-content h1,
 .donate-hero .page-hero-content p {
     color: var(--white);
