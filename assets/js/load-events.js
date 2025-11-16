@@ -29,9 +29,10 @@ function parseDateSafe(dateString) {
 
 // Load approved events for the events page
 async function loadEvents() {
-    const eventsGrid = document.getElementById('events-grid');
+    const upcomingEventsGrid = document.getElementById('upcoming-events-grid');
+    const pastEventsGrid = document.getElementById('past-events-grid');
 
-    if (!eventsGrid) return;
+    if (!upcomingEventsGrid || !pastEventsGrid) return;
 
     try {
         // Query only approved events
@@ -43,41 +44,76 @@ async function loadEvents() {
 
         const querySnapshot = await getDocs(q);
 
-        // Sort events by date in JavaScript
-        const events = [];
+        // Separate events into upcoming and past
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
+
+        const upcomingEvents = [];
+        const pastEvents = [];
+
         querySnapshot.forEach((doc) => {
-            events.push({ id: doc.id, data: doc.data() });
+            const eventData = { id: doc.id, data: doc.data() };
+            const eventDate = parseDateSafe(eventData.data.eventDate);
+
+            // Reset event date time to start of day for comparison
+            eventDate.setHours(0, 0, 0, 0);
+
+            if (eventDate >= today) {
+                upcomingEvents.push(eventData);
+            } else {
+                pastEvents.push(eventData);
+            }
         });
 
-        // Sort by event date (newest first)
-        events.sort((a, b) => {
+        // Sort upcoming events by date (soonest first)
+        upcomingEvents.sort((a, b) => {
+            const dateA = parseDateSafe(a.data.eventDate);
+            const dateB = parseDateSafe(b.data.eventDate);
+            return dateA - dateB;
+        });
+
+        // Sort past events by date (most recent first)
+        pastEvents.sort((a, b) => {
             const dateA = parseDateSafe(a.data.eventDate);
             const dateB = parseDateSafe(b.data.eventDate);
             return dateB - dateA;
         });
 
-        if (events.length === 0) {
-            eventsGrid.innerHTML = `
+        // Display upcoming events
+        if (upcomingEvents.length === 0) {
+            upcomingEventsGrid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
                     <i class="fas fa-calendar" style="font-size: 4rem; color: var(--medium-gray); opacity: 0.3; margin-bottom: 1rem;"></i>
                     <p style="color: var(--medium-gray); font-size: 1.1rem;">No upcoming events at this time. Check back soon!</p>
                 </div>
             `;
-            return;
+        } else {
+            upcomingEventsGrid.innerHTML = '';
+            upcomingEvents.forEach((eventDoc) => {
+                const eventCard = createEventCard(eventDoc.data, eventDoc.id, false);
+                upcomingEventsGrid.appendChild(eventCard);
+            });
         }
 
-        // Clear existing events
-        eventsGrid.innerHTML = '';
-
-        // Add each approved event to the grid (sorted)
-        events.forEach((eventDoc) => {
-            const eventCard = createEventCard(eventDoc.data, eventDoc.id);
-            eventsGrid.appendChild(eventCard);
-        });
+        // Display past events
+        if (pastEvents.length === 0) {
+            pastEventsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
+                    <i class="fas fa-history" style="font-size: 4rem; color: var(--medium-gray); opacity: 0.3; margin-bottom: 1rem;"></i>
+                    <p style="color: var(--medium-gray); font-size: 1.1rem;">No past events to display.</p>
+                </div>
+            `;
+        } else {
+            pastEventsGrid.innerHTML = '';
+            pastEvents.forEach((eventDoc) => {
+                const eventCard = createEventCard(eventDoc.data, eventDoc.id, true);
+                pastEventsGrid.appendChild(eventCard);
+            });
+        }
 
     } catch (error) {
         console.error('Error loading events:', error);
-        eventsGrid.innerHTML = `
+        upcomingEventsGrid.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: var(--primary-red); opacity: 0.5; margin-bottom: 1rem;"></i>
                 <p style="color: var(--medium-gray); font-size: 1.1rem;">Error loading events. Please refresh the page.</p>
@@ -87,9 +123,9 @@ async function loadEvents() {
 }
 
 // Create event card HTML
-function createEventCard(event, eventId) {
+function createEventCard(event, eventId, isPast = false) {
     const eventCard = document.createElement('div');
-    eventCard.className = 'event-card fade-in-up';
+    eventCard.className = `event-card fade-in-up${isPast ? ' past-event' : ''}`;
 
     const eventDate = parseDateSafe(event.eventDate);
     const month = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();

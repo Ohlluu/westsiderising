@@ -176,6 +176,47 @@
     transition: var(--transition);
 }
 
+/* ===== PAST EVENTS STYLING ===== */
+.past-events-section {
+    background: var(--light-gray);
+}
+
+.past-event {
+    opacity: 0.85;
+}
+
+.past-event .event-image {
+    position: relative;
+}
+
+.past-event .event-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+}
+
+.past-event .event-image img {
+    filter: grayscale(20%);
+}
+
+.past-event .event-date-badge {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+}
+
+.past-event:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.past-event:hover .event-image img {
+    filter: grayscale(0%);
+}
+
 /* ===== EVENT SUBMISSION CTA ===== */
 .event-submission-cta {
     padding: 80px 0;

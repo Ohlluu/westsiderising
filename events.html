@@ -54,7 +54,7 @@
         </div>
     </section>
 
-    <!-- Events Grid Section -->
+    <!-- Upcoming Events Section -->
     <section class="events-section">
         <div class="container">
             <div class="section-header">
@@ -62,12 +62,26 @@
                 <h2 class="section-title">Join Us at Our Events</h2>
             </div>
 
-            <div class="events-grid" id="events-grid">
-                <!-- Events will be loaded dynamically from Firebase -->
+            <div class="events-grid" id="upcoming-events-grid">
+                <!-- Upcoming events will be loaded dynamically from Firebase -->
                 <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
                     <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary-red); margin-bottom: 1rem;"></i>
                     <p style="color: var(--medium-gray); font-size: 1.1rem;">Loading events...</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Events Section -->
+    <section class="events-section past-events-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Past</span>
+                <h2 class="section-title">Past Events</h2>
+            </div>
+
+            <div class="events-grid" id="past-events-grid">
+                <!-- Past events will be loaded dynamically from Firebase -->
             </div>
         </div>
     </section>
