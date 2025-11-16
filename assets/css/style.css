@@ -104,17 +104,19 @@ ul {
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.2rem;
     margin-left: 3rem;
+    flex-wrap: nowrap;
 }
 
 .nav-link {
     font-family: var(--font-primary);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--dark-gray);
     position: relative;
     padding: 0.5rem 0;
+    white-space: nowrap;
 }
 
 .nav-link::after {
@@ -148,6 +150,7 @@ ul {
     font-size: 0.9rem;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .btn-donate-nav:hover {
