@@ -94,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function animateCounter(card) {
         const number = card.querySelector('.impact-number');
         const target = parseInt(card.getAttribute('data-count'));
+        const originalText = number.textContent;
+        const hasPlus = originalText.includes('+');
         const duration = 2000; // 2 seconds
         const increment = target / (duration / 16); // 60fps
         let current = 0;
@@ -105,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const counter = setInterval(() => {
             current += increment;
             if (current >= target) {
-                number.textContent = target.toLocaleString() + '+';
+                number.textContent = target.toLocaleString() + (hasPlus ? '+' : '');
                 clearInterval(counter);
             } else {
-                number.textContent = Math.floor(current).toLocaleString() + '+';
+                number.textContent = Math.floor(current).toLocaleString() + (hasPlus ? '+' : '');
             }
         }, 16);
     }

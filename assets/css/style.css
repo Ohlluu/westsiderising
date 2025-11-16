@@ -703,12 +703,12 @@ section {
 .impact-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .impact-card {
     background: var(--white);
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.5rem;
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--shadow-md);
@@ -739,9 +739,9 @@ section {
 }
 
 .impact-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 1.5rem;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -763,9 +763,10 @@ section {
 }
 
 .impact-card p {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: var(--medium-gray);
     font-weight: 500;
+    line-height: 1.4;
 }
 
 /* ===== CTA SECTION ===== */
