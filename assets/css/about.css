@@ -336,8 +336,8 @@
 
 .partners-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1.5rem;
     margin-top: 3rem;
 }
 
@@ -521,7 +521,7 @@
     }
 
     .partners-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(6, 1fr);
     }
 
     .sponsors-grid {
@@ -547,8 +547,8 @@
     }
 
     .partners-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
     }
 
     .sponsors-grid {
