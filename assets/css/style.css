@@ -768,8 +768,8 @@ section {
 
 .impact-card p {
     font-size: 0.95rem;
-    color: var(--medium-gray);
-    font-weight: 500;
+    color: var(--dark-gray);
+    font-weight: 600;
     line-height: 1.4;
 }
 
