@@ -102,11 +102,18 @@ async function loadEventDetail() {
         if (sidebarInfo[2]) sidebarInfo[2].textContent = event.eventLocation || 'TBA';
 
         // Update registration link if available
-        if (event.registrationRequired && event.registrationLink) {
-            const registerBtn = document.querySelector('.sidebar-card .btn-primary');
-            if (registerBtn) {
+        const registerBtn = document.querySelector('.sidebar-card .btn-primary');
+        const sidebarNote = document.querySelector('.sidebar-card .sidebar-note');
+
+        if (registerBtn) {
+            if (event.registrationRequired && event.registrationLink) {
                 registerBtn.href = event.registrationLink;
                 registerBtn.target = '_blank';
+                registerBtn.style.display = 'flex';
+                if (sidebarNote) sidebarNote.style.display = 'block';
+            } else {
+                registerBtn.style.display = 'none';
+                if (sidebarNote) sidebarNote.style.display = 'none';
             }
         }
 
