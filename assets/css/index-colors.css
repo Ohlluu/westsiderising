@@ -33,9 +33,9 @@
 }
 
 .hero-title {
-    animation: fadeInBlack 2s ease-in-out;
+    animation: fadeInBlack 4s ease-in-out infinite alternate;
 }
 
 .hero-title .gradient-text {
-    animation: fadeInRedGradient 2s ease-in-out;
+    animation: fadeInRedGradient 4s ease-in-out infinite alternate;
 }
