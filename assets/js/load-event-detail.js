@@ -85,12 +85,14 @@ async function loadEventDetail() {
         }
 
         // Update event description
-        const descriptionSection = document.querySelector('.event-detail-content');
-        if (descriptionSection && event.eventDescription) {
-            const aboutSection = descriptionSection.querySelector('p');
-            if (aboutSection) {
-                aboutSection.textContent = event.eventDescription;
-            }
+        const descriptionContainer = document.getElementById('event-description');
+        if (descriptionContainer && event.eventDescription) {
+            // Replace newlines with <br> tags and preserve formatting
+            const formattedDescription = event.eventDescription
+                .split('\n\n')
+                .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+            descriptionContainer.innerHTML = formattedDescription;
         }
 
         // Update sidebar info
@@ -106,6 +108,12 @@ async function loadEventDetail() {
                 registerBtn.href = event.registrationLink;
                 registerBtn.target = '_blank';
             }
+        }
+
+        // Update map location text
+        const mapLocation = document.getElementById('map-location');
+        if (mapLocation) {
+            mapLocation.textContent = event.eventLocation || 'TBA';
         }
 
         // Update Google Maps link
