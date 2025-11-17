@@ -249,7 +249,7 @@
     display: flex;
     align-items: flex-start;
     gap: 2rem;
-    background: var(--white);
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 160, 0, 0.1) 100%);
     padding: 2.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
