@@ -659,7 +659,7 @@ section {
 }
 
 .about-card {
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 160, 0, 0.1) 100%);
     padding: 3rem;
     border-radius: var(--border-radius);
     display: flex;
