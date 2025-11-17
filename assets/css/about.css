@@ -38,7 +38,7 @@
     position: relative;
     z-index: 1;
     text-align: center;
-    color: var(--white);
+    color: #FFA000;
 }
 
 .page-hero-content h1 {
