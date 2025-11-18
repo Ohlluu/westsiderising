@@ -1,5 +1,5 @@
 import { db } from './firebase-config.js';
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Helper function to format time from 24-hour to 12-hour format with AM/PM
 function formatTime(timeString) {
@@ -151,5 +151,80 @@ function showError(message) {
     }
 }
 
-// Load event detail when page loads
-document.addEventListener('DOMContentLoaded', loadEventDetail);
+// Load related upcoming events
+async function loadRelatedEvents() {
+    const relatedEventsGrid = document.getElementById('related-events-grid');
+    if (!relatedEventsGrid) return;
+
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const todayString = today.toISOString().split('T')[0];
+
+        const eventsRef = collection(db, 'events');
+        const q = query(
+            eventsRef,
+            where('status', '==', 'approved'),
+            where('eventDate', '>=', todayString),
+            orderBy('eventDate', 'asc'),
+            limit(3)
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            relatedEventsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <p style="color: var(--medium-gray);">No upcoming events at this time.</p>
+                </div>
+            `;
+            return;
+        }
+
+        relatedEventsGrid.innerHTML = '';
+
+        querySnapshot.forEach((doc) => {
+            const event = doc.data();
+            const eventId = doc.id;
+
+            // Skip the current event being viewed
+            if (eventId === urlParams.get('id')) return;
+
+            const eventDate = parseDateSafe(event.eventDate);
+            const monthAbbrev = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+            const day = eventDate.getDate();
+
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card-small';
+            eventCard.innerHTML = `
+                <a href="event-detail.html?id=${eventId}">
+                    <div class="event-date-small">
+                        <span class="month">${monthAbbrev}</span>
+                        <span class="day">${day}</span>
+                    </div>
+                    <div class="event-info-small">
+                        <h4>${event.eventTitle}</h4>
+                        <p><i class="far fa-clock"></i> ${formatTime(event.eventTime)}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${event.eventLocation || 'TBA'}</p>
+                    </div>
+                </a>
+            `;
+
+            relatedEventsGrid.appendChild(eventCard);
+        });
+
+    } catch (error) {
+        console.error('Error loading related events:', error);
+        relatedEventsGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                <p style="color: var(--medium-gray);">Unable to load related events.</p>
+            </div>
+        `;
+    }
+}
+
+// Load event detail and related events when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    loadEventDetail();
+    loadRelatedEvents();
+});

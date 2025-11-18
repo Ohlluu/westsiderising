@@ -160,50 +160,10 @@
     <section class="related-events">
         <div class="container">
             <h2 class="section-title">Other Upcoming Events</h2>
-            <div class="events-grid-small">
-                <!-- Related Event 1 -->
-                <div class="event-card-small">
-                    <a href="event-detail.html?id=2">
-                        <div class="event-date-small">
-                            <span class="month">MAR</span>
-                            <span class="day">22</span>
-                        </div>
-                        <div class="event-info-small">
-                            <h4>Community Voices Campaign Launch</h4>
-                            <p><i class="far fa-clock"></i> 6:00 PM - 8:00 PM</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Garfield Park</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Related Event 2 -->
-                <div class="event-card-small">
-                    <a href="event-detail.html?id=3">
-                        <div class="event-date-small">
-                            <span class="month">APR</span>
-                            <span class="day">05</span>
-                        </div>
-                        <div class="event-info-small">
-                            <h4>Youth Ambassadors Orientation</h4>
-                            <p><i class="far fa-clock"></i> 10:00 AM - 2:00 PM</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Youth Center</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Related Event 3 -->
-                <div class="event-card-small">
-                    <a href="event-detail.html?id=4">
-                        <div class="event-date-small">
-                            <span class="month">APR</span>
-                            <span class="day">18</span>
-                        </div>
-                        <div class="event-info-small">
-                            <h4>Community Clean-Up Day</h4>
-                            <p><i class="far fa-clock"></i> 9:00 AM - 12:00 PM</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Lawndale</p>
-                        </div>
-                    </a>
+            <div class="events-grid-small" id="related-events-grid">
+                <!-- Related events will be loaded dynamically from Firebase -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary-red);"></i>
                 </div>
             </div>
             <div class="text-center">
