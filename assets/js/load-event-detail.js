@@ -164,15 +164,36 @@ async function loadRelatedEvents() {
         const eventsRef = collection(db, 'events');
         const q = query(
             eventsRef,
-            where('status', '==', 'approved'),
-            where('eventDate', '>=', todayString),
-            orderBy('eventDate', 'asc'),
-            limit(3)
+            where('status', '==', 'approved')
         );
 
         const querySnapshot = await getDocs(q);
 
-        if (querySnapshot.empty) {
+        // Filter and sort events in JavaScript
+        const upcomingEvents = [];
+        querySnapshot.forEach((doc) => {
+            const event = doc.data();
+            const eventId = doc.id;
+
+            // Skip the current event being viewed
+            if (eventId === urlParams.get('id')) return;
+
+            // Only include upcoming events
+            if (event.eventDate >= todayString) {
+                upcomingEvents.push({
+                    id: eventId,
+                    ...event
+                });
+            }
+        });
+
+        // Sort by date ascending
+        upcomingEvents.sort((a, b) => a.eventDate.localeCompare(b.eventDate));
+
+        // Take only first 3 events
+        const limitedEvents = upcomingEvents.slice(0, 3);
+
+        if (limitedEvents.length === 0) {
             relatedEventsGrid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
                     <p style="color: var(--medium-gray);">No upcoming events at this time.</p>
@@ -183,13 +204,7 @@ async function loadRelatedEvents() {
 
         relatedEventsGrid.innerHTML = '';
 
-        querySnapshot.forEach((doc) => {
-            const event = doc.data();
-            const eventId = doc.id;
-
-            // Skip the current event being viewed
-            if (eventId === urlParams.get('id')) return;
-
+        limitedEvents.forEach((event) => {
             const eventDate = parseDateSafe(event.eventDate);
             const monthAbbrev = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
             const day = eventDate.getDate();
@@ -197,7 +212,7 @@ async function loadRelatedEvents() {
             const eventCard = document.createElement('div');
             eventCard.className = 'event-card-small';
             eventCard.innerHTML = `
-                <a href="event-detail.html?id=${eventId}">
+                <a href="event-detail.html?id=${event.id}">
                     <div class="event-date-small">
                         <span class="month">${monthAbbrev}</span>
                         <span class="day">${day}</span>
