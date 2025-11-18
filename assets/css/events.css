@@ -3,6 +3,11 @@
    =================================== */
 
 /* ===== EVENTS HERO ===== */
+.page-hero {
+    padding: 100px 0 60px;
+    margin-top: 70px;
+}
+
 .page-hero-flex {
     display: flex;
     gap: 3rem;
@@ -11,12 +16,22 @@
 }
 
 .page-hero .page-hero-content {
-    margin-top: 40px;
     flex: 1;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 160, 0, 0.1));
+    padding: 2rem;
+    border-radius: var(--border-radius);
+}
+
+.page-hero .page-hero-content h1 {
+    color: #B8860B;
+}
+
+.page-hero .page-hero-content p {
+    color: #DAA520;
 }
 
 .page-hero-cta {
-    flex: 0 0 400px;
+    flex: 0 0 650px;
     background: rgba(255, 255, 255, 0.95);
     padding: 2rem;
     border-radius: var(--border-radius);
