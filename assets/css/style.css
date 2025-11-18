@@ -659,7 +659,7 @@ section {
 }
 
 .about-card {
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 160, 0, 0.1) 100%);
+    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
     padding: 3rem;
     border-radius: var(--border-radius);
     display: flex;
@@ -749,13 +749,13 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 160, 0, 0.1));
+    background: linear-gradient(135deg, rgba(227, 30, 36, 0.1), rgba(185, 20, 25, 0.1));
     border-radius: 50%;
 }
 
 .impact-icon i {
     font-size: 2rem;
-    color: #FFA000;
+    color: var(--primary-red);
 }
 
 .impact-number {
