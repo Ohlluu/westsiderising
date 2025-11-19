@@ -212,18 +212,18 @@
 /* ===== AWARDEES GRID ===== */
 .awardees-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
 }
 
 /* Three columns for Exceptional Leadership and Community Impact Awards */
 .awardees-grid.three-columns {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 /* Two columns for Legendary Awards (Matriarch and Patriarch side by side) */
 .legendary-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
 }
 
@@ -538,8 +538,10 @@
         font-size: 1rem;
     }
 
-    .awardees-grid.three-columns {
-        grid-template-columns: repeat(2, 1fr);
+    .awardees-grid,
+    .awardees-grid.three-columns,
+    .legendary-grid {
+        grid-template-columns: 1fr;
     }
 
     .awardee-photo {
