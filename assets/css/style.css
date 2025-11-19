@@ -1351,7 +1351,7 @@ section {
 @media (max-width: 640px) {
     .hero {
         min-height: auto;
-        padding: 80px 0 60px;
+        padding: 110px 0 60px;
     }
 
     .hero-container {
@@ -1381,10 +1381,15 @@ section {
         padding-top: 0;
     }
 
+    .image-frame {
+        animation: none;
+    }
+
     .hero-image-accent {
         width: 50%;
         bottom: -120px;
         right: -20px;
+        animation: none;
     }
 
     .section-title {
