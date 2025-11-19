@@ -1355,7 +1355,7 @@ section {
     }
 
     .hero-container {
-        gap: 2rem;
+        gap: 3rem;
     }
 
     .hero-title {
@@ -1366,7 +1366,7 @@ section {
     .hero-subtitle {
         font-size: 0.95rem;
         line-height: 1.6;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.8rem;
     }
 
     .hero-buttons {
