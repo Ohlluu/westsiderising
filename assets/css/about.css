@@ -599,12 +599,29 @@
     }
 
     .section-title-alt {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        display: block;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .section-title-alt::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .section-header {
+        text-align: center;
     }
 
     .partners-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 1rem;
+    }
+
+    .partner-logo {
+        padding: 1rem;
+        min-height: 80px;
     }
 
     .sponsors-grid {
