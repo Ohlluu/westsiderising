@@ -65,6 +65,13 @@
     }
 }
 
+@media (max-width: 640px) {
+    .page-hero {
+        padding: 10px 0 40px;
+        margin-top: 70px;
+    }
+}
+
 /* ===== YEAR TABS ===== */
 .year-tabs-section {
     padding: 40px 0;
