@@ -421,6 +421,7 @@ ul {
     color: var(--medium-gray);
     margin-bottom: 2.5rem;
     line-height: 1.8;
+    max-width: 90%;
 }
 
 .hero-buttons {
@@ -430,11 +431,11 @@ ul {
 }
 
 .hero-buttons .btn-primary {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .hero-buttons .btn-primary:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
 }
 
 .hero-image {
@@ -1374,6 +1375,7 @@ section {
 
     .hero-subtitle {
         font-size: 1.05rem;
+        font-weight: 700;
         line-height: 1.6;
         margin-bottom: 0.8rem;
     }
