@@ -416,7 +416,8 @@ ul {
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--medium-gray);
     margin-bottom: 2.5rem;
     line-height: 1.8;
@@ -1372,7 +1373,7 @@ section {
     }
 
     .hero-subtitle {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         line-height: 1.6;
         margin-bottom: 0.8rem;
     }
