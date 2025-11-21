@@ -885,11 +885,11 @@ section {
 
 /* ===== IMPACT SECTION ===== */
 .impact {
-    background: var(--gradient-red);
+    background: var(--light-gray);
 }
 
 .impact .section-title {
-    color: var(--white);
+    color: var(--black);
 }
 
 .impact-grid {
@@ -899,7 +899,7 @@ section {
 }
 
 .impact-card {
-    background: var(--white);
+    background: #FFC107;
     padding: 2rem 1.5rem;
     border-radius: var(--border-radius);
     text-align: center;
@@ -937,13 +937,13 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 160, 0, 0.1));
+    background: transparent;
     border-radius: 50%;
 }
 
 .impact-icon i {
     font-size: 2rem;
-    color: #FFD700;
+    color: var(--white);
 }
 
 .impact-number {
@@ -1412,6 +1412,11 @@ section {
 
     .hero-image {
         padding-top: 0;
+        order: 3;
+    }
+
+    .hero-about-card {
+        order: 2;
     }
 
     .image-frame {

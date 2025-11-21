@@ -318,11 +318,11 @@
 }
 
 .program-card:nth-child(2) .program-icon {
-    background: #FFD700;
+    background: #FFC107;
 }
 
 .program-card:nth-child(2) .program-content h3 {
-    color: #FFD700;
+    color: #FFC107;
 }
 
 .program-card:nth-child(3) .program-icon {
