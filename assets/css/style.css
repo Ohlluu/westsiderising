@@ -937,7 +937,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
 }
 
@@ -1417,6 +1417,17 @@ section {
 
     .hero-about-card {
         order: 2;
+        display: block;
+    }
+
+    .hero-about-card .about-icon {
+        float: left;
+        margin-right: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-about-card .about-content {
+        overflow: hidden;
     }
 
     .image-frame {
