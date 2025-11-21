@@ -20,8 +20,8 @@
     --gradient-light: linear-gradient(135deg, var(--light-red), var(--primary-red));
     --transition: all 0.3s ease;
     --border-radius: 12px;
-    --font-primary: 'Poppins', sans-serif;
-    --font-secondary: 'Inter', sans-serif;
+    --font-primary: 'Playfair Display', serif;
+    --font-secondary: 'Source Sans Pro', sans-serif;
 }
 
 /* ===== RESET & BASE STYLES ===== */
