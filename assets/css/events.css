@@ -1284,6 +1284,24 @@
         margin-top: 70px;
     }
 
+    /* Reorder sections on mobile: calendar before upcoming events */
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .events-section {
+        order: 2;
+    }
+
+    .calendar-section {
+        order: 1;
+    }
+
+    .past-events-section {
+        order: 3;
+    }
+
     .events-grid {
         grid-template-columns: 1fr;
     }

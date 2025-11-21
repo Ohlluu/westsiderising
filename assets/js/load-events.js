@@ -95,7 +95,7 @@ async function loadEvents() {
             });
         }
 
-        // Display past events
+        // Display past events (limit to 6 most recent)
         if (pastEvents.length === 0) {
             pastEventsGrid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
@@ -105,7 +105,8 @@ async function loadEvents() {
             `;
         } else {
             pastEventsGrid.innerHTML = '';
-            pastEvents.forEach((eventDoc) => {
+            // Only show the 6 most recent past events
+            pastEvents.slice(0, 6).forEach((eventDoc) => {
                 const eventCard = createEventCard(eventDoc.data, eventDoc.id, true);
                 pastEventsGrid.appendChild(eventCard);
             });
