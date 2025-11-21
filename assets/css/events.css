@@ -1302,6 +1302,10 @@
         order: 3;
     }
 
+    .footer {
+        order: 99;
+    }
+
     .events-grid {
         grid-template-columns: 1fr;
     }

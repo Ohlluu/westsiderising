@@ -1412,11 +1412,11 @@ section {
 
     .hero-image {
         padding-top: 0;
-        order: 3;
+        order: 2;
     }
 
     .hero-about-card {
-        order: 2;
+        order: 3;
         display: block;
     }
 
