@@ -1426,8 +1426,8 @@ section {
         margin-bottom: 0.5rem;
     }
 
-    .hero-about-card .about-content {
-        overflow: hidden;
+    .hero-about-card .about-content p {
+        margin: 0;
     }
 
     .image-frame {
