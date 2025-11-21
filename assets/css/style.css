@@ -460,7 +460,7 @@ ul {
 }
 
 .hero-about-card {
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    background: var(--medium-gray);
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
@@ -489,9 +489,9 @@ ul {
 }
 
 .hero-about-card .about-content p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 1.8;
-    color: var(--medium-gray);
+    color: var(--white);
     margin: 0;
 }
 
@@ -885,7 +885,11 @@ section {
 
 /* ===== IMPACT SECTION ===== */
 .impact {
-    background: var(--light-gray);
+    background: var(--gradient-red);
+}
+
+.impact .section-title {
+    color: var(--white);
 }
 
 .impact-grid {
