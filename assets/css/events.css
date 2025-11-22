@@ -17,17 +17,19 @@
 
 .page-hero .page-hero-content {
     flex: 1;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 160, 0, 0.1));
+    background: var(--gradient-red);
     padding: 2rem;
     border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
 }
 
 .page-hero .page-hero-content h1 {
-    color: #B8860B;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .page-hero .page-hero-content p {
-    color: #DAA520;
+    color: var(--white);
 }
 
 .page-hero-cta {
@@ -73,7 +75,7 @@
 /* ===== EVENTS GRID SECTION ===== */
 .events-section {
     padding: 20px 0 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .events-grid {
@@ -89,6 +91,7 @@
     box-shadow: var(--shadow-md);
     transition: var(--transition);
     height: 100%;
+    border: 2px solid rgba(227, 30, 36, 0.1);
 }
 
 .event-link {
@@ -246,7 +249,7 @@
 
 /* ===== PAST EVENTS STYLING ===== */
 .past-events-section {
-    background: var(--light-gray);
+    background: linear-gradient(to bottom, #FFF5F5, var(--light-gray));
 }
 
 .past-event {
@@ -288,17 +291,18 @@
 /* ===== EVENT SUBMISSION CTA ===== */
 .event-submission-cta {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .submission-card {
-    background: var(--white);
+    background: linear-gradient(135deg, var(--white) 0%, #FFFAFA 100%);
     padding: 4rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
     display: flex;
     align-items: center;
     gap: 3rem;
+    border: 2px solid rgba(227, 30, 36, 0.1);
 }
 
 .submission-icon {
@@ -308,7 +312,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -336,7 +340,7 @@
 /* ===== CALENDAR SECTION ===== */
 .calendar-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
 }
 
 .calendar-container {
