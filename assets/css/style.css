@@ -999,7 +999,7 @@ section {
 .cta {
     position: relative;
     padding: 100px 0;
-    background: linear-gradient(to right, var(--black) 0%, var(--charcoal) 50%, var(--medium-gray) 100%);
+    background: linear-gradient(to right, var(--black) 0%, var(--dark-red) 50%, var(--primary-red) 100%);
     overflow: hidden;
 }
 
