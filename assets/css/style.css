@@ -34,6 +34,129 @@
     --font-secondary: 'Source Sans Pro', sans-serif;
 }
 
+/* ===== EVENT BANNER ===== */
+.event-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background: linear-gradient(to right, #000000 0%, #8B0000 30%, #E31E24 60%, #FFD700 100%);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.event-banner:hover {
+    background: linear-gradient(to right, #000000 0%, #A22428 30%, #FF4046 60%, #FFD700 100%);
+    transform: scaleY(1.05);
+}
+
+.event-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--white);
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.event-banner-icon {
+    font-size: 1.2rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.event-banner-text {
+    letter-spacing: 0.3px;
+}
+
+.event-banner-arrow {
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+
+/* ===== EVENT BANNER OPTION 2: Below Navbar ===== */
+.event-banner-option2 {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background: linear-gradient(to right, #000000 0%, #8B0000 30%, #E31E24 60%, #FFD700 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 70px;
+    z-index: 999;
+}
+
+.event-banner-option2:hover {
+    background: linear-gradient(to right, #000000 0%, #A22428 30%, #FF4046 60%, #FFD700 100%);
+}
+
+/* ===== EVENT BANNER OPTION 3: Sticky Bottom ===== */
+.event-banner-option3 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #000000 0%, #8B0000 30%, #E31E24 60%, #FFD700 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 1001;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.event-banner-option3:hover {
+    background: linear-gradient(to right, #000000 0%, #A22428 30%, #FF4046 60%, #FFD700 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Adjust page-hero sections for banner height */
+.page-hero {
+    margin-top: 115px !important; /* 70px navbar + 45px banner */
+}
+
+/* Hide banners on mobile */
+@media (max-width: 968px) {
+    .event-banner {
+        display: none;
+    }
+
+    .event-banner-option2 {
+        display: none;
+    }
+
+    .event-banner-option3 {
+        display: none;
+    }
+
+    .navbar {
+        top: 0;
+    }
+
+    .page-hero {
+        margin-top: 70px !important; /* Reset to just navbar height on mobile */
+    }
+}
+
 /* ===== RESET & BASE STYLES ===== */
 * {
     margin: 0;
@@ -79,7 +202,7 @@ ul {
 /* ===== NAVIGATION ===== */
 .navbar {
     position: fixed;
-    top: 0;
+    top: 45px; /* For Option 1 - below event banner */
     left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
