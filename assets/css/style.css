@@ -134,36 +134,18 @@
     margin-top: 115px !important; /* 70px navbar + 45px banner */
 }
 
-/* Adjust banner for mobile */
+/* Hide banner on mobile */
 @media (max-width: 968px) {
     .event-banner {
-        height: 40px;
-        padding: 0 0.5rem;
-    }
-
-    .event-banner-content {
-        gap: 0.5rem;
-        font-size: 0.75rem;
-    }
-
-    .event-banner-icon {
-        font-size: 1rem;
-    }
-
-    .event-banner-text {
-        letter-spacing: 0;
-    }
-
-    .event-banner-arrow {
-        margin-left: 0.25rem;
+        display: none;
     }
 
     .navbar {
-        top: 40px; /* Adjust for mobile banner height */
+        top: 0; /* Navbar at top on mobile */
     }
 
     .page-hero {
-        margin-top: 110px !important; /* 70px navbar + 40px banner */
+        margin-top: 70px !important; /* Just navbar height on mobile */
     }
 
     .event-banner-option2 {
