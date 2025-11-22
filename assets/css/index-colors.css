@@ -2,10 +2,7 @@
    HOMEPAGE COLOR OVERRIDES
    =================================== */
 
-/* CTA section with deep, powerful red */
-.cta {
-    background: linear-gradient(135deg, #B71C1C 0%, #8B1214 100%);
-}
+/* CTA section with deep, powerful red gradient - REMOVED, using main CSS gradient */
 
 /* Hero title text animations */
 @keyframes fadeInBlack {
