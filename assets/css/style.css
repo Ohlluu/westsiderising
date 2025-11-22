@@ -134,10 +134,36 @@
     margin-top: 115px !important; /* 70px navbar + 45px banner */
 }
 
-/* Hide banners on mobile */
+/* Adjust banner for mobile */
 @media (max-width: 968px) {
     .event-banner {
-        display: none;
+        height: 40px;
+        padding: 0 0.5rem;
+    }
+
+    .event-banner-content {
+        gap: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .event-banner-icon {
+        font-size: 1rem;
+    }
+
+    .event-banner-text {
+        letter-spacing: 0;
+    }
+
+    .event-banner-arrow {
+        margin-left: 0.25rem;
+    }
+
+    .navbar {
+        top: 40px; /* Adjust for mobile banner height */
+    }
+
+    .page-hero {
+        margin-top: 110px !important; /* 70px navbar + 40px banner */
     }
 
     .event-banner-option2 {
@@ -146,14 +172,6 @@
 
     .event-banner-option3 {
         display: none;
-    }
-
-    .navbar {
-        top: 0;
-    }
-
-    .page-hero {
-        margin-top: 70px !important; /* Reset to just navbar height on mobile */
     }
 }
 
