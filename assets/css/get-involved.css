@@ -8,9 +8,9 @@
     margin-top: 70px;
 }
 
-/* Override button colors to match card icons */
+/* Override button colors */
 .btn-primary {
-    background: var(--gradient-coral);
+    background: var(--gradient-burgundy);
 }
 
 .page-hero-flex {
