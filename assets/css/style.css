@@ -1071,7 +1071,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-coral);
+    background: var(--gradient-red);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
