@@ -470,7 +470,7 @@ ul {
 }
 
 .hero-about-card {
-    background: var(--gradient-burgundy);
+    background: var(--gradient-red);
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
