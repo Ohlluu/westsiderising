@@ -140,10 +140,6 @@
         display: none;
     }
 
-    .navbar {
-        top: 0; /* Navbar at top on mobile */
-    }
-
     .page-hero {
         margin-top: 70px !important; /* Just navbar height on mobile */
     }
@@ -1453,6 +1449,10 @@ section {
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 968px) {
+    .navbar {
+        top: 0 !important; /* Remove space at top on mobile */
+    }
+
     .nav-menu {
         position: fixed;
         top: 70px;
