@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red));
     margin-top: 70px;
     overflow: hidden;
 }
@@ -59,14 +59,14 @@
 /* ===== OUR HISTORY SECTION ===== */
 .about-history {
     padding: 30px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .section-title-alt {
     font-family: var(--font-primary);
     font-size: 3rem;
     font-weight: 800;
-    color: var(--primary-red);
+    color: var(--dark-red);
     margin-bottom: 1rem;
     position: relative;
     display: inline-block;
@@ -80,7 +80,7 @@
     left: 0;
     width: 80px;
     height: 4px;
-    background: var(--gradient-red);
+    background: linear-gradient(to right, var(--primary-red), var(--coral-red));
     border-radius: 2px;
 }
 
@@ -178,12 +178,25 @@
 
 .principle-card {
     position: relative;
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    background: linear-gradient(135deg, #FFFAFA 0%, var(--white) 100%);
     padding: 2.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
     transition: var(--transition);
     overflow: hidden;
+    border: 2px solid rgba(227, 30, 36, 0.1);
+}
+
+.principle-card:nth-child(1) .card-accent {
+    background: var(--gradient-red);
+}
+
+.principle-card:nth-child(2) .card-accent {
+    background: var(--gradient-coral);
+}
+
+.principle-card:nth-child(3) .card-accent {
+    background: var(--gradient-burgundy);
 }
 
 .card-accent {
@@ -222,7 +235,7 @@
 /* ===== OUR WORK SECTION ===== */
 .our-work {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFF5F5);
 }
 
 .work-intro {
@@ -336,7 +349,7 @@
 /* ===== COMMUNITY IMPACT SECTION ===== */
 .community-impact {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFF5F5, #FFFAFA);
 }
 
 .impact-image-section {
@@ -377,7 +390,7 @@
 /* ===== PARTNERS SECTION ===== */
 .partners {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .section-subtitle {
@@ -464,7 +477,7 @@
 /* ===== SPONSORS SECTION ===== */
 .sponsors {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
 }
 
 .sponsors-grid {
