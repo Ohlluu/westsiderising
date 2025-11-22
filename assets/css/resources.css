@@ -75,7 +75,7 @@
 /* ===== ORGANIZATIONS GRID ===== */
 .organizations-section {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .organizations-grid {
@@ -85,7 +85,8 @@
 }
 
 .org-card {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -196,7 +197,7 @@
 /* ===== FOOD PANTRIES SECTION ===== */
 .food-pantries-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .food-intro {
@@ -216,8 +217,8 @@
 }
 
 .pantry-card {
-    background: var(--white);
-    border: 2px solid var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
     transition: var(--transition);
@@ -301,7 +302,7 @@
 /* ===== ENLACE DETAILS SECTION ===== */
 .enlace-details-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .enlace-intro {
@@ -414,8 +415,8 @@
 }
 
 .service-card {
-    background: var(--white);
-    border: 2px solid var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     padding: 2.5rem;
     transition: var(--transition);
@@ -522,7 +523,7 @@
 /* ===== ONE SUMMER CHICAGO SECTION ===== */
 .osc-details-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .osc-intro {
@@ -555,8 +556,8 @@
 }
 
 .highlight-card {
-    background: var(--white);
-    border: 2px solid var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     padding: 2.5rem;
     transition: var(--transition);
@@ -698,7 +699,7 @@
 /* ===== CATHOLIC CHARITIES SECTION ===== */
 .cc-details-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .cc-intro {
@@ -742,8 +743,8 @@
     align-items: flex-start;
     gap: 1.5rem;
     padding: 1.5rem;
-    background: var(--white);
-    border: 2px solid var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     transition: var(--transition);
     box-shadow: var(--shadow-sm);
@@ -788,8 +789,8 @@
 }
 
 .region-card {
-    background: var(--white);
-    border: 2px solid var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
@@ -886,7 +887,7 @@
 /* ===== HELP SECTION ===== */
 .help-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .help-card {
@@ -940,7 +941,7 @@
 /* ===== RESOURCE DETAIL PAGE ===== */
 .resource-detail-section {
     padding: 2rem 0 80px;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .resource-detail-grid {
@@ -1190,7 +1191,7 @@
 /* ===== RELATED RESOURCES ===== */
 .related-resources {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .resources-grid-small {
@@ -1201,7 +1202,8 @@
 }
 
 .resource-card-small {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     padding: 2rem;
     box-shadow: var(--shadow-md);

@@ -75,7 +75,7 @@
 /* ===== YEAR TABS ===== */
 .year-tabs-section {
     padding: 40px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
     position: sticky;
     top: 70px;
     z-index: 100;
@@ -110,7 +110,7 @@
 }
 
 .year-tab.active {
-    background: var(--gradient-red);
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red));
     border-color: var(--primary-red);
     box-shadow: var(--shadow-lg);
 }
@@ -144,7 +144,7 @@
 /* ===== AWARDS CONTENT ===== */
 .awards-content {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .year-content {
@@ -184,7 +184,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -198,7 +198,7 @@
     font-family: var(--font-primary);
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--black);
+    color: var(--dark-red);
     margin-bottom: 0.5rem;
 }
 
@@ -228,7 +228,8 @@
 }
 
 .awardee-card {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -321,7 +322,7 @@
 .award-badge {
     display: inline-block;
     padding: 0.5rem 1.2rem;
-    background: var(--gradient-red);
+    background: var(--gradient-burgundy);
     color: var(--white);
     font-family: var(--font-primary);
     font-weight: 600;
@@ -383,11 +384,12 @@
 /* ===== NOMINATION CTA ===== */
 .nomination-cta {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .cta-card {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     padding: 4rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
@@ -405,7 +407,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -419,7 +421,7 @@
     font-family: var(--font-primary);
     font-size: 2.2rem;
     font-weight: 800;
-    color: var(--black);
+    color: var(--dark-red);
     margin-bottom: 1rem;
 }
 

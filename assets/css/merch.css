@@ -10,7 +10,7 @@
 /* ===== MERCH INTRO ===== */
 .merch-intro {
     padding: 60px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .merch-intro .intro-content {
@@ -28,7 +28,7 @@
 /* ===== PRODUCTS SECTION ===== */
 .products-section {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .products-grid {
@@ -39,7 +39,8 @@
 }
 
 .product-card {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -86,7 +87,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     color: var(--white);
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -175,7 +176,7 @@
 }
 
 .size-btn.active {
-    background: var(--gradient-red);
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red));
     color: var(--white);
     border-color: var(--primary-red);
     box-shadow: var(--shadow-sm);
@@ -194,7 +195,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--gradient-red);
+    background: var(--gradient-burgundy);
     color: var(--white);
     border: none;
     box-shadow: var(--shadow-lg);

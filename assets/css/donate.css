@@ -4,7 +4,7 @@
 
 /* ===== DONATE HERO ===== */
 .donate-hero {
-    background: linear-gradient(135deg, rgba(227, 30, 36, 0.95), rgba(185, 20, 25, 0.95)),
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red)),
                 url('../images/homepage.jpg') center/cover;
 }
 
@@ -20,7 +20,7 @@
 /* ===== DONATION IMPACT ===== */
 .donation-impact {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .impact-intro {
@@ -61,7 +61,7 @@
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--gradient-red);
+    background: var(--gradient-burgundy);
     color: var(--white);
     font-family: var(--font-primary);
     font-size: 1.5rem;
@@ -104,7 +104,7 @@
 /* ===== DONATION FORM ===== */
 .donation-form-section {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .donation-form-grid {
@@ -114,7 +114,8 @@
 }
 
 .donation-form-container {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     padding: 3rem 3rem 0.5rem 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
@@ -173,7 +174,7 @@
 }
 
 .type-option.active .type-label {
-    background: var(--gradient-red);
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red));
     color: var(--white);
     border-color: var(--primary-red);
     box-shadow: var(--shadow-md);
@@ -218,7 +219,7 @@
 }
 
 .amount-option input[type="radio"]:checked + .amount-label {
-    background: var(--gradient-red);
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red));
     color: var(--white);
     border-color: var(--primary-red);
     box-shadow: var(--shadow-md);
@@ -489,7 +490,7 @@
 }
 
 .share-btn.email {
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     color: var(--white);
 }
 
@@ -528,7 +529,8 @@
 }
 
 .sidebar-card {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     padding: 2.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
@@ -546,7 +548,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     border-radius: 50%;
     box-shadow: var(--shadow-sm);
 }
@@ -625,7 +627,7 @@
 /* ===== OTHER WAYS TO GIVE ===== */
 .other-ways-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .ways-grid {
@@ -656,7 +658,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-burgundy);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -700,7 +702,7 @@
 /* ===== MISSION AND IMPACT ===== */
 .mission-impact-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .mission-content {
@@ -713,7 +715,7 @@
     font-family: var(--font-primary);
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--black);
+    color: var(--dark-red);
     margin-bottom: 1.5rem;
 }
 
@@ -809,7 +811,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -868,7 +870,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-burgundy);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }

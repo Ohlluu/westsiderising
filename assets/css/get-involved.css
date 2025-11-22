@@ -75,7 +75,7 @@
 /* ===== INVOLVEMENT OPTIONS ===== */
 .involvement-options {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .options-grid {
@@ -86,7 +86,8 @@
 }
 
 .option-card {
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -102,7 +103,7 @@
 
 .option-icon {
     padding: 3rem;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,19 +214,20 @@
 /* ===== VOLUNTEER FORM ===== */
 .volunteer-form-section {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 /* ===== PARTNERSHIP FORM ===== */
 .partnership-form-section {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .partnership-form {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     padding: 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
@@ -285,7 +287,8 @@
 .volunteer-form {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--light-gray);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     padding: 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
@@ -452,7 +455,7 @@
 /* ===== VOLUNTEER IMPACT ===== */
 .volunteer-impact {
     padding: 80px 0;
-    background: var(--light-gray);
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
 }
 
 .impact-stats-grid {
@@ -465,7 +468,8 @@
 .impact-stat {
     text-align: center;
     padding: 3rem 2rem;
-    background: var(--white);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
     transition: var(--transition);
@@ -483,7 +487,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-burgundy);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -512,11 +516,12 @@
 /* ===== QUESTIONS CTA ===== */
 .questions-cta {
     padding: 80px 0;
-    background: var(--white);
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
 }
 
 .questions-cta .cta-card {
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
     padding: 4rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
@@ -532,7 +537,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-red);
+    background: var(--gradient-coral);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
 }
@@ -546,7 +551,7 @@
     font-family: var(--font-primary);
     font-size: 2.2rem;
     font-weight: 800;
-    color: var(--black);
+    color: var(--dark-red);
     margin-bottom: 1rem;
 }
 
