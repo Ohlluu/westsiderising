@@ -345,6 +345,61 @@ document.addEventListener('DOMContentLoaded', function() {
     images.forEach(img => imageObserver.observe(img));
 
 
+    // ===== HERO SLIDESHOW WITH KEN BURNS EFFECT =====
+    const slideshowItems = document.querySelectorAll('.slideshow-item');
+    const dots = document.querySelectorAll('.slideshow-dots .dot');
+    let currentSlide = 0;
+    let slideInterval;
+
+    function showSlide(index) {
+        // Remove active class from all slides and dots
+        slideshowItems.forEach(item => item.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Add active class to current slide and dot
+        if (slideshowItems[index]) {
+            slideshowItems[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slideshowItems.length;
+        showSlide(currentSlide);
+    }
+
+    function startSlideshow() {
+        // Change slide every 8 seconds (matching Ken Burns animation duration)
+        slideInterval = setInterval(nextSlide, 8000);
+    }
+
+    function stopSlideshow() {
+        clearInterval(slideInterval);
+    }
+
+    // Dot click handlers
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+            stopSlideshow();
+            startSlideshow(); // Restart the timer
+        });
+    });
+
+    // Start the slideshow if elements exist
+    if (slideshowItems.length > 0) {
+        startSlideshow();
+
+        // Pause slideshow on hover
+        const heroSlideshow = document.querySelector('.hero-slideshow');
+        if (heroSlideshow) {
+            heroSlideshow.addEventListener('mouseenter', stopSlideshow);
+            heroSlideshow.addEventListener('mouseleave', startSlideshow);
+        }
+    }
+
+
     // ===== CONSOLE MESSAGE =====
     console.log('%cWESTSIDE RISING', 'color: #E31E24; font-size: 24px; font-weight: bold;');
     console.log('%cBuilding a just, livable and vibrant Greater West Side', 'color: #666; font-size: 14px;');
