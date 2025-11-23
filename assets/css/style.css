@@ -1239,6 +1239,44 @@ section {
     white-space: nowrap;
 }
 
+/* ===== FACEBOOK FEED SECTION ===== */
+.facebook-feed-section {
+    padding: 80px 0;
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
+}
+
+.facebook-feed-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.facebook-feed-header h2 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    color: var(--dark-red);
+    margin-bottom: 1rem;
+}
+
+.facebook-feed-header p {
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+}
+
+.facebook-feed-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 600px;
+}
+
+.facebook-feed-container .fb-page {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
 /* ===== FOOTER ===== */
 .footer {
     background: var(--dark-gray);
@@ -1510,6 +1548,18 @@ section {
     .newsletter-form {
         flex-direction: column;
         width: 100%;
+    }
+
+    .facebook-feed-section {
+        padding: 60px 0;
+    }
+
+    .facebook-feed-header h2 {
+        font-size: 2rem;
+    }
+
+    .facebook-feed-container .fb-page {
+        width: 100% !important;
     }
 
     .footer-grid {
