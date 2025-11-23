@@ -1885,10 +1885,11 @@ section {
 
     .phone-screen .fb-page {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         transform: scale(0.92);
-        transform-origin: center center;
+        transform-origin: top center;
+        padding-top: 10px;
     }
 
     .phone-screen .fb-page iframe {
