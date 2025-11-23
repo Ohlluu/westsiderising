@@ -1887,6 +1887,8 @@ section {
         display: flex;
         align-items: center;
         justify-content: center;
+        transform: scale(0.92);
+        transform-origin: center center;
     }
 
     .phone-screen .fb-page iframe {
