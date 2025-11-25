@@ -2118,28 +2118,55 @@ section {
 .popup-branding {
     position: relative;
     z-index: 2;
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
     margin-top: auto;
-    background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%);
+    background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(139,0,0,0.85) 100%);
     text-align: center;
+    border-top: 3px solid #FFD700;
 }
 
 .branding-text {
     font-family: var(--font-primary);
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 900;
-    line-height: 1;
-    letter-spacing: 2px;
-    background: linear-gradient(135deg, #E31E24 0%, #FFD700 50%, #E31E24 100%);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFF 20%, #FFD700 40%, #E31E24 60%, #FFD700 80%, #FFF 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-transform: uppercase;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 20px rgba(227, 30, 36, 0.5)) drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.8));
+    animation: shimmer 3s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
 }
 
 .branding-text:first-child {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.branding-text::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, #E31E24 0%, #000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: blur(8px);
+    opacity: 0.6;
 }
 
 .popup-text {
@@ -2207,12 +2234,12 @@ section {
     }
 
     .popup-branding {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
     }
 
     .branding-text {
         font-size: 1.8rem;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
     }
 
     .popup-text {
