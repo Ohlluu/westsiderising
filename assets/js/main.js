@@ -400,6 +400,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+    // ===== POPUP MODAL =====
+    const popupOverlay = document.getElementById('soireePopup');
+    const closePopupBtn = document.getElementById('closePopup');
+
+    if (popupOverlay && closePopupBtn) {
+        // Check if popup has been shown in this session
+        const popupShown = sessionStorage.getItem('soireePopupShown');
+
+        if (!popupShown) {
+            // Show popup after 2 seconds
+            setTimeout(() => {
+                popupOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }, 2000);
+        }
+
+        // Close popup when clicking the X button
+        closePopupBtn.addEventListener('click', function() {
+            closePopup();
+        });
+
+        // Close popup when clicking outside the modal
+        popupOverlay.addEventListener('click', function(e) {
+            if (e.target === popupOverlay) {
+                closePopup();
+            }
+        });
+
+        // Close popup function
+        function closePopup() {
+            popupOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            sessionStorage.setItem('soireePopupShown', 'true'); // Remember it was shown
+        }
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && popupOverlay.classList.contains('active')) {
+                closePopup();
+            }
+        });
+    }
+
+
     // ===== CONSOLE MESSAGE =====
     console.log('%cWESTSIDE RISING', 'color: #E31E24; font-size: 24px; font-weight: bold;');
     console.log('%cBuilding a just, livable and vibrant Greater West Side', 'color: #666; font-size: 14px;');
