@@ -554,3 +554,123 @@
         height: 350px;
     }
 }
+
+/* ===== 2025 AWARDEES SHOWCASE ===== */
+.awardees-showcase {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.showcase-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.showcase-intro h2 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+}
+
+.showcase-intro p {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.showcase-image {
+    margin-bottom: 3rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+.showcase-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.showcase-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6));
+    color: var(--white);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.showcase-caption i {
+    color: #FFD700;
+    font-size: 1.5rem;
+}
+
+.showcase-video {
+    margin-bottom: 2rem;
+}
+
+.showcase-video h3 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    color: var(--primary-red);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.video-container {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: #000;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive showcase */
+@media (max-width: 968px) {
+    .showcase-intro h2 {
+        font-size: 2rem;
+    }
+
+    .showcase-intro p {
+        font-size: 1rem;
+    }
+
+    .showcase-video h3 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .showcase-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .showcase-caption {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .showcase-caption i {
+        font-size: 1.2rem;
+    }
+
+    .showcase-video h3 {
+        font-size: 1.4rem;
+    }
+}
