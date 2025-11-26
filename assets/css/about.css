@@ -491,6 +491,10 @@
     opacity: 1 !important;
 }
 
+.partner-logo-large img {
+    max-height: 150px;
+}
+
 .partner-logo-placeholder {
     background: var(--white);
     padding: 2rem;
