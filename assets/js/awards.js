@@ -73,4 +73,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // ===== VIDEO AUTOPLAY ON SCROLL =====
+    const awardeesVideo = document.getElementById('awardees-video');
+
+    if (awardeesVideo) {
+        // Create Intersection Observer to detect when video is in viewport
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Video is in viewport, play it
+                    awardeesVideo.play().catch(error => {
+                        console.log('Autoplay prevented:', error);
+                    });
+                } else {
+                    // Video is out of viewport, pause it
+                    awardeesVideo.pause();
+                }
+            });
+        }, {
+            threshold: 0.5 // Trigger when 50% of video is visible
+        });
+
+        // Start observing the video
+        videoObserver.observe(awardeesVideo);
+    }
+
 });
