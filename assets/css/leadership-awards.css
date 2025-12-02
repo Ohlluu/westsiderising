@@ -243,6 +243,10 @@
     box-shadow: var(--shadow-xl);
 }
 
+.group-photo-card {
+    grid-column: 2 / 4;
+}
+
 .legendary-card {
     flex-direction: column;
     padding: 0;
@@ -561,6 +565,10 @@
     .awardees-grid.three-columns,
     .legendary-grid {
         grid-template-columns: 1fr;
+    }
+
+    .group-photo-card {
+        grid-column: 1;
     }
 
     .awardee-photo {
