@@ -264,6 +264,19 @@
     display: block;
 }
 
+.placeholder-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.placeholder-photo i {
+    font-size: 6rem;
+    color: var(--primary-red);
+    opacity: 0.3;
+}
+
 .legendary-photo {
     position: relative;
     width: 100%;
