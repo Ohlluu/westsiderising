@@ -264,6 +264,10 @@
     display: block;
 }
 
+.awardee-photo img.photo-raised {
+    object-position: center 30%;
+}
+
 .placeholder-photo {
     display: flex;
     align-items: center;
