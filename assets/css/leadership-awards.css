@@ -282,6 +282,10 @@
     object-position: center 30%;
 }
 
+.awardee-photo img.photo-centered {
+    object-position: 60% center;
+}
+
 .placeholder-photo {
     display: flex;
     align-items: center;
