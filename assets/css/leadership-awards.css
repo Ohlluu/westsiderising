@@ -283,7 +283,7 @@
 }
 
 .awardee-photo img.photo-centered {
-    object-position: 60% center;
+    object-position: left center;
 }
 
 .placeholder-photo {
