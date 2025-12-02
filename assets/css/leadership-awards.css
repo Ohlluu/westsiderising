@@ -245,6 +245,16 @@
 
 .group-photo-card {
     grid-column: 2 / 4;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.group-photo-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 .legendary-card {
