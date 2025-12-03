@@ -589,6 +589,10 @@
         height: 300px;
     }
 
+    .awardee-photo img.photo-mobile-raised {
+        object-position: center 20%;
+    }
+
     .legendary-photo {
         height: 350px;
     }
