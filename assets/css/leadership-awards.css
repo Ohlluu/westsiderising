@@ -589,8 +589,12 @@
         height: 300px;
     }
 
-    .awardee-photo img.photo-mobile-raised {
-        object-position: center 20%;
+    .awardee-photo img.photo-raised {
+        object-position: center 40%;
+    }
+
+    .awardee-photo img.photo-extra-raised {
+        object-position: center 60%;
     }
 
     .legendary-photo {
