@@ -129,17 +129,12 @@
     box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.4);
 }
 
-/* Adjust page-hero sections for banner height */
+/* Adjust page-hero sections for navbar height */
 .page-hero {
-    margin-top: 115px !important; /* 70px navbar + 45px banner */
+    margin-top: 70px !important; /* Just navbar height */
 }
 
-/* Hide banner on mobile */
 @media (max-width: 968px) {
-    .event-banner {
-        display: none;
-    }
-
     .page-hero {
         margin-top: 70px !important; /* Just navbar height on mobile */
     }
@@ -198,7 +193,7 @@ ul {
 /* ===== NAVIGATION ===== */
 .navbar {
     position: fixed;
-    top: 45px; /* For Option 1 - below event banner */
+    top: 0;
     left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
