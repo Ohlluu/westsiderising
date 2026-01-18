@@ -1,0 +1,993 @@
+/* Time Clock System Styles */
+
+/* ==================== Tab System ==================== */
+.dashboard-tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--border-color, #E9ECEF);
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #666;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color, #2D5F3F);
+    background-color: rgba(45, 95, 63, 0.05);
+}
+
+.tab-btn.active {
+    color: var(--primary-color, #2D5F3F);
+    border-bottom-color: var(--primary-color, #2D5F3F);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== Time Clock UI ==================== */
+.timeclock-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.status-card {
+    background: linear-gradient(135deg, var(--primary-color, #2D5F3F) 0%, #1e4530 100%);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.status-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.timer-display {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.clock-in-time {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-top: 0.5rem;
+}
+
+.clock-btn {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.clock-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.clock-btn:active {
+    transform: translateY(-1px);
+}
+
+.clock-btn.clock-in {
+    background-color: #10b981;
+    color: white;
+}
+
+.clock-btn.clock-in:hover {
+    background-color: #059669;
+}
+
+.clock-btn.clock-out {
+    background-color: #ef4444;
+    color: white;
+}
+
+.clock-btn.clock-out:hover {
+    background-color: #dc2626;
+}
+
+.clock-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Stats Cards */
+.timeclock-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color, #2D5F3F);
+}
+
+/* Recent Entries */
+.recent-entries {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recent-entries h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+    margin-bottom: 1.5rem;
+}
+
+.entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.entry-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light-gray, #F8F9FA);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color, #2D5F3F);
+}
+
+.entry-date {
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+    margin-bottom: 0.25rem;
+}
+
+.entry-times {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.entry-hours {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color, #2D5F3F);
+}
+
+.entry-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.entry-status.active {
+    background-color: #10b981;
+    color: white;
+}
+
+.entry-status.completed {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* ==================== Timesheets UI ==================== */
+.timesheets-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Pay Period Selector */
+.pay-period-selector {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.period-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.period-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color, #2D5F3F);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.period-btn:hover {
+    background-color: #1e4530;
+    transform: translateY(-2px);
+}
+
+.period-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.period-display {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color, #2D5F3F);
+    min-width: 250px;
+    text-align: center;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.export-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--primary-color, #2D5F3F);
+    background: white;
+    color: var(--primary-color, #2D5F3F);
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.export-btn:hover {
+    background-color: var(--primary-color, #2D5F3F);
+    color: white;
+}
+
+.export-btn i {
+    font-size: 1rem;
+}
+
+/* Currently Clocked In Panel */
+.clocked-in-panel {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.clocked-in-panel h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.clocked-in-panel h3 i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.clocked-in-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.clocked-in-item {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.clocked-in-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.clocked-in-time {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.clocked-in-duration {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+/* Employee Filter */
+.employee-filter {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.employee-filter label {
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+}
+
+.employee-filter select {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color, #E9ECEF);
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.employee-filter select:focus {
+    outline: none;
+    border-color: var(--primary-color, #2D5F3F);
+}
+
+/* Timesheet Cards */
+.timesheet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.employee-timesheet {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.employee-header {
+    background: linear-gradient(135deg, var(--primary-color, #2D5F3F) 0%, #1e4530 100%);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employee-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.employee-total {
+    text-align: right;
+}
+
+.total-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.total-hours {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.timesheet-entries {
+    padding: 1.5rem;
+}
+
+.timesheet-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.timesheet-table th {
+    text-align: left;
+    padding: 0.75rem;
+    background: var(--light-gray, #F8F9FA);
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+    border-bottom: 2px solid var(--border-color, #E9ECEF);
+}
+
+.timesheet-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color, #E9ECEF);
+}
+
+.timesheet-table tr:hover {
+    background-color: var(--light-gray, #F8F9FA);
+}
+
+.entry-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.action-btn.edit {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.action-btn.edit:hover {
+    background-color: #2563eb;
+}
+
+.action-btn.delete {
+    background-color: #ef4444;
+    color: white;
+}
+
+.action-btn.delete:hover {
+    background-color: #dc2626;
+}
+
+.action-btn.history {
+    background-color: #8b5cf6;
+    color: white;
+}
+
+.action-btn.history:hover {
+    background-color: #7c3aed;
+}
+
+.add-entry-btn {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.add-entry-btn:hover {
+    background-color: #059669;
+    transform: translateY(-2px);
+}
+
+/* ==================== Modals ==================== */
+.timeclock-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.timeclock-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-dialog {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color, #2D5F3F);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #ef4444;
+}
+
+.modal-body {
+    margin-bottom: 1.5rem;
+}
+
+.modal-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.modal-form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+    margin-bottom: 0.5rem;
+}
+
+.modal-form-group input,
+.modal-form-group textarea,
+.modal-form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color, #E9ECEF);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.modal-form-group input:focus,
+.modal-form-group textarea:focus,
+.modal-form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color, #2D5F3F);
+}
+
+.modal-form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.modal-btn.primary {
+    background-color: var(--primary-color, #2D5F3F);
+    color: white;
+}
+
+.modal-btn.primary:hover {
+    background-color: #1e4530;
+}
+
+.modal-btn.secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.modal-btn.secondary:hover {
+    background-color: #d1d5db;
+}
+
+/* Audit Trail */
+.audit-trail {
+    background: var(--light-gray, #F8F9FA);
+    border-radius: 10px;
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.audit-item {
+    padding: 0.75rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid #8b5cf6;
+}
+
+.audit-item:last-child {
+    margin-bottom: 0;
+}
+
+.audit-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.audit-editor {
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+}
+
+.audit-timestamp {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.audit-changes {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.audit-reason {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #8b5cf6;
+}
+
+/* ==================== Loading & Messages ==================== */
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color, #2D5F3F);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.message {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.message.success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.message.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+.message.info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-left: 4px solid #3b82f6;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--border-color, #E9ECEF);
+    margin-bottom: 1rem;
+}
+
+.empty-state h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 968px) {
+    .dashboard-tabs {
+        border-bottom: none;
+    }
+
+    .tab-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .timer-display {
+        font-size: 3rem;
+    }
+
+    .clock-btn {
+        padding: 1.25rem 3rem;
+        font-size: 1.1rem;
+    }
+
+    .timeclock-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .pay-period-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .period-nav {
+        flex-direction: column;
+    }
+
+    .period-display {
+        order: -1;
+        margin-bottom: 1rem;
+    }
+
+    .export-buttons {
+        flex-direction: column;
+    }
+
+    .export-btn {
+        justify-content: center;
+    }
+
+    .employee-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .employee-total {
+        text-align: left;
+    }
+
+    .timesheet-table {
+        font-size: 0.9rem;
+    }
+
+    .timesheet-table th,
+    .timesheet-table td {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .status-card {
+        padding: 2rem 1rem;
+    }
+
+    .timer-display {
+        font-size: 2.5rem;
+    }
+
+    .clock-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .entry-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    /* Make table responsive - convert to cards */
+    .timesheet-table {
+        display: block;
+    }
+
+    .timesheet-table thead {
+        display: none;
+    }
+
+    .timesheet-table tbody,
+    .timesheet-table tr {
+        display: block;
+    }
+
+    .timesheet-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color, #E9ECEF);
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .timesheet-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border: none;
+    }
+
+    .timesheet-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--primary-color, #2D5F3F);
+    }
+
+    .entry-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .action-btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .modal-dialog {
+        width: 95%;
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-btn {
+        width: 100%;
+    }
+
+    .clocked-in-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Print Styles for Timesheets */
+@media print {
+    .dashboard-tabs,
+    .pay-period-selector,
+    .export-buttons,
+    .action-btn,
+    .add-entry-btn,
+    .clocked-in-panel {
+        display: none !important;
+    }
+
+    .employee-timesheet {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 2rem;
+    }
+
+    .timesheet-table {
+        font-size: 0.85rem;
+    }
+}
