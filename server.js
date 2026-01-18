@@ -12,47 +12,93 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Initialize SQLite database
-const db = new sqlite3.Database('westside_rising.db');
+// Use /tmp directory on Vercel (serverless) or current directory locally
+const dbPath = process.env.VERCEL ? '/tmp/westside_rising.db' : 'westside_rising.db';
+let db;
+let dbInitialized = false;
 
-// Create tables
-db.serialize(() => {
-  // Admin codes table
-  db.run(`CREATE TABLE IF NOT EXISTS admin_codes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    code TEXT UNIQUE NOT NULL,
-    sub_admin_name TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    is_main_admin BOOLEAN DEFAULT FALSE
-  )`);
+// Initialize database with error handling
+function initializeDatabase() {
+  return new Promise((resolve, reject) => {
+    try {
+      db = new sqlite3.Database(dbPath, (err) => {
+        if (err) {
+          console.error('Database connection error:', err);
+          reject(err);
+          return;
+        }
 
-  // Events table
-  db.run(`CREATE TABLE IF NOT EXISTS events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    description TEXT,
-    date TEXT NOT NULL,
-    time TEXT,
-    location TEXT,
-    image_url TEXT,
-    created_by_code TEXT,
-    created_by_name TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by_code) REFERENCES admin_codes(code)
-  )`);
+        // Create tables
+        db.serialize(() => {
+          // Admin codes table
+          db.run(`CREATE TABLE IF NOT EXISTS admin_codes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            code TEXT UNIQUE NOT NULL,
+            sub_admin_name TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            is_main_admin BOOLEAN DEFAULT FALSE
+          )`, (err) => {
+            if (err) console.error('Error creating admin_codes table:', err);
+          });
 
-  // Insert main admin code if it doesn't exist
-  db.run(`INSERT OR IGNORE INTO admin_codes (code, sub_admin_name, is_main_admin)
-          VALUES ('MAIN_ADMIN_2024', 'Main Administrator', TRUE)`);
+          // Events table
+          db.run(`CREATE TABLE IF NOT EXISTS events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            description TEXT,
+            date TEXT NOT NULL,
+            time TEXT,
+            location TEXT,
+            image_url TEXT,
+            created_by_code TEXT,
+            created_by_name TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (created_by_code) REFERENCES admin_codes(code)
+          )`, (err) => {
+            if (err) console.error('Error creating events table:', err);
+          });
 
-  // Insert sample events based on Westside Rising's actual programming
-  db.run(`INSERT OR IGNORE INTO events (id, title, description, date, time, location, created_by_code, created_by_name)
-          VALUES
-          (1, 'Together WE Rise Holiday Soiree', 'Join us for our annual holiday celebration honoring collaboration and community partnerships on Chicago''s Greater West Side.', '2024-12-15', '18:00', 'West Side Community Center', 'MAIN_ADMIN_2024', 'Main Administrator'),
-          (2, 'Light Up Lawndale', 'Our annual community holiday lighting event bringing families together with free food, games, and bouncy houses for the kids.', '2024-12-07', '17:30', 'Lawndale Community Park', 'MAIN_ADMIN_2024', 'Main Administrator'),
-          (3, 'Juneteenth Celebration', 'Celebrate our heritage with music, art, educational activities, and community fellowship honoring African American culture and freedom.', '2024-06-19', '14:00', 'Douglas Park', 'MAIN_ADMIN_2024', 'Main Administrator'),
-          (4, 'Restorative Justice Summit', 'Multi-day event focused on peace, justice, and healing in our communities. Open to all residents and community organizations.', '2024-10-12', '09:00', 'West Side Cultural Center', 'MAIN_ADMIN_2024', 'Main Administrator'),
-          (5, 'Community Resource Fair', 'Free food distribution, back-to-school supplies, clothing giveaway, free haircuts, and family activities with bouncy houses.', '2024-08-24', '11:00', 'Local School Gymnasium', 'MAIN_ADMIN_2024', 'Main Administrator')`);
-});
+          // Insert main admin code if it doesn't exist
+          db.run(`INSERT OR IGNORE INTO admin_codes (code, sub_admin_name, is_main_admin)
+                  VALUES ('MAIN_ADMIN_2024', 'Main Administrator', TRUE)`, (err) => {
+            if (err) console.error('Error inserting admin code:', err);
+          });
+
+          // Insert sample events based on Westside Rising's actual programming
+          db.run(`INSERT OR IGNORE INTO events (id, title, description, date, time, location, created_by_code, created_by_name)
+                  VALUES
+                  (1, 'Together WE Rise Holiday Soiree', 'Join us for our annual holiday celebration honoring collaboration and community partnerships on Chicago''s Greater West Side.', '2024-12-15', '18:00', 'West Side Community Center', 'MAIN_ADMIN_2024', 'Main Administrator'),
+                  (2, 'Light Up Lawndale', 'Our annual community holiday lighting event bringing families together with free food, games, and bouncy houses for the kids.', '2024-12-07', '17:30', 'Lawndale Community Park', 'MAIN_ADMIN_2024', 'Main Administrator'),
+                  (3, 'Juneteenth Celebration', 'Celebrate our heritage with music, art, educational activities, and community fellowship honoring African American culture and freedom.', '2024-06-19', '14:00', 'Douglas Park', 'MAIN_ADMIN_2024', 'Main Administrator'),
+                  (4, 'Restorative Justice Summit', 'Multi-day event focused on peace, justice, and healing in our communities. Open to all residents and community organizations.', '2024-10-12', '09:00', 'West Side Cultural Center', 'MAIN_ADMIN_2024', 'Main Administrator'),
+                  (5, 'Community Resource Fair', 'Free food distribution, back-to-school supplies, clothing giveaway, free haircuts, and family activities with bouncy houses.', '2024-08-24', '11:00', 'Local School Gymnasium', 'MAIN_ADMIN_2024', 'Main Administrator')`, (err) => {
+            if (err) console.error('Error inserting sample events:', err);
+            dbInitialized = true;
+            resolve();
+          });
+        });
+      });
+    } catch (error) {
+      console.error('Database initialization error:', error);
+      reject(error);
+    }
+  });
+}
+
+// Middleware to ensure database is initialized
+async function ensureDbInitialized(req, res, next) {
+  if (!dbInitialized) {
+    try {
+      await initializeDatabase();
+    } catch (error) {
+      return res.status(500).json({ error: 'Database initialization failed', details: error.message });
+    }
+  }
+  next();
+}
+
+// Apply database middleware to all routes
+app.use(ensureDbInitialized);
 
 // API Routes
 
@@ -195,6 +241,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
