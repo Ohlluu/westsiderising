@@ -1,11 +1,11 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBJEc_oZSA5W--CP3UEfgamAOmW7l2uKJk",
+    authDomain: "westside-rising-time-clock.firebaseapp.com",
+    projectId: "westside-rising-time-clock",
+    storageBucket: "westside-rising-time-clock.firebasestorage.app",
+    messagingSenderId: "45421275739",
+    appId: "1:45421275739:web:97fd216fdd6e931115ad7e"
 };
 
 // Initialize Firebase
