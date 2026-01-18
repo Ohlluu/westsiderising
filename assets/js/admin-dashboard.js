@@ -28,7 +28,6 @@ auth.onAuthStateChanged(async (user) => {
         userRole = role;
 
         // Show dashboard and configure UI based on role
-        document.getElementById('login-section').style.display = 'none';
         document.getElementById('dashboard-section').style.display = 'block';
 
         configureUIForRole(role);
@@ -37,10 +36,10 @@ auth.onAuthStateChanged(async (user) => {
         loadEventsTab();
 
     } else {
+        // Not authenticated - redirect to login page
         currentUser = null;
         userRole = null;
-        document.getElementById('login-section').style.display = 'flex';
-        document.getElementById('dashboard-section').style.display = 'none';
+        window.location.href = 'admin-login.html';
     }
 });
 
@@ -87,42 +86,6 @@ function configureUIForRole(role) {
 
         // Switch to Time Clock tab automatically
         switchTab('timeclock');
-    }
-}
-
-// Sign In
-async function signIn() {
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value;
-    const messageDiv = document.getElementById('login-message');
-
-    if (!email || !password) {
-        showMessage('Please enter both email and password', 'error', messageDiv);
-        return;
-    }
-
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-        console.error('Sign in error:', error);
-        let errorMessage = 'Failed to sign in. Please check your credentials.';
-
-        switch (error.code) {
-            case 'auth/user-not-found':
-                errorMessage = 'No account found with this email.';
-                break;
-            case 'auth/wrong-password':
-                errorMessage = 'Incorrect password.';
-                break;
-            case 'auth/invalid-email':
-                errorMessage = 'Invalid email address.';
-                break;
-            case 'auth/too-many-requests':
-                errorMessage = 'Too many failed attempts. Please try again later.';
-                break;
-        }
-
-        showMessage(errorMessage, 'error', messageDiv);
     }
 }
 
