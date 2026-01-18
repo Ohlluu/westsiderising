@@ -5,13 +5,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAhlVGI_uyVoNGVaTHhEE5QgiRqC5VOnVc",
-  authDomain: "westside-rising.firebaseapp.com",
-  projectId: "westside-rising",
-  storageBucket: "westside-rising.firebasestorage.app",
-  messagingSenderId: "444755248691",
-  appId: "1:444755248691:web:5e9fea91b2d088096ec546",
-  measurementId: "G-0Z08M3RW6T"
+  apiKey: "AIzaSyBJEc_oZSA5W--CP3UEfgamAOmW7l2uKJk",
+  authDomain: "westside-rising-time-clock.firebaseapp.com",
+  projectId: "westside-rising-time-clock",
+  storageBucket: "westside-rising-time-clock.firebasestorage.app",
+  messagingSenderId: "45421275739",
+  appId: "1:45421275739:web:97fd216fdd6e931115ad7e"
 };
 
 // Initialize Firebase
