@@ -1,0 +1,10 @@
+Placeholder images for the website will go here.
+
+For a production website, you would want to add:
+- leadership.jpg - Image for leadership development program
+- organizing.jpg - Image for community organizing program
+- youth.jpg - Image for youth engagement program
+- hero-bg.jpg - Background image for hero section
+- logo.png - Westside Rising logo
+
+These images should be optimized for web (compressed) and appropriately sized for their use cases.

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westside Rising - A Just, Livable & Vibrant Greater West Side</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Westside Rising</h2>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#programs" class="nav-link">Programs</a>
+                <a href="#events" class="nav-link">Events</a>
+                <a href="#involved" class="nav-link">Get Involved</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="admin-btn" onclick="showAdminModal()">Admin</button>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Together WE Rise</h1>
+                <p>Our mission is to engage and unite a network of local residents and organizations through training and capacity-building to leverage our collective power and shape our communities. We work to build a just, livable and vibrant Greater West Side.</p>
+                <div class="hero-buttons">
+                    <a href="#involved" class="btn btn-primary">Get Involved</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Westside Rising</h2>
+                <p>Westside Rising is a Coalition dedicated to building a Just, Livable & Vibrant Greater West Side. We are boots on the ground 365 days a year, not just talking about change, but actively creating it.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Organizing</h3>
+                    <p>We engage local residents and organizations through training and capacity-building to leverage collective power and shape communities.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Leadership Development</h3>
+                    <p>Our training programs have produced multiple organizational leaders who got their start through Westside Rising's comprehensive development initiatives.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-vote-yea"></i>
+                    </div>
+                    <h3>Civic Engagement</h3>
+                    <p>Encouraging active participation in local government and democratic processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="programs">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Programs & Initiatives</h2>
+                <p>Building leadership, empowering youth, and creating lasting change in Chicago's Greater West Side.</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <img src="images/leadership.jpg" alt="Leadership Development" class="program-image">
+                    <div class="program-content">
+                        <h3>Leadership Training Programs</h3>
+                        <p>Comprehensive organizing and leadership development training that has launched the careers of multiple organizational leaders across Chicago's West Side.</p>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <img src="images/organizing.jpg" alt="Community Organizing" class="program-image">
+                    <div class="program-content">
+                        <h3>Youth Ambassador Program</h3>
+                        <p>Helping young people learn about their community and heritage while developing leadership skills and civic engagement capabilities.</p>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <img src="images/youth.jpg" alt="Youth Programs" class="program-image">
+                    <div class="program-content">
+                        <h3>Community Resource Events</h3>
+                        <p>Regular events including food distribution, back-to-school supplies, free clothing, haircuts, and family activities like bouncy houses and games.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <p>Join us for our signature events including Light Up Lawndale, Together WE Rise Holiday Soiree, Juneteenth Celebrations, and Restorative Justice Summits.</p>
+            </div>
+            <div class="events-grid" id="events-grid">
+                <!-- Events will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Involved Section -->
+    <section id="involved" class="get-involved">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get Involved</h2>
+                <p>Join our coalition of residents and organizations working 365 days a year to create positive change on Chicago's Greater West Side.</p>
+            </div>
+            <div class="involvement-grid">
+                <div class="involvement-card">
+                    <h3>Join Our Coalition</h3>
+                    <p>Become part of our network of local residents and organizations building collective power in the community.</p>
+                    <a href="#contact" class="btn btn-outline">Learn More</a>
+                </div>
+                <div class="involvement-card">
+                    <h3>Leadership Training</h3>
+                    <p>Participate in our organizing and leadership development programs that have launched multiple community leaders.</p>
+                    <a href="#events" class="btn btn-outline">View Events</a>
+                </div>
+                <div class="involvement-card">
+                    <h3>Youth Ambassador Program</h3>
+                    <p>Help young people learn about their community and heritage while developing leadership skills.</p>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Community Voices</h2>
+                <p>Hear from the leaders and youth who have been empowered through Westside Rising programs.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"I've learned so much about the community, organizing and just being a leader that people can trust because of WESTSIDE RISING"</p>
+                    <div class="testimonial-author">Community Leader</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"As a Youth Ambassador, I have learned how important it is to learn about my community and where I come from."</p>
+                    <div class="testimonial-author">Youth Ambassador</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"There are a few organizations and organizational leaders that got their start from being in WESTSIDE RISING's training, I know I did"</p>
+                    <div class="testimonial-author">Organizational Leader</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Ready to get involved or have questions? We'd love to hear from you.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>1074 W. Taylor #905<br>Chicago, IL 60607</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>1-312-380-1848</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@westsiderising.org</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Westside Rising</h3>
+                    <p>A Coalition dedicated to building a Just, Livable & Vibrant Greater West Side. Boots on the ground 365 days a year.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#involved">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/WestsideRising" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/WestsideRising" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/westsiderising" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Westside Rising. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Admin Access</h2>
+            <div id="admin-login">
+                <div class="form-group">
+                    <label>Admin Code:</label>
+                    <input type="text" id="admin-code" placeholder="Enter your admin code">
+                </div>
+                <button onclick="verifyAdminCode()" class="btn btn-primary">Access Admin Panel</button>
+            </div>
+            <div id="admin-panel" style="display: none;">
+                <!-- Admin panel will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="event-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Event</h2>
+            <form id="event-form">
+                <div class="form-group">
+                    <label>Event Title:</label>
+                    <input type="text" id="event-title" required>
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea id="event-description" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Date:</label>
+                    <input type="date" id="event-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Time:</label>
+                    <input type="time" id="event-time">
+                </div>
+                <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" id="event-location">
+                </div>
+                <div class="form-group">
+                    <label>Image URL:</label>
+                    <input type="url" id="event-image">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Event</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
