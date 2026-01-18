@@ -1,0 +1,38 @@
+/* ===================================
+   HOMEPAGE COLOR OVERRIDES
+   =================================== */
+
+/* CTA section with deep, powerful red gradient - REMOVED, using main CSS gradient */
+
+/* Hero title text animations */
+@keyframes fadeInBlack {
+    0% {
+        color: rgba(51, 51, 51, 0.3);
+    }
+    100% {
+        color: var(--black);
+    }
+}
+
+@keyframes fadeInRedGradient {
+    0% {
+        background: linear-gradient(135deg, rgba(220, 38, 38, 0.3) 0%, rgba(183, 28, 28, 0.3) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    100% {
+        background: var(--gradient-red);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+.hero-title {
+    animation: fadeInBlack 4s ease-in-out infinite alternate;
+}
+
+.hero-title .gradient-text {
+    animation: fadeInRedGradient 4s ease-in-out infinite alternate;
+}

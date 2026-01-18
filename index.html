@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WESTSIDE RISING - Building a just, livable and vibrant Greater West Side through community engagement and empowerment.">
+    <title>WESTSIDE RISING | Building a Vibrant Greater West Side</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/index-colors.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Permanent Marker for headings, Lora for body */
+        :root {
+            --font-primary: 'Permanent Marker', cursive;
+            --font-secondary: 'Lora', serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Facebook SDK -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"></script>
+
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="/">
+                <img src="assets/images/WR logo.jpg" alt="WESTSIDE RISING Logo"></a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li><a href="about" class="nav-link">About</a></li>
+                <li><a href="events" class="nav-link">Events</a></li>
+                <li><a href="resources" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved" class="nav-link">Get Involved</a></li>
+                <!-- <li><a href="merch" class="nav-link">Merch</a></li> -->
+                <li><a href="donate" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Event Banner - Option 2: Below Navbar (Commented Out) -->
+    <!-- <a href="event-detail?id=CZ8THYVctlS3fE2u3qmw" class="event-banner-option2">
+        <div class="event-banner-content">
+            <span class="event-banner-icon">🎉</span>
+            <span class="event-banner-text">Join us! Better Together Holiday Soiree - December 4, 2025 at 5:45 PM</span>
+            <span class="event-banner-arrow">Click for details →</span>
+        </div>
+    </a> -->
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-text fade-in-up">
+                    <h1 class="hero-title">
+                        Building a <span class="gradient-text">Just, Livable</span> and <span class="gradient-text">Vibrant</span> Greater West Side
+                    </h1>
+                    <p class="hero-subtitle">
+                        WESTSIDE RISING is a trailblazing organization that introduced Community Organizing to West Side communities. It serves as a regional engine for social justice, community organizing and civic engagement around Chicago's westside communities.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="get-involved" class="btn btn-primary">
+                            Get Involved
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-in-right">
+                <div class="hero-slideshow">
+                    <div class="slideshow-item active">
+                        <img src="assets/images/homepage.jpg" alt="WESTSIDE RISING Community">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="slideshow-item">
+                        <img src="assets/images/one.JPG" alt="WESTSIDE RISING Community">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="slideshow-item">
+                        <img src="assets/images/two.JPG" alt="WESTSIDE RISING Community">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="slideshow-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-about-card fade-in-up">
+                <div class="about-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="about-content">
+                    <p>
+                        WESTSIDE RISING is a coalition-based or organization established to unite a network of local residents and organizations to leverage our collective power for systems change.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">OUR IMPACT</h2>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card" data-count="5200">
+                    <div class="impact-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="impact-number">5200+</h3>
+                    <p>Residents & Leaders<br>Served and Convened</p>
+                </div>
+                <div class="impact-card" data-count="50">
+                    <div class="impact-icon">
+                        <i class="fas fa-people-arrows"></i>
+                    </div>
+                    <h3 class="impact-number">50+</h3>
+                    <p>Individual and Organizational<br>Base Members</p>
+                </div>
+                <div class="impact-card" data-count="2500">
+                    <div class="impact-icon">
+                        <i class="fas fa-vote-yea"></i>
+                    </div>
+                    <h3 class="impact-number">2500+</h3>
+                    <p>Residents and Leaders Activated in<br>Political Education & Civic Engagement</p>
+                </div>
+                <div class="impact-card" data-count="7500">
+                    <div class="impact-icon">
+                        <i class="fas fa-poll"></i>
+                    </div>
+                    <h3 class="impact-number">7500+</h3>
+                    <p>West Side Residents<br>Surveyed/Polled</p>
+                </div>
+                <div class="impact-card" data-count="75">
+                    <div class="impact-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 class="impact-number">75+</h3>
+                    <p>Community Engagement<br>Youth Ambassadors</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-bg-overlay"></div>
+        <div class="container cta-container">
+            <div class="cta-content fade-in-up">
+                <h2>Ready to Make a Difference?</h2>
+                <p>Join us in building a stronger, more vibrant community for everyone in the Greater West Side.</p>
+                <div class="cta-buttons">
+                    <a href="get-involved" class="btn btn-primary-light">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Activate/Volunteer with us
+                    </a>
+                    <a href="donate" class="btn btn-secondary-light">
+                        <i class="fas fa-heart"></i>
+                        Support Our Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container newsletter-container">
+            <div class="newsletter-icon">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="newsletter-content">
+                <h3>Stay in the Loop</h3>
+                <p>Get updates on our latest events, programs, and community initiatives.</p>
+            </div>
+            <form class="newsletter-form" id="newsletter-form">
+                <input type="email" name="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-primary">
+                    Subscribe
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Follow Us on Facebook Section -->
+    <section class="facebook-feed-section">
+        <div class="container">
+            <div class="facebook-feed-header fade-in-up">
+                <h2>Follow Us on Facebook</h2>
+                <p>Stay connected and see what's happening in our community</p>
+            </div>
+            <div class="social-gallery-wrapper fade-in-up">
+                <!-- Photo Gallery -->
+                <div class="photo-gallery">
+                    <div class="masonry-grid">
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5005.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5006.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5007.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5008.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5009.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5010.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5011.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5012.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5013.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5014.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5015.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5016.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5017.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5019.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5020.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5021.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5022.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5023.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5025.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5026.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5027.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5028.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item tall">
+                            <img src="assets/images/IMG_5029.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item medium">
+                            <img src="assets/images/IMG_5030.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="masonry-item short">
+                            <img src="assets/images/IMG_5031.JPG" alt="WESTSIDE RISING Community">
+                            <div class="photo-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facebook Feed -->
+                <div class="facebook-feed-container">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <div class="fb-page"
+                                 data-href="https://www.facebook.com/p/Westside-Rising-100064894208823/"
+                                 data-tabs="timeline"
+                                 data-width="340"
+                                 data-height="700"
+                                 data-small-header="false"
+                                 data-adapt-container-width="false"
+                                 data-hide-cover="false"
+                                 data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/p/Westside-Rising-100064894208823/" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/">Westside Rising</a>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="about">About</a></li>
+                        <li><a href="events">Events</a></li>
+                        <li><a href="resources">Resources</a></li>
+                        <li><a href="leadership-awards">Leadership Awards</a></li>
+                        <li><a href="get-involved">Get Involved</a></li>
+                        <!-- <li><a href="merch">Merch</a></li> -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-shield"></i>
+                            <a href="admin-login">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 WESTSIDE RISING. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Event Banner - Option 3: Sticky Bottom (Commented Out) -->
+    <!-- <a href="event-detail?id=CZ8THYVctlS3fE2u3qmw" class="event-banner-option3">
+        <div class="event-banner-content">
+            <span class="event-banner-icon">🎉</span>
+            <span class="event-banner-text">Join us! Better Together Holiday Soiree - December 4, 2025 at 5:45 PM</span>
+            <span class="event-banner-arrow">Click for details →</span>
+        </div>
+    </a> -->
+
+    <!-- Popup Modal -->
+    <div class="popup-overlay" id="soireePopup">
+        <div class="popup-modal">
+            <button class="popup-close" id="closePopup" aria-label="Close popup">×</button>
+            <div class="popup-content">
+                <div class="popup-image">
+                    <img src="assets/images/soiree-popup.png" alt="Better Together Soirée">
+                    <div class="popup-branding">
+                        <div class="branding-text" data-text="BETTER">BETTER</div>
+                        <div class="branding-text" data-text="TOGETHER">TOGETHER</div>
+                    </div>
+                </div>
+                <div class="popup-text">
+                    <h2>There is still time to support us</h2>
+                    <p>Help us continue building a just, livable, and vibrant Greater West Side. Your donation supports community organizing, civic engagement, and youth leadership development.</p>
+                    <a href="https://westsiderising.org/donate" class="popup-btn">DONATE TODAY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

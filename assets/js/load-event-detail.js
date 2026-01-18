@@ -1,0 +1,245 @@
+import { db } from './firebase-config.js';
+import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// Helper function to format time from 24-hour to 12-hour format with AM/PM
+function formatTime(timeString) {
+    if (!timeString) return 'TBA';
+
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12; // Convert 0 to 12 for midnight
+
+    return `${displayHour}:${minutes} ${ampm}`;
+}
+
+// Helper function to parse date string in local timezone (not UTC)
+function parseDateSafe(dateString) {
+    if (!dateString) return null;
+
+    // If it's already a full ISO string with time, use it directly
+    if (dateString.includes('T')) {
+        return new Date(dateString);
+    }
+
+    // Otherwise, parse as local date by splitting and creating date manually
+    const [year, month, day] = dateString.split('-').map(num => parseInt(num, 10));
+    return new Date(year, month - 1, day); // month is 0-indexed
+}
+
+// Get event ID from URL parameter
+const urlParams = new URLSearchParams(window.location.search);
+const eventId = urlParams.get('id');
+
+async function loadEventDetail() {
+    if (!eventId) {
+        showError('No event ID provided');
+        return;
+    }
+
+    try {
+        const eventRef = doc(db, 'events', eventId);
+        const eventDoc = await getDoc(eventRef);
+
+        if (!eventDoc.exists()) {
+            showError('Event not found');
+            return;
+        }
+
+        const event = eventDoc.data();
+
+        // Check if event is approved
+        if (event.status !== 'approved') {
+            showError('This event is not available');
+            return;
+        }
+
+        // Update page title
+        document.title = `${event.eventTitle} | WESTSIDE RISING`;
+
+        // Update event detail header
+        const eventTitle = document.querySelector('.event-detail-title');
+        if (eventTitle) eventTitle.textContent = event.eventTitle;
+
+        const eventType = document.querySelector('.event-type-badge');
+        if (eventType) eventType.textContent = event.eventType || 'Event';
+
+        // Update event meta
+        const eventDate = parseDateSafe(event.eventDate);
+        const formattedDate = eventDate.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        const metaItems = document.querySelectorAll('.event-detail-meta .meta-item span');
+        if (metaItems[0]) metaItems[0].textContent = formattedDate;
+        if (metaItems[1]) metaItems[1].textContent = formatTime(event.eventTime);
+        if (metaItems[2]) metaItems[2].textContent = event.eventLocation || 'TBA';
+
+        // Update event image
+        const eventImage = document.querySelector('.event-detail-image');
+        if (eventImage && event.eventImage) {
+            eventImage.innerHTML = `<img src="${event.eventImage}" alt="${event.eventTitle}">`;
+        }
+
+        // Update event description
+        const descriptionContainer = document.getElementById('event-description');
+        if (descriptionContainer && event.eventDescription) {
+            // Replace newlines with <br> tags and preserve formatting
+            const formattedDescription = event.eventDescription
+                .split('\n\n')
+                .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+            descriptionContainer.innerHTML = formattedDescription;
+        }
+
+        // Update sidebar info
+        const sidebarInfo = document.querySelectorAll('.event-detail-info .info-value');
+        if (sidebarInfo[0]) sidebarInfo[0].textContent = formattedDate;
+        if (sidebarInfo[1]) sidebarInfo[1].textContent = formatTime(event.eventTime);
+        if (sidebarInfo[2]) sidebarInfo[2].textContent = event.eventLocation || 'TBA';
+
+        // Update registration link if available
+        const registerBtn = document.querySelector('.sidebar-card .btn-primary');
+        const sidebarNote = document.querySelector('.sidebar-card .sidebar-note');
+
+        if (registerBtn) {
+            if (event.registrationRequired && event.registrationLink) {
+                registerBtn.href = event.registrationLink;
+                registerBtn.target = '_blank';
+                registerBtn.style.display = 'flex';
+                if (sidebarNote) sidebarNote.style.display = 'block';
+            } else {
+                registerBtn.style.display = 'none';
+                if (sidebarNote) sidebarNote.style.display = 'none';
+            }
+        }
+
+        // Update map location text
+        const mapLocation = document.getElementById('map-location');
+        if (mapLocation) {
+            mapLocation.textContent = event.eventLocation || 'TBA';
+        }
+
+        // Update Google Maps link
+        const directionsLink = document.querySelector('.sidebar-card .btn-secondary');
+        if (directionsLink && event.eventLocation) {
+            directionsLink.href = `https://maps.google.com/?q=${encodeURIComponent(event.eventLocation)}`;
+        }
+
+    } catch (error) {
+        console.error('Error loading event:', error);
+        showError('Error loading event details');
+    }
+}
+
+function showError(message) {
+    const mainContent = document.querySelector('.event-detail-main');
+    if (mainContent) {
+        mainContent.innerHTML = `
+            <div style="text-align: center; padding: 4rem 2rem;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: var(--primary-red); opacity: 0.5; margin-bottom: 1rem;"></i>
+                <h2 style="color: var(--dark-gray); margin-bottom: 1rem;">${message}</h2>
+                <a href="events.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Events
+                </a>
+            </div>
+        `;
+    }
+}
+
+// Load related upcoming events
+async function loadRelatedEvents() {
+    const relatedEventsGrid = document.getElementById('related-events-grid');
+    if (!relatedEventsGrid) return;
+
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const todayString = today.toISOString().split('T')[0];
+
+        const eventsRef = collection(db, 'events');
+        const q = query(
+            eventsRef,
+            where('status', '==', 'approved')
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        // Filter and sort events in JavaScript
+        const upcomingEvents = [];
+        querySnapshot.forEach((doc) => {
+            const event = doc.data();
+            const eventId = doc.id;
+
+            // Skip the current event being viewed
+            if (eventId === urlParams.get('id')) return;
+
+            // Only include upcoming events
+            if (event.eventDate >= todayString) {
+                upcomingEvents.push({
+                    id: eventId,
+                    ...event
+                });
+            }
+        });
+
+        // Sort by date ascending
+        upcomingEvents.sort((a, b) => a.eventDate.localeCompare(b.eventDate));
+
+        // Take only first 3 events
+        const limitedEvents = upcomingEvents.slice(0, 3);
+
+        if (limitedEvents.length === 0) {
+            relatedEventsGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <p style="color: var(--medium-gray);">No upcoming events at this time.</p>
+                </div>
+            `;
+            return;
+        }
+
+        relatedEventsGrid.innerHTML = '';
+
+        limitedEvents.forEach((event) => {
+            const eventDate = parseDateSafe(event.eventDate);
+            const monthAbbrev = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+            const day = eventDate.getDate();
+
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card-small';
+            eventCard.innerHTML = `
+                <a href="event-detail.html?id=${event.id}">
+                    <div class="event-date-small">
+                        <span class="month">${monthAbbrev}</span>
+                        <span class="day">${day}</span>
+                    </div>
+                    <div class="event-info-small">
+                        <h4>${event.eventTitle}</h4>
+                        <p><i class="far fa-clock"></i> ${formatTime(event.eventTime)}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${event.eventLocation || 'TBA'}</p>
+                    </div>
+                </a>
+            `;
+
+            relatedEventsGrid.appendChild(eventCard);
+        });
+
+    } catch (error) {
+        console.error('Error loading related events:', error);
+        relatedEventsGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                <p style="color: var(--medium-gray);">Unable to load related events.</p>
+            </div>
+        `;
+    }
+}
+
+// Load event detail and related events when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    loadEventDetail();
+    loadRelatedEvents();
+});

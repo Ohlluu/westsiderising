@@ -1,0 +1,723 @@
+/* ===================================
+   LEADERSHIP AWARDS PAGE STYLES
+   =================================== */
+
+/* ===== LEADERSHIP AWARDS HERO ===== */
+.page-hero {
+    padding: 60px 0 60px;
+    margin-top: 70px;
+}
+
+.page-hero-flex {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-hero .page-hero-content {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 160, 0, 0.1));
+    padding: 2rem;
+    border-radius: var(--border-radius);
+}
+
+.page-hero .page-hero-content h1 {
+    color: #B8860B;
+}
+
+.page-hero .page-hero-content p {
+    color: #DAA520;
+}
+
+.page-hero-description {
+    flex: 0 0 650px;
+    background: linear-gradient(135deg, rgba(227, 30, 36, 0.1), rgba(185, 20, 25, 0.05));
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+}
+
+.page-hero-description h2 {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+}
+
+.page-hero-description p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--primary-red);
+    margin: 0;
+}
+
+@media (max-width: 968px) {
+    .page-hero-flex {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .page-hero-description {
+        flex: 1;
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-hero {
+        padding: 20px 0 40px;
+        margin-top: 70px;
+    }
+}
+
+/* ===== YEAR TABS ===== */
+.year-tabs-section {
+    padding: 40px 0;
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.year-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.year-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: var(--white);
+    border: 3px solid transparent;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    min-width: 150px;
+}
+
+.year-tab:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-red);
+}
+
+.year-tab.active {
+    background: linear-gradient(to right, var(--deep-red), var(--dark-red), var(--primary-red));
+    border-color: var(--primary-red);
+    box-shadow: var(--shadow-lg);
+}
+
+.year-number {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark-gray);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.year-tab.active .year-number {
+    color: var(--white);
+}
+
+.year-label {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.year-tab.active .year-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== AWARDS CONTENT ===== */
+.awards-content {
+    padding: 80px 0;
+    background: linear-gradient(to bottom, #FFFAFA, #FFF5F5);
+}
+
+.year-content {
+    display: none;
+}
+
+.year-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+/* ===== AWARD CATEGORY ===== */
+.award-category {
+    margin-bottom: 80px;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+.category-header.legendary {
+    background: linear-gradient(135deg, rgba(227, 30, 36, 0.1), rgba(255, 255, 255, 1));
+    border-left: 6px solid var(--primary-red);
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-coral);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+}
+
+.category-icon i {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+
+.category-info h2 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--dark-red);
+    margin-bottom: 0.5rem;
+}
+
+.category-info p {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ===== AWARDEES GRID ===== */
+.awardees-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+}
+
+/* Three columns for Exceptional Leadership and Community Impact Awards */
+.awardees-grid.three-columns {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Two columns for Legendary Awards (Matriarch and Patriarch side by side) */
+.legendary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+}
+
+.awardee-card {
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.awardee-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+}
+
+.group-photo-card {
+    grid-column: 2 / 4;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.group-photo-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.legendary-card {
+    flex-direction: column;
+    padding: 0;
+}
+
+.awardee-photo {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(135deg, var(--light-gray) 0%, #e0e0e0 100%);
+    overflow: hidden;
+}
+
+.awardee-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+.awardee-photo img.photo-raised {
+    object-position: center 30%;
+}
+
+.awardee-photo img.photo-centered {
+    object-position: left center;
+}
+
+.placeholder-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.placeholder-photo i {
+    font-size: 6rem;
+    color: var(--primary-red);
+    opacity: 0.3;
+}
+
+.legendary-photo {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.legendary-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+.photo-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(227, 30, 36, 0.1), rgba(185, 20, 25, 0.05));
+}
+
+.legendary-photo .photo-placeholder {
+    position: relative;
+}
+
+.photo-placeholder i {
+    font-size: 5rem;
+    color: var(--primary-red);
+    opacity: 0.4;
+}
+
+.awardee-content {
+    padding: 2rem;
+    flex: 1;
+}
+
+.legendary-card .awardee-content {
+    padding: 2rem;
+}
+
+.awardee-content h3 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.award-badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: var(--gradient-burgundy);
+    color: var(--white);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.legendary-badge {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+.awardee-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(227, 30, 36, 0.1), rgba(185, 20, 25, 0.05));
+    border-radius: 50%;
+}
+
+.empty-icon i {
+    font-size: 4rem;
+    color: var(--primary-red);
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-family: var(--font-primary);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    color: var(--medium-gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* ===== NOMINATION CTA ===== */
+.nomination-cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #FFF5F5 0%, var(--light-gray) 100%);
+}
+
+.cta-card {
+    background: linear-gradient(to bottom, var(--white), #FFFAFA);
+    border: 2px solid rgba(227, 30, 36, 0.1);
+    padding: 4rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.cta-icon {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-coral);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+}
+
+.cta-icon i {
+    font-size: 3.5rem;
+    color: var(--white);
+}
+
+.cta-content h2 {
+    font-family: var(--font-primary);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--dark-red);
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 2rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 968px) {
+    .year-tabs {
+        gap: 1rem;
+    }
+
+    .year-tab {
+        padding: 1.2rem 2rem;
+        min-width: 120px;
+    }
+
+    .year-number {
+        font-size: 1.6rem;
+    }
+
+    .category-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+
+    .category-icon {
+        width: 70px;
+        height: 70px;
+        min-width: 70px;
+    }
+
+    .category-icon i {
+        font-size: 2rem;
+    }
+
+    .category-info h2 {
+        font-size: 2rem;
+    }
+
+    .category-info p {
+        font-size: 1rem;
+    }
+
+    .awardees-grid,
+    .awardees-grid.three-columns,
+    .legendary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .awardee-photo {
+        height: 350px;
+    }
+
+    .legendary-photo {
+        height: 400px;
+    }
+
+    .cta-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 3rem 2rem;
+    }
+
+    .cta-icon {
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+    }
+
+    .cta-icon i {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .intro-content p {
+        font-size: 1.1rem;
+    }
+
+    .year-tab {
+        padding: 1rem 1.5rem;
+        min-width: 100px;
+    }
+
+    .year-number {
+        font-size: 1.4rem;
+    }
+
+    .year-label {
+        font-size: 0.75rem;
+    }
+
+    .category-info h2 {
+        font-size: 1.6rem;
+    }
+
+    .awardee-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .awardee-content p {
+        font-size: 1rem;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .cta-content p {
+        font-size: 1rem;
+    }
+
+    .awardees-grid,
+    .awardees-grid.three-columns,
+    .legendary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .group-photo-card {
+        grid-column: 1;
+    }
+
+    .awardee-photo {
+        height: 300px;
+    }
+
+    .awardee-photo img.photo-raised {
+        object-position: center 40%;
+    }
+
+    .awardee-photo img.photo-extra-raised {
+        object-position: center 60%;
+    }
+
+    .legendary-photo {
+        height: 350px;
+    }
+}
+
+/* ===== 2025 AWARDEES SHOWCASE ===== */
+.awardees-showcase {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.showcase-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.showcase-intro h2 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+}
+
+.showcase-intro p {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.showcase-image {
+    margin-bottom: 3rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+.showcase-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.showcase-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6));
+    color: var(--white);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.showcase-caption i {
+    color: #FFD700;
+    font-size: 1.5rem;
+}
+
+.showcase-video {
+    margin-bottom: 2rem;
+}
+
+.showcase-video h3 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    color: var(--primary-red);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.video-container {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: #000;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive showcase */
+@media (max-width: 968px) {
+    .showcase-intro h2 {
+        font-size: 2rem;
+    }
+
+    .showcase-intro p {
+        font-size: 1rem;
+    }
+
+    .showcase-video h3 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .showcase-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .showcase-caption {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .showcase-caption i {
+        font-size: 1.2rem;
+    }
+
+    .showcase-video h3 {
+        font-size: 1.4rem;
+    }
+}

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply to join the WESTSIDE RISING team. Complete the team application form.">
+    <title>Join Our Team | WESTSIDE RISING</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/get-involved.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-primary: 'Permanent Marker', cursive;
+            --font-secondary: 'Lora', serif;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="/">
+                <img src="assets/images/WR logo.jpg" alt="WESTSIDE RISING Logo"></a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="about" class="nav-link">About</a></li>
+                <li><a href="events" class="nav-link">Events</a></li>
+                <li><a href="resources" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved" class="nav-link active">Get Involved</a></li>
+                <li><a href="donate" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>Join Our Team</h1>
+                <p>Become part of our mission to build a stronger community</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Get Involved -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <a href="get-involved" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Get Involved
+            </a>
+        </div>
+    </section>
+
+    <!-- Team Application Form -->
+    <section class="partnership-form-section">
+        <div class="container">
+            <div class="form-header fade-in-up">
+                <h2 class="section-title">Team Application</h2>
+                <p>
+                    Complete the form below to apply to join the WESTSIDE RISING team.
+                    We'll review your application and contact you within 5-7 business days.
+                </p>
+            </div>
+
+            <form class="partnership-form fade-in-up" id="joinTeamForm">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information <span class="required">*</span></h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name <span class="required">*</span></label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name <span class="required">*</span></label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city">
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code</label>
+                            <input type="text" id="zipCode" name="zipCode">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Position Interest -->
+                <div class="form-group">
+                    <label for="positionInterest">Position/Role of Interest <span class="required">*</span></label>
+                    <select id="positionInterest" name="positionInterest" required>
+                        <option value="">Select a position</option>
+                        <option value="program-coordinator">Program Coordinator</option>
+                        <option value="community-organizer">Community Organizer</option>
+                        <option value="outreach-specialist">Outreach Specialist</option>
+                        <option value="administrative">Administrative Assistant</option>
+                        <option value="communications">Communications/Marketing</option>
+                        <option value="development">Development/Fundraising</option>
+                        <option value="youth-coordinator">Youth Program Coordinator</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="positionOtherText" style="display: none;">
+                    <label for="positionOtherInput">Please specify position:</label>
+                    <input type="text" id="positionOtherInput" name="positionOther">
+                </div>
+
+                <!-- Availability -->
+                <div class="form-group">
+                    <label for="employmentType">Employment Type Preference <span class="required">*</span></label>
+                    <select id="employmentType" name="employmentType" required>
+                        <option value="">Select employment type</option>
+                        <option value="full-time">Full-Time</option>
+                        <option value="part-time">Part-Time</option>
+                        <option value="contract">Contract/Project-Based</option>
+                        <option value="intern">Internship</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Available Start Date <span class="required">*</span></label>
+                    <input type="date" id="startDate" name="startDate" required>
+                </div>
+
+                <!-- Education -->
+                <div class="form-group">
+                    <label for="education">Highest Level of Education <span class="required">*</span></label>
+                    <select id="education" name="education" required>
+                        <option value="">Select education level</option>
+                        <option value="high-school">High School Diploma/GED</option>
+                        <option value="some-college">Some College</option>
+                        <option value="associates">Associate's Degree</option>
+                        <option value="bachelors">Bachelor's Degree</option>
+                        <option value="masters">Master's Degree</option>
+                        <option value="doctorate">Doctorate/PhD</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-group">
+                    <label for="experience">Relevant Experience <span class="required">*</span></label>
+                    <textarea id="experience" name="experience" rows="5" required placeholder="Please describe your relevant work experience, skills, and qualifications..."></textarea>
+                </div>
+
+                <!-- Why Join -->
+                <div class="form-group">
+                    <label for="motivation">Why do you want to join the WESTSIDE RISING team? <span class="required">*</span></label>
+                    <textarea id="motivation" name="motivation" rows="5" required placeholder="Share your motivation and what you hope to contribute to our mission..."></textarea>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group">
+                    <label>Skills & Expertise <span class="required">*</span></label>
+                    <p class="field-description">Select all that apply</p>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="community-organizing">
+                            <span>Community Organizing</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="program-management">
+                            <span>Program Management</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="fundraising">
+                            <span>Fundraising/Grant Writing</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="communications">
+                            <span>Communications/Marketing</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="event-planning">
+                            <span>Event Planning</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="youth-work">
+                            <span>Youth Development</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="data-analysis">
+                            <span>Data Analysis/Research</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="social-media">
+                            <span>Social Media Management</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="skills" value="other" id="skillsOther">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="skillsOtherText" style="display: none;">
+                        <label for="skillsOtherInput">Please specify other skills:</label>
+                        <textarea id="skillsOtherInput" name="skillsOtherText" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Resume Upload -->
+                <div class="form-group">
+                    <label for="resume">Resume/CV</label>
+                    <p class="field-description">Please upload your resume (PDF, DOC, or DOCX format, max 5MB)</p>
+                    <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                </div>
+
+                <!-- References -->
+                <div class="form-group">
+                    <label for="references">Professional References</label>
+                    <textarea id="references" name="references" rows="4" placeholder="Please provide 2-3 professional references with name, title, organization, and contact information..."></textarea>
+                </div>
+
+                <!-- How did you hear about us -->
+                <div class="form-group">
+                    <label for="hearAbout">How did you hear about this opportunity?</label>
+                    <select id="hearAbout" name="hearAbout">
+                        <option value="">Select an option</option>
+                        <option value="website">WESTSIDE RISING Website</option>
+                        <option value="social-media">Social Media</option>
+                        <option value="job-board">Job Board/LinkedIn</option>
+                        <option value="referral">Referral from someone</option>
+                        <option value="event">Community Event</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Consent -->
+                <div class="form-group">
+                    <label class="checkbox-label consent">
+                        <input type="checkbox" name="consent" id="consent" required>
+                        <span>I certify that the information provided is accurate and complete. I understand that false information may result in disqualification from consideration. <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Application
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="about">About</a></li>
+                        <li><a href="events">Events</a></li>
+                        <li><a href="resources">Resources</a></li>
+                        <li><a href="leadership-awards">Leadership Awards</a></li>
+                        <li><a href="get-involved">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-shield"></i>
+                            <a href="admin-login">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 WESTSIDE RISING. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/join-team-form.js"></script>
+</body>
+</html>

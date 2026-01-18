@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply for partnership with WESTSIDE RISING. Complete the partnership agreement form.">
+    <title>Partnership Application | WESTSIDE RISING</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/get-involved.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-primary: 'Permanent Marker', cursive;
+            --font-secondary: 'Lora', serif;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="/">
+                <img src="assets/images/WR logo.jpg" alt="WESTSIDE RISING Logo"></a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="about" class="nav-link">About</a></li>
+                <li><a href="events" class="nav-link">Events</a></li>
+                <li><a href="resources" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved" class="nav-link active">Get Involved</a></li>
+                <li><a href="donate" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>Partnership Application</h1>
+                <p>Join us in building a stronger Greater West Side</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Get Involved -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <a href="get-involved" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Get Involved
+            </a>
+        </div>
+    </section>
+
+    <!-- Partnership Application Form -->
+    <section class="partnership-form-section">
+        <div class="container">
+            <div class="form-header fade-in-up">
+                <h2 class="section-title">WESTSIDE RISING Partnership Agreement</h2>
+                <p>
+                    This is a partnership agreement between individuals, organizations, and institutions to work with WESTSIDE RISING as a PARTNER to build a just, livable, and vibrant Greater West Side.
+                </p>
+                <p>
+                    Together, we will work to provide information, resources, and opportunities for capacity building, leadership development, civic engage, and other activities that support the activation of residents and stakeholders in West Side Communities.
+                </p>
+                <p>
+                    As partners, we emphasize trust, honesty, transparency, accountability, and responsibility among ourselves and in the work we do together. Let's Partner!
+                </p>
+                <p class="contact-info-text">
+                    <strong>www.westsiderising.org</strong><br>
+                    WR.info@westsiderising.org<br>
+                    Office: 833.974.7464<br>
+                    Admin: 773.417.6605
+                </p>
+            </div>
+
+            <form class="partnership-form fade-in-up" id="partnershipForm">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="partnerEmail">Email <span class="required">*</span></label>
+                    <input type="email" id="partnerEmail" name="email" required>
+                </div>
+
+                <!-- Email address -->
+                <div class="form-group">
+                    <label for="partnerEmailAddress">Email address <span class="required">*</span></label>
+                    <input type="email" id="partnerEmailAddress" name="emailAddress" required>
+                </div>
+
+                <!-- Partnership Entity Name -->
+                <div class="form-group">
+                    <label for="entityName">This PARTNERSHIP Agreement is between WESTSIDE RISING and... (Enter your organization's/Institution's name OR YOUR name if you are an individual leader). <span class="required">*</span></label>
+                    <input type="text" id="entityName" name="entityName" required>
+                </div>
+
+                <!-- Partnership Type -->
+                <div class="form-group">
+                    <label>I agree to PARTNER with WESTSIDE RISING as an ORGANIZATION/INSTITUTION or INDIVIDUAL. (Check all that apply) <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="individual">
+                            <span>Individual</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="organization">
+                            <span>Organization</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="institution">
+                            <span>Institution</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="partnershipType" value="other" id="partnershipTypeOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="partnershipTypeOtherText" style="display: none;">
+                        <input type="text" id="partnershipTypeOtherInput" name="partnershipTypeOther">
+                    </div>
+                </div>
+
+                <!-- Contacts -->
+                <div class="form-group">
+                    <label for="contacts">Who are the primary and secondary contacts for participation and interaction with WESTSIDE RISING? (Please list their name, title, email, and phone number for BOTH representatives). <span class="required">*</span></label>
+                    <textarea id="contacts" name="contacts" rows="6" required></textarea>
+                </div>
+
+                <!-- Partnership Commitments -->
+                <div class="form-group">
+                    <label>As PARTNERS, I agree to the following (Check all that apply, select at least 1 item). Provide additional information if needed in the "other" section. WESTSIDE RISING will reciprocate. <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="collaborate">
+                            <span>Will collaborate and partner to host and/or facilitate events or activities that support the activation and development of West Side residents and communities.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="promote">
+                            <span>Promote and share information about resources, community, and partner activities and events via email, text, social media, etc.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="represent">
+                            <span>Positively and effectively represent this partnership, its purpose, and work.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="meetings">
+                            <span>Will support and attend monthly partner meetings.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="logos">
+                            <span>Both parties will obtain written permission via email to use and display organization's logos, brand, or likeness on literature or other promotional materials.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="expertise">
+                            <span>Provide knowledge and expertise to support the partnership.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="organizing">
+                            <span>I/We want to participate in Community Organizing efforts for Social Justice/Impact and systemic change.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="commitments" value="other" id="commitmentsOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="commitmentsOtherText" style="display: none;">
+                        <textarea id="commitmentsOtherInput" name="commitmentsOther" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Support Needed -->
+                <div class="form-group">
+                    <label>How can WESTSIDE RISING Support you/your organization/institution? Please provide specifics about the services or supports desired, or questions for clarity in the "other" section. <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="support" value="organic" required>
+                            <span>Organic collaboration and partnership</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="support" value="other" id="supportOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="supportOtherText" style="display: none;">
+                        <textarea id="supportOtherInput" name="supportOther" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <!-- Agreement Terms -->
+                <div class="form-group">
+                    <label>This Partnership Agreement is effective immediately upon completion and is perpetual or will terminate on the date indicated in the "other" option.
+
+Otherwise, this agreement can be terminated at any time through a written notice by and authorized representative, signed, dated, and emailed to wr.info@westsiderising.org. <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agreementTerms" value="agree" id="agreementAgree" required>
+                            <span>I understand and agree</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agreementTerms" value="stipulations" id="agreementStipulations">
+                            <span>Other or additional stipulations are below.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agreementTerms" value="other" id="agreementOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="agreementOtherText" style="display: none;">
+                        <textarea id="agreementOtherInput" name="agreementOther" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Authorized Representative Name -->
+                <div class="form-group">
+                    <label for="authorizedRep">Type the name of the authorized representative for you/your organization/institution (this is a digital signature). <span class="required">*</span></label>
+                    <input type="text" id="authorizedRep" name="authorizedRep" required>
+                </div>
+
+                <!-- Completion Date -->
+                <div class="form-group">
+                    <label for="completionDate">Please enter the date this form was completed. <span class="required">*</span></label>
+                    <input type="date" id="completionDate" name="completionDate" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Partnership Application
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="about">About</a></li>
+                        <li><a href="events">Events</a></li>
+                        <li><a href="resources">Resources</a></li>
+                        <li><a href="leadership-awards">Leadership Awards</a></li>
+                        <li><a href="get-involved">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">(773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-shield"></i>
+                            <a href="admin-login">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 WESTSIDE RISING. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/partnership-form.js"></script>
+</body>
+</html>
