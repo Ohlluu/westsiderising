@@ -3,271 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Westside Rising</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/timeclock.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Admin Dashboard - WESTSIDE RISING">
+    <title>Admin Dashboard | WESTSIDE RISING</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>Westside Rising - Admin</h2>
-            </div>
-            <div class="nav-menu">
-                <span id="user-email" style="margin-right: 1rem; color: var(--primary-color); font-weight: 500;"></span>
-                <button class="admin-btn" onclick="signOut()">Sign Out</button>
+
+
+    <!-- Admin Dashboard -->
+    <section class="admin-dashboard">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="dashboard-header-content">
+                    <h1>
+                        <i class="fas fa-tachometer-alt"></i>
+                        Event Management Dashboard
+                    </h1>
+                    <div>
+                        <a href="time-clock.html" class="logout-btn" style="margin-right: 1rem; text-decoration: none; display: inline-block;">
+                            <i class="fas fa-clock"></i>
+                            Time Clock
+                        </a>
+                        <button class="logout-btn" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Dashboard Section -->
-    <section id="dashboard-section" style="padding: 120px 0 80px;">
         <div class="container">
-            <!-- Dashboard Header -->
-            <div style="margin-bottom: 2rem;">
-                <h1 style="color: var(--primary-color); font-size: 2.5rem; font-weight: 700;">Admin Dashboard</h1>
-                <p style="color: #666; font-size: 1.1rem;">Manage events, track time, and review timesheets</p>
-            </div>
-
-            <!-- Tab Navigation -->
-            <div class="dashboard-tabs" id="dashboard-tabs">
-                <button class="tab-btn active" data-tab="events">
-                    <i class="fas fa-calendar-alt"></i> Events
-                </button>
-                <button class="tab-btn" data-tab="timeclock" style="display: none;">
-                    <i class="fas fa-clock"></i> Time Clock
-                </button>
-                <button class="tab-btn" data-tab="timesheets" style="display: none;">
-                    <i class="fas fa-file-invoice"></i> Timesheets
-                </button>
-            </div>
-
-            <!-- Events Tab Content -->
-            <div id="events-tab" class="tab-content active">
-                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                        <h2 style="color: var(--primary-color); font-size: 1.75rem; font-weight: 600;">Event Management</h2>
-                        <button class="btn btn-primary" onclick="showAddEventModal()">
-                            <i class="fas fa-plus"></i> Add Event
-                        </button>
-                    </div>
-                    <div id="admin-events-list"></div>
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="pending-count">0</h3>
+                    <p>Pending Events</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3 id="approved-count">0</h3>
+                    <p>Approved Events</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar"></i>
+                    <h3 id="total-count">0</h3>
+                    <p>Total Events</p>
                 </div>
             </div>
 
-            <!-- Time Clock Tab Content -->
-            <div id="timeclock-tab" class="tab-content">
-                <div class="timeclock-container">
-                    <!-- Status Card -->
-                    <div class="status-card" id="status-card">
-                        <h2 id="status-message">Welcome! Ready to clock in?</h2>
-                        <div id="timer-container" style="display: none;">
-                            <div class="timer-display" id="timer-display">00:00:00</div>
-                            <div class="clock-in-time" id="clock-in-time"></div>
-                        </div>
-                        <button id="clock-btn" class="clock-btn clock-in" onclick="handleClockAction()">
-                            <i class="fas fa-clock"></i> Clock In
-                        </button>
-                    </div>
+            <!-- Pending Events Section -->
+            <div class="pending-events-section">
+                <div class="section-title-bar">
+                    <h2>Pending Event Submissions</h2>
+                </div>
 
-                    <!-- Stats -->
-                    <div class="timeclock-stats">
-                        <div class="stat-card">
-                            <div class="stat-label">Hours Today</div>
-                            <div class="stat-value" id="hours-today">0.0</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Hours This Week</div>
-                            <div class="stat-value" id="hours-week">0.0</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Hours This Pay Period</div>
-                            <div class="stat-value" id="hours-period">0.0</div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Entries -->
-                    <div class="recent-entries">
-                        <h3><i class="fas fa-history"></i> Recent Time Entries</h3>
-                        <div class="entry-list" id="recent-entries-list"></div>
+                <div id="pending-events-container">
+                    <!-- Events will be loaded here dynamically -->
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Loading events...</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Timesheets Tab Content -->
-            <div id="timesheets-tab" class="tab-content">
-                <div class="timesheets-container">
-                    <!-- Pay Period Selector -->
-                    <div class="pay-period-selector">
-                        <div class="period-nav">
-                            <button class="period-btn" id="prev-period-btn" onclick="navigatePeriod(-1)">
-                                <i class="fas fa-chevron-left"></i> Previous
-                            </button>
-                            <div class="period-display" id="period-display">Loading...</div>
-                            <button class="period-btn" id="next-period-btn" onclick="navigatePeriod(1)">
-                                Next <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                        <div class="export-buttons">
-                            <button class="export-btn" onclick="exportToPDF()">
-                                <i class="fas fa-file-pdf"></i> Export PDF
-                            </button>
-                            <button class="export-btn" onclick="exportToCSV()">
-                                <i class="fas fa-file-csv"></i> Export CSV
-                            </button>
-                        </div>
-                    </div>
+            <!-- Approved Events Section -->
+            <div class="approved-events-section">
+                <div class="section-title-bar">
+                    <h2>Approved Events</h2>
+                </div>
 
-                    <!-- Currently Clocked In Panel -->
-                    <div class="clocked-in-panel" id="clocked-in-panel" style="display: none;">
-                        <h3><i class="fas fa-circle"></i> Currently Clocked In</h3>
-                        <div class="clocked-in-list" id="clocked-in-list"></div>
+                <div id="approved-events-container">
+                    <!-- Approved events will be loaded here dynamically -->
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Loading approved events...</p>
                     </div>
-
-                    <!-- Employee Filter -->
-                    <div class="employee-filter">
-                        <label for="employee-select"><i class="fas fa-filter"></i> Filter by Employee:</label>
-                        <select id="employee-select" onchange="filterEmployeeTimesheets()">
-                            <option value="all">All Employees</option>
-                        </select>
-                    </div>
-
-                    <!-- Timesheet List -->
-                    <div class="timesheet-list" id="timesheet-list"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Add Event Modal -->
-    <div id="event-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Add New Event</h2>
-            <form id="event-form">
-                <div class="form-group">
-                    <label>Event Title:</label>
-                    <input type="text" id="event-title" required>
-                </div>
-                <div class="form-group">
-                    <label>Description:</label>
-                    <textarea id="event-description" rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Date:</label>
-                    <input type="date" id="event-date" required>
-                </div>
-                <div class="form-group">
-                    <label>Time:</label>
-                    <input type="time" id="event-time">
-                </div>
-                <div class="form-group">
-                    <label>Location:</label>
-                    <input type="text" id="event-location">
-                </div>
-                <div class="form-group">
-                    <label>Image URL:</label>
-                    <input type="url" id="event-image">
-                </div>
-                <button type="submit" class="btn btn-primary">Add Event</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Time Entry Modal -->
-    <div id="edit-modal" class="timeclock-modal">
-        <div class="modal-dialog">
-            <div class="modal-header">
-                <h3><i class="fas fa-edit"></i> Edit Time Entry</h3>
-                <button class="modal-close" onclick="closeEditModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="edit-form">
-                    <input type="hidden" id="edit-entry-id">
-                    <div class="modal-form-group">
-                        <label>Clock In Time</label>
-                        <input type="datetime-local" id="edit-clock-in" required>
-                    </div>
-                    <div class="modal-form-group">
-                        <label>Clock Out Time</label>
-                        <input type="datetime-local" id="edit-clock-out">
-                    </div>
-                    <div class="modal-form-group">
-                        <label>Reason for Edit *</label>
-                        <textarea id="edit-reason" placeholder="Please provide a reason for this edit..." required></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn secondary" onclick="closeEditModal()">Cancel</button>
-                <button class="modal-btn primary" onclick="saveEditedEntry()">Save Changes</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Manual Entry Modal -->
-    <div id="manual-entry-modal" class="timeclock-modal">
-        <div class="modal-dialog">
-            <div class="modal-header">
-                <h3><i class="fas fa-plus"></i> Add Manual Entry</h3>
-                <button class="modal-close" onclick="closeManualEntryModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="manual-entry-form">
-                    <input type="hidden" id="manual-user-id">
-                    <input type="hidden" id="manual-user-name">
-                    <div class="modal-form-group">
-                        <label>Clock In Time *</label>
-                        <input type="datetime-local" id="manual-clock-in" required>
-                    </div>
-                    <div class="modal-form-group">
-                        <label>Clock Out Time *</label>
-                        <input type="datetime-local" id="manual-clock-out" required>
-                    </div>
-                    <div class="modal-form-group">
-                        <label>Reason for Manual Entry *</label>
-                        <textarea id="manual-reason" placeholder="Please provide a reason for this manual entry..." required></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn secondary" onclick="closeManualEntryModal()">Cancel</button>
-                <button class="modal-btn primary" onclick="saveManualEntry()">Add Entry</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Audit Trail Modal -->
-    <div id="audit-modal" class="timeclock-modal">
-        <div class="modal-dialog">
-            <div class="modal-header">
-                <h3><i class="fas fa-history"></i> Edit History</h3>
-                <button class="modal-close" onclick="closeAuditModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="audit-trail" id="audit-trail"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-btn secondary" onclick="closeAuditModal()">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-    <!-- jsPDF Libraries for PDF Export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-
-    <!-- Application Scripts -->
-    <script src="assets/js/admin-dashboard.js"></script>
-    <script src="assets/js/timeclock.js"></script>
-    <script src="assets/js/timesheets.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/admin-dashboard.js"></script>
 </body>
 </html>
