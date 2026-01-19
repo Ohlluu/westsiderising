@@ -430,7 +430,7 @@ async function saveEditedEntry() {
         const editEntry = {
             editedBy: currentUser.uid,
             editedByName: currentUser.displayName || currentUser.email,
-            editedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            editedAt: firebase.firestore.Timestamp.now(), // Use Timestamp.now() instead of serverTimestamp() for arrayUnion
             reason: reason,
             changes: {
                 clockIn: {
@@ -538,7 +538,7 @@ async function saveManualEntry() {
             editHistory: [{
                 editedBy: currentUser.uid,
                 editedByName: currentUser.displayName || currentUser.email,
-                editedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                editedAt: firebase.firestore.Timestamp.now(), // Use Timestamp.now() instead of serverTimestamp() for nested objects
                 reason: `Manual entry created: ${reason}`,
                 changes: {
                     type: 'manual_creation'
