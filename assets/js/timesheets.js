@@ -135,6 +135,21 @@ async function loadPayPeriodData(periodId) {
         // Convert to array
         allEmployeesData = Array.from(employeeMap.values());
 
+        // Fetch proper display names from users collection
+        for (let employee of allEmployeesData) {
+            try {
+                const userDoc = await db.collection('users').doc(employee.userId).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    // Use displayName if available, otherwise fall back to email prefix
+                    employee.userName = userData.displayName || userData.email?.split('@')[0] || employee.userName;
+                }
+            } catch (error) {
+                console.error('Error fetching user display name:', error);
+                // Keep the existing userName if fetch fails
+            }
+        }
+
         // Sort by name
         allEmployeesData.sort((a, b) => a.userName.localeCompare(b.userName));
 
