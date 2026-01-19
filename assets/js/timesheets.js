@@ -403,8 +403,10 @@ async function saveEditedEntry() {
     }
 
     try {
-        const clockIn = new Date(clockInStr);
-        const clockOut = clockOutStr ? new Date(clockOutStr) : null;
+        // Parse datetime-local input as Chicago timezone
+        // datetime-local format: "2026-01-15T14:30"
+        const clockIn = new Date(clockInStr + ':00-06:00'); // Append seconds and CST offset
+        const clockOut = clockOutStr ? new Date(clockOutStr + ':00-06:00') : null;
 
         // Calculate total hours if clock out provided
         let totalHours = 0;
@@ -500,8 +502,9 @@ async function saveManualEntry() {
     }
 
     try {
-        const clockIn = new Date(clockInStr);
-        const clockOut = new Date(clockOutStr);
+        // Parse datetime-local input as Chicago timezone
+        const clockIn = new Date(clockInStr + ':00-06:00'); // Append seconds and CST offset
+        const clockOut = new Date(clockOutStr + ':00-06:00');
 
         if (clockOut <= clockIn) {
             alert('Clock out time must be after clock in time');
@@ -739,13 +742,16 @@ function exportToCSV() {
 
 // ==================== Utility Functions ====================
 
-// Format date for datetime-local input
+// Format date for datetime-local input (in Chicago timezone)
 function formatDateTimeLocal(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
+    // Convert to Chicago timezone
+    const chicagoDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+
+    const year = chicagoDate.getFullYear();
+    const month = String(chicagoDate.getMonth() + 1).padStart(2, '0');
+    const day = String(chicagoDate.getDate()).padStart(2, '0');
+    const hours = String(chicagoDate.getHours()).padStart(2, '0');
+    const minutes = String(chicagoDate.getMinutes()).padStart(2, '0');
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
