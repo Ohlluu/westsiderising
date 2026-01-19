@@ -405,8 +405,9 @@ async function saveEditedEntry() {
     try {
         // Parse datetime-local input as Chicago timezone
         // datetime-local format: "2026-01-15T14:30"
-        const clockIn = new Date(clockInStr + ':00-06:00'); // Append seconds and CST offset
-        const clockOut = clockOutStr ? new Date(clockOutStr + ':00-06:00') : null;
+        // Convert to Chicago timezone properly
+        const clockIn = parseChicagoDateTime(clockInStr);
+        const clockOut = clockOutStr ? parseChicagoDateTime(clockOutStr) : null;
 
         // Calculate total hours if clock out provided
         let totalHours = 0;
@@ -467,7 +468,14 @@ async function saveEditedEntry() {
 
     } catch (error) {
         console.error('Error saving edited entry:', error);
-        alert('Failed to save changes. Please try again.');
+        console.error('Error details:', {
+            code: error.code,
+            message: error.message,
+            entryId: entryId,
+            clockInStr: clockInStr,
+            clockOutStr: clockOutStr
+        });
+        alert('Failed to save changes. Please try again.\n\nError: ' + error.message);
     }
 }
 
@@ -503,8 +511,8 @@ async function saveManualEntry() {
 
     try {
         // Parse datetime-local input as Chicago timezone
-        const clockIn = new Date(clockInStr + ':00-06:00'); // Append seconds and CST offset
-        const clockOut = new Date(clockOutStr + ':00-06:00');
+        const clockIn = parseChicagoDateTime(clockInStr);
+        const clockOut = parseChicagoDateTime(clockOutStr);
 
         if (clockOut <= clockIn) {
             alert('Clock out time must be after clock in time');
@@ -741,6 +749,50 @@ function exportToCSV() {
 }
 
 // ==================== Utility Functions ====================
+
+// Parse datetime-local input string as Chicago timezone
+function parseChicagoDateTime(datetimeStr) {
+    // datetime-local format: "2026-01-15T14:30"
+    if (!datetimeStr) return null;
+
+    // Simple approach: just append ":00" for seconds
+    // Note: Chicago is CST/CDT (UTC-6 in winter, UTC-5 in summer)
+    // For January 2026, it's CST (UTC-6)
+    // We'll use a simple parser that treats the input as local Chicago time
+
+    try {
+        // Parse components
+        const [datePart, timePart] = datetimeStr.split('T');
+        const [year, month, day] = datePart.split('-').map(Number);
+        const [hours, minutes] = timePart.split(':').map(Number);
+
+        // Create date in browser's local time
+        const localDate = new Date(year, month - 1, day, hours, minutes, 0);
+
+        // Convert to Chicago time by getting what this local time means in Chicago
+        const chicagoTimeString = localDate.toLocaleString('en-US', {
+            timeZone: 'America/Chicago',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+
+        // Now we need to find the UTC time that gives us our desired Chicago display
+        // Calculate offset between what browser shows and what Chicago would show
+        const chicagoParsed = new Date(localDate.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+        const offsetMs = localDate.getTime() - chicagoParsed.getTime();
+
+        // Return the adjusted date
+        return new Date(localDate.getTime() + offsetMs);
+    } catch (error) {
+        console.error('Error parsing Chicago datetime:', error, datetimeStr);
+        return null;
+    }
+}
 
 // Format date for datetime-local input (in Chicago timezone)
 function formatDateTimeLocal(date) {
