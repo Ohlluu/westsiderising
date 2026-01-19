@@ -304,31 +304,35 @@ function stopLiveTimer() {
 // Load daily hours
 async function loadDailyHours(userId) {
     try {
-        const today = getChicagoTime();
-        const startOfDay = new Date(today);
-        startOfDay.setHours(0, 0, 0, 0);
-        const endOfDay = new Date(today);
-        endOfDay.setHours(23, 59, 59, 999);
+        // Get today's date in Chicago timezone
+        const todayChicago = new Date().toLocaleDateString('en-US', { timeZone: 'America/Chicago' });
 
+        // Query all entries for this user (we'll filter by date on client side)
         const snapshot = await db.collection('timeEntries')
             .where('userId', '==', userId)
-            .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(startOfDay))
-            .where('clockIn', '<=', firebase.firestore.Timestamp.fromDate(endOfDay))
             .get();
 
         let totalHours = 0;
 
         snapshot.forEach(doc => {
             const data = doc.data();
-            if (data.status === 'completed' && data.totalHours) {
-                totalHours += data.totalHours;
-            } else if (data.status === 'active' && data.clockIn) {
-                // Calculate current hours for active entry
-                const now = getChicagoTime();
-                const clockInTime = data.clockIn.toDate();
-                const diffMs = now - clockInTime;
-                const hours = diffMs / (1000 * 60 * 60);
-                totalHours += hours;
+            const clockInDate = data.clockIn.toDate();
+
+            // Convert clock in time to Chicago date string
+            const clockInChicagoDate = clockInDate.toLocaleDateString('en-US', { timeZone: 'America/Chicago' });
+
+            // Check if this entry is from today (Chicago time)
+            if (clockInChicagoDate === todayChicago) {
+                if (data.status === 'completed' && data.totalHours) {
+                    totalHours += data.totalHours;
+                } else if (data.status === 'active' && data.clockIn) {
+                    // Calculate current hours for active entry
+                    const now = new Date();
+                    const clockInTime = data.clockIn.toDate();
+                    const diffMs = now - clockInTime;
+                    const hours = diffMs / (1000 * 60 * 60);
+                    totalHours += hours;
+                }
             }
         });
 
@@ -342,30 +346,42 @@ async function loadDailyHours(userId) {
 // Load weekly hours
 async function loadWeeklyHours(userId) {
     try {
-        const today = getChicagoTime();
-        const dayOfWeek = today.getDay();
-        const startOfWeek = new Date(today);
-        startOfWeek.setDate(today.getDate() - dayOfWeek);
-        startOfWeek.setHours(0, 0, 0, 0);
+        // Get current date in Chicago timezone
+        const now = new Date();
+        const chicagoNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+        const dayOfWeek = chicagoNow.getDay(); // 0 = Sunday, 1 = Monday, etc.
 
+        // Calculate start of week (Sunday) in Chicago time
+        const startOfWeekChicago = new Date(chicagoNow);
+        startOfWeekChicago.setDate(chicagoNow.getDate() - dayOfWeek);
+        startOfWeekChicago.setHours(0, 0, 0, 0);
+
+        // Query all entries for this user
         const snapshot = await db.collection('timeEntries')
             .where('userId', '==', userId)
-            .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(startOfWeek))
             .get();
 
         let totalHours = 0;
 
         snapshot.forEach(doc => {
             const data = doc.data();
-            if (data.status === 'completed' && data.totalHours) {
-                totalHours += data.totalHours;
-            } else if (data.status === 'active' && data.clockIn) {
-                // Calculate current hours for active entry
-                const now = getChicagoTime();
-                const clockInTime = data.clockIn.toDate();
-                const diffMs = now - clockInTime;
-                const hours = diffMs / (1000 * 60 * 60);
-                totalHours += hours;
+            const clockInDate = data.clockIn.toDate();
+
+            // Convert clock in to Chicago time for comparison
+            const clockInChicago = new Date(clockInDate.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+
+            // Check if this entry is from this week
+            if (clockInChicago >= startOfWeekChicago) {
+                if (data.status === 'completed' && data.totalHours) {
+                    totalHours += data.totalHours;
+                } else if (data.status === 'active' && data.clockIn) {
+                    // Calculate current hours for active entry
+                    const now = new Date();
+                    const clockInTime = data.clockIn.toDate();
+                    const diffMs = now - clockInTime;
+                    const hours = diffMs / (1000 * 60 * 60);
+                    totalHours += hours;
+                }
             }
         });
 
