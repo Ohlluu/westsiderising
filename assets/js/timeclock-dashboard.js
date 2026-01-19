@@ -79,10 +79,10 @@ function configureUIForRole(role) {
         // Employee only sees Time Clock tab
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'none';
-
-        // Switch to Time Clock tab automatically
-        switchTab('timeclock');
     }
+
+    // Everyone starts on Time Clock tab
+    switchTab('timeclock');
 }
 
 // Sign Out
