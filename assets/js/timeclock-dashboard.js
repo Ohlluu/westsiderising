@@ -14,12 +14,24 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// Set auth persistence
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch((error) => {
+    console.error('Error setting persistence:', error);
+});
+
 // Global Variables
 let currentUser = null;
 let userRole = null;
+let authChecked = false;
 
 // Authentication State Observer
 auth.onAuthStateChanged(async (user) => {
+    // Wait a moment for Firebase to fully check auth state
+    if (!authChecked) {
+        authChecked = true;
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
     if (user) {
         currentUser = user;
         document.getElementById('user-email').textContent = user.email;
@@ -37,10 +49,16 @@ auth.onAuthStateChanged(async (user) => {
         initializeTimeClock();
 
     } else {
-        // Not authenticated - redirect to login page
-        currentUser = null;
-        userRole = null;
-        window.location.href = 'admin-login.html';
+        // Double-check: wait a bit more before redirecting
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const currentAuth = auth.currentUser;
+
+        if (!currentAuth) {
+            // Still no user - redirect to login page
+            currentUser = null;
+            userRole = null;
+            window.location.href = 'admin-login.html';
+        }
     }
 });
 
