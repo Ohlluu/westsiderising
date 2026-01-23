@@ -496,8 +496,64 @@ async function saveEditedEntry() {
 
 // ==================== Manual Entry ====================
 
-// Show manual entry modal
+// Show global manual entry modal (with employee selector)
+async function showGlobalManualEntryModal() {
+    try {
+        // Load all users from the users collection
+        const usersSnapshot = await db.collection('users').get();
+        const employeeSelect = document.getElementById('manual-employee-select');
+
+        // Clear existing options (except the placeholder)
+        employeeSelect.innerHTML = '<option value="">-- Select an employee --</option>';
+
+        // Populate dropdown with all employees
+        const users = [];
+        usersSnapshot.forEach(doc => {
+            const userData = doc.data();
+            users.push({
+                userId: doc.id,
+                displayName: userData.displayName || userData.email?.split('@')[0] || 'Unknown',
+                email: userData.email
+            });
+        });
+
+        // Sort by display name
+        users.sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+        // Add to dropdown
+        users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = JSON.stringify({ userId: user.userId, userName: user.displayName });
+            option.textContent = user.displayName;
+            employeeSelect.appendChild(option);
+        });
+
+        // Show the employee selector
+        document.getElementById('employee-selector-group').style.display = 'block';
+
+        // Clear the hidden fields (will be set when employee is selected)
+        document.getElementById('manual-user-id').value = '';
+        document.getElementById('manual-user-name').value = '';
+
+        // Reset form
+        document.getElementById('manual-entry-form').reset();
+        document.getElementById('edit-modal').classList.remove('active');
+        document.getElementById('manual-entry-modal').classList.add('active');
+
+    } catch (error) {
+        console.error('Error loading employees:', error);
+        alert('Failed to load employee list. Please try again.');
+    }
+}
+
+// Make it globally accessible
+window.showGlobalManualEntryModal = showGlobalManualEntryModal;
+
+// Show manual entry modal (for specific employee from their card)
 function showManualEntryModal(userId, userName) {
+    // Hide the employee selector (user is already known)
+    document.getElementById('employee-selector-group').style.display = 'none';
+
     document.getElementById('manual-user-id').value = userId;
     document.getElementById('manual-user-name').value = userName;
     document.getElementById('manual-entry-form').reset();
@@ -513,13 +569,28 @@ function closeManualEntryModal() {
 
 // Save manual entry
 async function saveManualEntry() {
-    const userId = document.getElementById('manual-user-id').value;
-    const userName = document.getElementById('manual-user-name').value;
+    let userId = document.getElementById('manual-user-id').value;
+    let userName = document.getElementById('manual-user-name').value;
+
+    // Check if employee selector is visible (global modal)
+    const employeeSelector = document.getElementById('employee-selector-group');
+    if (employeeSelector.style.display !== 'none') {
+        // Get user info from dropdown
+        const selectedOption = document.getElementById('manual-employee-select');
+        if (!selectedOption.value) {
+            alert('Please select an employee');
+            return;
+        }
+        const userData = JSON.parse(selectedOption.value);
+        userId = userData.userId;
+        userName = userData.userName;
+    }
+
     const clockInStr = document.getElementById('manual-clock-in').value;
     const clockOutStr = document.getElementById('manual-clock-out').value;
     const reason = document.getElementById('manual-reason').value.trim();
 
-    if (!clockInStr || !clockOutStr || !reason) {
+    if (!userId || !userName || !clockInStr || !clockOutStr || !reason) {
         alert('Please fill in all required fields');
         return;
     }

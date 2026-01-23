@@ -419,6 +419,32 @@
     border-color: var(--primary-color, #2D5F3F);
 }
 
+.add-entry-btn-global {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color, #2D5F3F);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.add-entry-btn-global:hover {
+    background-color: #1e4530;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(45, 95, 63, 0.3);
+}
+
+.add-entry-btn-global i {
+    font-size: 1rem;
+}
+
 /* Timesheet Cards */
 .timesheet-list {
     display: flex;

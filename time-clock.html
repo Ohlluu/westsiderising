@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Clock System - Westside Rising</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/timeclock.css">
+    <link rel="stylesheet" href="assets/css/timeclock.css?v=7">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -120,6 +120,9 @@
                         <select id="employee-select" onchange="filterEmployeeTimesheets()">
                             <option value="all">All Employees</option>
                         </select>
+                        <button class="add-entry-btn-global" onclick="showGlobalManualEntryModal()">
+                            <i class="fas fa-plus"></i> Add Manual Entry
+                        </button>
                     </div>
 
                     <!-- Timesheet List -->
@@ -171,6 +174,12 @@
                 <form id="manual-entry-form">
                     <input type="hidden" id="manual-user-id">
                     <input type="hidden" id="manual-user-name">
+                    <div class="modal-form-group" id="employee-selector-group" style="display: none;">
+                        <label>Select Employee *</label>
+                        <select id="manual-employee-select" required>
+                            <option value="">-- Select an employee --</option>
+                        </select>
+                    </div>
                     <div class="modal-form-group">
                         <label>Clock In Time *</label>
                         <input type="datetime-local" id="manual-clock-in" required>
@@ -220,6 +229,6 @@
     <!-- Application Scripts -->
     <script src="assets/js/timeclock-dashboard.js?v=5"></script>
     <script src="assets/js/timeclock.js?v=6"></script>
-    <script src="assets/js/timesheets.js?v=6"></script>
+    <script src="assets/js/timesheets.js?v=7"></script>
 </body>
 </html>
