@@ -40,7 +40,7 @@ function initializeTimesheets() {
 // Calculate all pay periods from Jan 6, 2026 to current date
 function calculatePayPeriods() {
     const periods = [];
-    const startDate = new Date('2026-01-06T00:00:00-06:00');
+    const startDate = new Date('2026-01-04T00:00:00-06:00');
     const today = getChicagoTime();
 
     let currentDate = new Date(startDate);

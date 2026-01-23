@@ -44,7 +44,7 @@ function formatChicagoDate(date) {
 
 // Calculate pay period ID from a given date
 function calculatePayPeriodId(date) {
-    const startDate = new Date('2026-01-06T00:00:00-06:00'); // Jan 6, 2026 in Chicago time
+    const startDate = new Date('2026-01-04T00:00:00-06:00'); // Jan 4, 2026 in Chicago time
     const checkDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
 
     // Calculate days difference
