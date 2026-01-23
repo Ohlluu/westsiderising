@@ -30,11 +30,14 @@ function parseDateSafe(dateString) {
 
 // Check if user is logged in
 onAuthStateChanged(auth, (user) => {
+    console.log('Auth state changed:', user ? `Logged in as ${user.email}` : 'Not logged in');
     if (!user) {
         // Not logged in, redirect to login page
+        console.log('Redirecting to login page...');
         window.location.href = 'admin-login.html';
     } else {
         // User is logged in, load dashboard
+        console.log('Loading dashboard...');
         loadDashboard();
     }
 });

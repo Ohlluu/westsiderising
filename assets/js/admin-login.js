@@ -12,6 +12,8 @@ loginForm.addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    console.log('Login form submitted for:', email);
+
     // Hide previous errors
     errorMessage.style.display = 'none';
 
@@ -21,9 +23,12 @@ loginForm.addEventListener('submit', async (e) => {
 
     try {
         // Sign in with Firebase Authentication
+        console.log('Attempting Firebase sign in...');
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log('Sign in successful!', userCredential.user.email);
 
         // Success - redirect to admin dashboard
+        console.log('Redirecting to admin-dashboard.html...');
         window.location.href = 'admin-dashboard.html';
 
     } catch (error) {
