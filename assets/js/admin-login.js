@@ -1,4 +1,4 @@
-import { auth } from './firebase-config.js';
+import { auth } from './firebase-config.js?v=5';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const loginForm = document.getElementById('admin-login-form');
