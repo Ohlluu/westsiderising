@@ -73,7 +73,7 @@ async function checkUserRole(user) {
             // Create user document with default role
             await db.collection('users').doc(user.uid).set({
                 email: user.email,
-                displayName: user.displayName || user.email.split('@')[0],
+                displayname: user.displayName || user.email.split('@')[0], // lowercase to match existing data
                 role: 'employee',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });

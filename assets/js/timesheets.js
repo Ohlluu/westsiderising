@@ -141,8 +141,8 @@ async function loadPayPeriodData(periodId) {
                 const userDoc = await db.collection('users').doc(employee.userId).get();
                 if (userDoc.exists) {
                     const userData = userDoc.data();
-                    // Use displayName if available, otherwise fall back to email prefix
-                    employee.userName = userData.displayName || userData.email?.split('@')[0] || employee.userName;
+                    // Use displayName if available (check both camelCase and lowercase), otherwise fall back to email prefix
+                    employee.userName = userData.displayName || userData.displayname || userData.email?.split('@')[0] || employee.userName;
                 }
             } catch (error) {
                 console.error('Error fetching user display name:', error);
@@ -338,7 +338,8 @@ function listenToClockedInStatus() {
 
                 // Get user name from users collection
                 db.collection('users').doc(doc.id).get().then(userDoc => {
-                    const userName = userDoc.exists ? userDoc.data().displayName : 'Unknown';
+                    const userData = userDoc.data();
+                    const userName = userDoc.exists ? (userData.displayName || userData.displayname || 'Unknown') : 'Unknown';
 
                     item.innerHTML = `
                         <div class="clocked-in-name">${userName}</div>
@@ -512,7 +513,7 @@ async function showGlobalManualEntryModal() {
             const userData = doc.data();
             users.push({
                 userId: doc.id,
-                displayName: userData.displayName || userData.email?.split('@')[0] || 'Unknown',
+                displayName: userData.displayName || userData.displayname || userData.email?.split('@')[0] || 'Unknown',
                 email: userData.email
             });
         });
