@@ -1,5 +1,6 @@
-import { auth } from './firebase-config.js?v=5';
+import { auth, db } from './firebase-config.js?v=5';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const loginForm = document.getElementById('admin-login-form');
 const errorMessage = document.getElementById('error-message');
@@ -27,9 +28,28 @@ loginForm.addEventListener('submit', async (e) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('Sign in successful!', userCredential.user.email);
 
-        // Success - redirect to admin dashboard
-        console.log('Redirecting to admin-dashboard.html...');
-        window.location.href = 'admin-dashboard.html';
+        // Check user role and redirect accordingly
+        try {
+            const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+            const role = userDoc.exists() ? (userDoc.data().role || 'employee') : 'employee';
+
+            console.log('User role:', role);
+
+            // Redirect based on role
+            if (role === 'superadmin' || role === 'manager') {
+                // Super admin and manager go to Event Management
+                console.log('Redirecting to Event Management...');
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                // Employee goes directly to Time Clock
+                console.log('Redirecting to Time Clock...');
+                window.location.href = 'time-clock.html';
+            }
+        } catch (roleError) {
+            console.error('Error checking role:', roleError);
+            // Default to Time Clock if role check fails
+            window.location.href = 'time-clock.html';
+        }
 
     } catch (error) {
         // Handle errors

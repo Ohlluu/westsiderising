@@ -47,9 +47,8 @@ onAuthStateChanged(auth, async (user) => {
                     console.log('Loading dashboard... Role:', role);
                     loadDashboard();
                 } else {
-                    // Employee trying to access Event Management - redirect to Time Clock
+                    // Employee trying to access Event Management - silently redirect to Time Clock
                     console.log('Employee detected, redirecting to Time Clock...');
-                    alert('You do not have permission to access Event Management. Redirecting to Time Clock.');
                     window.location.href = 'time-clock.html';
                 }
             } else {
