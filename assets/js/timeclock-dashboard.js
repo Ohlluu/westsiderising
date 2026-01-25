@@ -94,6 +94,11 @@ function configureUIForRole(role) {
         // Super admin sees all tabs
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'block';
+    } else if (role === 'manager') {
+        // Manager sees Time Clock tab only (no Timesheets)
+        // They have access to Event Management via admin-dashboard.html
+        timeclockTab.style.display = 'block';
+        timesheetsTab.style.display = 'none';
     } else {
         // Employee only sees Time Clock tab
         timeclockTab.style.display = 'block';

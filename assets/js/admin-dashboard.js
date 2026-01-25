@@ -28,17 +28,39 @@ function parseDateSafe(dateString) {
     return new Date(year, month - 1, day); // month is 0-indexed
 }
 
-// Check if user is logged in
-onAuthStateChanged(auth, (user) => {
+// Check if user is logged in and has proper role
+onAuthStateChanged(auth, async (user) => {
     console.log('Auth state changed:', user ? `Logged in as ${user.email}` : 'Not logged in');
     if (!user) {
         // Not logged in, redirect to login page
         console.log('Redirecting to login page...');
         window.location.href = 'admin-login.html';
     } else {
-        // User is logged in, load dashboard
-        console.log('Loading dashboard...');
-        loadDashboard();
+        // Check user role
+        try {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+                const role = userDoc.data().role || 'employee';
+
+                // Only superadmin and manager can access Event Management
+                if (role === 'superadmin' || role === 'manager') {
+                    console.log('Loading dashboard... Role:', role);
+                    loadDashboard();
+                } else {
+                    // Employee trying to access Event Management - redirect to Time Clock
+                    console.log('Employee detected, redirecting to Time Clock...');
+                    alert('You do not have permission to access Event Management. Redirecting to Time Clock.');
+                    window.location.href = 'time-clock.html';
+                }
+            } else {
+                // No user document, treat as employee
+                console.log('No user document found, redirecting to Time Clock...');
+                window.location.href = 'time-clock.html';
+            }
+        } catch (error) {
+            console.error('Error checking user role:', error);
+            window.location.href = 'time-clock.html';
+        }
     }
 });
 
