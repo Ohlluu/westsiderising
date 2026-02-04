@@ -12,7 +12,11 @@ let selectedEmployeeFilter = 'all';
 
 // Initialize timesheets (super admin only)
 function initializeTimesheets() {
-    if (!currentUser || userRole !== 'superadmin') {
+    // Get current user from Firebase Auth
+    const adminUser = auth.currentUser;
+
+    // Note: userRole should be checked in timeclock-dashboard.js before calling this
+    if (!adminUser || (typeof userRole !== 'undefined' && userRole !== 'superadmin')) {
         alert('Access denied. This section is only available to super admins.');
         switchTab('timeclock');
         return;
@@ -419,6 +423,13 @@ async function saveEditedEntry() {
     }
 
     try {
+        // Get current admin user from Firebase Auth
+        const adminUser = auth.currentUser;
+        if (!adminUser) {
+            alert('You must be logged in to edit entries');
+            return;
+        }
+
         // Parse datetime-local input as Chicago timezone
         // datetime-local format: "2026-01-15T14:30"
         // Convert to Chicago timezone properly
@@ -444,8 +455,8 @@ async function saveEditedEntry() {
 
         // Create edit history entry
         const editEntry = {
-            editedBy: currentUser.uid,
-            editedByName: currentUser.displayName || currentUser.email,
+            editedBy: adminUser.uid,
+            editedByName: adminUser.displayName || adminUser.email,
             editedAt: firebase.firestore.Timestamp.now(), // Use Timestamp.now() instead of serverTimestamp() for arrayUnion
             reason: reason,
             changes: {
@@ -597,6 +608,13 @@ async function saveManualEntry() {
     }
 
     try {
+        // Get current admin user from Firebase Auth
+        const adminUser = auth.currentUser;
+        if (!adminUser) {
+            alert('You must be logged in to add manual entries');
+            return;
+        }
+
         // Parse datetime-local input as Chicago timezone
         const clockIn = parseChicagoDateTime(clockInStr);
         const clockOut = parseChicagoDateTime(clockOutStr);
@@ -623,8 +641,8 @@ async function saveManualEntry() {
             payPeriodId: payPeriodId,
             status: 'completed',
             editHistory: [{
-                editedBy: currentUser.uid,
-                editedByName: currentUser.displayName || currentUser.email,
+                editedBy: adminUser.uid,
+                editedByName: adminUser.displayName || adminUser.email,
                 editedAt: firebase.firestore.Timestamp.now(), // Use Timestamp.now() instead of serverTimestamp() for nested objects
                 reason: `Manual entry created: ${reason}`,
                 changes: {
