@@ -75,8 +75,9 @@ service cloud.firestore {
       allow read: if resource.data.userId == request.auth.uid || isSuperAdmin();
 
       // Users can create their own entries
-      allow create: if request.auth.uid != null &&
-                       request.resource.data.userId == request.auth.uid;
+      // Super admins can create entries for anyone (manual entries)
+      allow create: if (request.auth.uid != null && request.resource.data.userId == request.auth.uid)
+                       || isSuperAdmin();
 
       // Users can update their own entries (for clocking out)
       // Super admins can update and delete any entry
