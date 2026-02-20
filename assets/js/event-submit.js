@@ -65,11 +65,7 @@ submitForm.addEventListener('submit', async (e) => {
 
         // Reset form
         submitForm.reset();
-        if (fileName) {
-            fileName.textContent = 'No file chosen';
-            fileName.style.color = '';
-            fileName.style.fontWeight = '';
-        }
+        resetUploadBox();
 
         // Redirect to events page
         setTimeout(() => {
@@ -117,17 +113,43 @@ if (registrationRequired && registrationLinkGroup) {
 const fileInput = document.getElementById('eventImage');
 const fileName = document.getElementById('file-name');
 
+function resetUploadBox() {
+    const uploadLabel = document.querySelector('.file-upload-label');
+    const uploadIcon = uploadLabel?.querySelector('i');
+    const uploadText = uploadLabel?.querySelector('.file-upload-text');
+    const previewImg = document.getElementById('image-preview');
+    if (uploadLabel) uploadLabel.classList.remove('has-image');
+    if (uploadIcon) uploadIcon.className = 'fas fa-cloud-upload-alt';
+    if (uploadText) uploadText.textContent = 'Choose File or Drag Here';
+    if (previewImg) { previewImg.style.display = 'none'; previewImg.src = ''; }
+    if (fileName) { fileName.textContent = 'No file chosen'; fileName.style.color = ''; fileName.style.fontWeight = ''; }
+}
+
 if (fileInput && fileName) {
     fileInput.addEventListener('change', function() {
+        const uploadLabel = document.querySelector('.file-upload-label');
+        const uploadIcon = uploadLabel?.querySelector('i');
+        const uploadText = uploadLabel?.querySelector('.file-upload-text');
+        const previewImg = document.getElementById('image-preview');
+
         if (this.files && this.files.length > 0) {
             const file = this.files[0];
             fileName.textContent = file.name;
-            fileName.style.color = 'var(--primary-red)';
+            fileName.style.color = '#28a745';
             fileName.style.fontWeight = '600';
+            if (uploadLabel) uploadLabel.classList.add('has-image');
+            if (uploadIcon) uploadIcon.className = 'fas fa-check-circle';
+            if (uploadText) uploadText.textContent = 'Image Ready!';
+            if (previewImg) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
         } else {
-            fileName.textContent = 'No file chosen';
-            fileName.style.color = '';
-            fileName.style.fontWeight = '';
+            resetUploadBox();
         }
     });
 }

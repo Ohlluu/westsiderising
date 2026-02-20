@@ -847,6 +847,29 @@
     color: var(--medium-gray);
 }
 
+.file-upload-label.has-image {
+    border: 2px solid #28a745;
+    background: rgba(40, 167, 69, 0.06);
+}
+
+.file-upload-label.has-image i {
+    color: #28a745;
+}
+
+.file-upload-label.has-image .file-upload-text {
+    color: #28a745;
+}
+
+.file-preview {
+    max-width: 130px;
+    max-height: 130px;
+    margin: 0.5rem auto 0.75rem;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 2px solid #28a745;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.25);
+}
+
 .form-actions {
     display: flex;
     gap: 1.5rem;
