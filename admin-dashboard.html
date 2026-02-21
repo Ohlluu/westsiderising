@@ -24,7 +24,7 @@
                 <div class="dashboard-header-content">
                     <h1>
                         <i class="fas fa-tachometer-alt"></i>
-                        Event Management Dashboard
+                        Admin Dashboard
                     </h1>
                     <div>
                         <a href="time-clock.html" class="logout-btn" style="margin-right: 1rem; text-decoration: none; display: inline-block;">
@@ -58,41 +58,130 @@
                     <h3 id="total-count">0</h3>
                     <p>Total Events</p>
                 </div>
+                <div class="stat-card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3 id="volunteer-count">0</h3>
+                    <p>Volunteer Applications</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3 id="partnership-count">0</h3>
+                    <p>Partnership Applications</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h3 id="jointeam-count">0</h3>
+                    <p>Join Team Applications</p>
+                </div>
             </div>
 
-            <!-- Pending Events Section -->
-            <div class="pending-events-section">
-                <div class="section-title-bar">
-                    <h2>Pending Event Submissions</h2>
+            <!-- Tab Navigation -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="events" onclick="switchTab('events')">
+                    <i class="fas fa-calendar"></i>
+                    Events
+                    <span class="tab-badge" id="badge-events">0</span>
+                </button>
+                <button class="tab-btn" data-tab="volunteers" onclick="switchTab('volunteers')">
+                    <i class="fas fa-hands-helping"></i>
+                    Volunteers
+                    <span class="tab-badge" id="badge-volunteers">0</span>
+                </button>
+                <button class="tab-btn" data-tab="partnerships" onclick="switchTab('partnerships')">
+                    <i class="fas fa-handshake"></i>
+                    Partnerships
+                    <span class="tab-badge" id="badge-partnerships">0</span>
+                </button>
+                <button class="tab-btn" data-tab="jointeam" onclick="switchTab('jointeam')">
+                    <i class="fas fa-user-tie"></i>
+                    Join Team
+                    <span class="tab-badge" id="badge-jointeam">0</span>
+                </button>
+            </div>
+
+            <!-- Tab Panel: Events -->
+            <div class="tab-panel" id="tab-events">
+                <!-- Pending Events Section -->
+                <div class="pending-events-section">
+                    <div class="section-title-bar">
+                        <h2>Pending Event Submissions</h2>
+                    </div>
+
+                    <div id="pending-events-container">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>Loading events...</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="pending-events-container">
-                    <!-- Events will be loaded here dynamically -->
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <p>Loading events...</p>
+                <!-- Approved Events Section -->
+                <div class="approved-events-section">
+                    <div class="section-title-bar">
+                        <h2>Approved Events</h2>
+                    </div>
+
+                    <div id="approved-events-container">
+                        <div class="empty-state">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Loading approved events...</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Approved Events Section -->
-            <div class="approved-events-section">
-                <div class="section-title-bar">
-                    <h2>Approved Events</h2>
-                </div>
-
-                <div id="approved-events-container">
-                    <!-- Approved events will be loaded here dynamically -->
-                    <div class="empty-state">
-                        <i class="fas fa-check-circle"></i>
-                        <p>Loading approved events...</p>
+            <!-- Tab Panel: Volunteer Applications -->
+            <div class="tab-panel" id="tab-volunteers" style="display: none;">
+                <div class="applications-section">
+                    <div class="section-title-bar">
+                        <h2>Volunteer Applications</h2>
+                        <span class="new-count-label" id="volunteer-new-label"></span>
+                    </div>
+                    <div id="volunteer-apps-container">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading applications...</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Tab Panel: Partnership Applications -->
+            <div class="tab-panel" id="tab-partnerships" style="display: none;">
+                <div class="applications-section">
+                    <div class="section-title-bar">
+                        <h2>Partnership Applications</h2>
+                        <span class="new-count-label" id="partnership-new-label"></span>
+                    </div>
+                    <div id="partnership-apps-container">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading applications...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Panel: Join Team Applications -->
+            <div class="tab-panel" id="tab-jointeam" style="display: none;">
+                <div class="applications-section">
+                    <div class="section-title-bar">
+                        <h2>Join Team Applications</h2>
+                        <span class="new-count-label" id="jointeam-new-label"></span>
+                    </div>
+                    <div id="jointeam-apps-container">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading applications...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <script src="assets/js/main.js?v=1"></script>
-    <script type="module" src="assets/js/admin-dashboard.js?v=10"></script>
+    <script type="module" src="assets/js/admin-dashboard.js?v=11"></script>
 </body>
 </html>

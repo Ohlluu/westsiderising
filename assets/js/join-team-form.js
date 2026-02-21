@@ -1,6 +1,8 @@
 // ===================================
 // JOIN TEAM FORM HANDLER
 // ===================================
+import { db } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const file = this.files[0];
             if (file) {
                 // Check file size (5MB max)
-                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                const maxSize = 5 * 1024 * 1024;
                 if (file.size > maxSize) {
                     alert('File size must be less than 5MB. Please select a smaller file.');
                     this.value = '';
@@ -149,89 +151,59 @@ document.addEventListener('DOMContentLoaded', function() {
             city: document.getElementById('city').value,
             zipCode: zipCodeInput.value,
             positionInterest: positionSelect.value,
-            positionOther: positionOtherInput.value || '',
+            positionDisplay: positionText,
+            positionOther: positionOtherInput ? positionOtherInput.value : '',
             employmentType: document.getElementById('employmentType').value,
             startDate: document.getElementById('startDate').value,
             education: document.getElementById('education').value,
             experience: document.getElementById('experience').value,
             motivation: document.getElementById('motivation').value,
-            skills: Array.from(skillsChecked).map(cb => cb.value).join(', '),
-            skillsOther: skillsOtherInput.value || '',
+            skills: Array.from(skillsChecked).map(cb => cb.value),
+            skillsOther: skillsOtherInput ? skillsOtherInput.value : '',
             references: document.getElementById('references').value,
             hearAbout: document.getElementById('hearAbout').value,
-            resume: resumeInput.files[0] ? resumeInput.files[0].name : 'No resume uploaded'
+            resumeFilename: resumeInput && resumeInput.files[0] ? resumeInput.files[0].name : '',
+            status: 'new',
+            submittedAt: serverTimestamp()
         };
 
-        // Submit to Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbyQ9p5GXh1BMHjkUnL1qWZtYVQRaeagd3dF9KHu-HgCY_P60K1retKenLIRgABqH4Md/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(() => {
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = `
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>Application Submitted Successfully!</h3>
-                <p>
-                    Thank you for your interest in joining the WESTSIDE RISING team, <strong>${formData.firstName} ${formData.lastName}</strong>.
-                    We've received your application for the <strong>${positionText}</strong> position.
-                </p>
-                <p>
-                    Our team will review your application and contact you at <strong>${formData.email}</strong> within 5-7 business days
-                    to discuss next steps.
-                </p>
-                <button class="btn btn-primary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Submit Another Application
-                </button>
-            `;
-
-            // Replace form with success message
-            joinTeamForm.parentElement.innerHTML = '';
-            joinTeamForm.parentElement.appendChild(successMessage);
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Still show success since no-cors mode doesn't allow reading response
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = `
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>Application Submitted Successfully!</h3>
-                <p>
-                    Thank you for your interest in joining the WESTSIDE RISING team, <strong>${formData.firstName} ${formData.lastName}</strong>.
-                    We've received your application for the <strong>${positionText}</strong> position.
-                </p>
-                <p>
-                    Our team will review your application and contact you at <strong>${formData.email}</strong> within 5-7 business days
-                    to discuss next steps.
-                </p>
-                <button class="btn btn-primary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Submit Another Application
-                </button>
-            `;
-
-            // Replace form with success message
-            joinTeamForm.parentElement.innerHTML = '';
-            joinTeamForm.parentElement.appendChild(successMessage);
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
+        // Submit to Firestore
+        addDoc(collection(db, 'joinTeamApplications'), formData)
+            .then(() => {
+                showJoinTeamSuccess(formData.firstName, formData.lastName, positionText, formData.email, joinTeamForm);
+            })
+            .catch((error) => {
+                console.error('Firestore error:', error);
+                alert('There was an error submitting your application. Please try again.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonContent;
+            });
     });
 
 });
+
+function showJoinTeamSuccess(firstName, lastName, positionText, email, form) {
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Application Submitted Successfully!</h3>
+        <p>
+            Thank you for your interest in joining the WESTSIDE RISING team, <strong>${firstName} ${lastName}</strong>.
+            We've received your application for the <strong>${positionText}</strong> position.
+        </p>
+        <p>
+            Our team will review your application and contact you at <strong>${email}</strong> within 5-7 business days
+            to discuss next steps.
+        </p>
+        <button class="btn btn-primary" onclick="location.reload()">
+            <i class="fas fa-redo"></i>
+            Submit Another Application
+        </button>
+    `;
+    form.parentElement.innerHTML = '';
+    form.parentElement.appendChild(successMessage);
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}

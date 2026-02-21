@@ -1,6 +1,8 @@
 // ===================================
 // PARTNERSHIP FORM HANDLER
 // ===================================
+import { db } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -123,22 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = document.getElementById('partnerEmail').value;
         const emailAddress = document.getElementById('partnerEmailAddress').value;
         const entityName = document.getElementById('entityName').value;
-        const partnershipType = Array.from(partnershipTypeChecked).map(cb => cb.value).join(', ');
-        const partnershipTypeOther = partnershipTypeOtherInput ? partnershipTypeOtherInput.value : '';
         const contacts = document.getElementById('contacts').value;
-        const commitments = Array.from(commitmentsChecked).map(cb => cb.value).join(', ');
-        const commitmentsOther = commitmentsOtherInput ? commitmentsOtherInput.value : '';
 
-        // Get support needed
         const supportChecked = partnershipForm.querySelector('input[name="support"]:checked');
         const support = supportChecked ? supportChecked.value : '';
-        const supportOther = supportOtherInput ? supportOtherInput.value : '';
 
-        // Get agreement terms
         const agreementTermsChecked = partnershipForm.querySelectorAll('input[name="agreementTerms"]:checked');
-        const agreementTerms = Array.from(agreementTermsChecked).map(cb => cb.value).join(', ');
-        const agreementOther = agreementOtherInput ? agreementOtherInput.value : '';
-
         const authorizedRep = document.getElementById('authorizedRep').value;
         const completionDate = document.getElementById('completionDate').value;
 
@@ -147,89 +139,32 @@ document.addEventListener('DOMContentLoaded', function() {
             email,
             emailAddress,
             entityName,
-            partnershipType,
-            partnershipTypeOther,
+            partnershipType: Array.from(partnershipTypeChecked).map(cb => cb.value),
+            partnershipTypeOther: partnershipTypeOtherInput ? partnershipTypeOtherInput.value : '',
             contacts,
-            commitments,
-            commitmentsOther,
+            commitments: Array.from(commitmentsChecked).map(cb => cb.value),
+            commitmentsOther: commitmentsOtherInput ? commitmentsOtherInput.value : '',
             support,
-            supportOther,
-            agreementTerms,
-            agreementOther,
+            supportOther: supportOtherInput ? supportOtherInput.value : '',
+            agreementTerms: Array.from(agreementTermsChecked).map(cb => cb.value),
+            agreementOther: agreementOtherInput ? agreementOtherInput.value : '',
             authorizedRep,
-            completionDate
+            completionDate,
+            status: 'new',
+            submittedAt: serverTimestamp()
         };
 
-        // Submit to Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbyQ9p5GXh1BMHjkUnL1qWZtYVQRaeagd3dF9KHu-HgCY_P60K1retKenLIRgABqH4Md/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(() => {
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = `
-                <div class="success-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3>Partnership Application Submitted!</h3>
-                <p>
-                    Thank you for your interest in partnering with WESTSIDE RISING. We've received your partnership application
-                    for <strong>${entityName}</strong> and will review it within 3-5 business days.
-                </p>
-                <p>
-                    A confirmation email has been sent to <strong>${email}</strong> with your application details.
-                    Our team will reach out to discuss next steps and partnership opportunities.
-                </p>
-                <button class="btn btn-primary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Submit Another Application
-                </button>
-            `;
-
-            // Replace form with success message
-            partnershipForm.parentElement.innerHTML = '';
-            partnershipForm.parentElement.appendChild(successMessage);
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Still show success since no-cors mode doesn't allow reading response
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = `
-                <div class="success-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3>Partnership Application Submitted!</h3>
-                <p>
-                    Thank you for your interest in partnering with WESTSIDE RISING. We've received your partnership application
-                    for <strong>${entityName}</strong> and will review it within 3-5 business days.
-                </p>
-                <p>
-                    A confirmation email has been sent to <strong>${email}</strong> with your application details.
-                    Our team will reach out to discuss next steps and partnership opportunities.
-                </p>
-                <button class="btn btn-primary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Submit Another Application
-                </button>
-            `;
-
-            // Replace form with success message
-            partnershipForm.parentElement.innerHTML = '';
-            partnershipForm.parentElement.appendChild(successMessage);
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
+        // Submit to Firestore
+        addDoc(collection(db, 'partnershipApplications'), formData)
+            .then(() => {
+                showPartnershipSuccess(entityName, email, partnershipForm);
+            })
+            .catch((error) => {
+                console.error('Firestore error:', error);
+                alert('There was an error submitting your application. Please try again.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonContent;
+            });
     });
 
     // Set today's date as default for completion date
@@ -240,3 +175,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+function showPartnershipSuccess(entityName, email, form) {
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+        <div class="success-icon">
+            <i class="fas fa-handshake"></i>
+        </div>
+        <h3>Partnership Application Submitted!</h3>
+        <p>
+            Thank you for your interest in partnering with WESTSIDE RISING. We've received your partnership application
+            for <strong>${entityName}</strong> and will review it within 3-5 business days.
+        </p>
+        <p>
+            Our team will reach out to <strong>${email}</strong> to discuss next steps and partnership opportunities.
+        </p>
+        <button class="btn btn-primary" onclick="location.reload()">
+            <i class="fas fa-redo"></i>
+            Submit Another Application
+        </button>
+    `;
+    form.parentElement.innerHTML = '';
+    form.parentElement.appendChild(successMessage);
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}

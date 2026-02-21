@@ -534,3 +534,150 @@
         flex-direction: column;
     }
 }
+
+/* =============================================
+   DASHBOARD TABS
+   ============================================= */
+.dashboard-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: var(--white);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--medium-gray);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.tab-btn:hover {
+    background: var(--light-gray);
+    color: var(--dark-gray);
+}
+
+.tab-btn.active {
+    background: var(--primary-red);
+    color: var(--white);
+    border-color: var(--primary-red);
+}
+
+.tab-badge {
+    background: var(--medium-gray);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+.tab-badge-new {
+    background: #ef4444;
+}
+
+.tab-btn.active .tab-badge {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* =============================================
+   APPLICATIONS SECTION
+   ============================================= */
+.applications-section {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+}
+
+.section-title-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.new-count-label {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 0.3rem 0.75rem;
+    border-radius: 10px;
+}
+
+/* =============================================
+   APPLICATION CARD STATES
+   ============================================= */
+.app-card-new {
+    border-left: 4px solid #ef4444;
+}
+
+.app-card-reviewed {
+    border-left: 4px solid #10b981;
+    opacity: 0.85;
+}
+
+.reviewed-badge {
+    background: #10b981 !important;
+}
+
+.reviewed-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.25rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-radius: var(--border-radius);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   STATS GRID - 6 CARDS
+   ============================================= */
+.stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 968px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-tabs {
+        gap: 0.4rem;
+    }
+
+    .tab-btn {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .tab-btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 0.8rem;
+        padding: 0.5rem 0.6rem;
+    }
+}

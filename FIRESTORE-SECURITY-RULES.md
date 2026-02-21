@@ -1,9 +1,10 @@
-# Firestore Security Rules - Updated for 3 Role System
+# Firestore Security Rules
 
 ## Role Permissions
 
 ### 1. **superadmin**
 - ✅ Full access to Event Management
+- ✅ Full access to all form submissions (Volunteer, Partnership, Join Team)
 - ✅ Full access to Time Clock
 - ✅ Full access to Timesheets
 - ✅ Can manage all user roles
@@ -11,17 +12,19 @@
 
 ### 2. **manager**
 - ✅ Full access to Event Management
+- ✅ Full access to all form submissions (Volunteer, Partnership, Join Team)
 - ✅ Access to Time Clock (clock in/out)
 - ❌ NO access to Timesheets
 
 ### 3. **employee**
 - ❌ NO access to Event Management
+- ❌ NO access to form submissions
 - ✅ Access to Time Clock (clock in/out only)
 - ❌ NO access to Timesheets
 
 ---
 
-## Updated Firestore Security Rules
+## Firestore Security Rules
 
 Copy and paste these rules into Firebase Console → Firestore Database → Rules:
 
@@ -46,16 +49,42 @@ service cloud.firestore {
     }
 
     // ==================== EVENTS COLLECTION ====================
-    // Events collection - for Event Management Dashboard
     match /events/{eventId} {
       // Anyone can read events (for public website)
       allow read: if true;
 
-      // Managers and superadmins can create events (submit event form)
-      allow create: if isManagerOrAdmin();
+      // Anyone can submit a new event from the public form (must arrive as 'pending')
+      allow create: if request.resource.data.status == 'pending';
 
-      // Managers and superadmins can update and delete events (admin dashboard)
+      // Only managers/superadmins can update and delete (admin dashboard)
       allow update, delete: if isManagerOrAdmin();
+    }
+
+    // ==================== VOLUNTEER APPLICATIONS ====================
+    match /volunteerApplications/{docId} {
+      // Public can submit (status must be 'new')
+      allow create: if request.resource.data.status == 'new';
+
+      // Only managers/superadmins can read, update, and delete
+      allow read, update, delete: if isManagerOrAdmin();
+    }
+
+    // ==================== PARTNERSHIP APPLICATIONS ====================
+    match /partnershipApplications/{docId} {
+      // Public can submit (status must be 'new')
+      allow create: if request.resource.data.status == 'new';
+
+      // Only managers/superadmins can read, update, and delete
+      allow read, update, delete: if isManagerOrAdmin();
+    }
+
+    // ==================== JOIN TEAM APPLICATIONS ====================
+    match /joinTeamApplications/{docId} {
+      // Public can submit (status must be 'new')
+      allow create: if request.resource.data.status == 'new';
+
+      // Only managers/superadmins can read, update, and delete
+      allow read, update, delete: if isManagerOrAdmin();
     }
 
     // ==================== TIME CLOCK COLLECTIONS ====================
@@ -114,25 +143,14 @@ service cloud.firestore {
 
 ---
 
-## Setting User Roles
-
-To assign roles to users, update the `role` field in their user document:
-
-1. **Firebase Console → Firestore Database → users collection**
-2. **Click on a user document**
-3. **Edit the `role` field** to one of:
-   - `superadmin`
-   - `manager`
-   - `employee`
-
----
-
 ## Access Matrix
 
 | Feature | superadmin | manager | employee |
 |---------|------------|---------|----------|
 | Event Management | ✅ | ✅ | ❌ |
+| Volunteer Applications | ✅ | ✅ | ❌ |
+| Partnership Applications | ✅ | ✅ | ❌ |
+| Join Team Applications | ✅ | ✅ | ❌ |
 | Time Clock (clock in/out) | ✅ | ✅ | ✅ |
 | Timesheets (view all, edit, export) | ✅ | ❌ | ❌ |
 | Manage User Roles | ✅ | ❌ | ❌ |
-

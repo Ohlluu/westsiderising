@@ -1,6 +1,8 @@
 // ===================================
 // VOLUNTEER FORM HANDLER
 // ===================================
+import { db } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -46,76 +48,25 @@ document.addEventListener('DOMContentLoaded', function() {
             address: volunteerForm.querySelector('#address').value,
             city: volunteerForm.querySelector('#city').value,
             zipCode: volunteerForm.querySelector('#zipCode').value,
-            interests: Array.from(interestsChecked).map(cb => cb.value).join(', '),
+            interests: Array.from(interestsChecked).map(cb => cb.value),
             availability: volunteerForm.querySelector('#availability').value,
             skills: volunteerForm.querySelector('#skills').value,
-            motivation: volunteerForm.querySelector('#motivation').value
+            motivation: volunteerForm.querySelector('#motivation').value,
+            status: 'new',
+            submittedAt: serverTimestamp()
         };
 
-        // Submit to Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbyQ9p5GXh1BMHjkUnL1qWZtYVQRaeagd3dF9KHu-HgCY_P60K1retKenLIRgABqH4Md/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(() => {
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = `
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>Thank You for Your Interest!</h3>
-                <p>
-                    We've received your volunteer application and will review it within 2-3 business days.
-                    A member of our team will reach out to you at <strong>${formData.email}</strong> to discuss
-                    next steps and opportunities that match your interests.
-                </p>
-                <button class="btn btn-primary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Submit Another Application
-                </button>
-            `;
-
-            // Replace form with success message
-            volunteerForm.parentElement.innerHTML = '';
-            volunteerForm.parentElement.appendChild(successMessage);
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Still show success since no-cors mode doesn't allow reading response
-            const successMessage = document.createElement('div');
-            successMessage.className = 'success-message';
-            successMessage.innerHTML = `
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>Thank You for Your Interest!</h3>
-                <p>
-                    We've received your volunteer application and will review it within 2-3 business days.
-                    A member of our team will reach out to you at <strong>${formData.email}</strong> to discuss
-                    next steps and opportunities that match your interests.
-                </p>
-                <button class="btn btn-primary" onclick="location.reload()">
-                    <i class="fas fa-redo"></i>
-                    Submit Another Application
-                </button>
-            `;
-
-            // Replace form with success message
-            volunteerForm.parentElement.innerHTML = '';
-            volunteerForm.parentElement.appendChild(successMessage);
-
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
+        // Submit to Firestore
+        addDoc(collection(db, 'volunteerApplications'), formData)
+            .then(() => {
+                showVolunteerSuccess(formData.email, volunteerForm);
+            })
+            .catch((error) => {
+                console.error('Firestore error:', error);
+                alert('There was an error submitting your application. Please try again.');
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonContent;
+            });
     });
 
     // Phone number formatting
@@ -153,3 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+function showVolunteerSuccess(email, form) {
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Thank You for Your Interest!</h3>
+        <p>
+            We've received your volunteer application and will review it within 2-3 business days.
+            A member of our team will reach out to you at <strong>${email}</strong> to discuss
+            next steps and opportunities that match your interests.
+        </p>
+        <button class="btn btn-primary" onclick="location.reload()">
+            <i class="fas fa-redo"></i>
+            Submit Another Application
+        </button>
+    `;
+    form.parentElement.innerHTML = '';
+    form.parentElement.appendChild(successMessage);
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
