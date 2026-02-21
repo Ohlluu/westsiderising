@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showPartnershipSuccess(entityName, email, form) {
+    const parent = form.parentElement;
     const successMessage = document.createElement('div');
     successMessage.className = 'success-message';
     successMessage.innerHTML = `
@@ -196,7 +197,7 @@ function showPartnershipSuccess(entityName, email, form) {
             Submit Another Application
         </button>
     `;
-    form.parentElement.innerHTML = '';
-    form.parentElement.appendChild(successMessage);
+    parent.innerHTML = '';
+    parent.appendChild(successMessage);
     successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
