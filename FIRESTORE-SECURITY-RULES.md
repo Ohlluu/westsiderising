@@ -87,6 +87,15 @@ service cloud.firestore {
       allow read, update, delete: if isManagerOrAdmin();
     }
 
+    // ==================== COMMUNITY POWER LAB APPLICATIONS ====================
+    match /powerLabApplications/{docId} {
+      // Public can submit (status must be 'new')
+      allow create: if request.resource.data.status == 'new';
+
+      // Only managers/superadmins can read, update, and delete
+      allow read, update, delete: if isManagerOrAdmin();
+    }
+
     // ==================== TIME CLOCK COLLECTIONS ====================
     // Users collection
     match /users/{userId} {
@@ -151,6 +160,7 @@ service cloud.firestore {
 | Volunteer Applications | ✅ | ✅ | ❌ |
 | Partnership Applications | ✅ | ✅ | ❌ |
 | Join Team Applications | ✅ | ✅ | ❌ |
+| Community Power Lab Applications | ✅ | ✅ | ❌ |
 | Time Clock (clock in/out) | ✅ | ✅ | ✅ |
 | Timesheets (view all, edit, export) | ✅ | ❌ | ❌ |
 | Manage User Roles | ✅ | ❌ | ❌ |

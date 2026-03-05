@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply to WR's Community Power Labs — a cohort-based leadership development initiative on the Greater West Side.">
+    <title>Community Power Lab Application | WESTSIDE RISING</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/get-involved.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-primary: 'Permanent Marker', cursive;
+            --font-secondary: 'Lora', serif;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="/">
+                <img src="assets/images/WR logo.jpg" alt="WESTSIDE RISING Logo"></a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="about" class="nav-link active">About</a></li>
+                <li><a href="events" class="nav-link">Events</a></li>
+                <li><a href="resources" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved" class="nav-link">Get Involved</a></li>
+                <li><a href="donate" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>Community Power Lab Application</h1>
+                <p>Apply to join WR's cohort-based leadership development initiative</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to About -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <a href="about" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to About
+            </a>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="volunteer-form-section">
+        <div class="container">
+            <div class="form-header fade-in-up">
+                <h2 class="section-title">Community Power Lab Application</h2>
+                <p>
+                    Complete the form below to apply for WR's Community Power Labs — a cohort-based initiative for
+                    intergenerational organizing and issue-based leadership development. We will review your application
+                    and follow up within 5–7 business days.
+                </p>
+            </div>
+
+            <form class="volunteer-form fade-in-up" id="powerLabForm">
+
+                <!-- ===== SESSION INTEREST ===== -->
+                <div class="form-section-title">
+                    <h3>Session Interest</h3>
+                    <p>Select all that apply. <span class="required">*</span></p>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sessionInterest" value="spring-2026">
+                            <span>I'd like to participate in WR's Spring 2026 Community Power Labs</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sessionInterest" value="fall-2026">
+                            <span>I'd like to participate in WR's Fall 2026 Community Power Labs</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sessionInterest" value="more-info">
+                            <span>I'd like more information about the 2026 Community Power Labs</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ===== APPLYING AS ===== -->
+                <div class="form-section-title">
+                    <h3>I am applying as… <span class="required">*</span></h3>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="applyingAs" value="individual" required>
+                            <span>An Individual</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="applyingAs" value="organization">
+                            <span>An Organization</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ===== CONTACT INFORMATION ===== -->
+                <div class="form-section-title">
+                    <h3>Contact Information</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group" id="orgNameGroup" style="display: none;">
+                    <label for="orgName">Organization's Name</label>
+                    <input type="text" id="orgName" name="orgName" placeholder="Enter your organization's name">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder="Street address">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" placeholder="State">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">ZIP Code</label>
+                        <input type="text" id="zipCode" name="zipCode" placeholder="ZIP">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                </div>
+
+                <!-- ===== BACKGROUND INFORMATION ===== -->
+                <div class="form-section-title">
+                    <h3>Background Information</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="hearAbout">How did you hear about WR's Community Power Labs?</label>
+                    <textarea id="hearAbout" name="hearAbout" rows="3" placeholder="Tell us how you found out about the program..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you work, live, or serve on the West Side of Chicago? Check all that apply.</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="westSideConnection" value="work">
+                            <span>Work</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="westSideConnection" value="live">
+                            <span>Live</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="westSideConnection" value="serve">
+                            <span>Serve</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="westSideExplain">If so, please explain your response.</label>
+                    <textarea id="westSideExplain" name="westSideExplain" rows="3" placeholder="Please describe your connection to the West Side..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>What neighborhood(s) do you/your organization represent? Check all that apply.</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="neighborhoods" value="austin">
+                            <span>Austin</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="neighborhoods" value="garfield-park">
+                            <span>Garfield Park</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="neighborhoods" value="north-lawndale">
+                            <span>North Lawndale</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="neighborhoods" value="humboldt-park">
+                            <span>Humboldt Park</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="neighborhoods" value="other">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="neighborhoodOtherGroup" style="display: none;">
+                    <label for="neighborhoodOther">Please specify other neighborhood(s):</label>
+                    <input type="text" id="neighborhoodOther" name="neighborhoodOther" placeholder="Enter neighborhood(s)">
+                </div>
+
+                <div class="form-group">
+                    <label for="wrPartnership">Do you/your organization partner with Westside Rising for functions or activities in the community? If so, please share specific examples of partnership.</label>
+                    <textarea id="wrPartnership" name="wrPartnership" rows="4" placeholder="Describe any existing partnership with Westside Rising, or write 'None' if not applicable..."></textarea>
+                </div>
+
+                <!-- ===== CONDITIONS ===== -->
+                <div class="form-section-title">
+                    <h3>Conditions of Participation</h3>
+                    <p>To successfully participate in and complete WR's Community Power Labs, attendees must agree to the following conditions. <span class="required">*</span></p>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="conditions" value="attend-sessions" required>
+                            <span>I commit to attend four (4) in-person sessions, one day per week for four consecutive weeks. Each session has a duration of 3 hours.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="conditions" value="activation-hub" required>
+                            <span>I commit to engage with WR's Activation Hubs for an issue area of my interest once per month.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="conditions" value="arrive-promptly" required>
+                            <span>I will arrive promptly at the designated time, prepared to engage with speakers and trainers.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="conditions" value="be-cooperative" required>
+                            <span>I will be cooperative with all facilitators, trainers, and subject matter experts.</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="conditions" value="materials-fee" required>
+                            <span>I understand that a materials fee of $35 per individual and $100 per organization is required. (Limited scholarships are available. Fee is not required at registration.)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ===== APPLICATION QUESTIONS ===== -->
+                <div class="form-section-title">
+                    <h3>Application Questions</h3>
+                    <p>Please answer each question in 100 words or less.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="q1">1. Tell us about you/your organization and the work you do in the community. <span class="required">*</span></label>
+                    <textarea id="q1" name="q1" rows="5" placeholder="100 words or less..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q2">2. Why is social justice, community organizing, and civic engagement important to you and the work you do? <span class="required">*</span></label>
+                    <textarea id="q2" name="q2" rows="5" placeholder="100 words or less..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q3">3. As an individual/organizational leader, share a highly challenging situation you've navigated. How did you address the issue, and what did you learn from the experience? <span class="required">*</span></label>
+                    <textarea id="q3" name="q3" rows="5" placeholder="100 words or less..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q4">4. As an individual/organizational leader, share an experience you are proud of. Briefly describe that situation and what you learned from it. <span class="required">*</span></label>
+                    <textarea id="q4" name="q4" rows="5" placeholder="100 words or less..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q5">5. How can participating in WR's Community Power Lab help support the development of your team and work? <span class="required">*</span></label>
+                    <textarea id="q5" name="q5" rows="5" placeholder="100 words or less..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="participantCount">6. How many people from your organization will participate in the Power Lab series? (Up to 3)</label>
+                    <select id="participantCount" name="participantCount">
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>7. Provide contact information for additional participants (name, phone number, and email for each).</label>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Participant 1</p>
+                        <input type="text" name="participant1Name" placeholder="Full name" style="margin-bottom: 0.5rem;">
+                        <input type="tel" name="participant1Phone" placeholder="Phone number" style="margin-bottom: 0.5rem;">
+                        <input type="email" name="participant1Email" placeholder="Email address">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Participant 2</p>
+                        <input type="text" name="participant2Name" placeholder="Full name" style="margin-bottom: 0.5rem;">
+                        <input type="tel" name="participant2Phone" placeholder="Phone number" style="margin-bottom: 0.5rem;">
+                        <input type="email" name="participant2Email" placeholder="Email address">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Participant 3</p>
+                        <input type="text" name="participant3Name" placeholder="Full name" style="margin-bottom: 0.5rem;">
+                        <input type="tel" name="participant3Phone" placeholder="Phone number" style="margin-bottom: 0.5rem;">
+                        <input type="email" name="participant3Email" placeholder="Email address">
+                    </div>
+                </div>
+
+                <!-- ===== PREFERRED DAY & TIME ===== -->
+                <div class="form-section-title">
+                    <h3>Preferred Day &amp; Time</h3>
+                    <p>Please select your preferred day and time for the Spring Power Lab sessions. Note: We will finalize the day and time two weeks prior to the start of the cohort.</p>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="preferredTime" value="wed-noon">
+                            <span>Wednesdays, 12:00 – 3:00 pm</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="preferredTime" value="wed-evening">
+                            <span>Wednesdays, 4:00 – 7:00 pm</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="preferredTime" value="thu-noon">
+                            <span>Thursdays, 12:00 – 3:00 pm</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="preferredTime" value="thu-evening">
+                            <span>Thursdays, 4:00 – 7:00 pm</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="preferredTime" value="other">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="preferredTimeOtherGroup" style="display: none;">
+                    <label for="preferredTimeOther">Please share your suggestions:</label>
+                    <input type="text" id="preferredTimeOther" name="preferredTimeOther" placeholder="Suggest an alternative day and time...">
+                </div>
+
+                <!-- ===== REFERRAL ===== -->
+                <div class="form-section-title">
+                    <h3>Referral</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="referral">Who else should participate in the WR Community Power Labs?</label>
+                    <textarea id="referral" name="referral" rows="3" placeholder="Share names or organizations you'd recommend..."></textarea>
+                </div>
+
+                <!-- ===== SIGNATURE ===== -->
+                <div class="form-section-title">
+                    <h3>Signature</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="signature">Type your name to sign this application. <span class="required">*</span></label>
+                    <input type="text" id="signature" name="signature" placeholder="Type your full name" required>
+                    <span class="form-hint">I, <span id="signatureDisplay">_______________</span>, confirm that the information provided in this application is correct and true to the best of my knowledge.</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Application
+                </button>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="about">About</a></li>
+                        <li><a href="events">Events</a></li>
+                        <li><a href="resources">Resources</a></li>
+                        <li><a href="leadership-awards">Leadership Awards</a></li>
+                        <li><a href="get-involved">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:8728132686">O: (872) 813-2686</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">Admin: (773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-shield"></i>
+                            <a href="admin-login">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 WESTSIDE RISING. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Website designed & developed by <a href="https://ohlluudev.com" target="_blank" style="color: inherit; text-decoration: underline;">OhlluuDev</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/power-lab-form.js"></script>
+</body>
+</html>
