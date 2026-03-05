@@ -136,11 +136,12 @@ async function loadDashboard() {
         displayPendingEvents(pendingEvents);
         displayApprovedEvents(approvedEvents);
 
-        // Load all 3 application types in parallel
+        // Load all 4 application types in parallel
         await Promise.all([
             loadApplications('volunteerApplications',   'volunteer-apps-container',   'volunteer-count',   'badge-volunteers',   'volunteer-new-label',   displayVolunteerApplications),
             loadApplications('partnershipApplications', 'partnership-apps-container', 'partnership-count', 'badge-partnerships', 'partnership-new-label', displayPartnershipApplications),
-            loadApplications('joinTeamApplications',    'jointeam-apps-container',    'jointeam-count',    'badge-jointeam',     'jointeam-new-label',    displayJoinTeamApplications)
+            loadApplications('joinTeamApplications',    'jointeam-apps-container',    'jointeam-count',    'badge-jointeam',     'jointeam-new-label',    displayJoinTeamApplications),
+            loadApplications('powerLabApplications',    'powerlab-apps-container',    'powerlab-count',    'badge-powerlab',     'powerlab-new-label',    displayPowerLabApplications)
         ]);
 
     } catch (error) {
@@ -521,6 +522,140 @@ function displayJoinTeamApplications(apps, containerId) {
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
                 <button class="btn-delete" onclick="deleteApplication('joinTeamApplications', '${app.id}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+// =============================================
+// DISPLAY POWER LAB APPLICATIONS
+// =============================================
+function displayPowerLabApplications(apps, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (apps.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-fist-raised"></i><p>No Power Lab applications yet</p></div>`;
+        return;
+    }
+
+    container.innerHTML = apps.map(app => {
+        const isNew = app.status === 'new';
+        const sessionDisplay = Array.isArray(app.sessionInterest)
+            ? app.sessionInterest.join(', ')
+            : (app.sessionInterest || 'N/A');
+        const neighborhoodsDisplay = Array.isArray(app.neighborhoods)
+            ? app.neighborhoods.join(', ')
+            : (app.neighborhoods || 'N/A');
+        const westSideDisplay = Array.isArray(app.westSideConnection)
+            ? app.westSideConnection.join(', ')
+            : (app.westSideConnection || 'N/A');
+        const conditionsDisplay = Array.isArray(app.conditions)
+            ? app.conditions.join(', ')
+            : (app.conditions || 'N/A');
+
+        return `
+        <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
+            <div class="event-card-header">
+                <div>
+                    <h3>${app.fullName || 'Unknown Applicant'}</h3>
+                    <span class="event-badge ${isNew ? '' : 'reviewed-badge'}">${isNew ? 'New' : 'Reviewed'}</span>
+                </div>
+                <button class="btn-view-details" onclick="toggleAppDetails('${app.id}')">
+                    <i class="fas fa-chevron-down"></i> View Details
+                </button>
+            </div>
+
+            <div class="event-card-info">
+                <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>${app.phone || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-user-tag"></i><span>${app.applyingAs || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
+            </div>
+
+            <div class="event-details-expand" id="details-${app.id}" style="display: none;">
+                <div class="details-section">
+                    <h4><i class="fas fa-calendar-check"></i> Session Interest</h4>
+                    <p>${sessionDisplay}</p>
+                </div>
+                ${app.orgName ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-building"></i> Organization</h4>
+                    <p>${app.orgName}</p>
+                </div>
+                ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-address-card"></i> Contact Info</h4>
+                    <p><strong>Address:</strong> ${[app.address, app.city, app.state, app.zipCode].filter(Boolean).join(', ') || 'N/A'}</p>
+                    <p><strong>Phone:</strong> ${app.phone || 'N/A'}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${app.email}">${app.email}</a></p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-map-marker-alt"></i> Neighborhoods</h4>
+                    <p>${neighborhoodsDisplay}${app.neighborhoodOther ? ` (Other: ${app.neighborhoodOther})` : ''}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-city"></i> West Side Connection</h4>
+                    <p>${westSideDisplay}</p>
+                    ${app.westSideExplain ? `<p><em>${app.westSideExplain}</em></p>` : ''}
+                </div>
+                ${app.wrPartnership ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-handshake"></i> WR Partnership History</h4>
+                    <p>${app.wrPartnership}</p>
+                </div>
+                ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-list-check"></i> Conditions Agreed</h4>
+                    <p>${conditionsDisplay}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-question-circle"></i> Application Questions</h4>
+                    <p><strong>Q1:</strong> ${app.q1 || 'N/A'}</p>
+                    <p><strong>Q2:</strong> ${app.q2 || 'N/A'}</p>
+                    <p><strong>Q3:</strong> ${app.q3 || 'N/A'}</p>
+                    <p><strong>Q4:</strong> ${app.q4 || 'N/A'}</p>
+                    <p><strong>Q5:</strong> ${app.q5 || 'N/A'}</p>
+                </div>
+                ${app.participantCount ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-users"></i> Additional Participants (${app.participantCount})</h4>
+                    ${app.participant1?.name ? `<p><strong>P1:</strong> ${app.participant1.name} | ${app.participant1.phone || ''} | ${app.participant1.email || ''}</p>` : ''}
+                    ${app.participant2?.name ? `<p><strong>P2:</strong> ${app.participant2.name} | ${app.participant2.phone || ''} | ${app.participant2.email || ''}</p>` : ''}
+                    ${app.participant3?.name ? `<p><strong>P3:</strong> ${app.participant3.name} | ${app.participant3.phone || ''} | ${app.participant3.email || ''}</p>` : ''}
+                </div>
+                ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-clock"></i> Preferred Time</h4>
+                    <p>${app.preferredTime || 'N/A'}${app.preferredTimeOther ? ` (Other: ${app.preferredTimeOther})` : ''}</p>
+                </div>
+                ${app.referral ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-user-friends"></i> Referrals</h4>
+                    <p>${app.referral}</p>
+                </div>
+                ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-signature"></i> Signature</h4>
+                    <p>${app.signature || 'N/A'}</p>
+                </div>
+            </div>
+
+            <div class="event-card-actions">
+                ${isNew ? `
+                    <button class="btn-approve" onclick="markAsReviewed('powerLabApplications', '${app.id}', this)">
+                        <i class="fas fa-check"></i> Mark as Reviewed
+                    </button>
+                ` : `
+                    <span class="reviewed-label"><i class="fas fa-check-circle"></i> Reviewed</span>
+                `}
+                <a href="mailto:${app.email}" class="btn-view-event">
+                    <i class="fas fa-envelope"></i> Email Applicant
+                </a>
+                <button class="btn-delete" onclick="deleteApplication('powerLabApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
             </div>
