@@ -152,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = {
             formType: 'Employment Application',
             email: form.querySelector('#email').value.trim(),
-            appDate: form.querySelector('#appDate').value,
             fullName: form.querySelector('#fullName').value.trim(),
             address: form.querySelector('#address').value.trim(),
             phone: form.querySelector('#phone').value.trim(),
