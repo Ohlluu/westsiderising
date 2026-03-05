@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Apply to join the WESTSIDE RISING team. Complete the team application form.">
-    <title>Join Our Team | WESTSIDE RISING</title>
+    <meta name="description" content="Apply for employment with WESTSIDE RISING. Complete the employment application form.">
+    <title>WR Employment Application | WESTSIDE RISING</title>
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/get-involved.css">
@@ -16,11 +16,43 @@
             --font-primary: 'Permanent Marker', cursive;
             --font-secondary: 'Lora', serif;
         }
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-family: var(--font-secondary);
+        }
+        .skills-table th, .skills-table td {
+            border: 1px solid #ddd;
+            padding: 0.6rem 0.75rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .skills-table th {
+            background: var(--primary-red);
+            color: #fff;
+            font-weight: 600;
+        }
+        .skills-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        .skills-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .skills-table tr:hover {
+            background: #f0f0f0;
+        }
+        @media (max-width: 640px) {
+            .skills-table th, .skills-table td {
+                padding: 0.4rem 0.3rem;
+                font-size: 0.8rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
@@ -56,8 +88,8 @@
         <div class="page-hero-overlay"></div>
         <div class="container">
             <div class="page-hero-content fade-in-up">
-                <h1>Join Our Team</h1>
-                <p>Become part of our mission to build a stronger community</p>
+                <h1>WR Employment Application</h1>
+                <p>Join our team and help build a stronger Greater West Side</p>
             </div>
         </div>
     </section>
@@ -72,210 +104,464 @@
         </div>
     </section>
 
-    <!-- Team Application Form -->
-    <section class="partnership-form-section">
+    <!-- Employment Application Form -->
+    <section class="volunteer-form-section">
         <div class="container">
             <div class="form-header fade-in-up">
-                <h2 class="section-title">Team Application</h2>
+                <h2 class="section-title">WESTSIDE RISING Employment Application</h2>
                 <p>
-                    Complete the form below to apply to join the WESTSIDE RISING team.
-                    We'll review your application and contact you within 5-7 business days.
+                    Complete all sections of this application. We will review your submission and contact you within 5–7 business days.
                 </p>
             </div>
 
-            <form class="partnership-form fade-in-up" id="joinTeamForm">
-                <!-- Personal Information -->
-                <div class="form-section">
-                    <h3>Personal Information <span class="required">*</span></h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name <span class="required">*</span></label>
-                            <input type="text" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name <span class="required">*</span></label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email Address <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city">
-                        </div>
-                        <div class="form-group">
-                            <label for="zipCode">ZIP Code</label>
-                            <input type="text" id="zipCode" name="zipCode">
-                        </div>
-                    </div>
-                </div>
+            <form class="volunteer-form fade-in-up" id="joinTeamForm">
 
-                <!-- Position Interest -->
-                <div class="form-group">
-                    <label for="positionInterest">Position/Role of Interest <span class="required">*</span></label>
-                    <select id="positionInterest" name="positionInterest" required>
-                        <option value="">Select a position</option>
-                        <option value="program-coordinator">Program Coordinator</option>
-                        <option value="community-organizer">Community Organizer</option>
-                        <option value="outreach-specialist">Outreach Specialist</option>
-                        <option value="administrative">Administrative Assistant</option>
-                        <option value="communications">Communications/Marketing</option>
-                        <option value="development">Development/Fundraising</option>
-                        <option value="youth-coordinator">Youth Program Coordinator</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="positionOtherText" style="display: none;">
-                    <label for="positionOtherInput">Please specify position:</label>
-                    <input type="text" id="positionOtherInput" name="positionOther">
-                </div>
-
-                <!-- Availability -->
-                <div class="form-group">
-                    <label for="employmentType">Employment Type Preference <span class="required">*</span></label>
-                    <select id="employmentType" name="employmentType" required>
-                        <option value="">Select employment type</option>
-                        <option value="full-time">Full-Time</option>
-                        <option value="part-time">Part-Time</option>
-                        <option value="contract">Contract/Project-Based</option>
-                        <option value="intern">Internship</option>
-                        <option value="flexible">Flexible</option>
-                    </select>
+                <!-- ===== SECTION 1: BASIC INFORMATION ===== -->
+                <div class="form-section-title">
+                    <h3>Section 1 — Basic Information</h3>
                 </div>
 
                 <div class="form-group">
-                    <label for="startDate">Available Start Date <span class="required">*</span></label>
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="appDate">Date <span class="required">*</span></label>
+                    <input type="date" id="appDate" name="appDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Enter your full name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" placeholder="First and last name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address (Street number, Apt #, City, State, ZIP Code) <span class="required">*</span></label>
+                    <input type="text" id="address" name="address" placeholder="e.g. 123 Main St, Apt 2, Chicago, IL 60644" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Position applying for <span class="required">*</span></label>
+                    <p style="margin-bottom: 0.75rem; color: #555;">
+                        Review the job descriptions linked below. Indicate the position for which you are applying.
+                        If you want to be considered for other open positions, please list them in the space provided.
+                    </p>
+                    <p style="margin-bottom: 1rem;">
+                        <a href="https://docs.google.com/document/d/1vIHMjaGRKL0v8wGTR_JP95gJrdhSVT2C/edit?usp=sharing&ouid=108075237582131307186&rtpof=true&sd=true" target="_blank" style="color: var(--primary-red); text-decoration: underline;">
+                            <i class="fas fa-file-alt"></i> Youth Leaders Power Academy: Community Engagement Ambassador (Ages 17–24) — View Job Description
+                        </a>
+                    </p>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="position" value="Youth Leaders Power Academy: Community Engagement Ambassador (17–24)" required>
+                            <span>Youth Leaders Power Academy: Community Engagement Ambassador (Ages 17–24)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="position" value="Operations Manager">
+                            <span>Operations Manager</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="position" value="Community Organizer & Outreach Coordinator">
+                            <span>Community Organizer &amp; Outreach Coordinator</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="position" value="Youth Coordinator">
+                            <span>Youth Coordinator</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="position" value="other" id="positionOther">
+                            <span>Other Open Position</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="positionOtherGroup" style="display: none;">
+                        <label for="positionOtherInput">Please specify the position:</label>
+                        <input type="text" id="positionOtherInput" name="positionOther" placeholder="Enter position name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="secondaryPosition">Is there a secondary position for which you'd like to be considered? <span class="required">*</span></label>
+                    <input type="text" id="secondaryPosition" name="secondaryPosition" placeholder="Enter secondary position or write 'None'">
+                </div>
+
+                <div class="form-group">
+                    <label>Employment Desired <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="employmentType" value="Full-Time" required>
+                            <span>Full-Time</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="employmentType" value="Part-Time">
+                            <span>Part-Time</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="employmentType" value="Contract/Seasonal">
+                            <span>Contract/Seasonal</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="employmentType" value="Internship">
+                            <span>Internship</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="employmentType" value="other" id="employmentTypeOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="employmentTypeOtherGroup" style="display: none;">
+                        <input type="text" id="employmentTypeOtherInput" name="employmentTypeOther" placeholder="Please specify">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="desiredPay">Desired Pay <span class="required">*</span></label>
+                    <input type="text" id="desiredPay" name="desiredPay" placeholder="e.g. $18/hr, $45,000/year, Negotiable">
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">What date are you available to begin work? <span class="required">*</span></label>
                     <input type="date" id="startDate" name="startDate" required>
                 </div>
 
-                <!-- Education -->
-                <div class="form-group">
-                    <label for="education">Highest Level of Education <span class="required">*</span></label>
-                    <select id="education" name="education" required>
-                        <option value="">Select education level</option>
-                        <option value="high-school">High School Diploma/GED</option>
-                        <option value="some-college">Some College</option>
-                        <option value="associates">Associate's Degree</option>
-                        <option value="bachelors">Bachelor's Degree</option>
-                        <option value="masters">Master's Degree</option>
-                        <option value="doctorate">Doctorate/PhD</option>
-                        <option value="other">Other</option>
-                    </select>
+                <!-- ===== SECTION 2: EMPLOYMENT ELIGIBILITY ===== -->
+                <div class="form-section-title">
+                    <h3>Section 2 — Employment Eligibility</h3>
                 </div>
 
-                <!-- Experience -->
                 <div class="form-group">
-                    <label for="experience">Relevant Experience <span class="required">*</span></label>
-                    <textarea id="experience" name="experience" rows="5" required placeholder="Please describe your relevant work experience, skills, and qualifications..."></textarea>
-                </div>
-
-                <!-- Why Join -->
-                <div class="form-group">
-                    <label for="motivation">Why do you want to join the WESTSIDE RISING team? <span class="required">*</span></label>
-                    <textarea id="motivation" name="motivation" rows="5" required placeholder="Share your motivation and what you hope to contribute to our mission..."></textarea>
-                </div>
-
-                <!-- Skills -->
-                <div class="form-group">
-                    <label>Skills & Expertise <span class="required">*</span></label>
-                    <p class="field-description">Select all that apply</p>
+                    <label>Are you a U.S. Citizen? <span class="required">*</span></label>
                     <div class="checkbox-group">
                         <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="community-organizing">
-                            <span>Community Organizing</span>
+                            <input type="radio" name="usCitizen" value="Yes" required>
+                            <span>Yes</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="program-management">
-                            <span>Program Management</span>
+                            <input type="radio" name="usCitizen" value="No">
+                            <span>No</span>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="fundraising">
-                            <span>Fundraising/Grant Writing</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="communications">
-                            <span>Communications/Marketing</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="event-planning">
-                            <span>Event Planning</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="youth-work">
-                            <span>Youth Development</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="data-analysis">
-                            <span>Data Analysis/Research</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="social-media">
-                            <span>Social Media Management</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="skills" value="other" id="skillsOther">
-                            <span>Other</span>
+                            <input type="radio" name="usCitizen" value="other" id="usCitizenOther">
+                            <span>Other:</span>
                         </label>
                     </div>
-                    <div class="form-group" id="skillsOtherText" style="display: none;">
-                        <label for="skillsOtherInput">Please specify other skills:</label>
-                        <textarea id="skillsOtherInput" name="skillsOtherText" rows="2"></textarea>
+                    <div class="form-group" id="usCitizenOtherGroup" style="display: none;">
+                        <input type="text" id="usCitizenOtherInput" name="usCitizenOther" placeholder="Please explain">
                     </div>
                 </div>
 
-                <!-- Resume Upload -->
                 <div class="form-group">
-                    <label for="resume">Resume/CV</label>
-                    <p class="field-description">Please upload your resume (PDF, DOC, or DOCX format, max 5MB)</p>
+                    <label>If NO, are you allowed to work in the U.S.? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="workAuthorized" value="Yes">
+                            <span>Yes</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="workAuthorized" value="No">
+                            <span>No</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="workAuthorized" value="N/A">
+                            <span>N/A — I am a U.S. Citizen</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="workAuthorized" value="other" id="workAuthOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="workAuthOtherGroup" style="display: none;">
+                        <input type="text" id="workAuthOtherInput" name="workAuthorizedOther" placeholder="Please explain">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you ever worked for WESTSIDE RISING? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="workedForWR" value="Yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="workedForWR" value="No">
+                            <span>No</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="workedForWR" value="other" id="workedForWROther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="workedForWROtherGroup" style="display: none;">
+                        <input type="text" id="workedForWROtherInput" name="workedForWROther" placeholder="Please explain">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="wrHistory">If yes, write the start–end dates and position you held when you worked for WESTSIDE RISING. <span class="required">*</span></label>
+                    <textarea id="wrHistory" name="wrHistory" rows="3" placeholder="e.g. June 2020 – August 2021, Community Outreach Coordinator. Or write 'N/A' if not applicable."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you have a criminal background for which you were convicted? (This does not impact consideration for employment.) If yes, please explain in the "Other" section. <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="radio" name="criminalBackground" value="Yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="criminalBackground" value="No">
+                            <span>No</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="criminalBackground" value="other" id="criminalOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="criminalOtherGroup" style="display: none;">
+                        <textarea id="criminalOtherInput" name="criminalBackgroundOther" rows="3" placeholder="Please explain"></textarea>
+                    </div>
+                </div>
+
+                <!-- ===== SECTION 3: MISSION & VISION ALIGNMENT ===== -->
+                <div class="form-section-title">
+                    <h3>Section 3 — Mission &amp; Vision Alignment</h3>
+                    <p>Please answer the following questions about your core values and alignment with WESTSIDE RISING's mission and vision.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="westSideWork">Do you work in West Side communities? If so, why? Also describe your activities and work in West Side communities. <span class="required">*</span></label>
+                    <textarea id="westSideWork" name="westSideWork" rows="5" placeholder="Describe your connection to and work in West Side communities..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="coreValues">WESTSIDE RISING (WR) is an organization that works for Solidarity and Social Justice for West Side communities. Please describe your core values and how they align with WESTSIDE RISING's mission and vision. Please be detailed and specific. <span class="required">*</span></label>
+                    <textarea id="coreValues" name="coreValues" rows="6" placeholder="Describe your core values and how they align with WR's mission and vision..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="wrVision">What's your vision for the future of WESTSIDE RISING? <span class="required">*</span></label>
+                    <textarea id="wrVision" name="wrVision" rows="5" placeholder="Share your vision for WESTSIDE RISING's future..." required></textarea>
+                </div>
+
+                <!-- ===== SECTION 4: EMPLOYMENT HISTORY ===== -->
+                <div class="form-section-title">
+                    <h3>Section 4 — Employment History</h3>
+                    <p>Please list your last two employers in the spaces provided below. If you do not have a work history, type "N/A" in each space. Include: company name and address, position held, dates of employment (start–end), type of employment (FT or PT), supervisor, and company phone number.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="employer1">1st Employer <span class="required">*</span></label>
+                    <p style="color: #555; margin-bottom: 0.5rem; font-size: 0.9rem;">Include: Company Name, Company Address, Position Held, Dates of Employment (start–end), Type (FT/PT), Supervisor, Company Phone Number</p>
+                    <textarea id="employer1" name="employer1" rows="6" placeholder="Company Name:&#10;Company Address:&#10;Position Held:&#10;Dates of Employment:&#10;FT or PT:&#10;Supervisor:&#10;Company Phone Number:" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="employer2">2nd Employer <span class="required">*</span></label>
+                    <p style="color: #555; margin-bottom: 0.5rem; font-size: 0.9rem;">Include: Company Name, Company Address, Position Held, Dates of Employment (start–end), Type (FT/PT), Supervisor, Company Phone Number</p>
+                    <textarea id="employer2" name="employer2" rows="6" placeholder="Company Name:&#10;Company Address:&#10;Position Held:&#10;Dates of Employment:&#10;FT or PT:&#10;Supervisor:&#10;Company Phone Number:" required></textarea>
+                </div>
+
+                <!-- ===== SECTION 5: SKILLS ===== -->
+                <div class="form-section-title">
+                    <h3>Section 5 — Experience, Knowledge, Skills, Abilities, and Relationships</h3>
+                    <p>Think about all of your experience and the things you do well. Indicate your level of competency for each skill. Check all that apply.</p>
+                </div>
+
+                <div class="form-group">
+                    <label>What skills do you have? Indicate your level of competency. <span class="required">*</span></label>
+                    <div style="overflow-x: auto;">
+                        <table class="skills-table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left;">Skill</th>
+                                    <th>Entry Level</th>
+                                    <th>Intermediate</th>
+                                    <th>Expert</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Microsoft Word</td>
+                                    <td><input type="radio" name="skill_word" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_word" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_word" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Excel</td>
+                                    <td><input type="radio" name="skill_excel" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_excel" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_excel" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Data Entry</td>
+                                    <td><input type="radio" name="skill_dataentry" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_dataentry" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_dataentry" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Internal Communications</td>
+                                    <td><input type="radio" name="skill_internalcomms" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_internalcomms" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_internalcomms" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Marketing</td>
+                                    <td><input type="radio" name="skill_marketing" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_marketing" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_marketing" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Social Media</td>
+                                    <td><input type="radio" name="skill_socialmedia" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_socialmedia" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_socialmedia" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Canva</td>
+                                    <td><input type="radio" name="skill_canva" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_canva" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_canva" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Research</td>
+                                    <td><input type="radio" name="skill_research" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_research" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_research" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Community Outreach</td>
+                                    <td><input type="radio" name="skill_outreach" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_outreach" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_outreach" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Constant Contact / Mailchimp</td>
+                                    <td><input type="radio" name="skill_email" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_email" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_email" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>AI Tools</td>
+                                    <td><input type="radio" name="skill_ai" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_ai" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_ai" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Documentation</td>
+                                    <td><input type="radio" name="skill_documentation" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_documentation" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_documentation" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Team Management</td>
+                                    <td><input type="radio" name="skill_teammanagement" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_teammanagement" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_teammanagement" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Program / Project Management</td>
+                                    <td><input type="radio" name="skill_projectmanagement" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_projectmanagement" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_projectmanagement" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Training</td>
+                                    <td><input type="radio" name="skill_training" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_training" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_training" value="Expert"></td>
+                                </tr>
+                                <tr>
+                                    <td>Fundraising &amp; Development</td>
+                                    <td><input type="radio" name="skill_fundraising" value="Entry Level"></td>
+                                    <td><input type="radio" name="skill_fundraising" value="Intermediate"></td>
+                                    <td><input type="radio" name="skill_fundraising" value="Expert"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherSkills">I have other experience, skills, and expertise I'd like to share. <span class="required">*</span></label>
+                    <textarea id="otherSkills" name="otherSkills" rows="4" placeholder="List any additional skills, experience, or expertise not covered above. Write 'None' if not applicable." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="abilitiesVision">How do you envision using your abilities in the role for which you are applying? <span class="required">*</span></label>
+                    <textarea id="abilitiesVision" name="abilitiesVision" rows="5" placeholder="Describe how you plan to apply your skills and experience in this role..." required></textarea>
+                </div>
+
+                <!-- ===== SECTION 6: EDUCATION ===== -->
+                <div class="form-section-title">
+                    <h3>Section 6 — Education</h3>
+                    <p>Please indicate the following concerning your education: school, dates attended, and the degree acquired/graduation date.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="school1">School #1 <span class="required">*</span></label>
+                    <p style="color: #555; margin-bottom: 0.5rem; font-size: 0.9rem;">Include: School Attended, Dates of Attendance, Degree Accomplished</p>
+                    <textarea id="school1" name="school1" rows="4" placeholder="School Attended:&#10;Dates of Attendance:&#10;Degree Accomplished:" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="school2">School #2 <span class="required">*</span></label>
+                    <p style="color: #555; margin-bottom: 0.5rem; font-size: 0.9rem;">Include: School Attended, Dates of Attendance, Degree Accomplished</p>
+                    <textarea id="school2" name="school2" rows="4" placeholder="School Attended:&#10;Dates of Attendance:&#10;Degree Accomplished:&#10;(Write 'N/A' if not applicable)"></textarea>
+                </div>
+
+                <!-- ===== SECTION 7: RESUME & REFERENCES ===== -->
+                <div class="form-section-title">
+                    <h3>Section 7 — Resume &amp; References</h3>
+                    <p>Please list 3 references that can be contacted to verify your character and work ethic.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="resume">Please attach your resume. <span class="required">*</span></label>
+                    <p style="color: #555; margin-bottom: 0.5rem; font-size: 0.9rem;">Accepted formats: PDF, DOC, DOCX (max 5MB)</p>
                     <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
                 </div>
 
-                <!-- References -->
                 <div class="form-group">
-                    <label for="references">Professional References</label>
-                    <textarea id="references" name="references" rows="4" placeholder="Please provide 2-3 professional references with name, title, organization, and contact information..."></textarea>
+                    <label for="reference1">Reference #1 — Name, Phone Number, Email <span class="required">*</span></label>
+                    <textarea id="reference1" name="reference1" rows="3" placeholder="Name:&#10;Phone Number:&#10;Email:" required></textarea>
                 </div>
 
-                <!-- How did you hear about us -->
                 <div class="form-group">
-                    <label for="hearAbout">How did you hear about this opportunity?</label>
-                    <select id="hearAbout" name="hearAbout">
-                        <option value="">Select an option</option>
-                        <option value="website">WESTSIDE RISING Website</option>
-                        <option value="social-media">Social Media</option>
-                        <option value="job-board">Job Board/LinkedIn</option>
-                        <option value="referral">Referral from someone</option>
-                        <option value="event">Community Event</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <label for="reference2">Reference #2 — Name, Phone Number, Email <span class="required">*</span></label>
+                    <textarea id="reference2" name="reference2" rows="3" placeholder="Name:&#10;Phone Number:&#10;Email:" required></textarea>
                 </div>
 
-                <!-- Consent -->
                 <div class="form-group">
-                    <label class="checkbox-label consent">
-                        <input type="checkbox" name="consent" id="consent" required>
-                        <span>I certify that the information provided is accurate and complete. I understand that false information may result in disqualification from consideration. <span class="required">*</span></span>
-                    </label>
+                    <label for="reference3">Reference #3 — Name, Phone Number, Email <span class="required">*</span></label>
+                    <textarea id="reference3" name="reference3" rows="3" placeholder="Name:&#10;Phone Number:&#10;Email:" required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-large">
+                <!-- ===== SIGNATURE ===== -->
+                <div class="form-section-title">
+                    <h3>Signature</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="signature">Type your name below as your signature. <span class="required">*</span></label>
+                    <input type="text" id="signature" name="signature" placeholder="Type your full name" required>
+                    <span class="form-hint">I, <span id="signatureDisplay">_______________</span>, confirm that the information provided in this application and the supporting documents are true.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="todaysDate">Today's Date <span class="required">*</span></label>
+                    <input type="date" id="todaysDate" name="todaysDate" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
                     <i class="fas fa-paper-plane"></i>
                     Submit Application
                 </button>
+
             </form>
         </div>
     </section>
