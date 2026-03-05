@@ -252,7 +252,7 @@
 .partnership-form .form-group input[type="file"],
 .partnership-form .form-group select,
 .partnership-form .form-group textarea {
-    border: 2px solid var(--primary-red);
+    border: 1px solid var(--primary-red);
 }
 
 .partnership-form .form-group input[type="file"] {
@@ -334,7 +334,7 @@
     padding: 1rem 1.2rem;
     font-family: var(--font-secondary);
     font-size: 1rem;
-    border: 2px solid var(--primary-red);
+    border: 1px solid var(--primary-red);
     border-radius: 8px;
     background: var(--white);
     transition: var(--transition);
@@ -345,7 +345,6 @@
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-red);
-    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
 }
 
 .form-group textarea {
