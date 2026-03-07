@@ -78,6 +78,11 @@
                     <h3 id="partnership-count">0</h3>
                     <p>Partnership Applications</p>
                 </div>
+                <div class="stat-card">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3 id="voices-count">0</h3>
+                    <p>Community Voices Surveys</p>
+                </div>
             </div>
 
             <!-- Tab Navigation -->
@@ -96,6 +101,11 @@
                     <i class="fas fa-hands-helping"></i>
                     Activation Hub/Volunteer
                     <span class="tab-badge" id="badge-volunteers">0</span>
+                </button>
+                <button class="tab-btn" data-tab="voices" onclick="switchTab('voices')">
+                    <i class="fas fa-bullhorn"></i>
+                    Community Voices
+                    <span class="tab-badge" id="badge-voices">0</span>
                 </button>
                 <button class="tab-btn" data-tab="partnerships" onclick="switchTab('partnerships')">
                     <i class="fas fa-handshake"></i>
@@ -157,6 +167,22 @@
                 </div>
             </div>
 
+            <!-- Tab Panel: Community Voices Surveys -->
+            <div class="tab-panel" id="tab-voices" style="display: none;">
+                <div class="applications-section">
+                    <div class="section-title-bar">
+                        <h2>Community Voices Survey Responses</h2>
+                        <span class="new-count-label" id="voices-new-label"></span>
+                    </div>
+                    <div id="voices-apps-container">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading survey responses...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tab Panel: Partnership Applications -->
             <div class="tab-panel" id="tab-partnerships" style="display: none;">
                 <div class="applications-section">
@@ -206,6 +232,6 @@
     </section>
 
     <script src="assets/js/main.js?v=1"></script>
-    <script type="module" src="assets/js/admin-dashboard.js?v=13"></script>
+    <script type="module" src="assets/js/admin-dashboard.js?v=14"></script>
 </body>
 </html>

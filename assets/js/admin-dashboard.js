@@ -136,12 +136,13 @@ async function loadDashboard() {
         displayPendingEvents(pendingEvents);
         displayApprovedEvents(approvedEvents);
 
-        // Load all 4 application types in parallel
+        // Load all application types in parallel
         await Promise.all([
-            loadApplications('volunteerApplications',   'volunteer-apps-container',   'volunteer-count',   'badge-volunteers',   'volunteer-new-label',   displayVolunteerApplications),
-            loadApplications('partnershipApplications', 'partnership-apps-container', 'partnership-count', 'badge-partnerships', 'partnership-new-label', displayPartnershipApplications),
-            loadApplications('joinTeamApplications',    'jointeam-apps-container',    'jointeam-count',    'badge-jointeam',     'jointeam-new-label',    displayJoinTeamApplications),
-            loadApplications('powerLabApplications',    'powerlab-apps-container',    'powerlab-count',    'badge-powerlab',     'powerlab-new-label',    displayPowerLabApplications)
+            loadApplications('volunteerApplications',    'volunteer-apps-container',  'volunteer-count',   'badge-volunteers',   'volunteer-new-label',   displayVolunteerApplications),
+            loadApplications('partnershipApplications',  'partnership-apps-container','partnership-count', 'badge-partnerships', 'partnership-new-label', displayPartnershipApplications),
+            loadApplications('joinTeamApplications',     'jointeam-apps-container',   'jointeam-count',    'badge-jointeam',     'jointeam-new-label',    displayJoinTeamApplications),
+            loadApplications('powerLabApplications',     'powerlab-apps-container',   'powerlab-count',    'badge-powerlab',     'powerlab-new-label',    displayPowerLabApplications),
+            loadApplications('communityVoicesSurveys',   'voices-apps-container',     'voices-count',      'badge-voices',       'voices-new-label',      displayCommunityVoicesSurveys)
         ]);
 
     } catch (error) {
@@ -656,6 +657,112 @@ function displayPowerLabApplications(apps, containerId) {
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
                 <button class="btn-delete" onclick="deleteApplication('powerLabApplications', '${app.id}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+// =============================================
+// DISPLAY COMMUNITY VOICES SURVEYS
+// =============================================
+function displayCommunityVoicesSurveys(apps, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (apps.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-bullhorn"></i><p>No survey responses yet</p></div>`;
+        return;
+    }
+
+    container.innerHTML = apps.map(app => {
+        const isNew = app.status === 'new';
+        const getInvolvedDisplay = Array.isArray(app.getInvolved)
+            ? app.getInvolved.join(', ')
+            : (app.getInvolved || 'N/A');
+
+        return `
+        <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
+            <div class="event-card-header">
+                <div>
+                    <h3>${app.contactName || 'Anonymous'}</h3>
+                    <span class="event-badge ${isNew ? '' : 'reviewed-badge'}">${isNew ? 'New' : 'Reviewed'}</span>
+                </div>
+                <button class="btn-view-details" onclick="toggleAppDetails('${app.id}')">
+                    <i class="fas fa-chevron-down"></i> View Details
+                </button>
+            </div>
+
+            <div class="event-card-info">
+                <div class="info-item"><i class="fas fa-envelope"></i><span>${app.contactEmail || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>${app.contactPhone || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>${app.community || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
+            </div>
+
+            <div class="event-details-expand" id="details-${app.id}" style="display: none;">
+                <div class="details-section">
+                    <h4><i class="fas fa-info-circle"></i> Background</h4>
+                    <p><strong>Heard about WR before?</strong> ${app.heardAboutWR || 'N/A'}</p>
+                    <p><strong>Age:</strong> ${app.age || 'N/A'}</p>
+                    <p><strong>Time on West Side:</strong> ${app.timeOnWestSide || 'N/A'}</p>
+                    <p><strong>Registered Voter:</strong> ${app.registeredVoter || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-user-tie"></i> Alderman</h4>
+                    <p><strong>Knows Alderman:</strong> ${app.knowAlderman || 'N/A'}</p>
+                    ${app.alderman ? `<p><strong>Alderman:</strong> ${app.alderman}</p>` : ''}
+                    ${app.aldermanRating ? `<p><strong>Alderman Rating:</strong> ${app.aldermanRating}</p>` : ''}
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-city"></i> Mayor</h4>
+                    <p><strong>Rating:</strong> ${app.mayorRating || 'N/A'}</p>
+                    ${app.mayorRatingWhy ? `<p><strong>Why:</strong> ${app.mayorRatingWhy}</p>` : ''}
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-exclamation-circle"></i> Top Issues</h4>
+                    <p>${[app.topIssue1, app.topIssue2, app.topIssue3].filter(Boolean).join(', ') || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-home"></i> Housing</h4>
+                    <p><strong>Satisfaction:</strong> ${app.housingSatisfaction || 'N/A'}</p>
+                    ${app.housingWhy ? `<p><strong>Why:</strong> ${app.housingWhy}</p>` : ''}
+                    ${app.housingAction ? `<p><strong>What should be done:</strong> ${app.housingAction}</p>` : ''}
+                </div>
+                ${app.ifMayor ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-star"></i> If I Were Mayor</h4>
+                    <p>${app.ifMayor}</p>
+                </div>
+                ` : ''}
+                ${app.additionalConcerns ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-comment"></i> Additional Concerns</h4>
+                    <p>${app.additionalConcerns}</p>
+                </div>
+                ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-hands-helping"></i> Get Involved</h4>
+                    <p>${getInvolvedDisplay}${app.getInvolvedOther ? ` (Other: ${app.getInvolvedOther})` : ''}</p>
+                </div>
+            </div>
+
+            <div class="event-card-actions">
+                ${isNew ? `
+                    <button class="btn-approve" onclick="markAsReviewed('communityVoicesSurveys', '${app.id}', this)">
+                        <i class="fas fa-check"></i> Mark as Reviewed
+                    </button>
+                ` : `
+                    <span class="reviewed-label"><i class="fas fa-check-circle"></i> Reviewed</span>
+                `}
+                ${app.contactEmail ? `
+                    <a href="mailto:${app.contactEmail}" class="btn-view-event">
+                        <i class="fas fa-envelope"></i> Email Respondent
+                    </a>
+                ` : ''}
+                <button class="btn-delete" onclick="deleteApplication('communityVoicesSurveys', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
             </div>

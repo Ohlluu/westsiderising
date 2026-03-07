@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WR Community Voices Survey — share your voice on West Side issues with WESTSIDE RISING.">
+    <title>Community Voices Survey | WESTSIDE RISING</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/get-involved.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-primary: 'Permanent Marker', cursive;
+            --font-secondary: 'Lora', serif;
+        }
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-secondary);
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .radio-label input[type="radio"] {
+            accent-color: var(--primary-red);
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+        .question-number {
+            font-family: var(--font-primary);
+            color: var(--primary-red);
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+        .survey-section-title {
+            font-family: var(--font-primary);
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 0.5rem;
+            margin: 2rem 0 1.5rem;
+        }
+        .issues-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .issues-row .form-group {
+            flex: 1;
+            min-width: 120px;
+            margin-bottom: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="/">
+                <img src="assets/images/WR logo.jpg" alt="WESTSIDE RISING Logo"></a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="about" class="nav-link">About</a></li>
+                <li><a href="events" class="nav-link">Events</a></li>
+                <li><a href="resources" class="nav-link">Resources</a></li>
+                <li><a href="leadership-awards" class="nav-link">Leadership Awards</a></li>
+                <li><a href="get-involved" class="nav-link active">Get Involved</a></li>
+                <li><a href="donate" class="btn-donate-nav">Donate</a></li>
+            </ul>
+            <div class="social-icons-nav">
+                <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="page-hero-content fade-in-up">
+                <h1>Community Voices Survey</h1>
+                <p>Share your voice on West Side issues and help shape our community's future</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Get Involved -->
+    <section class="breadcrumb-section">
+        <div class="container">
+            <a href="get-involved" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Get Involved
+            </a>
+        </div>
+    </section>
+
+    <!-- Survey Form -->
+    <section class="volunteer-form-section">
+        <div class="container">
+            <div class="form-header fade-in-up">
+                <h2 class="section-title">WR Community Voices Survey</h2>
+                <p>
+                    Help WESTSIDE RISING understand the priorities and concerns of our community.
+                    Your responses will directly inform our organizing, advocacy, and civic engagement work across the Greater West Side.
+                </p>
+            </div>
+
+            <form class="volunteer-form fade-in-up" id="communityVoicesForm">
+
+                <!-- Q1 -->
+                <div class="form-group">
+                    <span class="question-number">1.</span>
+                    <label>Before today, had you heard about WESTSIDE RISING? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="heardAboutWR" value="yes" required> <span>Yes</span></label>
+                        <label class="radio-label"><input type="radio" name="heardAboutWR" value="no"> <span>No</span></label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="form-group">
+                    <span class="question-number">2.</span>
+                    <label>What is your age? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="age" value="under-18" required> <span>Under 18</span></label>
+                        <label class="radio-label"><input type="radio" name="age" value="19-30"> <span>19 – 30</span></label>
+                        <label class="radio-label"><input type="radio" name="age" value="31-50"> <span>31 – 50</span></label>
+                        <label class="radio-label"><input type="radio" name="age" value="51-64"> <span>51 – 64</span></label>
+                        <label class="radio-label"><input type="radio" name="age" value="65-over"> <span>65 and over</span></label>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="form-group">
+                    <span class="question-number">3.</span>
+                    <label>How long have you lived on the West Side? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="timeOnWestSide" value="0-5" required> <span>0 – 5 yrs</span></label>
+                        <label class="radio-label"><input type="radio" name="timeOnWestSide" value="6-10"> <span>6 – 10 yrs</span></label>
+                        <label class="radio-label"><input type="radio" name="timeOnWestSide" value="11-20"> <span>11 – 20 yrs</span></label>
+                        <label class="radio-label"><input type="radio" name="timeOnWestSide" value="21+"> <span>21+ yrs</span></label>
+                        <label class="radio-label"><input type="radio" name="timeOnWestSide" value="na"> <span>N/A</span></label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="form-group">
+                    <span class="question-number">4.</span>
+                    <label>Which Westside community do you live in? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label"><input type="radio" name="community" value="austin" required> <span>Austin</span></label>
+                        <label class="checkbox-label"><input type="radio" name="community" value="garfield-park"> <span>Garfield Park</span></label>
+                        <label class="checkbox-label"><input type="radio" name="community" value="north-lawndale"> <span>North Lawndale</span></label>
+                        <label class="checkbox-label"><input type="radio" name="community" value="little-village"> <span>Little Village</span></label>
+                        <label class="checkbox-label"><input type="radio" name="community" value="humboldt-park"> <span>Humboldt Park</span></label>
+                        <label class="checkbox-label"><input type="radio" name="community" value="belmont-cragin"> <span>Belmont Cragin</span></label>
+                        <label class="checkbox-label"><input type="radio" name="community" value="other" id="communityOther"> <span>I live in another Chicago community / Not on the West Side</span></label>
+                    </div>
+                    <div id="communityOtherGroup" style="display: none; margin-top: 0.75rem;">
+                        <input type="text" id="communityOtherInput" name="communityOther" placeholder="Please specify your community">
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="form-group">
+                    <span class="question-number">5.</span>
+                    <label>Are you a registered voter? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="registeredVoter" value="yes" required> <span>Yes</span></label>
+                        <label class="radio-label"><input type="radio" name="registeredVoter" value="no"> <span>No</span></label>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="form-group">
+                    <span class="question-number">6.</span>
+                    <label>Do you know who the Alderman is for your area? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="knowAlderman" value="yes" id="knowAldermanYes" required> <span>Yes</span></label>
+                        <label class="radio-label"><input type="radio" name="knowAlderman" value="no"> <span>I don't know</span></label>
+                    </div>
+                </div>
+
+                <div id="aldermanDetails" style="display: none;">
+                    <div class="form-group">
+                        <label>Which Alderman?</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="radio" name="alderman" value="jason-ervin-28"> <span>Jason Ervin – 28th Ward</span></label>
+                            <label class="checkbox-label"><input type="radio" name="alderman" value="emma-mitts-37"> <span>Emma Mitts – 37th Ward</span></label>
+                            <label class="checkbox-label"><input type="radio" name="alderman" value="chris-taliaferro-29"> <span>Chris Taliaferro – 29th Ward</span></label>
+                            <label class="checkbox-label"><input type="radio" name="alderman" value="monique-scott-24"> <span>Monique Scott – 24th Ward</span></label>
+                            <label class="checkbox-label"><input type="radio" name="alderman" value="walter-burnett-27"> <span>Walter Burnett – 27th Ward</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Rate your Alderperson's service to the community</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="aldermanRating" value="poor"> <span>Poor</span></label>
+                            <label class="radio-label"><input type="radio" name="aldermanRating" value="fair"> <span>Fair</span></label>
+                            <label class="radio-label"><input type="radio" name="aldermanRating" value="good"> <span>Good</span></label>
+                            <label class="radio-label"><input type="radio" name="aldermanRating" value="excellent"> <span>Excellent</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="form-group">
+                    <span class="question-number">7.</span>
+                    <label>Rank the Mayor's service. <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="mayorRating" value="excellent" required> <span>Excellent</span></label>
+                        <label class="radio-label"><input type="radio" name="mayorRating" value="good"> <span>Good</span></label>
+                        <label class="radio-label"><input type="radio" name="mayorRating" value="neutral"> <span>Neutral</span></label>
+                        <label class="radio-label"><input type="radio" name="mayorRating" value="fair"> <span>Fair</span></label>
+                        <label class="radio-label"><input type="radio" name="mayorRating" value="poor"> <span>Poor</span></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mayorRatingWhy">Why did you choose this ranking?</label>
+                    <textarea id="mayorRatingWhy" name="mayorRatingWhy" rows="3" placeholder="Share your thoughts..."></textarea>
+                </div>
+
+                <!-- Q8 -->
+                <div class="form-group">
+                    <span class="question-number">8.</span>
+                    <label>What are the top three issues in West Side communities? <span class="required">*</span></label>
+                    <div class="issues-row">
+                        <div class="form-group">
+                            <input type="text" id="topIssue1" name="topIssue1" placeholder="Issue #1" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="topIssue2" name="topIssue2" placeholder="Issue #2" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="topIssue3" name="topIssue3" placeholder="Issue #3" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="form-group">
+                    <span class="question-number">9.</span>
+                    <label>How satisfied are you with the state of housing (owning/renting) in your community? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="housingSatisfaction" value="very-satisfied" required> <span>Very Satisfied</span></label>
+                        <label class="radio-label"><input type="radio" name="housingSatisfaction" value="satisfied"> <span>Satisfied</span></label>
+                        <label class="radio-label"><input type="radio" name="housingSatisfaction" value="unsatisfied"> <span>Unsatisfied</span></label>
+                        <label class="radio-label"><input type="radio" name="housingSatisfaction" value="extremely-unsatisfied"> <span>Extremely Unsatisfied</span></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="housingWhy">Why?</label>
+                    <textarea id="housingWhy" name="housingWhy" rows="3" placeholder="Share your thoughts on housing in your community..."></textarea>
+                </div>
+
+                <!-- Q10 -->
+                <div class="form-group">
+                    <span class="question-number">10.</span>
+                    <label for="housingAction">WR is working on equitable housing on the West Side. What should be done about housing in West Side communities? <span class="required">*</span></label>
+                    <textarea id="housingAction" name="housingAction" rows="4" required placeholder="Share your ideas..."></textarea>
+                </div>
+
+                <!-- Q11 -->
+                <div class="form-group">
+                    <span class="question-number">11.</span>
+                    <label for="ifMayor">If you were Mayor, what would you do? (There are no limits)</label>
+                    <textarea id="ifMayor" name="ifMayor" rows="4" placeholder="Share your vision..."></textarea>
+                </div>
+
+                <!-- Q12 -->
+                <div class="form-group">
+                    <span class="question-number">12.</span>
+                    <label for="additionalConcerns">Do you have any additional ideas or concerns you want to share?</label>
+                    <textarea id="additionalConcerns" name="additionalConcerns" rows="4" placeholder="Share any other thoughts..."></textarea>
+                </div>
+
+                <!-- Q13: GET INVOLVED -->
+                <div class="form-group">
+                    <span class="question-number">13.</span>
+                    <label>GET INVOLVED! You can help by… (Check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="register-voters">
+                            <span>Helping to register voters</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="get-surveys">
+                            <span>Helping to get surveys</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="attend-activities">
+                            <span>Attending WESTSIDE RISING's activities</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="phone-calls">
+                            <span>Making phone calls</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="speak-meetings">
+                            <span>Speaking at meetings</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="emails-texts">
+                            <span>Sending emails or texts</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="door-knocking">
+                            <span>Participating in door knocking and flyering</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="community-research">
+                            <span>Conducting Community Research</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="more-info">
+                            <span>Receiving more information about activities</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="youth-ambassador">
+                            <span>Being a Youth Ambassador</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="getInvolved" value="other" id="getInvolvedOther">
+                            <span>Other:</span>
+                        </label>
+                    </div>
+                    <div id="getInvolvedOtherGroup" style="display: none; margin-top: 0.75rem;">
+                        <input type="text" id="getInvolvedOtherInput" name="getInvolvedOther" placeholder="Please specify">
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <p class="survey-section-title">Your Contact Information</p>
+
+                <div class="form-group">
+                    <label for="contactName">Name <span class="required">*</span></label>
+                    <input type="text" id="contactName" name="contactName" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address</label>
+                        <input type="email" id="contactEmail" name="contactEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Phone Number</label>
+                        <input type="tel" id="contactPhone" name="contactPhone">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Survey
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Our Impact</h4>
+                    <p class="footer-text">
+                        Through training, capacity-building, and civic engagement, we empower our community to create lasting change.
+                    </p>
+                    <a href="donate" class="btn btn-primary btn-small">
+                        Donate Now
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="about">About</a></li>
+                        <li><a href="events">Events</a></li>
+                        <li><a href="resources">Resources</a></li>
+                        <li><a href="leadership-awards">Leadership Awards</a></li>
+                        <li><a href="get-involved">Get Involved</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chicago, IL 60644</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:8728132686">O: (872) 813-2686</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:7734176605">Admin: (773) 417-6605</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:wr.info@westsiderising.org">wr.info@westsiderising.org</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-shield"></i>
+                            <a href="admin-login">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-description">
+                        Building a just, livable and vibrant Greater West Side through community engagement and empowerment.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/westsiderising/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Westside-Rising-100064894208823/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WestsideRising" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@westsiderising393" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 WESTSIDE RISING. All rights reserved. Built with <i class="fas fa-heart"></i> for the community.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Website designed & developed by <a href="https://ohlluudev.com" target="_blank" style="color: inherit; text-decoration: underline;">OhlluuDev</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/community-voices-form.js"></script>
+</body>
+</html>
