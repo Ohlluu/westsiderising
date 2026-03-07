@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (!volunteerForm) return;
 
+    // Toggle "Other" text input for helpBy
+    const helpByOtherCheckbox = document.getElementById('helpByOther');
+    if (helpByOtherCheckbox) {
+        helpByOtherCheckbox.addEventListener('change', function() {
+            const group = document.getElementById('helpByOtherGroup');
+            if (group) group.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+
     // Form submission handler
     volunteerForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -49,6 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
             city: volunteerForm.querySelector('#city').value,
             zipCode: volunteerForm.querySelector('#zipCode').value,
             interests: Array.from(interestsChecked).map(cb => cb.value),
+            helpBy: Array.from(volunteerForm.querySelectorAll('input[name="helpBy"]:checked')).map(cb => cb.value),
+            helpByOther: volunteerForm.querySelector('#helpByOtherInput') ? volunteerForm.querySelector('#helpByOtherInput').value.trim() : '',
             availability: volunteerForm.querySelector('#availability').value,
             skills: volunteerForm.querySelector('#skills').value,
             motivation: volunteerForm.querySelector('#motivation').value,
