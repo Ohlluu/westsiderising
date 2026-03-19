@@ -259,132 +259,247 @@ window.deleteApplication = async function(collectionName, appId) {
 };
 
 // =============================================
-// PRINT APPLICATION
+// VIEW FULL APPLICATION (opens organized new tab)
 // =============================================
-window.printApplication = function(appId) {
+window.viewFullApplication = function(appId) {
     const app = appCache[appId];
     if (!app) {
         alert('Application data not available. Please refresh the page.');
         return;
     }
 
-    // Build skills table if skills is an object
-    let skillsHtml = '';
-    if (app.skills && typeof app.skills === 'object') {
-        const entries = Object.entries(app.skills);
-        skillsHtml = `<table style="width:100%;border-collapse:collapse;font-size:13px">
-            <tr style="background:#f0f0f0"><th style="text-align:left;padding:4px 8px;border:1px solid #ccc">Skill</th><th style="text-align:left;padding:4px 8px;border:1px solid #ccc">Level</th></tr>
-            ${entries.map(([label, level]) => `<tr><td style="padding:4px 8px;border:1px solid #ccc">${label}</td><td style="padding:4px 8px;border:1px solid #ccc">${level}</td></tr>`).join('')}
-        </table>`;
+    const f = (val) => (val !== undefined && val !== null && val !== '') ? String(val) : null;
+    const arrFmt = (val, other) => {
+        let str = Array.isArray(val) ? val.join(', ') : (val || '');
+        if (other) str += ` — Other: ${other}`;
+        return str || null;
+    };
+    const section = (title, fields) => {
+        const rows = fields
+            .filter(([, val]) => val)
+            .map(([label, val, wide]) =>
+                `<div class="field${wide ? ' wide' : ''}"><span class="label">${label}</span><span class="value">${val}</span></div>`
+            ).join('');
+        return rows ? `<div class="section"><h3>${title}</h3><div class="grid">${rows}</div></div>` : '';
+    };
+
+    const applicantName = f(app.fullName)
+        || (`${app.firstName || ''} ${app.lastName || ''}`.trim() || null)
+        || f(app.contactName) || f(app.entityName) || 'Applicant';
+    const formType = app.formType || 'Application';
+    const isNew = app.status === 'new';
+    const submittedDate = formatTimestamp(app.submittedAt);
+
+    let sectionsHtml = '';
+
+    if (formType === 'Employment Application') {
+        let skillsGridHtml = '';
+        if (app.skills && typeof app.skills === 'object') {
+            const rows = Object.entries(app.skills)
+                .map(([label, level]) => `<tr><td>${label}</td><td class="${level === 'Not indicated' ? 'muted' : ''}">${level}</td></tr>`)
+                .join('');
+            skillsGridHtml = `<div class="section"><h3>Skills Matrix</h3>
+                <table class="skills-table">
+                    <thead><tr><th>Skill</th><th>Proficiency</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+                ${app.otherSkills ? `<div class="field wide" style="margin-top:12px;border:none"><span class="label">Other Skills</span><span class="value">${app.otherSkills}</span></div>` : ''}
+                ${app.abilitiesVision ? `<div class="field wide" style="border:none"><span class="label">Abilities &amp; Vision</span><span class="value">${app.abilitiesVision}</span></div>` : ''}
+            </div>`;
+        }
+        sectionsHtml = [
+            section('Personal Information', [
+                ['Full Name', f(app.fullName), true],
+                ['Email', f(app.email)], ['Phone', f(app.phone)],
+                ['Address', f(app.address)],
+            ]),
+            section('Position Details', [
+                ['Primary Position', f(app.position)], ['Secondary Position', f(app.secondaryPosition)],
+                ['Employment Type', f(app.employmentType)], ['Desired Pay', f(app.desiredPay)],
+                ['Available Start Date', f(app.startDate)],
+            ]),
+            section('Eligibility', [
+                ['US Citizen', f(app.usCitizen)], ['Work Authorized', f(app.workAuthorized)],
+                ['Previously Worked for WR', f(app.workedForWR)],
+                ['WR History', f(app.wrHistory), true],
+                ['Criminal Background', f(app.criminalBackground)],
+            ]),
+            section('About You', [
+                ['West Side Work Experience', f(app.westSideWork), true],
+                ['Core Values', f(app.coreValues), true],
+                ['WR Vision', f(app.wrVision), true],
+            ]),
+            section('Education', [
+                ['School 1', f(app.school1), true], ['School 2', f(app.school2), true],
+            ]),
+            section('Work Experience', [
+                ['Employer 1', f(app.employer1), true], ['Employer 2', f(app.employer2), true],
+            ]),
+            skillsGridHtml,
+            section('References', [
+                ['Reference 1', f(app.reference1), true],
+                ['Reference 2', f(app.reference2), true],
+                ['Reference 3', f(app.reference3), true],
+            ]),
+            app.resumeFilename ? `<div class="section"><h3>Resume</h3><div class="grid"><div class="field wide"><span class="label">File</span><span class="value">${app.resumeFilename}${app.resumeUrl ? ` &nbsp;<a href="${app.resumeUrl}" target="_blank" class="resume-link">&#128196; View / Download</a>` : ' <em style="color:#bbb;font-size:12px">(file not stored — submitted before upload was enabled)</em>'}</span></div></div></div>` : '',
+            section('Signature', [['Signed', f(app.signature)], ['Date', f(app.todaysDate)]]),
+        ].join('');
+
+    } else if (formType === 'Volunteer Application') {
+        sectionsHtml = [
+            section('Personal Information', [
+                ['Full Name', `${app.firstName || ''} ${app.lastName || ''}`.trim()],
+                ['Email', f(app.email)], ['Phone', f(app.phone)],
+                ['Address', [app.address, app.city, app.zipCode].filter(Boolean).join(', ') || null],
+                ['Availability', f(app.availability)],
+            ]),
+            section('Areas of Interest', [['Interests', arrFmt(app.interests), true]]),
+            section('Ways to Help', [['You Can Help By', arrFmt(app.helpBy, app.helpByOther), true]]),
+            section('Background', [
+                ['Skills &amp; Experience', f(app.skills), true],
+                ['Motivation', f(app.motivation), true],
+            ]),
+        ].join('');
+
+    } else if (formType === 'Partnership Application') {
+        sectionsHtml = [
+            section('Organization', [
+                ['Entity Name', f(app.entityName), true],
+                ['Authorized Rep', f(app.authorizedRep)], ['Email', f(app.email || app.emailAddress)],
+                ['Contacts', f(app.contacts), true],
+            ]),
+            section('Partnership Details', [
+                ['Partnership Type', arrFmt(app.partnershipType, app.partnershipTypeOther), true],
+                ['Commitments', arrFmt(app.commitments, app.commitmentsOther), true],
+                ['Support Needed', f(app.support) ? (f(app.support) + (app.supportOther ? ` — Other: ${app.supportOther}` : '')) : null, true],
+                ['Agreement Terms', arrFmt(app.agreementTerms, app.agreementOther), true],
+                ['Completion Date', f(app.completionDate)],
+            ]),
+        ].join('');
+
+    } else if (app.applyingAs || app.q1) {
+        sectionsHtml = [
+            section('Applicant Information', [
+                ['Full Name', f(app.fullName)], ['Email', f(app.email)], ['Phone', f(app.phone)],
+                ['Applying As', f(app.applyingAs)], ['Organization', f(app.orgName)],
+                ['Address', [app.address, app.city, app.state, app.zipCode].filter(Boolean).join(', ') || null, true],
+            ]),
+            section('Session &amp; Location', [
+                ['Session Interest', arrFmt(app.sessionInterest), true],
+                ['Neighborhoods', arrFmt(app.neighborhoods, app.neighborhoodOther), true],
+                ['West Side Connection', arrFmt(app.westSideConnection), true],
+                ['West Side (explain)', f(app.westSideExplain), true],
+                ['WR Partnership History', f(app.wrPartnership), true],
+            ]),
+            section('Application Questions', [
+                ['Q1', f(app.q1), true], ['Q2', f(app.q2), true], ['Q3', f(app.q3), true],
+                ['Q4', f(app.q4), true], ['Q5', f(app.q5), true],
+            ]),
+            section('Logistics', [
+                ['Preferred Time', f(app.preferredTime) ? f(app.preferredTime) + (app.preferredTimeOther ? ` — Other: ${app.preferredTimeOther}` : '') : null],
+                ['How They Heard', f(app.hearAbout)], ['Referrals', f(app.referral)],
+                ['Conditions Agreed', arrFmt(app.conditions), true], ['Signature', f(app.signature)],
+            ]),
+            app.participantCount ? `<div class="section"><h3>Additional Participants (${app.participantCount})</h3><div class="grid">
+                ${app.participant1?.name ? `<div class="field wide"><span class="label">Participant 1</span><span class="value">${app.participant1.name}${app.participant1.phone ? ' | ' + app.participant1.phone : ''}${app.participant1.email ? ' | ' + app.participant1.email : ''}</span></div>` : ''}
+                ${app.participant2?.name ? `<div class="field wide"><span class="label">Participant 2</span><span class="value">${app.participant2.name}${app.participant2.phone ? ' | ' + app.participant2.phone : ''}${app.participant2.email ? ' | ' + app.participant2.email : ''}</span></div>` : ''}
+                ${app.participant3?.name ? `<div class="field wide"><span class="label">Participant 3</span><span class="value">${app.participant3.name}${app.participant3.phone ? ' | ' + app.participant3.phone : ''}${app.participant3.email ? ' | ' + app.participant3.email : ''}</span></div>` : ''}
+            </div></div>` : '',
+        ].join('');
+
+    } else {
+        sectionsHtml = [
+            section('Contact', [
+                ['Name', f(app.contactName)], ['Email', f(app.contactEmail)],
+                ['Phone', f(app.contactPhone)], ['Community', f(app.community)],
+            ]),
+            section('Background', [
+                ['Heard About WR Before?', f(app.heardAboutWR)], ['Age', f(app.age)],
+                ['Time on West Side', f(app.timeOnWestSide)], ['Registered Voter', f(app.registeredVoter)],
+            ]),
+            section('Local Leadership', [
+                ['Knows Alderman?', f(app.knowAlderman)], ['Alderman Name', f(app.alderman)],
+                ['Alderman Rating', f(app.aldermanRating)], ['Mayor Rating', f(app.mayorRating)],
+                ['Why (Mayor)', f(app.mayorRatingWhy), true],
+            ]),
+            section('Community Issues', [
+                ['Top Issue 1', f(app.topIssue1)], ['Top Issue 2', f(app.topIssue2)], ['Top Issue 3', f(app.topIssue3)],
+                ['Housing Satisfaction', f(app.housingSatisfaction)],
+                ['Housing — Why', f(app.housingWhy), true],
+                ['Housing Action Needed', f(app.housingAction), true],
+            ]),
+            section('Vision &amp; Involvement', [
+                ['If I Were Mayor', f(app.ifMayor), true],
+                ['Additional Concerns', f(app.additionalConcerns), true],
+                ['Get Involved', arrFmt(app.getInvolved, app.getInvolvedOther), true],
+            ]),
+        ].join('');
     }
 
-    // Helper to render a field row
-    const row = (label, value) => value
-        ? `<tr><td style="font-weight:bold;padding:4px 8px;width:35%;vertical-align:top;border-bottom:1px solid #eee">${label}</td><td style="padding:4px 8px;border-bottom:1px solid #eee">${value}</td></tr>`
-        : '';
-
-    // Collect all fields
-    const fields = [
-        row('Form Type', app.formType),
-        row('Full Name', app.fullName || ((app.firstName || '') + ' ' + (app.lastName || '')).trim() || app.contactName || app.entityName),
-        row('Email', app.email || app.contactEmail || app.emailAddress),
-        row('Phone', app.phone || app.contactPhone),
-        row('Address', app.address ? [app.address, app.city, app.state, app.zipCode].filter(Boolean).join(', ') : ''),
-        row('Community', app.community),
-        row('Availability', app.availability),
-        row('Position', app.position),
-        row('Secondary Position', app.secondaryPosition),
-        row('Employment Type', app.employmentType),
-        row('Desired Pay', app.desiredPay),
-        row('Start Date', app.startDate),
-        row('US Citizen', app.usCitizen),
-        row('Work Authorized', app.workAuthorized),
-        row('Previously Worked for WR', app.workedForWR),
-        row('WR History', app.wrHistory),
-        row('Criminal Background', app.criminalBackground),
-        row('Areas of Interest', Array.isArray(app.interests) ? app.interests.join(', ') : app.interests),
-        row('You Can Help By', Array.isArray(app.helpBy) ? app.helpBy.join(', ') + (app.helpByOther ? ` (Other: ${app.helpByOther})` : '') : app.helpBy),
-        row('Skills & Experience', app.skills && typeof app.skills !== 'object' ? app.skills : ''),
-        row('Other Skills', app.otherSkills),
-        row('Abilities & Vision', app.abilitiesVision),
-        row('Motivation', app.motivation),
-        row('West Side Work', app.westSideWork),
-        row('Core Values', app.coreValues),
-        row('WR Vision', app.wrVision),
-        row('School 1', app.school1),
-        row('School 2', app.school2),
-        row('Employer 1', app.employer1),
-        row('Employer 2', app.employer2),
-        row('Reference 1', app.reference1),
-        row('Reference 2', app.reference2),
-        row('Reference 3', app.reference3),
-        row('Resume Filename', app.resumeFilename),
-        row('Resume Link', app.resumeUrl ? `<a href="${app.resumeUrl}">${app.resumeUrl}</a>` : ''),
-        row('Signature', app.signature),
-        row('Date Signed', app.todaysDate),
-        row('Partnership Type', Array.isArray(app.partnershipType) ? app.partnershipType.join(', ') + (app.partnershipTypeOther ? ` (Other: ${app.partnershipTypeOther})` : '') : app.partnershipType),
-        row('Authorized Rep', app.authorizedRep),
-        row('Contacts', app.contacts),
-        row('Commitments', Array.isArray(app.commitments) ? app.commitments.join(', ') + (app.commitmentsOther ? ` (Other: ${app.commitmentsOther})` : '') : app.commitments),
-        row('Support Needed', app.support ? (app.support + (app.supportOther ? ` (Other: ${app.supportOther})` : '')) : ''),
-        row('Agreement Terms', Array.isArray(app.agreementTerms) ? app.agreementTerms.join(', ') : app.agreementTerms),
-        row('Completion Date', app.completionDate),
-        row('Applying As', app.applyingAs),
-        row('Organization', app.orgName),
-        row('Session Interest', Array.isArray(app.sessionInterest) ? app.sessionInterest.join(', ') : app.sessionInterest),
-        row('Neighborhoods', Array.isArray(app.neighborhoods) ? app.neighborhoods.join(', ') + (app.neighborhoodOther ? ` (Other: ${app.neighborhoodOther})` : '') : app.neighborhoods),
-        row('West Side Connection', Array.isArray(app.westSideConnection) ? app.westSideConnection.join(', ') : app.westSideConnection),
-        row('WR Partnership History', app.wrPartnership),
-        row('Q1', app.q1), row('Q2', app.q2), row('Q3', app.q3), row('Q4', app.q4), row('Q5', app.q5),
-        row('Preferred Time', app.preferredTime ? (app.preferredTime + (app.preferredTimeOther ? ` (Other: ${app.preferredTimeOther})` : '')) : ''),
-        row('How They Heard About WR', app.hearAbout),
-        row('Referrals', app.referral),
-        row('Heard About WR?', app.heardAboutWR),
-        row('Age', app.age),
-        row('Time on West Side', app.timeOnWestSide),
-        row('Registered Voter', app.registeredVoter),
-        row('Knows Alderman', app.knowAlderman),
-        row('Alderman', app.alderman),
-        row('Alderman Rating', app.aldermanRating),
-        row('Mayor Rating', app.mayorRating),
-        row('Mayor Rating - Why', app.mayorRatingWhy),
-        row('Top Issues', [app.topIssue1, app.topIssue2, app.topIssue3].filter(Boolean).join(', ')),
-        row('Housing Satisfaction', app.housingSatisfaction),
-        row('Housing - Why', app.housingWhy),
-        row('Housing Action Needed', app.housingAction),
-        row('If I Were Mayor', app.ifMayor),
-        row('Additional Concerns', app.additionalConcerns),
-        row('Get Involved', Array.isArray(app.getInvolved) ? app.getInvolved.join(', ') + (app.getInvolvedOther ? ` (Other: ${app.getInvolvedOther})` : '') : app.getInvolved),
-        row('Submitted', formatTimestamp(app.submittedAt)),
-        row('Status', app.status),
-    ].filter(Boolean).join('');
-
-    const printName = app.fullName || ((app.firstName || '') + ' ' + (app.lastName || '')).trim() || app.contactName || app.entityName || 'Application';
-
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`<!DOCTYPE html><html><head>
-        <title>WESTSIDE RISING — ${printName}</title>
-        <style>
-            body { font-family: Arial, sans-serif; font-size: 14px; color: #222; margin: 0; padding: 20px; }
-            h1 { font-size: 20px; margin-bottom: 4px; }
-            h2 { font-size: 15px; color: #555; margin-top: 0; font-weight: normal; }
-            .divider { border: none; border-top: 2px solid #cc0000; margin: 12px 0; }
-            table { width: 100%; border-collapse: collapse; }
-            .skills-section { margin-top: 16px; }
-            .skills-section h3 { font-size: 14px; margin-bottom: 6px; }
-            @media print { body { padding: 0; } }
-        </style>
-    </head><body>
-        <h1>WESTSIDE RISING</h1>
-        <h2>${app.formType || 'Application'}</h2>
-        <hr class="divider">
-        <table>${fields}</table>
-        ${skillsHtml ? `<div class="skills-section"><h3>Skills Matrix</h3>${skillsHtml}</div>` : ''}
-    </body></html>`);
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
+    const win = window.open('', '_blank');
+    win.document.write(`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<title>WESTSIDE RISING — ${applicantName}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f0f0; color: #222; padding: 30px 16px; }
+  .page { max-width: 860px; margin: 0 auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.12); overflow: hidden; }
+  .app-header { background: #cc0000; color: #fff; padding: 28px 36px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .app-header .org { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.75; margin-bottom: 4px; }
+  .app-header .form-type { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .app-header .applicant { font-size: 15px; opacity: 0.9; }
+  .header-right { text-align: right; flex-shrink: 0; }
+  .status-pill { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 8px; }
+  .pill-new { background: #fff; color: #cc0000; }
+  .pill-reviewed { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+  .submitted { font-size: 12px; opacity: 0.7; margin-bottom: 14px; }
+  .print-btn { background: #fff; color: #cc0000; border: none; padding: 9px 20px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 700; }
+  .print-btn:hover { background: #f5f5f5; }
+  .app-body { padding: 32px 36px; }
+  .section { margin-bottom: 28px; }
+  .section h3 { font-size: 11px; font-weight: 700; color: #cc0000; text-transform: uppercase; letter-spacing: 1.2px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; margin-bottom: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #efefef; border-radius: 6px; overflow: hidden; }
+  .field { padding: 10px 14px; border-bottom: 1px solid #f5f5f5; border-right: 1px solid #f5f5f5; }
+  .field.wide { grid-column: 1 / -1; border-right: none; }
+  .label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #aaa; margin-bottom: 4px; }
+  .value { font-size: 14px; line-height: 1.6; color: #222; white-space: pre-wrap; word-break: break-word; }
+  .skills-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .skills-table th { background: #f8f8f8; text-align: left; padding: 8px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #888; border: 1px solid #e8e8e8; }
+  .skills-table td { padding: 7px 12px; border: 1px solid #e8e8e8; }
+  .skills-table tr:nth-child(even) td { background: #fafafa; }
+  .muted { color: #ccc; }
+  .resume-link { display: inline-block; margin-left: 8px; background: #cc0000; color: #fff !important; padding: 4px 12px; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: 600; }
+  .app-footer { padding: 16px 36px; background: #fafafa; border-top: 1px solid #f0f0f0; font-size: 11px; color: #bbb; text-align: center; }
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; }
+    .print-btn { display: none; }
+  }
+</style></head><body>
+<div class="page">
+  <div class="app-header">
+    <div>
+      <div class="org">Westside Rising</div>
+      <div class="form-type">${formType}</div>
+      <div class="applicant">${applicantName}</div>
+    </div>
+    <div class="header-right">
+      <div class="status-pill ${isNew ? 'pill-new' : 'pill-reviewed'}">${isNew ? 'New' : 'Reviewed'}</div>
+      <div class="submitted">Submitted: ${submittedDate}</div>
+      <button class="print-btn" onclick="window.print()">&#128424;&nbsp; Print</button>
+    </div>
+  </div>
+  <div class="app-body">${sectionsHtml}</div>
+  <div class="app-footer">WESTSIDE RISING &mdash; Confidential &mdash; Generated ${new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})}</div>
+</div>
+</body></html>`);
+    win.document.close();
+    win.focus();
 };
+
+// kept for backwards compat
+window.printApplication = window.viewFullApplication;
+
 
 // =============================================
 // DISPLAY VOLUNTEER APPLICATIONS
@@ -460,8 +575,8 @@ function displayVolunteerApplications(apps, containerId) {
                 <a href="mailto:${app.email}" class="btn-view-event">
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
-                <button class="btn-view-event" onclick="printApplication('${app.id}')">
-                    <i class="fas fa-print"></i> Print
+                <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
+                    <i class="fas fa-external-link-alt"></i> View Full Application
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('volunteerApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -562,8 +677,8 @@ function displayPartnershipApplications(apps, containerId) {
                         <i class="fas fa-envelope"></i> Email Applicant
                     </a>
                 ` : ''}
-                <button class="btn-view-event" onclick="printApplication('${app.id}')">
-                    <i class="fas fa-print"></i> Print
+                <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
+                    <i class="fas fa-external-link-alt"></i> View Full Application
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('partnershipApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -704,8 +819,8 @@ function displayJoinTeamApplications(apps, containerId) {
                 <a href="mailto:${app.email}" class="btn-view-event">
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
-                <button class="btn-view-event" onclick="printApplication('${app.id}')">
-                    <i class="fas fa-print"></i> Print
+                <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
+                    <i class="fas fa-external-link-alt"></i> View Full Application
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('joinTeamApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -849,8 +964,8 @@ function displayPowerLabApplications(apps, containerId) {
                 <a href="mailto:${app.email}" class="btn-view-event">
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
-                <button class="btn-view-event" onclick="printApplication('${app.id}')">
-                    <i class="fas fa-print"></i> Print
+                <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
+                    <i class="fas fa-external-link-alt"></i> View Full Application
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('powerLabApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -960,8 +1075,8 @@ function displayCommunityVoicesSurveys(apps, containerId) {
                         <i class="fas fa-envelope"></i> Email Respondent
                     </a>
                 ` : ''}
-                <button class="btn-view-event" onclick="printApplication('${app.id}')">
-                    <i class="fas fa-print"></i> Print
+                <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
+                    <i class="fas fa-external-link-alt"></i> View Full Application
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('communityVoicesSurveys', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
