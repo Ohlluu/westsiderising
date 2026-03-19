@@ -261,7 +261,7 @@ window.deleteApplication = async function(collectionName, appId) {
 // =============================================
 // VIEW FULL APPLICATION (opens organized new tab)
 // =============================================
-window.viewFullApplication = function(appId) {
+window.viewFullApplication = function(appId, autoPrint = false) {
     const app = appCache[appId];
     if (!app) {
         alert('Application data not available. Please refresh the page.');
@@ -495,10 +495,16 @@ window.viewFullApplication = function(appId) {
 </body></html>`);
     win.document.close();
     win.focus();
+    if (autoPrint) win.print();
 };
 
 // kept for backwards compat
 window.printApplication = window.viewFullApplication;
+
+// Opens full application page and immediately triggers the print dialog
+window.printDirect = function(appId) {
+    window.viewFullApplication(appId, true);
+};
 
 
 // =============================================
@@ -577,6 +583,9 @@ function displayVolunteerApplications(apps, containerId) {
                 </a>
                 <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
                     <i class="fas fa-external-link-alt"></i> View Full Application
+                </button>
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('volunteerApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -679,6 +688,9 @@ function displayPartnershipApplications(apps, containerId) {
                 ` : ''}
                 <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
                     <i class="fas fa-external-link-alt"></i> View Full Application
+                </button>
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('partnershipApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -821,6 +833,9 @@ function displayJoinTeamApplications(apps, containerId) {
                 </a>
                 <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
                     <i class="fas fa-external-link-alt"></i> View Full Application
+                </button>
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('joinTeamApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
@@ -967,6 +982,9 @@ function displayPowerLabApplications(apps, containerId) {
                 <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
                     <i class="fas fa-external-link-alt"></i> View Full Application
                 </button>
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
                 <button class="btn-delete" onclick="deleteApplication('powerLabApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
@@ -1077,6 +1095,9 @@ function displayCommunityVoicesSurveys(apps, containerId) {
                 ` : ''}
                 <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
                     <i class="fas fa-external-link-alt"></i> View Full Application
+                </button>
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('communityVoicesSurveys', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
