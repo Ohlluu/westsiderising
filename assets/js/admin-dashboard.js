@@ -319,6 +319,7 @@ window.printApplication = function(appId) {
         row('Reference 2', app.reference2),
         row('Reference 3', app.reference3),
         row('Resume Filename', app.resumeFilename),
+        row('Resume Link', app.resumeUrl ? `<a href="${app.resumeUrl}">${app.resumeUrl}</a>` : ''),
         row('Signature', app.signature),
         row('Date Signed', app.todaysDate),
         row('Partnership Type', Array.isArray(app.partnershipType) ? app.partnershipType.join(', ') + (app.partnershipTypeOther ? ` (Other: ${app.partnershipTypeOther})` : '') : app.partnershipType),
@@ -682,6 +683,7 @@ function displayJoinTeamApplications(apps, containerId) {
                 <div class="details-section">
                     <h4><i class="fas fa-file-alt"></i> Resume</h4>
                     <p>${app.resumeFilename}</p>
+                    ${app.resumeUrl ? `<a href="${app.resumeUrl}" target="_blank" class="btn-view-event" style="display:inline-flex;margin-top:6px"><i class="fas fa-external-link-alt"></i>&nbsp; View Resume</a>` : ''}
                 </div>
                 ` : ''}
                 <div class="details-section">

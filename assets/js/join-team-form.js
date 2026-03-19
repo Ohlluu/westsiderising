@@ -1,8 +1,9 @@
 // ===================================
 // JOIN TEAM / EMPLOYMENT APPLICATION FORM HANDLER
 // ===================================
-import { db } from './firebase-config.js';
+import { db, storage } from './firebase-config.js';
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ===== FORM SUBMISSION =====
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const submitBtn = document.getElementById('submit-btn');
@@ -147,7 +148,26 @@ document.addEventListener('DOMContentLoaded', function() {
             : criminalValue;
 
         const resumeInput = form.querySelector('#resume');
-        const resumeFilename = resumeInput && resumeInput.files[0] ? resumeInput.files[0].name : '';
+        const resumeFile = resumeInput && resumeInput.files[0] ? resumeInput.files[0] : null;
+        const resumeFilename = resumeFile ? resumeFile.name : '';
+
+        // Upload resume to Firebase Storage if provided
+        let resumeUrl = '';
+        if (resumeFile) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading resume...';
+            try {
+                const storageRef = ref(storage, `resumes/${Date.now()}_${resumeFilename}`);
+                const snapshot = await uploadBytes(storageRef, resumeFile);
+                resumeUrl = await getDownloadURL(snapshot.ref);
+            } catch (uploadError) {
+                console.error('Resume upload error:', uploadError);
+                alert('Failed to upload resume. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+                return;
+            }
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        }
 
         const formData = {
             formType: 'Employment Application',
@@ -176,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
             school1: form.querySelector('#school1').value.trim(),
             school2: form.querySelector('#school2').value.trim(),
             resumeFilename,
+            resumeUrl,
             reference1: form.querySelector('#reference1').value.trim(),
             reference2: form.querySelector('#reference2').value.trim(),
             reference3: form.querySelector('#reference3').value.trim(),
@@ -185,16 +206,15 @@ document.addEventListener('DOMContentLoaded', function() {
             submittedAt: serverTimestamp()
         };
 
-        addDoc(collection(db, 'joinTeamApplications'), formData)
-            .then(() => {
-                showSuccess(formData.email, form);
-            })
-            .catch((error) => {
-                console.error('Firestore error:', error);
-                alert('There was an error submitting your application. Please try again.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnContent;
-            });
+        try {
+            await addDoc(collection(db, 'joinTeamApplications'), formData);
+            showSuccess(formData.email, form);
+        } catch (error) {
+            console.error('Firestore error:', error);
+            alert('There was an error submitting your application. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
+        }
     });
 
 });
