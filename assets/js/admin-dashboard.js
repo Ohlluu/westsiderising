@@ -39,6 +39,9 @@ function formatTimestamp(ts) {
     });
 }
 
+// Cache of loaded apps for print functionality
+const appCache = {};
+
 // Check if user is logged in and has proper role
 onAuthStateChanged(auth, async (user) => {
     console.log('Auth state changed:', user ? `Logged in as ${user.email}` : 'Not logged in');
@@ -256,11 +259,140 @@ window.deleteApplication = async function(collectionName, appId) {
 };
 
 // =============================================
+// PRINT APPLICATION
+// =============================================
+window.printApplication = function(appId) {
+    const app = appCache[appId];
+    if (!app) {
+        alert('Application data not available. Please refresh the page.');
+        return;
+    }
+
+    // Build skills table if skills is an object
+    let skillsHtml = '';
+    if (app.skills && typeof app.skills === 'object') {
+        const entries = Object.entries(app.skills);
+        skillsHtml = `<table style="width:100%;border-collapse:collapse;font-size:13px">
+            <tr style="background:#f0f0f0"><th style="text-align:left;padding:4px 8px;border:1px solid #ccc">Skill</th><th style="text-align:left;padding:4px 8px;border:1px solid #ccc">Level</th></tr>
+            ${entries.map(([label, level]) => `<tr><td style="padding:4px 8px;border:1px solid #ccc">${label}</td><td style="padding:4px 8px;border:1px solid #ccc">${level}</td></tr>`).join('')}
+        </table>`;
+    }
+
+    // Helper to render a field row
+    const row = (label, value) => value
+        ? `<tr><td style="font-weight:bold;padding:4px 8px;width:35%;vertical-align:top;border-bottom:1px solid #eee">${label}</td><td style="padding:4px 8px;border-bottom:1px solid #eee">${value}</td></tr>`
+        : '';
+
+    // Collect all fields
+    const fields = [
+        row('Form Type', app.formType),
+        row('Full Name', app.fullName || ((app.firstName || '') + ' ' + (app.lastName || '')).trim() || app.contactName || app.entityName),
+        row('Email', app.email || app.contactEmail || app.emailAddress),
+        row('Phone', app.phone || app.contactPhone),
+        row('Address', app.address ? [app.address, app.city, app.state, app.zipCode].filter(Boolean).join(', ') : ''),
+        row('Community', app.community),
+        row('Availability', app.availability),
+        row('Position', app.position),
+        row('Secondary Position', app.secondaryPosition),
+        row('Employment Type', app.employmentType),
+        row('Desired Pay', app.desiredPay),
+        row('Start Date', app.startDate),
+        row('US Citizen', app.usCitizen),
+        row('Work Authorized', app.workAuthorized),
+        row('Previously Worked for WR', app.workedForWR),
+        row('WR History', app.wrHistory),
+        row('Criminal Background', app.criminalBackground),
+        row('Areas of Interest', Array.isArray(app.interests) ? app.interests.join(', ') : app.interests),
+        row('You Can Help By', Array.isArray(app.helpBy) ? app.helpBy.join(', ') + (app.helpByOther ? ` (Other: ${app.helpByOther})` : '') : app.helpBy),
+        row('Skills & Experience', app.skills && typeof app.skills !== 'object' ? app.skills : ''),
+        row('Other Skills', app.otherSkills),
+        row('Abilities & Vision', app.abilitiesVision),
+        row('Motivation', app.motivation),
+        row('West Side Work', app.westSideWork),
+        row('Core Values', app.coreValues),
+        row('WR Vision', app.wrVision),
+        row('School 1', app.school1),
+        row('School 2', app.school2),
+        row('Employer 1', app.employer1),
+        row('Employer 2', app.employer2),
+        row('Reference 1', app.reference1),
+        row('Reference 2', app.reference2),
+        row('Reference 3', app.reference3),
+        row('Resume Filename', app.resumeFilename),
+        row('Signature', app.signature),
+        row('Date Signed', app.todaysDate),
+        row('Partnership Type', Array.isArray(app.partnershipType) ? app.partnershipType.join(', ') + (app.partnershipTypeOther ? ` (Other: ${app.partnershipTypeOther})` : '') : app.partnershipType),
+        row('Authorized Rep', app.authorizedRep),
+        row('Contacts', app.contacts),
+        row('Commitments', Array.isArray(app.commitments) ? app.commitments.join(', ') + (app.commitmentsOther ? ` (Other: ${app.commitmentsOther})` : '') : app.commitments),
+        row('Support Needed', app.support ? (app.support + (app.supportOther ? ` (Other: ${app.supportOther})` : '')) : ''),
+        row('Agreement Terms', Array.isArray(app.agreementTerms) ? app.agreementTerms.join(', ') : app.agreementTerms),
+        row('Completion Date', app.completionDate),
+        row('Applying As', app.applyingAs),
+        row('Organization', app.orgName),
+        row('Session Interest', Array.isArray(app.sessionInterest) ? app.sessionInterest.join(', ') : app.sessionInterest),
+        row('Neighborhoods', Array.isArray(app.neighborhoods) ? app.neighborhoods.join(', ') + (app.neighborhoodOther ? ` (Other: ${app.neighborhoodOther})` : '') : app.neighborhoods),
+        row('West Side Connection', Array.isArray(app.westSideConnection) ? app.westSideConnection.join(', ') : app.westSideConnection),
+        row('WR Partnership History', app.wrPartnership),
+        row('Q1', app.q1), row('Q2', app.q2), row('Q3', app.q3), row('Q4', app.q4), row('Q5', app.q5),
+        row('Preferred Time', app.preferredTime ? (app.preferredTime + (app.preferredTimeOther ? ` (Other: ${app.preferredTimeOther})` : '')) : ''),
+        row('How They Heard About WR', app.hearAbout),
+        row('Referrals', app.referral),
+        row('Heard About WR?', app.heardAboutWR),
+        row('Age', app.age),
+        row('Time on West Side', app.timeOnWestSide),
+        row('Registered Voter', app.registeredVoter),
+        row('Knows Alderman', app.knowAlderman),
+        row('Alderman', app.alderman),
+        row('Alderman Rating', app.aldermanRating),
+        row('Mayor Rating', app.mayorRating),
+        row('Mayor Rating - Why', app.mayorRatingWhy),
+        row('Top Issues', [app.topIssue1, app.topIssue2, app.topIssue3].filter(Boolean).join(', ')),
+        row('Housing Satisfaction', app.housingSatisfaction),
+        row('Housing - Why', app.housingWhy),
+        row('Housing Action Needed', app.housingAction),
+        row('If I Were Mayor', app.ifMayor),
+        row('Additional Concerns', app.additionalConcerns),
+        row('Get Involved', Array.isArray(app.getInvolved) ? app.getInvolved.join(', ') + (app.getInvolvedOther ? ` (Other: ${app.getInvolvedOther})` : '') : app.getInvolved),
+        row('Submitted', formatTimestamp(app.submittedAt)),
+        row('Status', app.status),
+    ].filter(Boolean).join('');
+
+    const printName = app.fullName || ((app.firstName || '') + ' ' + (app.lastName || '')).trim() || app.contactName || app.entityName || 'Application';
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`<!DOCTYPE html><html><head>
+        <title>WESTSIDE RISING — ${printName}</title>
+        <style>
+            body { font-family: Arial, sans-serif; font-size: 14px; color: #222; margin: 0; padding: 20px; }
+            h1 { font-size: 20px; margin-bottom: 4px; }
+            h2 { font-size: 15px; color: #555; margin-top: 0; font-weight: normal; }
+            .divider { border: none; border-top: 2px solid #cc0000; margin: 12px 0; }
+            table { width: 100%; border-collapse: collapse; }
+            .skills-section { margin-top: 16px; }
+            .skills-section h3 { font-size: 14px; margin-bottom: 6px; }
+            @media print { body { padding: 0; } }
+        </style>
+    </head><body>
+        <h1>WESTSIDE RISING</h1>
+        <h2>${app.formType || 'Application'}</h2>
+        <hr class="divider">
+        <table>${fields}</table>
+        ${skillsHtml ? `<div class="skills-section"><h3>Skills Matrix</h3>${skillsHtml}</div>` : ''}
+    </body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+};
+
+// =============================================
 // DISPLAY VOLUNTEER APPLICATIONS
 // =============================================
 function displayVolunteerApplications(apps, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    apps.forEach(app => { appCache[app.id] = app; });
 
     if (apps.length === 0) {
         container.innerHTML = `<div class="empty-state"><i class="fas fa-hands-helping"></i><p>No volunteer applications yet</p></div>`;
@@ -269,9 +401,8 @@ function displayVolunteerApplications(apps, containerId) {
 
     container.innerHTML = apps.map(app => {
         const isNew = app.status === 'new';
-        const interestsDisplay = Array.isArray(app.interests)
-            ? app.interests.join(', ')
-            : (app.interests || 'N/A');
+        const interestsDisplay = Array.isArray(app.interests) ? app.interests.join(', ') : (app.interests || 'N/A');
+        const helpByDisplay = Array.isArray(app.helpBy) ? app.helpBy.join(', ') : (app.helpBy || '');
 
         return `
         <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
@@ -301,6 +432,12 @@ function displayVolunteerApplications(apps, containerId) {
                     <h4><i class="fas fa-star"></i> Areas of Interest</h4>
                     <p>${interestsDisplay}</p>
                 </div>
+                ${helpByDisplay ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-hands-helping"></i> You Can Help By</h4>
+                    <p>${helpByDisplay}${app.helpByOther ? ` (Other: ${app.helpByOther})` : ''}</p>
+                </div>
+                ` : ''}
                 <div class="details-section">
                     <h4><i class="fas fa-tools"></i> Skills & Experience</h4>
                     <p>${app.skills || 'N/A'}</p>
@@ -322,6 +459,9 @@ function displayVolunteerApplications(apps, containerId) {
                 <a href="mailto:${app.email}" class="btn-view-event">
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
+                <button class="btn-view-event" onclick="printApplication('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
                 <button class="btn-delete" onclick="deleteApplication('volunteerApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
@@ -337,6 +477,8 @@ function displayVolunteerApplications(apps, containerId) {
 function displayPartnershipApplications(apps, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    apps.forEach(app => { appCache[app.id] = app; });
 
     if (apps.length === 0) {
         container.innerHTML = `<div class="empty-state"><i class="fas fa-handshake"></i><p>No partnership applications yet</p></div>`;
@@ -419,6 +561,9 @@ function displayPartnershipApplications(apps, containerId) {
                         <i class="fas fa-envelope"></i> Email Applicant
                     </a>
                 ` : ''}
+                <button class="btn-view-event" onclick="printApplication('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
                 <button class="btn-delete" onclick="deleteApplication('partnershipApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
@@ -435,6 +580,8 @@ function displayJoinTeamApplications(apps, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
+    apps.forEach(app => { appCache[app.id] = app; });
+
     if (apps.length === 0) {
         container.innerHTML = `<div class="empty-state"><i class="fas fa-user-tie"></i><p>No join team applications yet</p></div>`;
         return;
@@ -442,15 +589,21 @@ function displayJoinTeamApplications(apps, containerId) {
 
     container.innerHTML = apps.map(app => {
         const isNew = app.status === 'new';
-        const skillsDisplay = Array.isArray(app.skills)
-            ? app.skills.join(', ')
-            : (app.skills || 'N/A');
+
+        // Skills is saved as an object: { 'Microsoft Word': 'Proficient', ... }
+        let skillsDisplay = 'N/A';
+        if (app.skills && typeof app.skills === 'object') {
+            const entries = Object.entries(app.skills).filter(([, level]) => level && level !== 'Not indicated');
+            skillsDisplay = entries.length > 0
+                ? entries.map(([label, level]) => `<span style="display:inline-block;margin:2px 6px 2px 0"><strong>${label}:</strong> ${level}</span>`).join('')
+                : 'None indicated';
+        }
 
         return `
         <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
             <div class="event-card-header">
                 <div>
-                    <h3>${app.firstName || ''} ${app.lastName || ''}</h3>
+                    <h3>${app.fullName || 'Unknown Applicant'}</h3>
                     <span class="event-badge ${isNew ? '' : 'reviewed-badge'}">${isNew ? 'New' : 'Reviewed'}</span>
                 </div>
                 <button class="btn-view-details" onclick="toggleAppDetails('${app.id}')">
@@ -460,7 +613,7 @@ function displayJoinTeamApplications(apps, containerId) {
 
             <div class="event-card-info">
                 <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
-                <div class="info-item"><i class="fas fa-briefcase"></i><span>${app.positionDisplay || app.positionInterest || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-briefcase"></i><span>${app.position || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-clock"></i><span>${app.employmentType || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
             </div>
@@ -468,40 +621,62 @@ function displayJoinTeamApplications(apps, containerId) {
             <div class="event-details-expand" id="details-${app.id}" style="display: none;">
                 <div class="details-section">
                     <h4><i class="fas fa-address-card"></i> Contact Info</h4>
-                    <div class="contact-info">
-                        <p><strong>Phone:</strong> ${app.phone || 'N/A'}</p>
-                        <p><strong>Address:</strong> ${[app.address, app.city, app.zipCode].filter(Boolean).join(', ') || 'N/A'}</p>
-                        <p><strong>Email:</strong> <a href="mailto:${app.email}">${app.email}</a></p>
-                    </div>
+                    <p><strong>Phone:</strong> ${app.phone || 'N/A'}</p>
+                    <p><strong>Address:</strong> ${app.address || 'N/A'}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${app.email}">${app.email || 'N/A'}</a></p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-calendar-day"></i> Availability</h4>
-                    <p><strong>Start Date:</strong> ${app.startDate || 'N/A'}</p>
+                    <h4><i class="fas fa-briefcase"></i> Position Details</h4>
+                    <p><strong>Primary Position:</strong> ${app.position || 'N/A'}</p>
+                    ${app.secondaryPosition ? `<p><strong>Secondary Position:</strong> ${app.secondaryPosition}</p>` : ''}
                     <p><strong>Employment Type:</strong> ${app.employmentType || 'N/A'}</p>
+                    <p><strong>Desired Pay:</strong> ${app.desiredPay || 'N/A'}</p>
+                    <p><strong>Available Start Date:</strong> ${app.startDate || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-id-card"></i> Eligibility</h4>
+                    <p><strong>US Citizen:</strong> ${app.usCitizen || 'N/A'}</p>
+                    <p><strong>Work Authorized:</strong> ${app.workAuthorized || 'N/A'}</p>
+                    <p><strong>Previously Worked for WR:</strong> ${app.workedForWR || 'N/A'}</p>
+                    ${app.wrHistory ? `<p><strong>WR History:</strong> ${app.wrHistory}</p>` : ''}
+                    <p><strong>Criminal Background:</strong> ${app.criminalBackground || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                    <p>${app.education || 'N/A'}</p>
+                    ${app.school1 ? `<p><strong>School 1:</strong> ${app.school1}</p>` : '<p>N/A</p>'}
+                    ${app.school2 ? `<p><strong>School 2:</strong> ${app.school2}</p>` : ''}
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-history"></i> Experience</h4>
-                    <p>${app.experience || 'N/A'}</p>
+                    <h4><i class="fas fa-history"></i> Work Experience</h4>
+                    ${app.employer1 ? `<p><strong>Employer 1:</strong> ${app.employer1}</p>` : '<p>N/A</p>'}
+                    ${app.employer2 ? `<p><strong>Employer 2:</strong> ${app.employer2}</p>` : ''}
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-tools"></i> Skills</h4>
-                    <p>${skillsDisplay}${app.skillsOther ? ` (Other: ${app.skillsOther})` : ''}</p>
+                    <div>${skillsDisplay}</div>
+                    ${app.otherSkills ? `<p style="margin-top:0.5rem"><strong>Other Skills:</strong> ${app.otherSkills}</p>` : ''}
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-heart"></i> Motivation</h4>
-                    <p>${app.motivation || 'N/A'}</p>
+                    <h4><i class="fas fa-eye"></i> Abilities & Vision</h4>
+                    <p>${app.abilitiesVision || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-map-marker-alt"></i> West Side Work Experience</h4>
+                    <p>${app.westSideWork || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-heart"></i> Core Values</h4>
+                    <p>${app.coreValues || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-lightbulb"></i> WR Vision</h4>
+                    <p>${app.wrVision || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-users"></i> References</h4>
-                    <p>${app.references || 'N/A'}</p>
-                </div>
-                <div class="details-section">
-                    <h4><i class="fas fa-question-circle"></i> How They Heard About Us</h4>
-                    <p>${app.hearAbout || 'N/A'}</p>
+                    ${app.reference1 ? `<p><strong>Ref 1:</strong> ${app.reference1}</p>` : '<p>N/A</p>'}
+                    ${app.reference2 ? `<p><strong>Ref 2:</strong> ${app.reference2}</p>` : ''}
+                    ${app.reference3 ? `<p><strong>Ref 3:</strong> ${app.reference3}</p>` : ''}
                 </div>
                 ${app.resumeFilename ? `
                 <div class="details-section">
@@ -509,6 +684,11 @@ function displayJoinTeamApplications(apps, containerId) {
                     <p>${app.resumeFilename}</p>
                 </div>
                 ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-signature"></i> Signature</h4>
+                    <p><strong>Signed:</strong> ${app.signature || 'N/A'}</p>
+                    <p><strong>Date:</strong> ${app.todaysDate || 'N/A'}</p>
+                </div>
             </div>
 
             <div class="event-card-actions">
@@ -522,6 +702,9 @@ function displayJoinTeamApplications(apps, containerId) {
                 <a href="mailto:${app.email}" class="btn-view-event">
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
+                <button class="btn-view-event" onclick="printApplication('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
                 <button class="btn-delete" onclick="deleteApplication('joinTeamApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
@@ -537,6 +720,8 @@ function displayJoinTeamApplications(apps, containerId) {
 function displayPowerLabApplications(apps, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    apps.forEach(app => { appCache[app.id] = app; });
 
     if (apps.length === 0) {
         container.innerHTML = `<div class="empty-state"><i class="fas fa-fist-raised"></i><p>No Power Lab applications yet</p></div>`;
@@ -633,6 +818,12 @@ function displayPowerLabApplications(apps, containerId) {
                     <h4><i class="fas fa-clock"></i> Preferred Time</h4>
                     <p>${app.preferredTime || 'N/A'}${app.preferredTimeOther ? ` (Other: ${app.preferredTimeOther})` : ''}</p>
                 </div>
+                ${app.hearAbout ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-question-circle"></i> How They Heard About Us</h4>
+                    <p>${app.hearAbout}</p>
+                </div>
+                ` : ''}
                 ${app.referral ? `
                 <div class="details-section">
                     <h4><i class="fas fa-user-friends"></i> Referrals</h4>
@@ -656,6 +847,9 @@ function displayPowerLabApplications(apps, containerId) {
                 <a href="mailto:${app.email}" class="btn-view-event">
                     <i class="fas fa-envelope"></i> Email Applicant
                 </a>
+                <button class="btn-view-event" onclick="printApplication('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
                 <button class="btn-delete" onclick="deleteApplication('powerLabApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
@@ -671,6 +865,8 @@ function displayPowerLabApplications(apps, containerId) {
 function displayCommunityVoicesSurveys(apps, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    apps.forEach(app => { appCache[app.id] = app; });
 
     if (apps.length === 0) {
         container.innerHTML = `<div class="empty-state"><i class="fas fa-bullhorn"></i><p>No survey responses yet</p></div>`;
@@ -762,6 +958,9 @@ function displayCommunityVoicesSurveys(apps, containerId) {
                         <i class="fas fa-envelope"></i> Email Respondent
                     </a>
                 ` : ''}
+                <button class="btn-view-event" onclick="printApplication('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
                 <button class="btn-delete" onclick="deleteApplication('communityVoicesSurveys', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
