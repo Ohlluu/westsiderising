@@ -101,9 +101,14 @@ async function loadPayPeriodData(periodId) {
             document.getElementById('period-display').textContent = period.display;
         }
 
-        // Query all time entries for this period
+        // Query by clockIn date range instead of payPeriodId,
+        // so entries saved under old pay period IDs still appear correctly.
+        const periodEndExclusive = new Date(period.start);
+        periodEndExclusive.setDate(periodEndExclusive.getDate() + 14);
+
         const snapshot = await db.collection('timeEntries')
-            .where('payPeriodId', '==', periodId)
+            .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(period.start))
+            .where('clockIn', '<', firebase.firestore.Timestamp.fromDate(periodEndExclusive))
             .orderBy('clockIn', 'desc')
             .get();
 

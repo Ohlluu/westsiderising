@@ -395,9 +395,15 @@ async function loadWeeklyHours(userId) {
 // Load pay period hours
 async function loadPayPeriodHours(userId, periodId) {
     try {
+        // Query by date range so entries saved under old payPeriodId values still count
+        const periodStart = new Date(periodId + 'T00:00:00-06:00');
+        const periodEndExclusive = new Date(periodStart);
+        periodEndExclusive.setDate(periodEndExclusive.getDate() + 14);
+
         const snapshot = await db.collection('timeEntries')
             .where('userId', '==', userId)
-            .where('payPeriodId', '==', periodId)
+            .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(periodStart))
+            .where('clockIn', '<', firebase.firestore.Timestamp.fromDate(periodEndExclusive))
             .get();
 
         let totalHours = 0;
