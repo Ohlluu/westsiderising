@@ -268,6 +268,7 @@ async function updateTimeclockUI() {
     await loadDailyHours(currentUser.uid);
     await loadWeeklyHours(currentUser.uid);
     await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
+    await loadLastPayPeriodHours(currentUser.uid);
     await loadRecentEntries(currentUser.uid);
 }
 
@@ -392,6 +393,39 @@ async function loadWeeklyHours(userId) {
     }
 }
 
+// Load last pay period hours
+async function loadLastPayPeriodHours(userId) {
+    try {
+        const currentPeriodId = getCurrentPayPeriod();
+        const currentStart = new Date(currentPeriodId + 'T00:00:00-06:00');
+
+        // Last period starts 14 days before the current one
+        const lastStart = new Date(currentStart);
+        lastStart.setDate(lastStart.getDate() - 14);
+        const lastEnd = new Date(currentStart); // exclusive — same as current period start
+
+        const snapshot = await db.collection('timeEntries')
+            .where('userId', '==', userId)
+            .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(lastStart))
+            .where('clockIn', '<', firebase.firestore.Timestamp.fromDate(lastEnd))
+            .get();
+
+        let totalHours = 0;
+
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            if (data.status === 'completed' && data.totalHours) {
+                totalHours += data.totalHours;
+            }
+        });
+
+        document.getElementById('hours-last-period').textContent = totalHours.toFixed(1);
+    } catch (error) {
+        console.error('Error loading last pay period hours:', error);
+        document.getElementById('hours-last-period').textContent = '0.0';
+    }
+}
+
 // Load pay period hours
 async function loadPayPeriodHours(userId, periodId) {
     try {
@@ -498,6 +532,7 @@ function initializeTimeClock() {
             loadDailyHours(currentUser.uid);
             loadWeeklyHours(currentUser.uid);
             loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
+            loadLastPayPeriodHours(currentUser.uid);
         }
     }, 30000);
 }

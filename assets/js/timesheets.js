@@ -6,6 +6,7 @@ let allPayPeriods = [];
 let currentPeriodIndex = 0;
 let clockedInListener = null;
 let allEmployeesData = [];
+let allUsersForFilter = []; // all users from users collection, for the dropdown
 let selectedEmployeeFilter = 'all';
 
 // ==================== Initialization ====================
@@ -32,8 +33,10 @@ function initializeTimesheets() {
         currentPeriodIndex = allPayPeriods.length - 1;
     }
 
-    // Load current period data
-    loadPayPeriodData(currentPeriodId);
+    // Load all users for the filter dropdown (independent of which period is selected)
+    loadAllUsersForFilter().then(() => {
+        loadPayPeriodData(currentPeriodId);
+    });
 
     // Listen to currently clocked in status
     listenToClockedInStatus();
@@ -97,9 +100,12 @@ async function loadPayPeriodData(periodId) {
     try {
         // Update period display
         const period = allPayPeriods.find(p => p.id === periodId);
-        if (period) {
-            document.getElementById('period-display').textContent = period.display;
+        if (!period) {
+            console.error('Period not found:', periodId);
+            document.getElementById('timesheet-list').innerHTML = '<div class="message error"><i class="fas fa-exclamation-circle"></i> Pay period not found</div>';
+            return;
         }
+        document.getElementById('period-display').textContent = period.display;
 
         // Query by clockIn date range instead of payPeriodId,
         // so entries saved under old pay period IDs still appear correctly.
@@ -174,15 +180,36 @@ async function loadPayPeriodData(periodId) {
     }
 }
 
+// Load all users from users collection for the filter dropdown
+async function loadAllUsersForFilter() {
+    try {
+        const snapshot = await db.collection('users').get();
+        allUsersForFilter = [];
+        snapshot.forEach(doc => {
+            const userData = doc.data();
+            allUsersForFilter.push({
+                userId: doc.id,
+                userName: userData.displayName || userData.displayname || userData.email?.split('@')[0] || 'Unknown'
+            });
+        });
+        allUsersForFilter.sort((a, b) => a.userName.localeCompare(b.userName));
+    } catch (error) {
+        console.error('Error loading users for filter:', error);
+    }
+}
+
 // Update employee filter dropdown
 function updateEmployeeFilter() {
     const select = document.getElementById('employee-select');
     select.innerHTML = '<option value="all">All Employees</option>';
 
-    allEmployeesData.forEach(employee => {
+    // Use allUsersForFilter (all users) if loaded; fall back to employees with entries this period
+    const usersToShow = allUsersForFilter.length > 0 ? allUsersForFilter : allEmployeesData;
+
+    usersToShow.forEach(user => {
         const option = document.createElement('option');
-        option.value = employee.userId;
-        option.textContent = employee.userName;
+        option.value = user.userId;
+        option.textContent = user.userName;
         select.appendChild(option);
     });
 
