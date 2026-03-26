@@ -264,12 +264,13 @@ async function updateTimeclockUI() {
         stopLiveTimer();
     }
 
-    // Load stats and recent entries
-    await loadDailyHours(currentUser.uid);
-    await loadWeeklyHours(currentUser.uid);
-    await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
-    await loadLastPayPeriodHours(currentUser.uid);
+    // Load recent entries
     await loadRecentEntries(currentUser.uid);
+
+    // Reset stat cards to unloaded state
+    ['hours-today', 'hours-week', 'hours-period', 'hours-last-period'].forEach(id => {
+        document.getElementById(id).textContent = '—';
+    });
 }
 
 // Start live timer
@@ -515,6 +516,29 @@ async function loadRecentEntries(userId) {
     }
 }
 
+// ==================== Stat Card Click Handler ====================
+
+async function fetchStat(type) {
+    if (!currentUser) return;
+
+    const idMap = {
+        today: 'hours-today',
+        week: 'hours-week',
+        period: 'hours-period',
+        lastperiod: 'hours-last-period'
+    };
+
+    const el = document.getElementById(idMap[type]);
+    el.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size:1rem;"></i>';
+
+    switch (type) {
+        case 'today':      await loadDailyHours(currentUser.uid); break;
+        case 'week':       await loadWeeklyHours(currentUser.uid); break;
+        case 'period':     await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod()); break;
+        case 'lastperiod': await loadLastPayPeriodHours(currentUser.uid); break;
+    }
+}
+
 // ==================== Initialize ====================
 
 // Initialize time clock when tab is loaded
@@ -526,15 +550,6 @@ function initializeTimeClock() {
 
     updateTimeclockUI();
 
-    // Refresh stats every 30 seconds
-    setInterval(() => {
-        if (currentClockStatus && currentClockStatus.isClockedIn) {
-            loadDailyHours(currentUser.uid);
-            loadWeeklyHours(currentUser.uid);
-            loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
-            loadLastPayPeriodHours(currentUser.uid);
-        }
-    }, 30000);
 }
 
 // Clean up on page unload
