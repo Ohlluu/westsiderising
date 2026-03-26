@@ -264,11 +264,15 @@ async function updateTimeclockUI() {
         stopLiveTimer();
     }
 
-    // Load stats and recent entries
-    await loadDailyHours(currentUser.uid);
-    await loadWeeklyHours(currentUser.uid);
-    await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
-    await loadLastPayPeriodHours(currentUser.uid);
+    // Reset stat cards — they load on click
+    ['hours-today', 'hours-week', 'hours-period', 'hours-last-period'].forEach(id => {
+        document.getElementById(id).textContent = '—';
+    });
+    activeStatType = null;
+    document.querySelectorAll('.stat-card-btn').forEach(c => c.classList.remove('stat-card-active'));
+    const panel = document.getElementById('stat-detail-panel');
+    if (panel) panel.style.display = 'none';
+
     await loadRecentEntries(currentUser.uid);
 }
 
@@ -537,6 +541,14 @@ async function showStatDetail(type) {
     // Highlight active card
     document.querySelectorAll('.stat-card-btn').forEach(c => c.classList.remove('stat-card-active'));
     document.querySelector(`[onclick="showStatDetail('${type}')"]`).classList.add('stat-card-active');
+
+    // Load the stat number into the card
+    switch (type) {
+        case 'today':      await loadDailyHours(currentUser.uid); break;
+        case 'week':       await loadWeeklyHours(currentUser.uid); break;
+        case 'period':     await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod()); break;
+        case 'lastperiod': await loadLastPayPeriodHours(currentUser.uid); break;
+    }
 
     // Show panel with spinner
     panel.style.display = 'block';
