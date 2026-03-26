@@ -168,6 +168,74 @@
     transform: translateY(-2px);
 }
 
+.stat-card-active {
+    border: 2px solid #c0392b;
+    box-shadow: 0 6px 16px rgba(192, 57, 43, 0.2);
+    transform: translateY(-3px);
+}
+
+#stat-detail-panel {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.25s ease;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.stat-detail-header {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #c0392b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.stat-detail-loading {
+    text-align: center;
+    color: #999;
+    padding: 1rem 0;
+}
+
+.stat-detail-empty {
+    text-align: center;
+    color: #999;
+    padding: 1rem 0;
+    font-style: italic;
+}
+
+.stat-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.stat-detail-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid #eee;
+    color: #555;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-detail-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #f5f5f5;
+    color: #333;
+}
+
+.stat-detail-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
 .stat-label {
     font-size: 0.9rem;
     color: #666;

@@ -62,23 +62,26 @@
 
                     <!-- Stats -->
                     <div class="timeclock-stats">
-                        <div class="stat-card stat-card-btn" onclick="fetchStat('today')" title="Click to load">
+                        <div class="stat-card stat-card-btn" onclick="showStatDetail('today')" title="Click for details">
                             <div class="stat-label">Hours Today</div>
-                            <div class="stat-value" id="hours-today">—</div>
+                            <div class="stat-value" id="hours-today">0.0</div>
                         </div>
-                        <div class="stat-card stat-card-btn" onclick="fetchStat('week')" title="Click to load">
+                        <div class="stat-card stat-card-btn" onclick="showStatDetail('week')" title="Click for details">
                             <div class="stat-label">Hours This Week</div>
-                            <div class="stat-value" id="hours-week">—</div>
+                            <div class="stat-value" id="hours-week">0.0</div>
                         </div>
-                        <div class="stat-card stat-card-btn" onclick="fetchStat('period')" title="Click to load">
+                        <div class="stat-card stat-card-btn" onclick="showStatDetail('period')" title="Click for details">
                             <div class="stat-label">Hours This Pay Period</div>
-                            <div class="stat-value" id="hours-period">—</div>
+                            <div class="stat-value" id="hours-period">0.0</div>
                         </div>
-                        <div class="stat-card stat-card-btn" onclick="fetchStat('lastperiod')" title="Click to load">
+                        <div class="stat-card stat-card-btn" onclick="showStatDetail('lastperiod')" title="Click for details">
                             <div class="stat-label">Last Pay Period</div>
-                            <div class="stat-value" id="hours-last-period">—</div>
+                            <div class="stat-value" id="hours-last-period">0.0</div>
                         </div>
                     </div>
+
+                    <!-- Stat Detail Panel -->
+                    <div id="stat-detail-panel" style="display:none;"></div>
 
                     <!-- Recent Entries -->
                     <div class="recent-entries">

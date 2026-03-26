@@ -264,13 +264,12 @@ async function updateTimeclockUI() {
         stopLiveTimer();
     }
 
-    // Load recent entries
+    // Load stats and recent entries
+    await loadDailyHours(currentUser.uid);
+    await loadWeeklyHours(currentUser.uid);
+    await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
+    await loadLastPayPeriodHours(currentUser.uid);
     await loadRecentEntries(currentUser.uid);
-
-    // Reset stat cards to unloaded state
-    ['hours-today', 'hours-week', 'hours-period', 'hours-last-period'].forEach(id => {
-        document.getElementById(id).textContent = '—';
-    });
 }
 
 // Start live timer
@@ -516,26 +515,152 @@ async function loadRecentEntries(userId) {
     }
 }
 
-// ==================== Stat Card Click Handler ====================
+// ==================== Stat Card Detail Panel ====================
 
-async function fetchStat(type) {
+let activeStatType = null;
+
+async function showStatDetail(type) {
     if (!currentUser) return;
 
-    const idMap = {
-        today: 'hours-today',
-        week: 'hours-week',
-        period: 'hours-period',
-        lastperiod: 'hours-last-period'
+    const panel = document.getElementById('stat-detail-panel');
+
+    // Toggle off if same card clicked again
+    if (activeStatType === type) {
+        activeStatType = null;
+        panel.style.display = 'none';
+        document.querySelectorAll('.stat-card-btn').forEach(c => c.classList.remove('stat-card-active'));
+        return;
+    }
+
+    activeStatType = type;
+
+    // Highlight active card
+    document.querySelectorAll('.stat-card-btn').forEach(c => c.classList.remove('stat-card-active'));
+    document.querySelector(`[onclick="showStatDetail('${type}')"]`).classList.add('stat-card-active');
+
+    // Show panel with spinner
+    panel.style.display = 'block';
+    panel.innerHTML = '<div class="stat-detail-loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+
+    const titleMap = {
+        today: "Today's Entries",
+        week: "This Week's Breakdown",
+        period: "This Pay Period's Entries",
+        lastperiod: "Last Pay Period's Entries"
     };
 
-    const el = document.getElementById(idMap[type]);
-    el.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size:1rem;"></i>';
+    try {
+        let entries = [];
 
-    switch (type) {
-        case 'today':      await loadDailyHours(currentUser.uid); break;
-        case 'week':       await loadWeeklyHours(currentUser.uid); break;
-        case 'period':     await loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod()); break;
-        case 'lastperiod': await loadLastPayPeriodHours(currentUser.uid); break;
+        if (type === 'today') {
+            const todayChicago = new Date().toLocaleDateString('en-US', { timeZone: 'America/Chicago' });
+            const snapshot = await db.collection('timeEntries').where('userId', '==', currentUser.uid).get();
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const clockInDate = data.clockIn.toDate().toLocaleDateString('en-US', { timeZone: 'America/Chicago' });
+                if (clockInDate === todayChicago) {
+                    entries.push({ ...data, clockIn: data.clockIn.toDate(), clockOut: data.clockOut ? data.clockOut.toDate() : null });
+                }
+            });
+
+        } else if (type === 'week') {
+            const chicagoNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+            const startOfWeek = new Date(chicagoNow);
+            startOfWeek.setDate(chicagoNow.getDate() - chicagoNow.getDay());
+            startOfWeek.setHours(0, 0, 0, 0);
+
+            const snapshot = await db.collection('timeEntries').where('userId', '==', currentUser.uid).get();
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const clockInChicago = new Date(data.clockIn.toDate().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+                if (clockInChicago >= startOfWeek) {
+                    entries.push({ ...data, clockIn: data.clockIn.toDate(), clockOut: data.clockOut ? data.clockOut.toDate() : null });
+                }
+            });
+
+        } else if (type === 'period') {
+            const periodId = getCurrentPayPeriod();
+            const periodStart = new Date(periodId + 'T00:00:00-06:00');
+            const periodEnd = new Date(periodStart);
+            periodEnd.setDate(periodEnd.getDate() + 14);
+
+            const snapshot = await db.collection('timeEntries')
+                .where('userId', '==', currentUser.uid)
+                .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(periodStart))
+                .where('clockIn', '<', firebase.firestore.Timestamp.fromDate(periodEnd))
+                .orderBy('clockIn', 'desc')
+                .get();
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                entries.push({ ...data, clockIn: data.clockIn.toDate(), clockOut: data.clockOut ? data.clockOut.toDate() : null });
+            });
+
+        } else if (type === 'lastperiod') {
+            const currentStart = new Date(getCurrentPayPeriod() + 'T00:00:00-06:00');
+            const lastStart = new Date(currentStart);
+            lastStart.setDate(lastStart.getDate() - 14);
+
+            const snapshot = await db.collection('timeEntries')
+                .where('userId', '==', currentUser.uid)
+                .where('clockIn', '>=', firebase.firestore.Timestamp.fromDate(lastStart))
+                .where('clockIn', '<', firebase.firestore.Timestamp.fromDate(currentStart))
+                .orderBy('clockIn', 'desc')
+                .get();
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                entries.push({ ...data, clockIn: data.clockIn.toDate(), clockOut: data.clockOut ? data.clockOut.toDate() : null });
+            });
+        }
+
+        // Sort newest first
+        entries.sort((a, b) => b.clockIn - a.clockIn);
+
+        if (entries.length === 0) {
+            panel.innerHTML = `<div class="stat-detail-header">${titleMap[type]}</div><div class="stat-detail-empty">No entries found.</div>`;
+            return;
+        }
+
+        // For week view, group by day
+        if (type === 'week') {
+            const dayMap = new Map();
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            entries.forEach(entry => {
+                const dayKey = entry.clockIn.toLocaleDateString('en-US', { timeZone: 'America/Chicago' });
+                if (!dayMap.has(dayKey)) dayMap.set(dayKey, { label: formatChicagoDate(entry.clockIn), hours: 0 });
+                if (entry.status === 'completed' && entry.totalHours) dayMap.get(dayKey).hours += entry.totalHours;
+            });
+
+            let rows = '';
+            dayMap.forEach(day => {
+                rows += `<tr><td>${day.label}</td><td>${day.hours.toFixed(2)} hrs</td></tr>`;
+            });
+
+            panel.innerHTML = `
+                <div class="stat-detail-header">${titleMap[type]}</div>
+                <table class="stat-detail-table">
+                    <thead><tr><th>Day</th><th>Hours</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
+        } else {
+            let rows = '';
+            entries.forEach(entry => {
+                const clockInTime = entry.clockIn.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                const clockOutTime = entry.clockOut ? entry.clockOut.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : '—';
+                const hours = entry.status === 'active' ? '<span class="entry-status active">In Progress</span>' : `${entry.totalHours.toFixed(2)} hrs`;
+                rows += `<tr><td>${formatChicagoDate(entry.clockIn)}</td><td>${clockInTime}</td><td>${clockOutTime}</td><td>${hours}</td></tr>`;
+            });
+
+            panel.innerHTML = `
+                <div class="stat-detail-header">${titleMap[type]}</div>
+                <table class="stat-detail-table">
+                    <thead><tr><th>Date</th><th>Clock In</th><th>Clock Out</th><th>Hours</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
+        }
+
+    } catch (error) {
+        console.error('Error loading stat detail:', error);
+        panel.innerHTML = '<div class="stat-detail-empty">Error loading data. Please try again.</div>';
     }
 }
 
