@@ -105,8 +105,8 @@ async function loadEvents() {
             `;
         } else {
             pastEventsGrid.innerHTML = '';
-            // Only show the 6 most recent past events
-            pastEvents.slice(0, 6).forEach((eventDoc) => {
+            // Only show the 20 most recent past events
+            pastEvents.slice(0, 20).forEach((eventDoc) => {
                 const eventCard = createEventCard(eventDoc.data, eventDoc.id, true);
                 pastEventsGrid.appendChild(eventCard);
             });
