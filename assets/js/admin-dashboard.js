@@ -144,6 +144,7 @@ async function loadDashboard() {
             loadApplications('volunteerApplications',    'volunteer-apps-container',  'volunteer-count',   'badge-volunteers',   'volunteer-new-label',   displayVolunteerApplications),
             loadApplications('partnershipApplications',  'partnership-apps-container','partnership-count', 'badge-partnerships', 'partnership-new-label', displayPartnershipApplications),
             loadApplications('joinTeamApplications',     'jointeam-apps-container',   'jointeam-count',    'badge-jointeam',     'jointeam-new-label',    displayJoinTeamApplications),
+            loadApplications('youngLeadersApplications', 'youngleaders-apps-container','youngleaders-count','badge-youngleaders', 'youngleaders-new-label', displayYoungLeadersApplications),
             loadApplications('powerLabApplications',     'powerlab-apps-container',   'powerlab-count',    'badge-powerlab',     'powerlab-new-label',    displayPowerLabApplications),
             loadApplications('communityVoicesSurveys',   'voices-apps-container',     'voices-count',      'badge-voices',       'voices-new-label',      displayCommunityVoicesSurveys)
         ]);
@@ -838,6 +839,150 @@ function displayJoinTeamApplications(apps, containerId) {
                     <i class="fas fa-print"></i> Print
                 </button>
                 <button class="btn-delete" onclick="deleteApplication('joinTeamApplications', '${app.id}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
+// =============================================
+// DISPLAY YOUNG LEADERS APPLICATIONS
+// =============================================
+function displayYoungLeadersApplications(apps, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    apps.forEach(app => { appCache[app.id] = app; });
+
+    if (apps.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-user-graduate"></i><p>No Young Leaders applications yet</p></div>`;
+        return;
+    }
+
+    container.innerHTML = apps.map(app => {
+        const isNew = app.status === 'new';
+
+        let skillsDisplay = 'N/A';
+        if (app.skills && typeof app.skills === 'object') {
+            const entries = Object.entries(app.skills).filter(([, level]) => level && level !== 'Not indicated');
+            skillsDisplay = entries.length > 0
+                ? entries.map(([label, level]) => `<span style="display:inline-block;margin:2px 6px 2px 0"><strong>${label}:</strong> ${level}</span>`).join('')
+                : 'None indicated';
+        }
+
+        return `
+        <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
+            <div class="event-card-header">
+                <div>
+                    <h3>${app.fullName || 'Unknown Applicant'}</h3>
+                    <span class="event-badge ${isNew ? '' : 'reviewed-badge'}">${isNew ? 'New' : 'Reviewed'}</span>
+                </div>
+                <button class="btn-view-details" onclick="toggleAppDetails('${app.id}')">
+                    <i class="fas fa-chevron-down"></i> View Details
+                </button>
+            </div>
+
+            <div class="event-card-info">
+                <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-briefcase"></i><span>${app.position || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-clock"></i><span>${app.employmentType || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
+            </div>
+
+            <div class="event-details-expand" id="details-${app.id}" style="display: none;">
+                <div class="details-section">
+                    <h4><i class="fas fa-address-card"></i> Contact Info</h4>
+                    <p><strong>Phone:</strong> ${app.phone || 'N/A'}</p>
+                    <p><strong>Address:</strong> ${app.address || 'N/A'}</p>
+                    <p><strong>Email:</strong> <a href="mailto:${app.email}">${app.email || 'N/A'}</a></p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-briefcase"></i> Position Details</h4>
+                    <p><strong>Primary Position:</strong> ${app.position || 'N/A'}</p>
+                    ${app.secondaryPosition ? `<p><strong>Secondary Position:</strong> ${app.secondaryPosition}</p>` : ''}
+                    <p><strong>Employment Type:</strong> ${app.employmentType || 'N/A'}</p>
+                    <p><strong>Desired Pay:</strong> ${app.desiredPay || 'N/A'}</p>
+                    <p><strong>Available Start Date:</strong> ${app.startDate || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-id-card"></i> Eligibility</h4>
+                    <p><strong>US Citizen:</strong> ${app.usCitizen || 'N/A'}</p>
+                    <p><strong>Work Authorized:</strong> ${app.workAuthorized || 'N/A'}</p>
+                    <p><strong>Previously Worked for WR:</strong> ${app.workedForWR || 'N/A'}</p>
+                    ${app.wrHistory ? `<p><strong>WR History:</strong> ${app.wrHistory}</p>` : ''}
+                    <p><strong>Criminal Background:</strong> ${app.criminalBackground || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                    ${app.school1 ? `<p><strong>School 1:</strong> ${app.school1}</p>` : '<p>N/A</p>'}
+                    ${app.school2 ? `<p><strong>School 2:</strong> ${app.school2}</p>` : ''}
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-history"></i> Work Experience</h4>
+                    ${app.employer1 ? `<p><strong>Employer 1:</strong> ${app.employer1}</p>` : '<p>N/A</p>'}
+                    ${app.employer2 ? `<p><strong>Employer 2:</strong> ${app.employer2}</p>` : ''}
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-tools"></i> Skills</h4>
+                    <div>${skillsDisplay}</div>
+                    ${app.otherSkills ? `<p style="margin-top:0.5rem"><strong>Other Skills:</strong> ${app.otherSkills}</p>` : ''}
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-eye"></i> Abilities & Vision</h4>
+                    <p>${app.abilitiesVision || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-map-marker-alt"></i> West Side Work Experience</h4>
+                    <p>${app.westSideWork || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-heart"></i> Core Values</h4>
+                    <p>${app.coreValues || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-lightbulb"></i> WR Vision</h4>
+                    <p>${app.wrVision || 'N/A'}</p>
+                </div>
+                <div class="details-section">
+                    <h4><i class="fas fa-users"></i> References</h4>
+                    ${app.reference1 ? `<p><strong>Ref 1:</strong> ${app.reference1}</p>` : '<p>N/A</p>'}
+                    ${app.reference2 ? `<p><strong>Ref 2:</strong> ${app.reference2}</p>` : ''}
+                    ${app.reference3 ? `<p><strong>Ref 3:</strong> ${app.reference3}</p>` : ''}
+                </div>
+                ${app.resumeFilename ? `
+                <div class="details-section">
+                    <h4><i class="fas fa-file-alt"></i> Resume</h4>
+                    <p>${app.resumeFilename}</p>
+                    ${app.resumeUrl ? `<a href="${app.resumeUrl}" target="_blank" class="btn-view-event" style="display:inline-flex;margin-top:6px"><i class="fas fa-external-link-alt"></i>&nbsp; View Resume</a>` : ''}
+                </div>
+                ` : ''}
+                <div class="details-section">
+                    <h4><i class="fas fa-signature"></i> Signature</h4>
+                    <p><strong>Signed:</strong> ${app.signature || 'N/A'}</p>
+                    <p><strong>Date:</strong> ${app.todaysDate || 'N/A'}</p>
+                </div>
+            </div>
+
+            <div class="event-card-actions">
+                ${isNew ? `
+                    <button class="btn-approve" onclick="markAsReviewed('youngLeadersApplications', '${app.id}', this)">
+                        <i class="fas fa-check"></i> Mark as Reviewed
+                    </button>
+                ` : `
+                    <span class="reviewed-label"><i class="fas fa-check-circle"></i> Reviewed</span>
+                `}
+                <a href="mailto:${app.email}" class="btn-view-event">
+                    <i class="fas fa-envelope"></i> Email Applicant
+                </a>
+                <button class="btn-view-event" onclick="viewFullApplication('${app.id}')">
+                    <i class="fas fa-external-link-alt"></i> View Full Application
+                </button>
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn-delete" onclick="deleteApplication('youngLeadersApplications', '${app.id}')">
                     <i class="fas fa-trash"></i> Delete
                 </button>
             </div>
