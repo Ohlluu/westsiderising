@@ -393,8 +393,11 @@ window.viewFullApplication = function(appId, autoPrint = false) {
                 ['WR Partnership History', f(app.wrPartnership), true],
             ]),
             section('Application Questions', [
-                ['Q1', f(app.q1), true], ['Q2', f(app.q2), true], ['Q3', f(app.q3), true],
-                ['Q4', f(app.q4), true], ['Q5', f(app.q5), true],
+                ['Q1: Tell us about you/your organization and the work you do in the community.', f(app.q1), true],
+                ['Q2: Why is social justice, community organizing, and civic engagement important to you and the work you do?', f(app.q2), true],
+                ['Q3: Share a highly challenging situation you\'ve navigated. How did you address it, and what did you learn?', f(app.q3), true],
+                ['Q4: Share an experience you are proud of. What did you learn from it?', f(app.q4), true],
+                ['Q5: How can participating in WR\'s Community Power Lab help support the development of your team and work?', f(app.q5), true],
             ]),
             section('Logistics', [
                 ['Preferred Time', f(app.preferredTime) ? f(app.preferredTime) + (app.preferredTimeOther ? ` — Other: ${app.preferredTimeOther}` : '') : null],
@@ -1077,11 +1080,11 @@ function displayPowerLabApplications(apps, containerId) {
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-question-circle"></i> Application Questions</h4>
-                    <p><strong>Q1:</strong> ${app.q1 || 'N/A'}</p>
-                    <p><strong>Q2:</strong> ${app.q2 || 'N/A'}</p>
-                    <p><strong>Q3:</strong> ${app.q3 || 'N/A'}</p>
-                    <p><strong>Q4:</strong> ${app.q4 || 'N/A'}</p>
-                    <p><strong>Q5:</strong> ${app.q5 || 'N/A'}</p>
+                    <p><strong>Q1: Tell us about you/your organization and the work you do in the community.</strong><br>${app.q1 || 'N/A'}</p>
+                    <p><strong>Q2: Why is social justice, community organizing, and civic engagement important to you and the work you do?</strong><br>${app.q2 || 'N/A'}</p>
+                    <p><strong>Q3: As an individual/organizational leader, share a highly challenging situation you've navigated. How did you address the issue, and what did you learn from the experience?</strong><br>${app.q3 || 'N/A'}</p>
+                    <p><strong>Q4: As an individual/organizational leader, share an experience you are proud of. Briefly describe that situation and what you learned from it.</strong><br>${app.q4 || 'N/A'}</p>
+                    <p><strong>Q5: How can participating in WR's Community Power Lab help support the development of your team and work?</strong><br>${app.q5 || 'N/A'}</p>
                 </div>
                 ${app.participantCount ? `
                 <div class="details-section">
