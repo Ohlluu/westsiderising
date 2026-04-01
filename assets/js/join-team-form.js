@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!form) return;
 
     // ===== CONDITIONAL: Position Other =====
-    form.querySelectorAll('input[name="position"]').forEach(radio => {
-        radio.addEventListener('change', function() {
+    form.querySelectorAll('input[name="position"]').forEach(cb => {
+        cb.addEventListener('change', function() {
             const group = document.getElementById('positionOtherGroup');
-            if (group) group.style.display = this.value === 'other' ? 'block' : 'none';
+            if (group) group.style.display = this.value === 'other' && this.checked ? 'block' : 'none';
         });
     });
 
@@ -111,11 +111,22 @@ document.addEventListener('DOMContentLoaded', function() {
             skills[skillLabels[i]] = selected ? selected.value : 'Not indicated';
         });
 
-        const positionEl = form.querySelector('input[name="position"]:checked');
-        const positionValue = positionEl ? positionEl.value : '';
-        const finalPosition = positionValue === 'other'
-            ? (form.querySelector('#positionOtherInput').value.trim() || 'Other')
-            : positionValue;
+        const positionCheckboxes = form.querySelectorAll('input[name="position"]:checked');
+        const positions = [];
+        positionCheckboxes.forEach(cb => {
+            if (cb.value === 'other') {
+                const otherVal = form.querySelector('#positionOtherInput')?.value.trim();
+                positions.push(otherVal || 'Other');
+            } else {
+                positions.push(cb.value);
+            }
+        });
+        if (positions.length === 0) {
+            alert('Please select at least one position.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
+            return;
+        }
 
         const employmentTypeEl = form.querySelector('input[name="employmentType"]:checked');
         const employmentTypeValue = employmentTypeEl ? employmentTypeEl.value : '';
@@ -188,8 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullName: form.querySelector('#fullName').value.trim(),
             address: form.querySelector('#address').value.trim(),
             phone: form.querySelector('#phone').value.trim(),
-            position: finalPosition,
-            secondaryPosition: form.querySelector('#secondaryPosition').value.trim(),
+            positions,
             employmentType: finalEmploymentType,
             desiredPay: form.querySelector('#desiredPay').value.trim(),
             startDate: form.querySelector('#startDate').value,

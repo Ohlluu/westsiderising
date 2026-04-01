@@ -315,7 +315,7 @@ window.viewFullApplication = function(appId, autoPrint = false) {
                 ['Address', f(app.address)],
             ]),
             section('Position Details', [
-                ['Primary Position', f(app.position)], ['Secondary Position', f(app.secondaryPosition)],
+                ['Position(s)', f(Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A'))],
                 ['Employment Type', f(app.employmentType)], ['Desired Pay', f(app.desiredPay)],
                 ['Available Start Date', f(app.startDate)],
             ]),
@@ -745,7 +745,7 @@ function displayJoinTeamApplications(apps, containerId) {
 
             <div class="event-card-info">
                 <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
-                <div class="info-item"><i class="fas fa-briefcase"></i><span>${app.position || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-briefcase"></i><span>${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</span></div>
                 <div class="info-item"><i class="fas fa-clock"></i><span>${app.employmentType || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
             </div>
@@ -759,8 +759,7 @@ function displayJoinTeamApplications(apps, containerId) {
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-briefcase"></i> Position Details</h4>
-                    <p><strong>Primary Position:</strong> ${app.position || 'N/A'}</p>
-                    ${app.secondaryPosition ? `<p><strong>Secondary Position:</strong> ${app.secondaryPosition}</p>` : ''}
+                    <p><strong>Position(s):</strong> ${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</p>
                     <p><strong>Employment Type:</strong> ${app.employmentType || 'N/A'}</p>
                     <p><strong>Desired Pay:</strong> ${app.desiredPay || 'N/A'}</p>
                     <p><strong>Available Start Date:</strong> ${app.startDate || 'N/A'}</p>
@@ -889,7 +888,7 @@ function displayYoungLeadersApplications(apps, containerId) {
 
             <div class="event-card-info">
                 <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
-                <div class="info-item"><i class="fas fa-briefcase"></i><span>${app.position || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-briefcase"></i><span>${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</span></div>
                 <div class="info-item"><i class="fas fa-clock"></i><span>${app.employmentType || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
             </div>
@@ -903,8 +902,7 @@ function displayYoungLeadersApplications(apps, containerId) {
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-briefcase"></i> Position Details</h4>
-                    <p><strong>Primary Position:</strong> ${app.position || 'N/A'}</p>
-                    ${app.secondaryPosition ? `<p><strong>Secondary Position:</strong> ${app.secondaryPosition}</p>` : ''}
+                    <p><strong>Position(s):</strong> ${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</p>
                     <p><strong>Employment Type:</strong> ${app.employmentType || 'N/A'}</p>
                     <p><strong>Desired Pay:</strong> ${app.desiredPay || 'N/A'}</p>
                     <p><strong>Available Start Date:</strong> ${app.startDate || 'N/A'}</p>
