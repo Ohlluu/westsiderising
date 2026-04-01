@@ -154,14 +154,27 @@ document.addEventListener('DOMContentLoaded', function() {
         // Upload resume to Firebase Storage if provided
         let resumeUrl = '';
         if (resumeFile) {
+            // Warn if file is over 5MB
+            if (resumeFile.size > 5 * 1024 * 1024) {
+                alert('Your resume file is over 5MB. Please use a smaller file (PDF or Word doc) for faster upload.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+                return;
+            }
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading resume...';
             try {
+                const timeout = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('timeout')), 60000)
+                );
                 const storageRef = ref(storage, `resumes/${Date.now()}_${resumeFilename}`);
-                const snapshot = await uploadBytes(storageRef, resumeFile);
+                const snapshot = await Promise.race([uploadBytes(storageRef, resumeFile), timeout]);
                 resumeUrl = await getDownloadURL(snapshot.ref);
             } catch (uploadError) {
                 console.error('Resume upload error:', uploadError);
-                alert('Failed to upload resume. Please try again.');
+                const msg = uploadError.message === 'timeout'
+                    ? 'Resume upload timed out. Please check your connection and try again, or use a smaller file.'
+                    : 'Failed to upload resume. Please try again.';
+                alert(msg);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnContent;
                 return;
@@ -176,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             address: form.querySelector('#address').value.trim(),
             phone: form.querySelector('#phone').value.trim(),
             position: finalPosition,
-            secondaryPosition: form.querySelector('#secondaryPosition').value.trim(),
+            secondaryPosition: form.querySelector('#secondaryPosition')?.value.trim() || '',
             employmentType: finalEmploymentType,
             desiredPay: form.querySelector('#desiredPay').value.trim(),
             startDate: form.querySelector('#startDate').value,
