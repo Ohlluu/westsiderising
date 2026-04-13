@@ -293,7 +293,7 @@ window.viewFullApplication = function(appId, autoPrint = false) {
 
     let sectionsHtml = '';
 
-    if (formType === 'Employment Application') {
+    if (formType === 'Employment Application' || formType === 'Young Leaders Power Academy Application') {
         let skillsGridHtml = '';
         if (app.skills && typeof app.skills === 'object') {
             const rows = Object.entries(app.skills)
