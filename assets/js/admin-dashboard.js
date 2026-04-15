@@ -354,8 +354,8 @@ window.viewFullApplication = function(appId, autoPrint = false) {
                 ['Address', [app.address, app.city, app.zipCode].filter(Boolean).join(', ') || null],
                 ['Availability', f(app.availability)],
             ]),
-            section('Areas of Interest', [['Interests', arrFmt(app.interests), true]]),
-            section('Ways to Help', [['You Can Help By', arrFmt(app.helpBy, app.helpByOther), true]]),
+            section('Areas of Interest', [['Interests', mapVolunteerLabels(app.interests, volunteerInterestLabels) || null, true]]),
+            section('Ways to Help', [['You Can Help By', (mapVolunteerLabels(app.helpBy, volunteerHelpByLabels) + (app.helpByOther ? ` — Other: ${app.helpByOther}` : '')) || null, true]]),
             section('Background', [
                 ['Skills &amp; Experience', f(app.skills), true],
                 ['Motivation', f(app.motivation), true],
@@ -514,6 +514,34 @@ window.printDirect = function(appId) {
 // =============================================
 // DISPLAY VOLUNTEER APPLICATIONS
 // =============================================
+const volunteerInterestLabels = {
+    'events':       'Event Support',
+    'mentorship':   'Youth Mentorship',
+    'admin':        'Administrative Tasks',
+    'outreach':     'Community Outreach',
+    'fundraising':  'Fundraising',
+    'marketing':    'Marketing/Communications'
+};
+const volunteerHelpByLabels = {
+    'leader':        "Be a Leader for WR's work and Organizing/Advocacy Issues & Campaigns",
+    'youth-ambassador': 'Be a Youth Ambassador for WR',
+    'speaker':       'Be a speaker for events',
+    'facilitate':    'Help speak, instruct, or facilitate at meetings',
+    'outreach':      'Participate in outreach, door knocking, and flyering',
+    'banking':       'Help with phone, email, or text banking',
+    'phone-calls':   'Make phone calls',
+    'surveys':       'Help conduct surveys',
+    'research':      'Conducting research',
+    'electoral':     'Help with electoral work — register voters or Get Out the Vote',
+    'attend-events': "Attend WESTSIDE RISING's Events & Activities",
+    'more-info':     "I'd like to receive more information about activities",
+    'other':         'Other'
+};
+function mapVolunteerLabels(arr, labelMap) {
+    if (!Array.isArray(arr)) return arr || '';
+    return arr.map(v => labelMap[v] || v).join(', ');
+}
+
 function displayVolunteerApplications(apps, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -527,8 +555,8 @@ function displayVolunteerApplications(apps, containerId) {
 
     container.innerHTML = apps.map(app => {
         const isNew = app.status === 'new';
-        const interestsDisplay = Array.isArray(app.interests) ? app.interests.join(', ') : (app.interests || 'N/A');
-        const helpByDisplay = Array.isArray(app.helpBy) ? app.helpBy.join(', ') : (app.helpBy || '');
+        const interestsDisplay = mapVolunteerLabels(app.interests, volunteerInterestLabels) || 'N/A';
+        const helpByDisplay = mapVolunteerLabels(app.helpBy, volunteerHelpByLabels);
 
         return `
         <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
