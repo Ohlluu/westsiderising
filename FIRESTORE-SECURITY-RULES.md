@@ -96,6 +96,15 @@ service cloud.firestore {
       allow read, update, delete: if isManagerOrAdmin();
     }
 
+    // ==================== CANDIDATE ASSESSMENTS ====================
+    match /assessmentSubmissions/{docId} {
+      // Public can submit (status must be 'new')
+      allow create: if request.resource.data.status == 'new';
+
+      // Only managers/superadmins can read, update, and delete
+      allow read, update, delete: if isManagerOrAdmin();
+    }
+
     // ==================== TIME CLOCK COLLECTIONS ====================
     // Users collection
     match /users/{userId} {

@@ -88,6 +88,11 @@
                     <h3 id="voices-count">0</h3>
                     <p>Community Voices Surveys</p>
                 </div>
+                <div class="stat-card">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3 id="assessment-count">0</h3>
+                    <p>Candidate Assessments</p>
+                </div>
             </div>
 
             <!-- Tab Navigation -->
@@ -126,6 +131,11 @@
                     <i class="fas fa-calendar"></i>
                     Events
                     <span class="tab-badge" id="badge-events">0</span>
+                </button>
+                <button class="tab-btn" data-tab="assessments" onclick="switchTab('assessments')">
+                    <i class="fas fa-clipboard-list"></i>
+                    Candidate Assessments
+                    <span class="tab-badge" id="badge-assessments">0</span>
                 </button>
             </div>
 
@@ -254,10 +264,53 @@
                 </div>
             </div>
 
+            <!-- Tab Panel: Candidate Assessments -->
+            <div class="tab-panel" id="tab-assessments" style="display: none;">
+                <div class="applications-section">
+                    <div class="section-title-bar">
+                        <h2>Candidate Assessment Submissions</h2>
+                        <span class="new-count-label" id="assessment-new-label"></span>
+                    </div>
+                    <div class="assessment-share-box" style="background:#fff3f3; border-left:4px solid var(--primary-red); border-radius:8px; padding:1rem 1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:200px;">
+                            <strong style="color:var(--primary-red)"><i class="fas fa-link"></i> Share Assessment Link</strong>
+                            <p style="margin:0.25rem 0 0; font-size:0.9rem; color:#555;">Send this link to candidates to complete their assessment.</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                            <code id="assessment-link" style="background:#fff; border:1px solid #ddd; border-radius:6px; padding:0.4rem 0.75rem; font-size:0.85rem; color:#333;"></code>
+                            <button onclick="copyAssessmentLink()" style="background:var(--primary-red); color:#fff; border:none; border-radius:6px; padding:0.5rem 1rem; cursor:pointer; font-size:0.85rem; font-weight:600;">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                        </div>
+                    </div>
+                    <div id="assessments-container">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading assessments...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
+    <script>
+        function copyAssessmentLink() {
+            const link = document.getElementById('assessment-link').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Assessment link copied to clipboard!');
+            }).catch(() => {
+                prompt('Copy this link:', link);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const linkEl = document.getElementById('assessment-link');
+            if (linkEl) linkEl.textContent = window.location.origin + '/assessment';
+        });
+    </script>
+
     <script src="assets/js/main.js?v=1"></script>
-    <script type="module" src="assets/js/admin-dashboard.js?v=14"></script>
+    <script type="module" src="assets/js/admin-dashboard.js?v=15"></script>
 </body>
 </html>

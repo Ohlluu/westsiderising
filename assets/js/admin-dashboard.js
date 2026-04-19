@@ -146,7 +146,8 @@ async function loadDashboard() {
             loadApplications('joinTeamApplications',     'jointeam-apps-container',   'jointeam-count',    'badge-jointeam',     'jointeam-new-label',    displayJoinTeamApplications),
             loadApplications('youngLeadersApplications', 'youngleaders-apps-container','youngleaders-count','badge-youngleaders', 'youngleaders-new-label', displayYoungLeadersApplications),
             loadApplications('powerLabApplications',     'powerlab-apps-container',   'powerlab-count',    'badge-powerlab',     'powerlab-new-label',    displayPowerLabApplications),
-            loadApplications('communityVoicesSurveys',   'voices-apps-container',     'voices-count',      'badge-voices',       'voices-new-label',      displayCommunityVoicesSurveys)
+            loadApplications('communityVoicesSurveys',   'voices-apps-container',     'voices-count',      'badge-voices',       'voices-new-label',      displayCommunityVoicesSurveys),
+            loadApplications('assessmentSubmissions',    'assessments-container',     'assessment-count',  'badge-assessments',  'assessment-new-label',  displayAssessmentSubmissions)
         ]);
 
     } catch (error) {
@@ -1559,3 +1560,112 @@ window.deleteEvent = async function(eventId) {
         alert('Error deleting event. Please try again.');
     }
 };
+
+// =============================================
+// DISPLAY CANDIDATE ASSESSMENTS
+// =============================================
+function displayAssessmentSubmissions(apps, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    apps.forEach(app => { appCache[app.id] = app; });
+
+    if (apps.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No assessment submissions yet</p></div>`;
+        return;
+    }
+
+    const sectionLabel = (title) => `<h4 style="color:var(--primary-red);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:1rem 0 0.5rem;">${title}</h4>`;
+    const scaleRow = (label, val) => `<p style="margin:0.25rem 0;font-size:0.9rem;"><strong>${label}:</strong> ${val ?? 'N/A'} / 5</p>`;
+
+    container.innerHTML = apps.map(app => {
+        const isNew = app.status === 'new';
+        const a = app.accountability || {};
+        const t = app.teamwork || {};
+        const i = app.initiative || {};
+        const c = app.criticalThinking || {};
+        const s = app.situational || {};
+
+        return `
+        <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
+            <div class="event-card-header">
+                <div>
+                    <h3>${app.candidateName || 'Unknown Candidate'}</h3>
+                    <span class="event-badge ${isNew ? '' : 'reviewed-badge'}">${isNew ? 'New' : 'Reviewed'}</span>
+                </div>
+                <button class="btn-view-details" onclick="toggleAppDetails('${app.id}')">
+                    <i class="fas fa-chevron-down"></i> View Details
+                </button>
+            </div>
+
+            <div class="event-card-info">
+                <div class="info-item"><i class="fas fa-briefcase"></i><span>${app.positionApplied || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-calendar"></i><span>${app.assessmentDate || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
+            </div>
+
+            <div class="event-details-expand" id="details-${app.id}" style="display: none;">
+                <div class="details-section">
+                    ${sectionLabel('Section 1: Accountability & Ownership')}
+                    ${scaleRow('Responsibility for outcomes', a.q1)}
+                    ${scaleRow('Helps fix teammate mistakes', a.q2)}
+                    ${scaleRow('Follows up on handed-off tasks', a.q3)}
+                    ${scaleRow('Self-reports errors proactively', a.q4)}
+                    ${scaleRow('Consistent effort without oversight', a.q5)}
+                </div>
+                <div class="details-section">
+                    ${sectionLabel('Section 2: Teamwork & Communication')}
+                    ${scaleRow('Communication over speed', t.q1)}
+                    ${scaleRow('Alignment over moving quickly', t.q2)}
+                    ${scaleRow('Adapts communication style', t.q3)}
+                    ${scaleRow('Includes quieter team members', t.q4)}
+                    ${scaleRow('Delivers honest feedback', t.q5)}
+                </div>
+                <div class="details-section">
+                    ${sectionLabel('Section 3: Initiative & Agility')}
+                    ${scaleRow('Seeks improvement opportunities', i.q1)}
+                    ${scaleRow('Willing to change direction', i.q2)}
+                    ${scaleRow('Self-directed skill development', i.q3)}
+                    ${scaleRow('Takes on difficult tasks', i.q4)}
+                    ${scaleRow('Adapts to unexpected changes', i.q5)}
+                </div>
+                <div class="details-section">
+                    ${sectionLabel('Section 4: Critical Thinking & Inference')}
+                    ${scaleRow('Considers alternative perspectives', c.q1)}
+                    ${scaleRow('Understands iterative planning', c.q2)}
+                    ${scaleRow('Analyzes pros & cons', c.q3)}
+                    ${scaleRow('Identifies opportunities & pitfalls', c.q4)}
+                    ${scaleRow('Prefers structured mastery', c.q5)}
+                </div>
+                <div class="details-section">
+                    ${sectionLabel('Section 5: Situational Responses')}
+                    <p style="margin:0.5rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">1. Co-worker leaving early while clocked in with poor work quality:</p>
+                    <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q1 || 'N/A'}</p>
+                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">2. Forgot a critical task with significant organizational impact:</p>
+                    <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q2 || 'N/A'}</p>
+                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">3. Boss overlooks critical pre-event task:</p>
+                    <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q3 || 'N/A'}</p>
+                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">4. First 45 days in a new role:</p>
+                    <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q4 || 'N/A'}</p>
+                </div>
+            </div>
+
+            <div class="event-card-actions">
+                ${isNew ? `
+                    <button class="btn-approve" onclick="markAsReviewed('assessmentSubmissions', '${app.id}', this)">
+                        <i class="fas fa-check"></i> Mark as Reviewed
+                    </button>
+                ` : `
+                    <span class="reviewed-label"><i class="fas fa-check-circle"></i> Reviewed</span>
+                `}
+                <button class="btn-view-event" onclick="printDirect('${app.id}')">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn-delete" onclick="deleteApplication('assessmentSubmissions', '${app.id}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+        `;
+    }).join('');
+}
