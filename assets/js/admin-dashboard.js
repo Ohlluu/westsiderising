@@ -1576,7 +1576,21 @@ function displayAssessmentSubmissions(apps, containerId) {
     }
 
     const sectionLabel = (title) => `<h4 style="color:var(--primary-red);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:1rem 0 0.5rem;">${title}</h4>`;
-    const scaleRow = (label, val) => `<p style="margin:0.25rem 0;font-size:0.9rem;"><strong>${label}:</strong> ${val ?? 'N/A'} / 5</p>`;
+    const scaleMap = {
+        1: { label: 'Strongly Disagree', color: '#cc0000', bg: '#fff0f0' },
+        2: { label: 'Disagree',          color: '#e06000', bg: '#fff5ee' },
+        3: { label: 'Neutral',           color: '#997700', bg: '#fffbea' },
+        4: { label: 'Agree',             color: '#2a7d2a', bg: '#f0fff0' },
+        5: { label: 'Strongly Agree',    color: '#1a5c1a', bg: '#e6ffe6' }
+    };
+    const scaleRow = (label, val) => {
+        const s = scaleMap[val];
+        const badge = s
+            ? `<span style="display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.8rem;font-weight:700;color:${s.color};background:${s.bg};border:1px solid ${s.color}33;">${val} — ${s.label}</span>`
+            : `<span style="color:#aaa;font-size:0.85rem;">N/A</span>`;
+        return `<div style="margin:0.6rem 0;font-size:0.9rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+            <span style="flex:1;color:#444;">${label}</span>${badge}</div>`;
+    };
 
     container.innerHTML = apps.map(app => {
         const isNew = app.status === 'new';
