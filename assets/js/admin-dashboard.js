@@ -1562,6 +1562,33 @@ window.deleteEvent = async function(eventId) {
 };
 
 // =============================================
+// ASSESSMENT SCORING HELPERS
+// =============================================
+function scoreSection(section) {
+    return [section.q1, section.q2, section.q3, section.q4, section.q5]
+        .reduce((sum, v) => sum + (parseInt(v) || 0), 0);
+}
+
+function getBand(total) {
+    if (total >= 90) return {
+        label: 'Exceptional', color: '#059669', bg: '#ecfdf5', border: '#6ee7b7',
+        guidance: 'Strong alignment across all competency areas. Recommended for advancement in the hiring process.'
+    };
+    if (total >= 75) return {
+        label: 'Strong', color: '#2563eb', bg: '#eff6ff', border: '#93c5fd',
+        guidance: 'Above-average profile with minor gaps. Consider for interview with targeted follow-up questions.'
+    };
+    if (total >= 60) return {
+        label: 'Moderate', color: '#d97706', bg: '#fffbeb', border: '#fcd34d',
+        guidance: 'Mixed profile. Additional screening recommended before advancing.'
+    };
+    return {
+        label: 'Insufficient', color: '#dc2626', bg: '#fef2f2', border: '#fca5a5',
+        guidance: 'Significant gaps in key competency areas. Does not meet the threshold for this role.'
+    };
+}
+
+// =============================================
 // DISPLAY CANDIDATE ASSESSMENTS
 // =============================================
 function displayAssessmentSubmissions(apps, containerId) {
@@ -1600,6 +1627,27 @@ function displayAssessmentSubmissions(apps, containerId) {
         const c = app.criticalThinking || {};
         const s = app.situational || {};
 
+        const sA = scoreSection(a);
+        const sT = scoreSection(t);
+        const sI = scoreSection(i);
+        const sC = scoreSection(c);
+        const total = sA + sT + sI + sC;
+        const band = getBand(total);
+
+        const sectionBar = (label, score) => {
+            const pct = Math.round((score / 25) * 100);
+            let barColor = '#dc2626';
+            if (score >= 22) barColor = '#059669';
+            else if (score >= 19) barColor = '#2563eb';
+            else if (score >= 15) barColor = '#d97706';
+            return '<div style="margin-bottom:0.6rem;">' +
+                '<div style="display:flex;justify-content:space-between;font-size:0.82rem;color:#555;margin-bottom:3px;">' +
+                '<span>' + label + '</span><span style="font-weight:700;color:' + barColor + ';">' + score + '/25</span></div>' +
+                '<div style="background:#eee;border-radius:4px;height:7px;overflow:hidden;">' +
+                '<div style="height:100%;width:' + pct + '%;background:' + barColor + ';border-radius:4px;"></div>' +
+                '</div></div>';
+        };
+
         return `
         <div class="event-card-admin app-card ${isNew ? 'app-card-new' : 'app-card-reviewed'}" data-app-id="${app.id}">
             <div class="event-card-header">
@@ -1618,9 +1666,24 @@ function displayAssessmentSubmissions(apps, containerId) {
                 <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
             </div>
 
+            <div style="margin:1rem 0;padding:1rem;background:${band.bg};border:1px solid ${band.border};border-radius:10px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.75rem;">
+                    <div>
+                        <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:#888;font-weight:600;">Overall Score</span>
+                        <div style="font-size:2rem;font-weight:800;color:${band.color};line-height:1.1;">${total}<span style="font-size:1rem;color:#999;font-weight:400;">/100</span></div>
+                    </div>
+                    <span style="padding:0.35rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:700;color:${band.color};background:${band.bg};border:2px solid ${band.border};">${band.label}</span>
+                </div>
+                <p style="margin:0 0 0.75rem;font-size:0.88rem;color:#555;">${band.guidance}</p>
+                ${sectionBar('Accountability & Ownership', sA)}
+                ${sectionBar('Teamwork & Communication', sT)}
+                ${sectionBar('Initiative & Agility', sI)}
+                ${sectionBar('Critical Thinking', sC)}
+            </div>
+
             <div class="event-details-expand" id="details-${app.id}" style="display: none;">
                 <div class="details-section">
-                    ${sectionLabel('Section 1: Accountability & Ownership')}
+                    ${sectionLabel('Section 1: Accountability & Ownership — ' + sA + '/25')}
                     ${scaleRow('1. I take responsibility for project outcomes even when I\'ve completed my assigned portion of the work.', a.q1)}
                     ${scaleRow('2. If a teammate makes a mistake that affects the final result, I help fix it even if it\'s not my responsibility.', a.q2)}
                     ${scaleRow('3. When I hand off a task, I follow up to make sure it was completed accurately.', a.q3)}
@@ -1628,7 +1691,7 @@ function displayAssessmentSubmissions(apps, containerId) {
                     ${scaleRow('5. I maintain the same level of effort whether or not my manager is watching.', a.q5)}
                 </div>
                 <div class="details-section">
-                    ${sectionLabel('Section 2: Teamwork & Communication')}
+                    ${sectionLabel('Section 2: Teamwork & Communication — ' + sT + '/25')}
                     ${scaleRow('1. I believe communication is more important than speed when working in a team.', t.q1)}
                     ${scaleRow('2. I prioritize alignment with my team over moving quickly.', t.q2)}
                     ${scaleRow('3. I adjust my communication style when working with different audiences (e.g., technical vs. non-technical).', t.q3)}
@@ -1636,7 +1699,7 @@ function displayAssessmentSubmissions(apps, containerId) {
                     ${scaleRow('5. I can deliver honest feedback to colleagues while maintaining the relationship.', t.q5)}
                 </div>
                 <div class="details-section">
-                    ${sectionLabel('Section 3: Initiative & Agility')}
+                    ${sectionLabel('Section 3: Initiative & Agility — ' + sI + '/25')}
                     ${scaleRow('1. I regularly look for ways to improve beyond what\'s expected of me.', i.q1)}
                     ${scaleRow('2. I\'m willing to change direction if new evidence suggests my current approach isn\'t the best.', i.q2)}
                     ${scaleRow('3. I take initiative to develop skills needed for my work without being asked.', i.q3)}
@@ -1644,7 +1707,7 @@ function displayAssessmentSubmissions(apps, containerId) {
                     ${scaleRow('5. I adapt quickly when unexpected changes occur.', i.q5)}
                 </div>
                 <div class="details-section">
-                    ${sectionLabel('Section 4: Critical Thinking & Inference Evaluation')}
+                    ${sectionLabel('Section 4: Critical Thinking & Inference Evaluation — ' + sC + '/25')}
                     ${scaleRow('1. Before defending an approach, I consider alternative perspectives.', c.q1)}
                     ${scaleRow('2. I understand that planning and implementation are iterative, not linear.', c.q2)}
                     ${scaleRow('3. Before recommending a solution, I analyze the pros and cons.', c.q3)}
