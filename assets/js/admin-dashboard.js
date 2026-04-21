@@ -1684,45 +1684,45 @@ function displayAssessmentSubmissions(apps, containerId) {
             <div class="event-details-expand" id="details-${app.id}" style="display: none;">
                 <div class="details-section">
                     ${sectionLabel('Section 1: Accountability & Ownership — ' + sA + '/25')}
-                    ${scaleRow('1. I take responsibility for project outcomes even when I\'ve completed my assigned portion of the work.', a.q1)}
-                    ${scaleRow('2. If a teammate makes a mistake that affects the final result, I help fix it even if it\'s not my responsibility.', a.q2)}
-                    ${scaleRow('3. When I hand off a task, I follow up to make sure it was completed accurately.', a.q3)}
-                    ${scaleRow('4. If I make an error, I proactively report it to the relevant parties.', a.q4)}
-                    ${scaleRow('5. I maintain the same level of effort whether or not my manager is watching.', a.q5)}
+                    ${scaleRow('A1. Even when I do everything I was asked to do, I still feel responsible if a project does not go well.', a.q1)}
+                    ${scaleRow('A2. If I see a teammate has made a mistake that will affect the final result, I feel it is my job to help get it fixed.', a.q2)}
+                    ${scaleRow('A3. Even after I hand off a task, I follow up to make sure it was completed the right way.', a.q3)}
+                    ${scaleRow('A4. When I make an error, I bring it to the attention of the right people before anyone has to ask me.', a.q4)}
+                    ${scaleRow('A5. I put in the same level of effort and care whether or not a manager or senior leader is reviewing my work.', a.q5)}
                 </div>
                 <div class="details-section">
                     ${sectionLabel('Section 2: Teamwork & Communication — ' + sT + '/25')}
-                    ${scaleRow('1. I believe communication is more important than speed when working in a team.', t.q1)}
-                    ${scaleRow('2. I prioritize alignment with my team over moving quickly.', t.q2)}
-                    ${scaleRow('3. I adjust my communication style when working with different audiences (e.g., technical vs. non-technical).', t.q3)}
-                    ${scaleRow('4. I actively make sure quieter team members have a chance to contribute.', t.q4)}
-                    ${scaleRow('5. I can deliver honest feedback to colleagues while maintaining the relationship.', t.q5)}
+                    ${scaleRow('T1. Clear and timely communication is critical to efficient and effective teamwork.', t.q1)}
+                    ${scaleRow('T2. I would rather take extra time to make sure everyone is on the same page rather than move fast without everyone on board.', t.q2)}
+                    ${scaleRow('T3. I adjust how I explain things depending on whether I am talking to a technical or non-technical person.', t.q3)}
+                    ${scaleRow('T4. In group settings, I make sure quieter team members have a chance to share their input.', t.q4)}
+                    ${scaleRow('T5. I am able to give and receive honest, critical feedback to a colleague while still keeping the working relationship intact.', t.q5)}
                 </div>
                 <div class="details-section">
                     ${sectionLabel('Section 3: Initiative & Agility — ' + sI + '/25')}
-                    ${scaleRow('1. I regularly look for ways to improve beyond what\'s expected of me.', i.q1)}
-                    ${scaleRow('2. I\'m willing to change direction if new evidence suggests my current approach isn\'t the best.', i.q2)}
-                    ${scaleRow('3. I take initiative to develop skills needed for my work without being asked.', i.q3)}
-                    ${scaleRow('4. I\'m willing to take on difficult tasks that others avoid if it helps the team.', i.q4)}
-                    ${scaleRow('5. I adapt quickly when unexpected changes occur.', i.q5)}
+                    ${scaleRow('I1. I look for ways to improve how things are done even when everything is already meeting its targets.', i.q1)}
+                    ${scaleRow('I2. I am comfortable changing direction on a project when new information shows my original approach was wrong.', i.q2)}
+                    ${scaleRow('I3. I notice where I can build and improve my skills and work to fix them without waiting to be told to do so.', i.q3)}
+                    ${scaleRow('I4. I am willing to step in and help resolve a problem that nobody else is willing to, if it will help the team.', i.q4)}
+                    ${scaleRow('I5. When plans change unexpectedly, I am able to adjust when possible and keep producing results.', i.q5)}
                 </div>
                 <div class="details-section">
                     ${sectionLabel('Section 4: Critical Thinking & Inference Evaluation — ' + sC + '/25')}
-                    ${scaleRow('1. Before defending an approach, I consider alternative perspectives.', c.q1)}
-                    ${scaleRow('2. I understand that planning and implementation are iterative, not linear.', c.q2)}
-                    ${scaleRow('3. Before recommending a solution, I analyze the pros and cons.', c.q3)}
-                    ${scaleRow('4. I look for both opportunities and potential pitfalls when analyzing a situation.', c.q4)}
-                    ${scaleRow('5. I prefer to fully understand a concept before moving on to the next one.', c.q5)}
+                    ${scaleRow('C1. Before defending an approach, I actively consider other perspectives and consider what I may be missing.', c.q1)}
+                    ${scaleRow('C2. I understand that planning and implementation are ongoing processes.', c.q2)}
+                    ${scaleRow('C3. Before recommending a solution, I deliberately think through the outcomes and consider the pros and cons.', c.q3)}
+                    ${scaleRow('C4. I can analyze information and activities to identify opportunities and pitfalls to come up with appropriate solutions and/or next steps.', c.q4)}
+                    ${scaleRow('C5. When I am learning something new, I prefer a step-by-step approach so I clearly understand the process, and can master product delivery and/or identify needed improvements.', c.q5)}
                 </div>
                 <div class="details-section">
                     ${sectionLabel('Section 5: Situational Responses')}
-                    <p style="margin:0.5rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">1. You notice a co-worker leaving early while still clocked in, and their work quality has been poor lately. What do you do?</p>
+                    <p style="margin:0.5rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">1. You see a co-worker regularly leaving work early while still clocked in and they avoid or produce poor quality work. How would you approach this situation?</p>
                     <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q1 || 'N/A'}</p>
-                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">2. You realize you forgot to complete a critical task that was due and it could have a significant impact on the organization. What do you do?</p>
+                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">2. You discover that you forgot to do a major task assigned to you and your team. This task critically impacts the organization. What would you do?</p>
                     <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q2 || 'N/A'}</p>
-                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">3. Your boss overlooks a critical task that must be completed before an important event. What do you do?</p>
+                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">3. You discover that your boss forgot to do a task that is critical for an upcoming event. How would you approach this situation?</p>
                     <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q3 || 'N/A'}</p>
-                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">4. How would you approach your first 45 days in a new role here at Westside Rising?</p>
+                    <p style="margin:1rem 0 0.25rem;font-size:0.85rem;color:#888;font-weight:600;">4. You are hired to fill a role in an organization. How would you approach your new role for the first 45 days?</p>
                     <p style="font-size:0.95rem;white-space:pre-wrap;">${s.q4 || 'N/A'}</p>
                 </div>
             </div>
