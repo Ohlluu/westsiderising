@@ -303,7 +303,11 @@
                     <p>Please answer all questions honestly. This assessment helps us understand how you approach work, teamwork, and challenges.</p>
                 </div>
 
-                <form id="assessment-form">
+                <div id="firebase-error" style="display:none;background:#fff3f3;border-left:4px solid #dc2626;border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.5rem;color:#dc2626;font-size:0.95rem;">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Connection Error</strong> — Unable to connect to our system. This is often caused by a browser extension (ad blocker or privacy tool). Please disable any extensions and refresh the page, or try a different browser.
+                </div>
+
+                <form id="assessment-form" method="post" action="#">
                     <p class="required-note">All fields marked <span>*</span> are required.</p>
 
                     <!-- Section 0: Candidate Info -->
@@ -615,8 +619,8 @@
 
                     <!-- Submit -->
                     <div class="assessment-card">
-                        <button type="submit" class="submit-btn" id="submit-btn">
-                            <i class="fas fa-paper-plane"></i> Submit Assessment
+                        <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                            <i class="fas fa-spinner fa-spin"></i> Loading...
                         </button>
                     </div>
                 </form>

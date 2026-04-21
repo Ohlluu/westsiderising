@@ -1,23 +1,48 @@
-import { db } from './firebase-config.js';
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const form = document.getElementById('assessment-form');
     if (!form) return;
+
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Keep button disabled until Firebase confirms it loaded
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+
+    let db, collection, addDoc, serverTimestamp;
+
+    try {
+        const [configModule, firestoreModule] = await Promise.all([
+            import('./firebase-config.js'),
+            import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js")
+        ]);
+        db = configModule.db;
+        collection = firestoreModule.collection;
+        addDoc = firestoreModule.addDoc;
+        serverTimestamp = firestoreModule.serverTimestamp;
+
+        if (!db) throw new Error('Firestore not initialized');
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Assessment';
+    } catch (err) {
+        console.error('Firebase failed to load:', err);
+        submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Unable to Connect';
+        const errorEl = document.getElementById('firebase-error');
+        if (errorEl) errorEl.style.display = 'block';
+        return;
+    }
+
+    const getRadio = (name) => {
+        const checked = form.querySelector(`input[name="${name}"]:checked`);
+        return checked ? parseInt(checked.value) : null;
+    };
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        const submitBtn = document.getElementById('submit-btn');
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
-        const getRadio = (name) => {
-            const checked = form.querySelector(`input[name="${name}"]:checked`);
-            return checked ? parseInt(checked.value) : null;
-        };
-
-        // Validate all radio groups are answered
         const radioGroups = [
             's1q1','s1q2','s1q3','s1q4','s1q5',
             's2q1','s2q2','s2q3','s2q4','s2q5',
@@ -81,7 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
             showSuccess(data.candidateName);
         } catch (err) {
             console.error('Submission error:', err);
-            alert('There was an error submitting your assessment. Please try again.');
+            const msg = err.code === 'permission-denied'
+                ? 'Submission blocked by server. Please contact support.'
+                : 'There was an error submitting your assessment. Please check your connection and try again.';
+            alert(msg);
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Assessment';
         }
