@@ -383,6 +383,9 @@ function listenToClockedInStatus() {
                             Since: ${clockInTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
                         </div>
                         <div class="clocked-in-duration">${hours}h ${minutes}m</div>
+                        <button class="force-clockout-btn" onclick="forceClockOut('${doc.id}', '${data.currentEntryId}', this)">
+                            <i class="fas fa-sign-out-alt"></i> Clock Out
+                        </button>
                     `;
 
                     clockedInList.appendChild(item);
@@ -764,6 +767,67 @@ async function showAuditTrail(entryId) {
 // Close audit modal
 function closeAuditModal() {
     document.getElementById('audit-modal').classList.remove('active');
+}
+
+// ==================== Force Clock Out ====================
+
+async function forceClockOut(userId, entryId, buttonEl) {
+    if (!confirm('Clock out this employee? The current time will be recorded as their clock-out time.')) {
+        return;
+    }
+
+    buttonEl.disabled = true;
+    buttonEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Clocking out...';
+
+    try {
+        const adminUser = auth.currentUser;
+        const now = firebase.firestore.Timestamp.fromDate(getChicagoTime());
+
+        const entryDoc = await db.collection('timeEntries').doc(entryId).get();
+        if (!entryDoc.exists) {
+            alert('Time entry not found. The employee may have already clocked out.');
+            buttonEl.disabled = false;
+            buttonEl.innerHTML = '<i class="fas fa-sign-out-alt"></i> Clock Out';
+            return;
+        }
+
+        const entryData = entryDoc.data();
+        const diffMs = now.toDate() - entryData.clockIn.toDate();
+        const totalHours = Math.round((diffMs / (1000 * 60 * 60)) * 100) / 100;
+
+        const auditEntry = {
+            editedBy: adminUser.uid,
+            editedByName: adminUser.displayName || adminUser.email,
+            editedAt: firebase.firestore.Timestamp.now(),
+            reason: 'Admin force clock-out',
+            changes: {
+                type: 'force_clockout',
+                clockOut: { before: null, after: now.toDate().toISOString() }
+            }
+        };
+
+        await db.collection('timeEntries').doc(entryId).update({
+            clockOut: now,
+            totalHours: totalHours,
+            status: 'completed',
+            editHistory: firebase.firestore.FieldValue.arrayUnion(auditEntry),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        await db.collection('currentStatus').doc(userId).set({
+            isClockedIn: false,
+            currentEntryId: null,
+            clockInTime: null
+        });
+
+        // onSnapshot will automatically refresh the panel
+
+    } catch (error) {
+        console.error('Error force clocking out:', error);
+        alert('Failed to clock out employee. Please try again.');
+        buttonEl.disabled = false;
+        buttonEl.innerHTML = '<i class="fas fa-sign-out-alt"></i> Clock Out';
+    }
 }
 
 // ==================== Export Functions ====================

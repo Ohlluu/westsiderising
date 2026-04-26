@@ -464,6 +464,33 @@
     margin-top: 0.5rem;
 }
 
+.force-clockout-btn {
+    margin-top: 0.75rem;
+    width: 100%;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.force-clockout-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.force-clockout-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* Employee Filter */
 .employee-filter {
     background: white;
