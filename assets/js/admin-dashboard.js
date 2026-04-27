@@ -774,6 +774,7 @@ function displayJoinTeamApplications(apps, containerId) {
 
             <div class="event-card-info">
                 <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>${app.phone || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-briefcase"></i><span>${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</span></div>
                 <div class="info-item"><i class="fas fa-clock"></i><span>${app.employmentType || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
@@ -917,6 +918,7 @@ function displayYoungLeadersApplications(apps, containerId) {
 
             <div class="event-card-info">
                 <div class="info-item"><i class="fas fa-envelope"></i><span>${app.email || 'N/A'}</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>${app.phone || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-briefcase"></i><span>${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</span></div>
                 <div class="info-item"><i class="fas fa-clock"></i><span>${app.employmentType || 'N/A'}</span></div>
                 <div class="info-item"><i class="fas fa-calendar-plus"></i><span>${formatTimestamp(app.submittedAt)}</span></div>
