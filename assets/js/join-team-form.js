@@ -244,24 +244,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function showSuccess(email, form) {
     const parent = form.parentElement;
-    const successMessage = document.createElement('div');
-    successMessage.className = 'success-message';
-    successMessage.innerHTML = `
-        <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
+    parent.innerHTML = `
+        <div style="max-width:680px;margin:4rem auto;padding:0 1.5rem;font-family:'Source Sans Pro',sans-serif;">
+
+            <div style="text-align:center;margin-bottom:2.5rem;">
+                <div style="width:84px;height:84px;background:linear-gradient(135deg,#e31e24,#b01519);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;box-shadow:0 8px 24px rgba(227,30,36,0.3);">
+                    <i class="fas fa-check" style="color:white;font-size:2.2rem;"></i>
+                </div>
+                <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:#1a1a1a;margin:0 0 0.5rem;">Application Received</h1>
+                <p style="color:#666;font-size:1.05rem;margin:0;">We have everything we need — here is what comes next.</p>
+            </div>
+
+            <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.07);padding:2rem;margin-bottom:1.5rem;border-top:4px solid #e31e24;">
+                <p style="color:#444;font-size:1rem;line-height:1.8;margin:0;">
+                    Thank you for your interest in joining the Westside Rising team. Your employment application has been successfully submitted and is now under review. Our hiring team will follow up with you at <strong style="color:#1a1a1a;">${email}</strong> within 5–7 business days.
+                </p>
+            </div>
+
+            <div style="background:#fff8f8;border-radius:16px;border:1px solid #ffd0d0;padding:2rem;margin-bottom:1rem;">
+                <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                    <div style="background:#e31e24;border-radius:50%;width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(227,30,36,0.25);">
+                        <i class="fas fa-clipboard-list" style="color:white;font-size:1.1rem;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#1a1a1a;margin:0 0 0.6rem;">Complete Your Candidate Assessment</h3>
+                        <p style="color:#555;font-size:0.95rem;line-height:1.7;margin:0 0 1.25rem;">
+                            Completing the candidate assessment is a required part of our hiring process. It gives our team a fuller picture of how you approach work, collaboration, and problem-solving — and helps us find the right fit for both you and Westside Rising.
+                        </p>
+                        <a href="${window.location.origin}/assessment" target="_blank" rel="noopener noreferrer"
+                           style="display:inline-flex;align-items:center;gap:0.6rem;background:linear-gradient(135deg,#e31e24,#b01519);color:white;text-decoration:none;padding:0.85rem 1.75rem;border-radius:10px;font-weight:700;font-size:1rem;box-shadow:0 4px 14px rgba(227,30,36,0.3);letter-spacing:0.01em;">
+                            <i class="fas fa-external-link-alt" style="font-size:0.9rem;"></i>
+                            Start the Assessment
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <h3>Application Submitted!</h3>
-        <p>
-            Thank you for applying to WESTSIDE RISING. We've received your employment application
-            and will review it within 5–7 business days. We will follow up with you at
-            <strong>${email}</strong>.
-        </p>
-        <button class="btn btn-primary" onclick="location.reload()">
-            <i class="fas fa-redo"></i>
-            Submit Another Application
-        </button>
     `;
-    parent.innerHTML = '';
-    parent.appendChild(successMessage);
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    parent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
