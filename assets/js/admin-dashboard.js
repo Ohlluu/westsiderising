@@ -287,7 +287,7 @@ window.viewFullApplication = function(appId, autoPrint = false) {
 
     const applicantName = f(app.fullName)
         || (`${app.firstName || ''} ${app.lastName || ''}`.trim() || null)
-        || f(app.contactName) || f(app.entityName) || 'Applicant';
+        || f(app.candidateName) || f(app.contactName) || f(app.entityName) || 'Applicant';
     const formType = app.formType || 'Application';
     const isNew = app.status === 'new';
     const submittedDate = formatTimestamp(app.submittedAt);
@@ -411,6 +411,56 @@ window.viewFullApplication = function(appId, autoPrint = false) {
                 ${app.participant3?.name ? `<div class="field wide"><span class="label">Participant 3</span><span class="value">${app.participant3.name}${app.participant3.phone ? ' | ' + app.participant3.phone : ''}${app.participant3.email ? ' | ' + app.participant3.email : ''}</span></div>` : ''}
             </div></div>` : '',
         ].join('');
+
+    } else if (formType === 'Candidate Assessment') {
+        const scaleLabels = { 1: '1 — Strongly Disagree', 2: '2 — Disagree', 3: '3 — Neutral', 4: '4 — Agree', 5: '5 — Strongly Agree' };
+        const sc = (sec) => [sec.q1,sec.q2,sec.q3,sec.q4,sec.q5].reduce((sum,v) => sum + (parseInt(v)||0), 0);
+        const rl = (val) => scaleLabels[parseInt(val)] || '—';
+        const a = app.accountability || {}, t = app.teamwork || {}, i = app.initiative || {}, c = app.criticalThinking || {}, sit = app.situational || {};
+        const sA=sc(a), sT=sc(t), sI=sc(i), sC=sc(c), total=sA+sT+sI+sC;
+        const bandLabel = total>=90?'Exceptional':total>=75?'Strong':total>=60?'Moderate':'Insufficient';
+        const bandColor = total>=90?'#059669':total>=75?'#2563eb':total>=60?'#d97706':'#dc2626';
+
+        sectionsHtml = `
+            ${section('Candidate Information', [
+                ['Candidate Name', f(app.candidateName), true],
+                ['Position Applied For', f(app.positionApplied)],
+                ['Assessment Date', f(app.assessmentDate)],
+                ['Submitted', submittedDate],
+            ])}
+            <div class="section"><h3>Score Summary</h3>
+            <div style="background:#f8f8f8;border-radius:8px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:2px solid #eee;margin-bottom:12px;">
+                    <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:2px;">Overall Score</div>
+                    <div style="font-size:2rem;font-weight:800;color:${bandColor};">${total}<span style="font-size:0.9rem;color:#999;font-weight:400;">/100</span></div></div>
+                    <span style="padding:4px 16px;border-radius:20px;font-size:13px;font-weight:700;color:${bandColor};border:2px solid ${bandColor};">${bandLabel}</span>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <div><div style="font-size:11px;color:#666;">Accountability &amp; Ownership</div><div style="font-weight:700;color:#333;">${sA}/25</div></div>
+                    <div><div style="font-size:11px;color:#666;">Teamwork &amp; Communication</div><div style="font-weight:700;color:#333;">${sT}/25</div></div>
+                    <div><div style="font-size:11px;color:#666;">Initiative &amp; Agility</div><div style="font-weight:700;color:#333;">${sI}/25</div></div>
+                    <div><div style="font-size:11px;color:#666;">Critical Thinking</div><div style="font-weight:700;color:#333;">${sC}/25</div></div>
+                </div>
+            </div></div>
+            ${section('Section 1 — Accountability & Ownership (' + sA + '/25)', [
+                ['A1', rl(a.q1)], ['A2', rl(a.q2)], ['A3', rl(a.q3)], ['A4', rl(a.q4)], ['A5', rl(a.q5)],
+            ])}
+            ${section('Section 2 — Teamwork & Communication (' + sT + '/25)', [
+                ['T1', rl(t.q1)], ['T2', rl(t.q2)], ['T3', rl(t.q3)], ['T4', rl(t.q4)], ['T5', rl(t.q5)],
+            ])}
+            ${section('Section 3 — Initiative & Agility (' + sI + '/25)', [
+                ['I1', rl(i.q1)], ['I2', rl(i.q2)], ['I3', rl(i.q3)], ['I4', rl(i.q4)], ['I5', rl(i.q5)],
+            ])}
+            ${section('Section 4 — Critical Thinking & Inference Evaluation (' + sC + '/25)', [
+                ['C1', rl(c.q1)], ['C2', rl(c.q2)], ['C3', rl(c.q3)], ['C4', rl(c.q4)], ['C5', rl(c.q5)],
+            ])}
+            ${section('Section 5 — Situational Responses', [
+                ['Q1', f(sit.q1) || '—', true],
+                ['Q2', f(sit.q2) || '—', true],
+                ['Q3', f(sit.q3) || '—', true],
+                ['Q4', f(sit.q4) || '—', true],
+            ])}
+        `;
 
     } else {
         sectionsHtml = [
