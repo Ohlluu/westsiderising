@@ -241,17 +241,10 @@ function showSuccess(email, form) {
                 <div style="width:84px;height:84px;background:linear-gradient(135deg,#e31e24,#b01519);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;box-shadow:0 8px 24px rgba(227,30,36,0.3);">
                     <i class="fas fa-star" style="color:white;font-size:2rem;"></i>
                 </div>
-                <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:#1a1a1a;margin:0 0 0.5rem;">Welcome to the Journey!</h1>
-                <p style="color:#666;font-size:1.05rem;margin:0;">Your application to the Young Leaders Power Academy has been received.</p>
+                <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:#1a1a1a;margin:0;">One More Step to Complete Your Application.</h1>
             </div>
 
-            <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.07);padding:2rem;margin-bottom:1.5rem;border-top:4px solid #e31e24;">
-                <p style="color:#444;font-size:1rem;line-height:1.8;margin:0;">
-                    We are excited that you have taken this step! Your application is in, and our team will review it carefully. We will be in touch at <strong style="color:#1a1a1a;">${email}</strong> with next steps. This is just the beginning — we cannot wait to see what you bring to the program.
-                </p>
-            </div>
-
-            <div style="background:#fff8f8;border-radius:16px;border:1px solid #ffd0d0;padding:2rem;margin-bottom:1rem;">
+            <div style="background:#fff8f8;border-radius:16px;border:1px solid #ffd0d0;padding:2rem;margin-bottom:1.5rem;">
                 <div style="display:flex;align-items:flex-start;gap:1.25rem;">
                     <div style="background:#e31e24;border-radius:50%;width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(227,30,36,0.25);">
                         <i class="fas fa-pencil-alt" style="color:white;font-size:1rem;"></i>
@@ -268,6 +261,12 @@ function showSuccess(email, form) {
                         </a>
                     </div>
                 </div>
+            </div>
+
+            <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.07);padding:2rem;border-top:4px solid #e31e24;">
+                <p style="color:#444;font-size:1rem;line-height:1.8;margin:0;">
+                    We are excited that you have taken this step! Your application is in, and our team will review it carefully. We will contact you at <strong style="color:#1a1a1a;">${email}</strong> with next steps. This is just the beginning — we cannot wait to see what you bring to the program.
+                </p>
             </div>
 
         </div>
