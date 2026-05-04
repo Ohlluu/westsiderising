@@ -271,7 +271,7 @@ function showSuccess(email, form) {
                         <p style="color:#555;font-size:0.95rem;line-height:1.7;margin:0 0 1.25rem;">
                             Completing the candidate assessment is a required part of our hiring process. It gives our team a fuller picture of how you approach work, collaboration, and problem-solving — and helps us find the right fit for both you and Westside Rising.
                         </p>
-                        <a href="${window.location.origin}/assessment" target="_blank" rel="noopener noreferrer"
+                        <a href="${window.location.origin}/assessment?from=employment" target="_blank" rel="noopener noreferrer"
                            style="display:inline-flex;align-items:center;gap:0.6rem;background:linear-gradient(135deg,#e31e24,#b01519);color:white;text-decoration:none;padding:0.85rem 1.75rem;border-radius:10px;font-weight:700;font-size:1rem;box-shadow:0 4px 14px rgba(227,30,36,0.3);letter-spacing:0.01em;">
                             <i class="fas fa-external-link-alt" style="font-size:0.9rem;"></i>
                             Start the Assessment

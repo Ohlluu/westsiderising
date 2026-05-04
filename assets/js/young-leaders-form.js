@@ -254,19 +254,13 @@ function showSuccess(email, form) {
                         <p style="color:#555;font-size:0.95rem;line-height:1.7;margin:0 0 1.25rem;">
                             To complete your application, we ask that you take a short assessment. It helps us understand how you think, communicate, and show up for your community. There are no right or wrong answers — just be yourself and let your voice come through.
                         </p>
-                        <a href="${window.location.origin}/assessment" target="_blank" rel="noopener noreferrer"
+                        <a href="${window.location.origin}/assessment?from=youngleaders" target="_blank" rel="noopener noreferrer"
                            style="display:inline-flex;align-items:center;gap:0.6rem;background:linear-gradient(135deg,#e31e24,#b01519);color:white;text-decoration:none;padding:0.85rem 1.75rem;border-radius:10px;font-weight:700;font-size:1rem;box-shadow:0 4px 14px rgba(227,30,36,0.3);letter-spacing:0.01em;">
                             <i class="fas fa-external-link-alt" style="font-size:0.9rem;"></i>
                             Take the Assessment
                         </a>
                     </div>
                 </div>
-            </div>
-
-            <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.07);padding:2rem;border-top:4px solid #e31e24;">
-                <p style="color:#444;font-size:1rem;line-height:1.8;margin:0;">
-                    We are excited that you have taken this step! Your application is in, and our team will review it carefully. We will contact you at <strong style="color:#1a1a1a;">${email}</strong> with next steps. This is just the beginning — we cannot wait to see what you bring to the program.
-                </p>
             </div>
 
         </div>

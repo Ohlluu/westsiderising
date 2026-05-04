@@ -117,12 +117,28 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 function showSuccess(name) {
+    const from = new URLSearchParams(window.location.search).get('from');
+
+    let heading = 'Assessment Complete!';
+    let message = `Thank you, <strong>${name}</strong>. Your assessment has been received and will be reviewed by our team. We appreciate your time and interest in Westside Rising.`;
+
+    if (from === 'youngleaders') {
+        heading = 'You\'re All Done!';
+        message = `We are excited that you have taken this step, <strong>${name}</strong>! Your application and assessment are both in, and our team will review everything carefully. This is just the beginning — we cannot wait to see what you bring to the program.`;
+    } else if (from === 'employment') {
+        heading = 'Application Complete!';
+        message = `Thank you, <strong>${name}</strong>. Your application and assessment are both now under review by our hiring team. We will be in touch with next steps within 5–7 business days.`;
+    } else if (from === 'volunteer') {
+        heading = 'Thank You for Completing the Assessment!';
+        message = `Thank you, <strong>${name}</strong>. Our team now has everything they need and will reach out to you within 2–3 business days to discuss volunteer opportunities that match your interests and availability.`;
+    }
+
     const wrapper = document.getElementById('form-wrapper');
     wrapper.innerHTML = `
         <div class="success-card">
             <i class="fas fa-check-circle"></i>
-            <h2>Assessment Submitted!</h2>
-            <p>Thank you, <strong>${name}</strong>. Your assessment has been received and will be reviewed by our team. We appreciate your time and interest in joining Westside Rising.</p>
+            <h2>${heading}</h2>
+            <p>${message}</p>
         </div>
     `;
     wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
