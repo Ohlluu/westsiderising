@@ -202,7 +202,11 @@
                 <p>Get updates on our latest events, programs, and community initiatives.</p>
             </div>
             <form class="newsletter-form" id="newsletter-form">
-                <input type="email" name="email" placeholder="Enter your email address" required>
+                <div class="newsletter-fields">
+                    <input type="text" name="name" placeholder="Your name" required>
+                    <input type="tel" name="phone" placeholder="Phone number (optional)">
+                    <input type="email" name="email" placeholder="Email address" required>
+                </div>
                 <button type="submit" class="btn btn-primary">
                     Subscribe
                     <i class="fas fa-paper-plane"></i>
@@ -437,5 +441,6 @@
     </a> -->
 
     <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/newsletter-form.js"></script>
 </body>
 </html>

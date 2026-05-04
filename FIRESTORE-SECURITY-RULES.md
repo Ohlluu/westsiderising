@@ -105,6 +105,15 @@ service cloud.firestore {
       allow read, update, delete: if isManagerOrAdmin();
     }
 
+    // ==================== NEWSLETTER SUBSCRIBERS ====================
+    match /subscribers/{docId} {
+      // Anyone can subscribe
+      allow create: if true;
+
+      // Only managers/superadmins can read, update, and delete
+      allow read, update, delete: if isManagerOrAdmin();
+    }
+
     // ==================== TIME CLOCK COLLECTIONS ====================
     // Users collection
     match /users/{userId} {

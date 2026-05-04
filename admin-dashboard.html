@@ -93,6 +93,11 @@
                     <h3 id="assessment-count">0</h3>
                     <p>Candidate Assessments</p>
                 </div>
+                <div class="stat-card">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h3 id="subscribers-count">0</h3>
+                    <p>Newsletter Subscribers</p>
+                </div>
             </div>
 
             <!-- Tab Navigation -->
@@ -136,6 +141,11 @@
                     <i class="fas fa-clipboard-list"></i>
                     Candidate Assessments
                     <span class="tab-badge" id="badge-assessments">0</span>
+                </button>
+                <button class="tab-btn" data-tab="subscribers" onclick="switchTab('subscribers')">
+                    <i class="fas fa-envelope-open-text"></i>
+                    Subscribers
+                    <span class="tab-badge" id="badge-subscribers">0</span>
                 </button>
             </div>
 
@@ -292,6 +302,22 @@
                 </div>
             </div>
 
+            <!-- Tab Panel: Subscribers -->
+            <div class="tab-panel" id="tab-subscribers" style="display: none;">
+                <div class="applications-section">
+                    <div class="section-title-bar">
+                        <h2>Newsletter Subscribers</h2>
+                        <span class="new-count-label" id="subscribers-new-label"></span>
+                    </div>
+                    <div id="subscribers-container">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading subscribers...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -311,6 +337,6 @@
     </script>
 
     <script src="assets/js/main.js?v=1"></script>
-    <script type="module" src="assets/js/admin-dashboard.js?v=18"></script>
+    <script type="module" src="assets/js/admin-dashboard.js?v=19"></script>
 </body>
 </html>

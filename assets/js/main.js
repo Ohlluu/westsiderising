@@ -157,54 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // ===== NEWSLETTER FORM =====
-    const newsletterForm = document.getElementById('newsletter-form');
-
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const input = this.querySelector('input[type="email"]');
-            const button = this.querySelector('button');
-            const email = input.value;
-
-            // Basic validation
-            if (!email || !email.includes('@')) {
-                showMessage('Please enter a valid email address', 'error');
-                return;
-            }
-
-            // Submit to Google Sheets
-            button.textContent = 'Subscribing...';
-            button.disabled = true;
-
-            const formData = {
-                formType: 'Newsletter Signup',
-                email: email
-            };
-
-            fetch('https://script.google.com/macros/s/AKfycbyQ9p5GXh1BMHjkUnL1qWZtYVQRaeagd3dF9KHu-HgCY_P60K1retKenLIRgABqH4Md/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(() => {
-                showMessage('Thank you for subscribing!', 'success');
-                input.value = '';
-                button.innerHTML = 'Subscribe <i class="fas fa-paper-plane"></i>';
-                button.disabled = false;
-            })
-            .catch((error) => {
-                showMessage('Subscription successful!', 'success');
-                input.value = '';
-                button.innerHTML = 'Subscribe <i class="fas fa-paper-plane"></i>';
-                button.disabled = false;
-            });
-        });
-    }
 
 
     // ===== MESSAGE NOTIFICATION =====

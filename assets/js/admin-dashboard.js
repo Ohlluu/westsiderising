@@ -147,7 +147,8 @@ async function loadDashboard() {
             loadApplications('youngLeadersApplications', 'youngleaders-apps-container','youngleaders-count','badge-youngleaders', 'youngleaders-new-label', displayYoungLeadersApplications),
             loadApplications('powerLabApplications',     'powerlab-apps-container',   'powerlab-count',    'badge-powerlab',     'powerlab-new-label',    displayPowerLabApplications),
             loadApplications('communityVoicesSurveys',   'voices-apps-container',     'voices-count',      'badge-voices',       'voices-new-label',      displayCommunityVoicesSurveys),
-            loadApplications('assessmentSubmissions',    'assessments-container',     'assessment-count',  'badge-assessments',  'assessment-new-label',  displayAssessmentSubmissions)
+            loadApplications('assessmentSubmissions',    'assessments-container',     'assessment-count',  'badge-assessments',  'assessment-new-label',  displayAssessmentSubmissions),
+            loadSubscribers()
         ]);
 
     } catch (error) {
@@ -639,7 +640,7 @@ function displayVolunteerApplications(apps, containerId) {
                 </div>
                 ${helpByDisplay ? `
                 <div class="details-section">
-                    <h4><i class="fas fa-hands-helping"></i> You Can Help By</h4>
+                    <h4><i class="fas fa-hands-helping"></i> You can help by…</h4>
                     <p>${helpByDisplay}${app.helpByOther ? ` (Other: ${app.helpByOther})` : ''}</p>
                 </div>
                 ` : ''}
@@ -648,7 +649,7 @@ function displayVolunteerApplications(apps, containerId) {
                     <p>${app.skills || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-heart"></i> Motivation</h4>
+                    <h4><i class="fas fa-heart"></i> Why do you want to volunteer with WESTSIDE RISING?</h4>
                     <p>${app.motivation || 'N/A'}</p>
                 </div>
             </div>
@@ -729,29 +730,29 @@ function displayPartnershipApplications(apps, containerId) {
                 <div class="details-section">
                     <h4><i class="fas fa-envelope"></i> Contact Info</h4>
                     <div class="contact-info">
-                        <p><strong>Primary Email:</strong> ${app.email || 'N/A'}</p>
-                        <p><strong>Email Address:</strong> ${app.emailAddress || 'N/A'}</p>
-                        <p><strong>Contacts:</strong> ${app.contacts || 'N/A'}</p>
+                        <p><strong>Email:</strong> ${app.email || 'N/A'}</p>
+                        <p><strong>Email address:</strong> ${app.emailAddress || 'N/A'}</p>
+                        <p><strong>Who are the primary and secondary contacts for participation and interaction with WESTSIDE RISING?</strong><br>${app.contacts || 'N/A'}</p>
                     </div>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-handshake"></i> Partnership Type</h4>
+                    <h4><i class="fas fa-handshake"></i> I agree to PARTNER with WESTSIDE RISING as an ORGANIZATION/INSTITUTION or INDIVIDUAL.</h4>
                     <p>${partnershipTypeDisplay}${app.partnershipTypeOther ? ` (Other: ${app.partnershipTypeOther})` : ''}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-list-check"></i> Commitments</h4>
+                    <h4><i class="fas fa-list-check"></i> As PARTNERS, I agree to the following</h4>
                     <p>${commitmentsDisplay}${app.commitmentsOther ? ` (Other: ${app.commitmentsOther})` : ''}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-life-ring"></i> Support Needed</h4>
+                    <h4><i class="fas fa-life-ring"></i> How can WESTSIDE RISING Support you/your organization/institution?</h4>
                     <p>${app.support || 'N/A'}${app.supportOther ? ` (Other: ${app.supportOther})` : ''}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-file-contract"></i> Agreement Terms</h4>
+                    <h4><i class="fas fa-file-contract"></i> Partnership Agreement Terms</h4>
                     <p>${agreementDisplay}${app.agreementOther ? ` (Other: ${app.agreementOther})` : ''}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-calendar-check"></i> Completion Date</h4>
+                    <h4><i class="fas fa-calendar-check"></i> Date this form was completed</h4>
                     <p>${app.completionDate || 'N/A'}</p>
                 </div>
             </div>
@@ -842,52 +843,52 @@ function displayJoinTeamApplications(apps, containerId) {
                     <p><strong>Position(s):</strong> ${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</p>
                     <p><strong>Employment Type:</strong> ${app.employmentType || 'N/A'}</p>
                     <p><strong>Desired Pay:</strong> ${app.desiredPay || 'N/A'}</p>
-                    <p><strong>Available Start Date:</strong> ${app.startDate || 'N/A'}</p>
+                    <p><strong>What date are you available to begin work?</strong> ${app.startDate || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-id-card"></i> Eligibility</h4>
-                    <p><strong>US Citizen:</strong> ${app.usCitizen || 'N/A'}</p>
-                    <p><strong>Work Authorized:</strong> ${app.workAuthorized || 'N/A'}</p>
-                    <p><strong>Previously Worked for WR:</strong> ${app.workedForWR || 'N/A'}</p>
-                    ${app.wrHistory ? `<p><strong>WR History:</strong> ${app.wrHistory}</p>` : ''}
-                    <p><strong>Criminal Background:</strong> ${app.criminalBackground || 'N/A'}</p>
+                    <p><strong>Are you a U.S. Citizen?</strong> ${app.usCitizen || 'N/A'}</p>
+                    <p><strong>If NO, are you allowed to work in the U.S.?</strong> ${app.workAuthorized || 'N/A'}</p>
+                    <p><strong>Have you ever worked for WESTSIDE RISING?</strong> ${app.workedForWR || 'N/A'}</p>
+                    ${app.wrHistory ? `<p><strong>If yes, write the start–end dates and position you held:</strong> ${app.wrHistory}</p>` : ''}
+                    <p><strong>Do you have a criminal background for which you were convicted?</strong> ${app.criminalBackground || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                    ${app.school1 ? `<p><strong>School 1:</strong> ${app.school1}</p>` : '<p>N/A</p>'}
-                    ${app.school2 ? `<p><strong>School 2:</strong> ${app.school2}</p>` : ''}
+                    ${app.school1 ? `<p><strong>School #1:</strong> ${app.school1}</p>` : '<p>N/A</p>'}
+                    ${app.school2 ? `<p><strong>School #2:</strong> ${app.school2}</p>` : ''}
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-history"></i> Work Experience</h4>
-                    ${app.employer1 ? `<p><strong>Employer 1:</strong> ${app.employer1}</p>` : '<p>N/A</p>'}
-                    ${app.employer2 ? `<p><strong>Employer 2:</strong> ${app.employer2}</p>` : ''}
+                    ${app.employer1 ? `<p><strong>1st Employer:</strong> ${app.employer1}</p>` : '<p>N/A</p>'}
+                    ${app.employer2 ? `<p><strong>2nd Employer:</strong> ${app.employer2}</p>` : ''}
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-tools"></i> Skills</h4>
                     <div>${skillsDisplay}</div>
-                    ${app.otherSkills ? `<p style="margin-top:0.5rem"><strong>Other Skills:</strong> ${app.otherSkills}</p>` : ''}
+                    ${app.otherSkills ? `<p style="margin-top:0.5rem"><strong>Other experience, skills, and expertise:</strong> ${app.otherSkills}</p>` : ''}
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-eye"></i> Abilities & Vision</h4>
+                    <h4><i class="fas fa-eye"></i> How do you envision using your abilities in the role for which you are applying?</h4>
                     <p>${app.abilitiesVision || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-map-marker-alt"></i> West Side Work Experience</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> Do you work in West Side communities? If so, why? Also describe your activities and work in West Side communities.</h4>
                     <p>${app.westSideWork || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-heart"></i> Core Values</h4>
+                    <h4><i class="fas fa-heart"></i> Please describe your core values and how they align with WESTSIDE RISING's mission and vision.</h4>
                     <p>${app.coreValues || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-lightbulb"></i> WR Vision</h4>
+                    <h4><i class="fas fa-lightbulb"></i> What's your vision for the future of WESTSIDE RISING?</h4>
                     <p>${app.wrVision || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-users"></i> References</h4>
-                    ${app.reference1 ? `<p><strong>Ref 1:</strong> ${app.reference1}</p>` : '<p>N/A</p>'}
-                    ${app.reference2 ? `<p><strong>Ref 2:</strong> ${app.reference2}</p>` : ''}
-                    ${app.reference3 ? `<p><strong>Ref 3:</strong> ${app.reference3}</p>` : ''}
+                    ${app.reference1 ? `<p><strong>Reference #1:</strong> ${app.reference1}</p>` : '<p>N/A</p>'}
+                    ${app.reference2 ? `<p><strong>Reference #2:</strong> ${app.reference2}</p>` : ''}
+                    ${app.reference3 ? `<p><strong>Reference #3:</strong> ${app.reference3}</p>` : ''}
                 </div>
                 ${app.resumeFilename ? `
                 <div class="details-section">
@@ -986,52 +987,52 @@ function displayYoungLeadersApplications(apps, containerId) {
                     <p><strong>Position(s):</strong> ${Array.isArray(app.positions) ? app.positions.join(', ') : (app.position || 'N/A')}</p>
                     <p><strong>Employment Type:</strong> ${app.employmentType || 'N/A'}</p>
                     <p><strong>Desired Pay:</strong> ${app.desiredPay || 'N/A'}</p>
-                    <p><strong>Available Start Date:</strong> ${app.startDate || 'N/A'}</p>
+                    <p><strong>What date are you available to begin work?</strong> ${app.startDate || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-id-card"></i> Eligibility</h4>
-                    <p><strong>US Citizen:</strong> ${app.usCitizen || 'N/A'}</p>
-                    <p><strong>Work Authorized:</strong> ${app.workAuthorized || 'N/A'}</p>
-                    <p><strong>Previously Worked for WR:</strong> ${app.workedForWR || 'N/A'}</p>
-                    ${app.wrHistory ? `<p><strong>WR History:</strong> ${app.wrHistory}</p>` : ''}
-                    <p><strong>Criminal Background:</strong> ${app.criminalBackground || 'N/A'}</p>
+                    <p><strong>Are you a U.S. Citizen?</strong> ${app.usCitizen || 'N/A'}</p>
+                    <p><strong>If NO, are you allowed to work in the U.S.?</strong> ${app.workAuthorized || 'N/A'}</p>
+                    <p><strong>Have you ever worked for WESTSIDE RISING?</strong> ${app.workedForWR || 'N/A'}</p>
+                    ${app.wrHistory ? `<p><strong>If yes, write the start–end dates and position you held:</strong> ${app.wrHistory}</p>` : ''}
+                    <p><strong>Do you have a criminal background for which you were convicted?</strong> ${app.criminalBackground || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                    ${app.school1 ? `<p><strong>School 1:</strong> ${app.school1}</p>` : '<p>N/A</p>'}
-                    ${app.school2 ? `<p><strong>School 2:</strong> ${app.school2}</p>` : ''}
+                    ${app.school1 ? `<p><strong>School #1:</strong> ${app.school1}</p>` : '<p>N/A</p>'}
+                    ${app.school2 ? `<p><strong>School #2:</strong> ${app.school2}</p>` : ''}
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-history"></i> Work Experience</h4>
-                    ${app.employer1 ? `<p><strong>Employer 1:</strong> ${app.employer1}</p>` : '<p>N/A</p>'}
-                    ${app.employer2 ? `<p><strong>Employer 2:</strong> ${app.employer2}</p>` : ''}
+                    ${app.employer1 ? `<p><strong>1st Employer:</strong> ${app.employer1}</p>` : '<p>N/A</p>'}
+                    ${app.employer2 ? `<p><strong>2nd Employer:</strong> ${app.employer2}</p>` : ''}
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-tools"></i> Skills</h4>
                     <div>${skillsDisplay}</div>
-                    ${app.otherSkills ? `<p style="margin-top:0.5rem"><strong>Other Skills:</strong> ${app.otherSkills}</p>` : ''}
+                    ${app.otherSkills ? `<p style="margin-top:0.5rem"><strong>Other experience, skills, and expertise:</strong> ${app.otherSkills}</p>` : ''}
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-eye"></i> Abilities & Vision</h4>
+                    <h4><i class="fas fa-eye"></i> How do you envision using your abilities in the role for which you are applying?</h4>
                     <p>${app.abilitiesVision || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-map-marker-alt"></i> West Side Work Experience</h4>
+                    <h4><i class="fas fa-map-marker-alt"></i> Do you work in West Side communities? If so, why? Also describe your activities and work in West Side communities.</h4>
                     <p>${app.westSideWork || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-heart"></i> Core Values</h4>
+                    <h4><i class="fas fa-heart"></i> Please describe your core values and how they align with WESTSIDE RISING's mission and vision.</h4>
                     <p>${app.coreValues || 'N/A'}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-lightbulb"></i> WR Vision</h4>
+                    <h4><i class="fas fa-lightbulb"></i> What's your vision for the future of WESTSIDE RISING?</h4>
                     <p>${app.wrVision || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-users"></i> References</h4>
-                    ${app.reference1 ? `<p><strong>Ref 1:</strong> ${app.reference1}</p>` : '<p>N/A</p>'}
-                    ${app.reference2 ? `<p><strong>Ref 2:</strong> ${app.reference2}</p>` : ''}
-                    ${app.reference3 ? `<p><strong>Ref 3:</strong> ${app.reference3}</p>` : ''}
+                    ${app.reference1 ? `<p><strong>Reference #1:</strong> ${app.reference1}</p>` : '<p>N/A</p>'}
+                    ${app.reference2 ? `<p><strong>Reference #2:</strong> ${app.reference2}</p>` : ''}
+                    ${app.reference3 ? `<p><strong>Reference #3:</strong> ${app.reference3}</p>` : ''}
                 </div>
                 ${app.resumeFilename ? `
                 <div class="details-section">
@@ -1143,18 +1144,18 @@ function displayPowerLabApplications(apps, containerId) {
                     <p>${neighborhoodsDisplay}${app.neighborhoodOther ? ` (Other: ${app.neighborhoodOther})` : ''}</p>
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-city"></i> West Side Connection</h4>
+                    <h4><i class="fas fa-city"></i> Do you work, live, or serve on the West Side of Chicago?</h4>
                     <p>${westSideDisplay}</p>
                     ${app.westSideExplain ? `<p><em>${app.westSideExplain}</em></p>` : ''}
                 </div>
                 ${app.wrPartnership ? `
                 <div class="details-section">
-                    <h4><i class="fas fa-handshake"></i> WR Partnership History</h4>
+                    <h4><i class="fas fa-handshake"></i> Do you/your organization partner with Westside Rising for functions or activities in the community?</h4>
                     <p>${app.wrPartnership}</p>
                 </div>
                 ` : ''}
                 <div class="details-section">
-                    <h4><i class="fas fa-list-check"></i> Conditions Agreed</h4>
+                    <h4><i class="fas fa-list-check"></i> Conditions of Participation</h4>
                     <p>${conditionsDisplay}</p>
                 </div>
                 <div class="details-section">
@@ -1179,13 +1180,13 @@ function displayPowerLabApplications(apps, containerId) {
                 </div>
                 ${app.hearAbout ? `
                 <div class="details-section">
-                    <h4><i class="fas fa-question-circle"></i> How They Heard About Us</h4>
+                    <h4><i class="fas fa-question-circle"></i> How did you hear about WR's Community Power Labs?</h4>
                     <p>${app.hearAbout}</p>
                 </div>
                 ` : ''}
                 ${app.referral ? `
                 <div class="details-section">
-                    <h4><i class="fas fa-user-friends"></i> Referrals</h4>
+                    <h4><i class="fas fa-user-friends"></i> Who else should participate in the WR Community Power Labs?</h4>
                     <p>${app.referral}</p>
                 </div>
                 ` : ''}
@@ -1263,46 +1264,46 @@ function displayCommunityVoicesSurveys(apps, containerId) {
             <div class="event-details-expand" id="details-${app.id}" style="display: none;">
                 <div class="details-section">
                     <h4><i class="fas fa-info-circle"></i> Background</h4>
-                    <p><strong>Heard about WR before?</strong> ${app.heardAboutWR || 'N/A'}</p>
+                    <p><strong>Before today, had you heard about WESTSIDE RISING?</strong> ${app.heardAboutWR || 'N/A'}</p>
                     <p><strong>Age:</strong> ${app.age || 'N/A'}</p>
-                    <p><strong>Time on West Side:</strong> ${app.timeOnWestSide || 'N/A'}</p>
-                    <p><strong>Registered Voter:</strong> ${app.registeredVoter || 'N/A'}</p>
+                    <p><strong>How long have you lived on the West Side?</strong> ${app.timeOnWestSide || 'N/A'}</p>
+                    <p><strong>Are you a registered voter?</strong> ${app.registeredVoter || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-user-tie"></i> Alderman</h4>
-                    <p><strong>Knows Alderman:</strong> ${app.knowAlderman || 'N/A'}</p>
-                    ${app.alderman ? `<p><strong>Alderman:</strong> ${app.alderman}</p>` : ''}
-                    ${app.aldermanRating ? `<p><strong>Alderman Rating:</strong> ${app.aldermanRating}</p>` : ''}
+                    <p><strong>Do you know who the Alderman is for your area?</strong> ${app.knowAlderman || 'N/A'}</p>
+                    ${app.alderman ? `<p><strong>Which Alderman?</strong> ${app.alderman}</p>` : ''}
+                    ${app.aldermanRating ? `<p><strong>Rate your Alderperson's service to the community:</strong> ${app.aldermanRating}</p>` : ''}
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-city"></i> Mayor</h4>
-                    <p><strong>Rating:</strong> ${app.mayorRating || 'N/A'}</p>
-                    ${app.mayorRatingWhy ? `<p><strong>Why:</strong> ${app.mayorRatingWhy}</p>` : ''}
+                    <p><strong>Rank the Mayor's service:</strong> ${app.mayorRating || 'N/A'}</p>
+                    ${app.mayorRatingWhy ? `<p><strong>Why did you choose this ranking?</strong> ${app.mayorRatingWhy}</p>` : ''}
                 </div>
                 <div class="details-section">
-                    <h4><i class="fas fa-exclamation-circle"></i> Top Issues</h4>
+                    <h4><i class="fas fa-exclamation-circle"></i> What are the top three issues in West Side communities?</h4>
                     <p>${[app.topIssue1, app.topIssue2, app.topIssue3].filter(Boolean).join(', ') || 'N/A'}</p>
                 </div>
                 <div class="details-section">
                     <h4><i class="fas fa-home"></i> Housing</h4>
-                    <p><strong>Satisfaction:</strong> ${app.housingSatisfaction || 'N/A'}</p>
-                    ${app.housingWhy ? `<p><strong>Why:</strong> ${app.housingWhy}</p>` : ''}
-                    ${app.housingAction ? `<p><strong>What should be done:</strong> ${app.housingAction}</p>` : ''}
+                    <p><strong>How satisfied are you with the state of housing in your community?</strong> ${app.housingSatisfaction || 'N/A'}</p>
+                    ${app.housingWhy ? `<p><strong>Why?</strong> ${app.housingWhy}</p>` : ''}
+                    ${app.housingAction ? `<p><strong>WR is working on equitable housing on the West Side. What should be done about housing in West Side communities?</strong><br>${app.housingAction}</p>` : ''}
                 </div>
                 ${app.ifMayor ? `
                 <div class="details-section">
-                    <h4><i class="fas fa-star"></i> If I Were Mayor</h4>
+                    <h4><i class="fas fa-star"></i> If you were Mayor, what would you do?</h4>
                     <p>${app.ifMayor}</p>
                 </div>
                 ` : ''}
                 ${app.additionalConcerns ? `
                 <div class="details-section">
-                    <h4><i class="fas fa-comment"></i> Additional Concerns</h4>
+                    <h4><i class="fas fa-comment"></i> Do you have any additional ideas or concerns you want to share?</h4>
                     <p>${app.additionalConcerns}</p>
                 </div>
                 ` : ''}
                 <div class="details-section">
-                    <h4><i class="fas fa-hands-helping"></i> Get Involved</h4>
+                    <h4><i class="fas fa-hands-helping"></i> GET INVOLVED! You can help by…</h4>
                     <p>${getInvolvedDisplay}${app.getInvolvedOther ? ` (Other: ${app.getInvolvedOther})` : ''}</p>
                 </div>
             </div>
@@ -1797,4 +1798,74 @@ function displayAssessmentSubmissions(apps, containerId) {
         </div>
         `;
     }).join('');
+}
+
+// =============================================
+// SUBSCRIBERS
+// =============================================
+async function loadSubscribers() {
+    try {
+        const snap = await getDocs(collection(db, 'subscribers'));
+        const subs = [];
+        snap.forEach(docSnap => subs.push({ id: docSnap.id, ...docSnap.data() }));
+        subs.sort((a, b) => (b.subscribedAt?.toMillis?.() ?? 0) - (a.subscribedAt?.toMillis?.() ?? 0));
+
+        const statEl = document.getElementById('subscribers-count');
+        if (statEl) statEl.textContent = subs.length;
+
+        const badgeEl = document.getElementById('badge-subscribers');
+        if (badgeEl) {
+            badgeEl.textContent = subs.length;
+            badgeEl.classList.toggle('tab-badge-new', subs.length > 0);
+        }
+
+        displaySubscribers(subs);
+    } catch (err) {
+        console.error('Error loading subscribers:', err);
+        const container = document.getElementById('subscribers-container');
+        if (container) container.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading subscribers. Please refresh.</p></div>`;
+    }
+}
+
+function displaySubscribers(subs) {
+    const container = document.getElementById('subscribers-container');
+    if (!container) return;
+
+    if (subs.length === 0) {
+        container.innerHTML = `<div class="empty-state"><i class="fas fa-envelope-open-text"></i><p>No subscribers yet</p></div>`;
+        return;
+    }
+
+    container.innerHTML = `
+        <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+                <thead>
+                    <tr style="background:var(--primary-red);color:#fff;text-align:left;">
+                        <th style="padding:0.75rem 1rem;">#</th>
+                        <th style="padding:0.75rem 1rem;">Name</th>
+                        <th style="padding:0.75rem 1rem;">Email</th>
+                        <th style="padding:0.75rem 1rem;">Phone</th>
+                        <th style="padding:0.75rem 1rem;">Subscribed</th>
+                        <th style="padding:0.75rem 1rem;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${subs.map((sub, i) => `
+                    <tr style="border-bottom:1px solid #f0f0f0;${i % 2 === 0 ? 'background:#fff;' : 'background:#fafafa;'}">
+                        <td style="padding:0.75rem 1rem;color:#999;">${i + 1}</td>
+                        <td style="padding:0.75rem 1rem;font-weight:600;">${sub.name || '—'}</td>
+                        <td style="padding:0.75rem 1rem;"><a href="mailto:${sub.email}" style="color:var(--primary-red);text-decoration:none;">${sub.email || '—'}</a></td>
+                        <td style="padding:0.75rem 1rem;">${sub.phone || '—'}</td>
+                        <td style="padding:0.75rem 1rem;color:#666;">${formatTimestamp(sub.subscribedAt)}</td>
+                        <td style="padding:0.75rem 1rem;">
+                            <button class="btn-delete" style="font-size:0.8rem;padding:0.35rem 0.75rem;" onclick="deleteApplication('subscribers', '${sub.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    `;
 }
