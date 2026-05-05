@@ -685,10 +685,6 @@
     letter-spacing: 0.3px;
 }
 
-.modal-dialog-wide {
-    max-width: 1200px;
-    width: 98%;
-}
 
 .week-modal-pay-bar {
     background: linear-gradient(135deg, var(--primary-color, #2D5F3F) 0%, #1e4530 100%);
@@ -839,6 +835,12 @@
     overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     position: relative;
+}
+
+.modal-dialog.modal-dialog-wide {
+    max-width: 1200px;
+    width: 92%;
+    max-height: 88vh;
 }
 
 .modal-header {

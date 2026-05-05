@@ -1133,9 +1133,9 @@ window.openWeekBreakdown = function(cacheKey) {
         </table>
     `;
 
-    document.getElementById('week-breakdown-modal').style.display = 'flex';
+    document.getElementById('week-breakdown-modal').classList.add('active');
 };
 
 window.closeWeekModal = function() {
-    document.getElementById('week-breakdown-modal').style.display = 'none';
+    document.getElementById('week-breakdown-modal').classList.remove('active');
 };
