@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Clock System - Westside Rising</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/timeclock.css?v=9">
+    <link rel="stylesheet" href="assets/css/timeclock.css?v=10">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -224,6 +224,26 @@
         </div>
     </div>
 
+    <!-- Week Breakdown Modal -->
+    <div id="week-breakdown-modal" class="timeclock-modal">
+        <div class="modal-dialog modal-dialog-wide">
+            <div class="modal-header">
+                <div>
+                    <h3 id="week-modal-title" style="margin:0;"></h3>
+                    <p id="week-modal-subtitle" style="margin:0.25rem 0 0;font-size:0.9rem;opacity:0.8;"></p>
+                </div>
+                <button class="modal-close" onclick="closeWeekModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="week-modal-pay-bar" class="week-modal-pay-bar"></div>
+                <div id="week-modal-entries"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closeWeekModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
@@ -236,6 +256,6 @@
     <!-- Application Scripts -->
     <script src="assets/js/timeclock-dashboard.js?v=9"></script>
     <script src="assets/js/timeclock.js?v=6"></script>
-    <script src="assets/js/timesheets.js?v=10"></script>
+    <script src="assets/js/timesheets.js?v=11"></script>
 </body>
 </html>

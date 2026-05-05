@@ -665,6 +665,62 @@
     font-size: 1.5rem;
 }
 
+.pay-week-box.clickable {
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.pay-week-box.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.pay-week-box.clickable::after {
+    content: 'View breakdown →';
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-color, #2D5F3F);
+    margin-top: 0.4rem;
+    letter-spacing: 0.3px;
+}
+
+.modal-dialog-wide {
+    max-width: 860px;
+    width: 95%;
+}
+
+.week-modal-pay-bar {
+    background: linear-gradient(135deg, var(--primary-color, #2D5F3F) 0%, #1e4530 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.week-pay-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.week-pay-stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    opacity: 0.75;
+    margin-bottom: 0.1rem;
+}
+
+.week-pay-stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
 .timesheet-table {
     width: 100%;
     border-collapse: collapse;

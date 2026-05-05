@@ -6,8 +6,9 @@ let allPayPeriods = [];
 let currentPeriodIndex = 0;
 let clockedInListener = null;
 let allEmployeesData = [];
-let allUsersForFilter = []; // all users from users collection, for the dropdown
+let allUsersForFilter = [];
 let selectedEmployeeFilter = 'all';
+const weekBreakdownCache = {};
 
 // ==================== Initialization ====================
 
@@ -259,13 +260,16 @@ function createEmployeeTimesheetCard(employee) {
 
     let week1Hours = 0;
     let week2Hours = 0;
+    const week1Entries = [];
+    const week2Entries = [];
     employee.entries.forEach(entry => {
-        if (entry.status !== 'completed' || !entry.totalHours) return;
         if (week1Start && week2Start) {
             if (entry.clockIn >= week1Start && entry.clockIn < week2Start) {
-                week1Hours += entry.totalHours;
+                week1Entries.push(entry);
+                if (entry.status === 'completed' && entry.totalHours) week1Hours += entry.totalHours;
             } else if (entry.clockIn >= week2Start) {
-                week2Hours += entry.totalHours;
+                week2Entries.push(entry);
+                if (entry.status === 'completed' && entry.totalHours) week2Hours += entry.totalHours;
             }
         }
     });
@@ -284,6 +288,16 @@ function createEmployeeTimesheetCard(employee) {
         week2DateLabel = `${formatChicagoDate(week2Start)} – ${formatChicagoDate(period.end)}`;
     }
 
+    // Cache week data for modal access (after date labels are computed)
+    weekBreakdownCache[`${employee.userId}_week1`] = {
+        label: 'Week 1', dates: week1DateLabel, name: employee.userName,
+        entries: week1Entries, hours: week1Hours, pay: week1Pay
+    };
+    weekBreakdownCache[`${employee.userId}_week2`] = {
+        label: 'Week 2', dates: week2DateLabel, name: employee.userName,
+        entries: week2Entries, hours: week2Hours, pay: week2Pay
+    };
+
     // Header
     const header = document.createElement('div');
     header.className = 'employee-header';
@@ -300,13 +314,13 @@ function createEmployeeTimesheetCard(employee) {
     const paySummary = document.createElement('div');
     paySummary.className = 'pay-summary';
     paySummary.innerHTML = `
-        <div class="pay-week-box">
+        <div class="pay-week-box clickable" onclick="openWeekBreakdown('${employee.userId}_week1')">
             <div class="pay-box-label">Week 1</div>
             <div class="pay-box-dates">${week1DateLabel}</div>
             <div class="pay-box-hours">${week1Hours.toFixed(2)} hrs</div>
             <div class="pay-box-amount">$${week1Pay.toFixed(2)}</div>
         </div>
-        <div class="pay-week-box">
+        <div class="pay-week-box clickable" onclick="openWeekBreakdown('${employee.userId}_week2')">
             <div class="pay-box-label">Week 2</div>
             <div class="pay-box-dates">${week2DateLabel}</div>
             <div class="pay-box-hours">${week2Hours.toFixed(2)} hrs</div>
@@ -1074,3 +1088,54 @@ window.addEventListener('beforeunload', () => {
         clockedInListener();
     }
 });
+
+// ==================== Week Breakdown Modal ====================
+
+window.openWeekBreakdown = function(cacheKey) {
+    const data = weekBreakdownCache[cacheKey];
+    if (!data) return;
+
+    document.getElementById('week-modal-title').textContent = `${data.label} — ${data.name}`;
+    document.getElementById('week-modal-subtitle').textContent = data.dates;
+
+    document.getElementById('week-modal-pay-bar').innerHTML = `
+        <div class="week-pay-stat">
+            <span class="week-pay-stat-label">Hours Worked</span>
+            <span class="week-pay-stat-value">${data.hours.toFixed(2)} hrs</span>
+        </div>
+        <div class="week-pay-stat">
+            <span class="week-pay-stat-label">Gross Pay</span>
+            <span class="week-pay-stat-value">$${data.pay.toFixed(2)}</span>
+        </div>
+        <div class="week-pay-stat">
+            <span class="week-pay-stat-label">Rate</span>
+            <span class="week-pay-stat-value">$18.00 / hr</span>
+        </div>
+    `;
+
+    const rows = data.entries.length === 0
+        ? `<tr><td colspan="6" style="text-align:center;padding:2rem;color:#999;">No entries for this week</td></tr>`
+        : data.entries.map(entry => createEntryRow(entry)).join('');
+
+    document.getElementById('week-modal-entries').innerHTML = `
+        <table class="timesheet-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Clock In</th>
+                    <th>Clock Out</th>
+                    <th>Hours</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `;
+
+    document.getElementById('week-breakdown-modal').style.display = 'flex';
+};
+
+window.closeWeekModal = function() {
+    document.getElementById('week-breakdown-modal').style.display = 'none';
+};
