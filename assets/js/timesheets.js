@@ -250,6 +250,40 @@ function createEmployeeTimesheetCard(employee) {
     const card = document.createElement('div');
     card.className = 'employee-timesheet';
 
+    // Pay calculation
+    const HOURLY_RATE = 18;
+    const period = allPayPeriods.find(p => p.id === currentPeriodId);
+    const week1Start = period ? new Date(period.start) : null;
+    const week2Start = period ? new Date(period.start) : null;
+    if (week2Start) week2Start.setDate(week2Start.getDate() + 7);
+
+    let week1Hours = 0;
+    let week2Hours = 0;
+    employee.entries.forEach(entry => {
+        if (entry.status !== 'completed' || !entry.totalHours) return;
+        if (week1Start && week2Start) {
+            if (entry.clockIn >= week1Start && entry.clockIn < week2Start) {
+                week1Hours += entry.totalHours;
+            } else if (entry.clockIn >= week2Start) {
+                week2Hours += entry.totalHours;
+            }
+        }
+    });
+
+    const week1Pay = week1Hours * HOURLY_RATE;
+    const week2Pay = week2Hours * HOURLY_RATE;
+    const totalHours = week1Hours + week2Hours;
+    const totalPay = totalHours * HOURLY_RATE;
+
+    let week1DateLabel = 'Week 1';
+    let week2DateLabel = 'Week 2';
+    if (period && week1Start && week2Start) {
+        const week1End = new Date(week2Start);
+        week1End.setDate(week1End.getDate() - 1);
+        week1DateLabel = `${formatChicagoDate(week1Start)} – ${formatChicagoDate(week1End)}`;
+        week2DateLabel = `${formatChicagoDate(week2Start)} – ${formatChicagoDate(period.end)}`;
+    }
+
     // Header
     const header = document.createElement('div');
     header.className = 'employee-header';
@@ -261,6 +295,31 @@ function createEmployeeTimesheetCard(employee) {
         </div>
     `;
     card.appendChild(header);
+
+    // Pay summary (superadmin only — timesheets are already superadmin-restricted)
+    const paySummary = document.createElement('div');
+    paySummary.className = 'pay-summary';
+    paySummary.innerHTML = `
+        <div class="pay-week-box">
+            <div class="pay-box-label">Week 1</div>
+            <div class="pay-box-dates">${week1DateLabel}</div>
+            <div class="pay-box-hours">${week1Hours.toFixed(2)} hrs</div>
+            <div class="pay-box-amount">$${week1Pay.toFixed(2)}</div>
+        </div>
+        <div class="pay-week-box">
+            <div class="pay-box-label">Week 2</div>
+            <div class="pay-box-dates">${week2DateLabel}</div>
+            <div class="pay-box-hours">${week2Hours.toFixed(2)} hrs</div>
+            <div class="pay-box-amount">$${week2Pay.toFixed(2)}</div>
+        </div>
+        <div class="pay-week-box pay-total-box">
+            <div class="pay-box-label">Period Total</div>
+            <div class="pay-box-dates">@ $${HOURLY_RATE}/hr</div>
+            <div class="pay-box-hours">${totalHours.toFixed(2)} hrs</div>
+            <div class="pay-box-amount">$${totalPay.toFixed(2)}</div>
+        </div>
+    `;
+    card.appendChild(paySummary);
 
     // Entries
     const entriesDiv = document.createElement('div');

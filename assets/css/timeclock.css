@@ -595,6 +595,76 @@
     padding: 1.5rem;
 }
 
+.pay-summary {
+    background: #f4f7f4;
+    border-bottom: 1px solid #dde8dd;
+    padding: 1rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.pay-week-box {
+    flex: 1;
+    min-width: 150px;
+    background: white;
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    border: 1px solid #dde8dd;
+}
+
+.pay-week-box.pay-total-box {
+    background: linear-gradient(135deg, var(--primary-color, #2D5F3F) 0%, #1e4530 100%);
+    border-color: transparent;
+    color: white;
+}
+
+.pay-box-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #888;
+    margin-bottom: 0.15rem;
+}
+
+.pay-total-box .pay-box-label {
+    color: rgba(255,255,255,0.75);
+}
+
+.pay-box-dates {
+    font-size: 0.78rem;
+    color: #999;
+    margin-bottom: 0.4rem;
+}
+
+.pay-total-box .pay-box-dates {
+    color: rgba(255,255,255,0.65);
+}
+
+.pay-box-hours {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.1rem;
+}
+
+.pay-total-box .pay-box-hours {
+    color: rgba(255,255,255,0.85);
+}
+
+.pay-box-amount {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-color, #2D5F3F);
+}
+
+.pay-total-box .pay-box-amount {
+    color: white;
+    font-size: 1.5rem;
+}
+
 .timesheet-table {
     width: 100%;
     border-collapse: collapse;
