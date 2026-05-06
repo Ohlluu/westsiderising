@@ -90,19 +90,21 @@ function configureUIForRole(role) {
     const timeclockTab = document.querySelector('[data-tab="timeclock"]');
     const timesheetsTab = document.querySelector('[data-tab="timesheets"]');
 
+    const eventMgmtLink = document.getElementById('event-mgmt-link');
+
     if (role === 'superadmin') {
-        // Super admin sees all tabs
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'block';
+        if (eventMgmtLink) eventMgmtLink.style.display = 'inline-block';
     } else if (role === 'manager') {
-        // Manager sees Time Clock tab only (no Timesheets)
-        // They have access to Event Management via admin-dashboard.html
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'none';
+        if (eventMgmtLink) eventMgmtLink.style.display = 'inline-block';
     } else {
-        // Employee only sees Time Clock tab
+        // Employee — time clock only, no admin links
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'none';
+        if (eventMgmtLink) eventMgmtLink.style.display = 'none';
     }
 
     // Everyone starts on Time Clock tab
