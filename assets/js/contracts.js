@@ -2,12 +2,14 @@
 // Handles onboarding contract management for superadmin and staff
 
 let contractsCurrentStaffId = null;
-let contractsCurrentDoc = 'pp'; // pp | nda | equip | sev | coi
+let contractsCurrentDoc = 'pp'; // pp | nda | equip | sev | coi | service
 let contractsAllUsers = [];
 let contractsData = {}; // keyed by staffUid
 let contractsListenerUnsubscribe = null;
 
-const CONTRACT_DOCS = [
+const NKOYA_UID = 'VZdD61oB7daZay6Ywp930xsUQod2';
+
+const BASE_CONTRACT_DOCS = [
     { id: 'pp',    label: 'Policies & Procedures' },
     { id: 'nda',   label: 'Non-Disclosure Agreement' },
     { id: 'equip', label: 'Equipment Agreement' },
@@ -15,7 +17,13 @@ const CONTRACT_DOCS = [
     { id: 'coi',   label: 'Conflict of Interest' },
 ];
 
-const EXCLUDED_EMAILS = []; // include everyone now
+function getDocList(staffUid) {
+    const docs = [...BASE_CONTRACT_DOCS];
+    if (staffUid === NKOYA_UID) {
+        docs.push({ id: 'service', label: 'Service Agreement' });
+    }
+    return docs;
+}
 
 // ==================== Entry Point ====================
 
@@ -86,7 +94,7 @@ function renderStaffContractRows() {
 
     list.innerHTML = contractsAllUsers.map(user => {
         const data = contractsData[user.uid] || {};
-        const status = getOverallStatus(data);
+        const status = getOverallStatus(data, user.uid);
         const initials = getInitials(user.displayname || user.email);
         const name = user.displayname || user.email;
         return `
@@ -107,13 +115,14 @@ function renderStaffContractRows() {
     }).join('');
 }
 
-function getOverallStatus(data) {
+function getOverallStatus(data, staffUid) {
     if (!data || !data.documents) return 'not-started';
     const docs = data.documents;
-    const allSigned = CONTRACT_DOCS.every(d => docs[d.id]?.wrSigned && docs[d.id]?.staffSigned);
+    const docList = getDocList(staffUid);
+    const allSigned = docList.every(d => docs[d.id]?.wrSigned && docs[d.id]?.staffSigned);
     if (allSigned) return 'complete';
-    const wrSigned = CONTRACT_DOCS.some(d => docs[d.id]?.wrSigned);
-    const staffSigned = CONTRACT_DOCS.some(d => docs[d.id]?.staffSigned);
+    const wrSigned = docList.some(d => docs[d.id]?.wrSigned);
+    const staffSigned = docList.some(d => docs[d.id]?.staffSigned);
     if (staffSigned) return 'staff-signed';
     if (wrSigned) return 'wr-signed';
     return 'not-started';
@@ -174,7 +183,7 @@ function renderDocTabs() {
     if (!tabs) return;
     const data = contractsData[contractsCurrentStaffId] || { documents: {} };
 
-    tabs.innerHTML = CONTRACT_DOCS.map(d => {
+    tabs.innerHTML = getDocList(contractsCurrentStaffId).map(d => {
         const docData = (data.documents || {})[d.id] || {};
         const wrSigned = !!docData.wrSigned;
         const staffSigned = !!docData.staffSigned;
@@ -279,7 +288,8 @@ function renderDocument(docId) {
         case 'nda':   docHTML = buildNDADoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'equip': docHTML = buildEquipDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'sev':   docHTML = buildSevDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
-        case 'coi':   docHTML = buildCOIDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'coi':     docHTML = buildCOIDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'service': docHTML = buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
     }
 
     docContent.innerHTML = `
@@ -1102,5 +1112,86 @@ function buildCOIDoc(saved, adminEdit, staffEdit, locked) {
     <p style="margin:0 0 0.5rem;font-size:0.9rem;"><strong>EMPLOYEE/CONTRACTOR:</strong></p>
     <p style="margin:0 0 0.5rem;">Address: ${field('coi_address', saved, staffEdit, 'Your address', 'doc-field-wide')}</p>
 </div>
+`;
+}
+
+function buildServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">SERVICE AGREEMENT CONTRACT</div>
+
+<div class="doc-sub-heading" style="text-decoration:underline;">NKOYA KIDD</div>
+
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Young Leaders Coordinator/Contracted Paid Intern.</p>
+
+<div class="doc-section-heading">1. POSITION AND DUTIES</div>
+<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of <strong>Young Leaders Coordinator</strong> Employee/<strong>Contractor</strong> and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
+
+<div class="doc-section-heading">2. COMPENSATION AND HOURS</div>
+<table style="width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:0.92rem;">
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;width:40%;color:#555;">Role</td>
+        <td style="padding:0.6rem 0.5rem;">Young Leaders Coordinator/Contracted Paid Intern</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Hourly Rate</td>
+        <td style="padding:0.6rem 0.5rem;">$23.00 per hour/Contractor. Benefits are not provided, Taxes are contractor's responsibility</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Scheduled Hours</td>
+        <td style="padding:0.6rem 0.5rem;">20 hours per week</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Additional Hours</td>
+        <td style="padding:0.6rem 0.5rem;">Must be approved in advance by the Executive Director. Compensation at the same hourly rate applies</td>
+    </tr>
+    <tr>
+        <td style="padding:0.6rem 0.5rem;color:#555;">Pay Period</td>
+        <td style="padding:0.6rem 0.5rem;">To be determined by Organization</td>
+    </tr>
+</table>
+
+<div class="doc-section-heading">3. CONTRACTOR/EMPLOYEES DURATION AND PROBATIONARY PERIOD</div>
+<p class="doc-paragraph">Total Contractor/Employees Length: 90 days</p>
+<p class="doc-paragraph">Probationary Orientation Period: 45 days (runs concurrent with Contractor/Employee)<br>
+During the 45-day probationary orientation period, the Contractor/Employee must successfully complete the following tasks:</p>
+<p class="doc-paragraph">Tasks During Probationary Period:</p>
+<ul class="doc-list">
+    <li>Learn about WESTSIDE RISING's mission, vision, history, and work (know it through and through).</li>
+    <li>Submit a 45-day work plan – based on the role</li>
+    <li>Sumit daily reports and reflections sharing highlights, lessons, curiosities, feedback, and next steps (as needed)</li>
+    <li>Support all executive and administrative duties as assigned by Executive Director</li>
+    <li>Review and learn Community Organizing concepts and terminology (provided)</li>
+    <li>Learn and administer phone banking, outreach, and turnout efforts for meetings and events</li>
+    <li>Provide support for WR meetings and events (<strong>mandatory attendance Monthly Partners &amp; Leaders (P &amp; L) meeting - the last Tuesday of each month, team meetings, etc.</strong>)</li>
+    <li>Identify all the West Side Public Official: Alderpersons, Federal and State Representatives, Senators (how many, who they are, their office location, and all contact information).</li>
+    <li>Research Community Organizing. Write 1.5-page report about your findings highlighting 3 elements involved in effective Community Organizing, and how you can use Community Organizing strategies</li>
+    <li>Conduct 6 one-on-ones with key leaders (in-person preferred). Write a 1 – 2 paragraph write-up about your findings for each person (ID their self-interest, level of commitment to WR, point of alignment with WR work, area of engagement interest, volunteer time commitment, if any, and any other interesting fact, skill or ability.)</li>
+    <li><strong>Finally, compile ALL of the information you have gathered into 1 report.</strong> This report should include the write up about Community Organizing, the information about the West Side Public Officials, the compiled One-on-ones information, a summary of ALL of the work you have done during the orientation period. include your key accomplishments and your SMART goals for your role. The report should be a minimum of 4 pages. You will present your report to the Director, and then to key WR leaders.</li>
+</ul>
+
+<div class="doc-section-heading">4. EVALUATION AND CONTINUATION</div>
+<p class="doc-paragraph">Upon completion of the 45-day probationary orientation period, the Contractor/Employee's performance will be evaluated by the Organization. Continuation in the Contractor/Employee beyond the probationary period is contingent upon satisfactory completion of all required tasks and demonstration of competency in the role.</p>
+<p class="doc-paragraph">Following successful completion of the probationary period, the Contractor/Employee may continue for the remainder of the 90-day Contractor/Employees period under standard performance expectations.</p>
+
+<div class="doc-section-heading">5. Young Leaders Coordinator Key Responsibilities</div>
+<ul class="doc-list">
+    <li>Plan, coordinate, and manage the overall logistics and execution of the summer leadership program.</li>
+    <li>Implement and engage in curriculum and activities that foster civic engagement and leadership skills.</li>
+    <li>Recruit, train, and supervise program participants and volunteer mentors.</li>
+    <li>Collect and analyze program data to assess participant success and areas for improvement.</li>
+    <li>Create and generate detailed reports on program outcomes and community impact.</li>
+    <li>Build relationships with community partners and members</li>
+    <li>Represent WR in meetings and at events using critical and strategic thinking, planning, and reporting to identify opportunities and connections</li>
+    <li>Reports to the Director</li>
+</ul>
+
+<div class="doc-section-heading">6. AT-WILL EMPLOYMENT</div>
+<p class="doc-paragraph">This Contractor/Employee is at-will, meaning either party may terminate the agreement with written notice. During the probationary period, the Organization may terminate the agreement with minimal notice if performance is unsatisfactory.</p>
+
+<div class="doc-section-heading">7. CONFIDENTIALITY AND CONDUCT</div>
+<p class="doc-paragraph">The Contractor/Employee agrees to maintain confidentiality regarding all proprietary Organization information and to conduct themselves professionally at all times. The Contractor/Employee is expected to adhere to all Organization policies and procedures.</p>
+
+<div class="doc-section-heading">8. ACKNOWLEDGMENT</div>
+<p class="doc-paragraph">By signing below, both parties acknowledge that they have read, understand, and agree to the terms and conditions outlined in this Agreement.</p>
 `;
 }
