@@ -689,7 +689,7 @@ function buildPPDoc(saved, adminEdit, staffEdit, locked) {
     <li>A $200 replacement fee applies unless waived by WR leadership.</li>
 </ul>
 
-<div class="doc-section-heading">6. Confidentiality and Non-Disclosure</div>
+<div class="doc-section-heading">6. Confidentiality and non-disclosure</div>
 
 <div class="doc-sub-heading">A. Confidential Information</div>
 <p class="doc-paragraph">Confidential information includes, but is not limited to:</p>
@@ -778,7 +778,7 @@ function buildNDADoc(saved, adminEdit, staffEdit, locked) {
     return `
 <div class="doc-title">NON-DISCLOSURE AGREEMENT</div>
 
-<p class="doc-paragraph">This Non-Disclosure Agreement ("NDA") is made effective immediately as of ${field('nda_date', saved, adminEdit, 'Date')}, by and between WESTSIDE RISING ("WR"), an Illinois not-for-profit corporation, and ${field('nda_employee_name', saved, staffEdit, 'Employee/Contractor full name', 'doc-field-wide')} ("The EMPLOYEE/CONTRACTOR").</p>
+<p class="doc-paragraph">This Non-Disclosure Agreement ("NDA") is made effective immediately as of ${field('nda_date', saved, adminEdit, 'Date')}, by and between WESTSIDE RISING ("WR"), an Illinois not-for profit corporation, and ${field('nda_employee_name', saved, staffEdit, 'Employee/Contractor full name', 'doc-field-wide')} ("The EMPLOYEE/CONTRACTOR").</p>
 
 <p class="doc-paragraph">The Parties agree that the employment relationship between WESTSIDE RISING and ${field('nda_emp2', saved, staffEdit, 'Employee/Contractor name', 'doc-field-wide')} begins on ${field('nda_start_date', saved, adminEdit, 'Start date')}, between the EMPLOYEE/CONTRACTOR and WR, and that this NDA shall be incorporated into the Agreement and be binding on the parties. Therefore, the parties agree as follows:</p>
 
