@@ -765,10 +765,10 @@ function buildPPDoc(saved, adminEdit, staffEdit, locked) {
 
 <div style="margin-top:2rem;padding:1.25rem;border:1px solid #ddd;border-radius:8px;background:#f9f9f9;">
     <p style="margin:0 0 0.75rem;"><strong>I have received and read WESTSIDE RISING's Policies &amp; Procedures Guide</strong></p>
-    <p style="margin:0 0 0.5rem;"># ${field('pp_number', saved, canEdit, 'Document #')}</p>
-    <p style="margin:0 0 0.5rem;">Name: ${field('pp_name', saved, canEdit, 'Full name', 'doc-field-wide')}</p>
-    <p style="margin:0 0 0.5rem;">Date: ${field('pp_date', saved, canEdit, 'Date')}</p>
-    <p style="margin:0 0 0.5rem;">Supervisor: ${field('pp_supervisor', saved, canEdit, 'Supervisor name', 'doc-field-wide')}</p>
+    <p style="margin:0 0 0.5rem;"># ${field('pp_number', saved, staffEdit, 'Document #')}</p>
+    <p style="margin:0 0 0.5rem;">Name: ${field('pp_name', saved, staffEdit, 'Full name', 'doc-field-wide')}</p>
+    <p style="margin:0 0 0.5rem;">Date: ${field('pp_date', saved, staffEdit, 'Date')}</p>
+    <p style="margin:0 0 0.5rem;">Supervisor: ${field('pp_supervisor', saved, staffEdit, 'Supervisor name', 'doc-field-wide')}</p>
 </div>
 `;
 }
