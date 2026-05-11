@@ -817,7 +817,7 @@ function buildEquipDoc(saved, adminEdit, staffEdit, locked) {
 
 <ol class="doc-list" style="list-style-type:decimal;">
     <li style="margin-bottom:1rem;">
-        ${field('equip_employee_name', saved, canEdit, 'Employee/Contractor name', 'doc-field-wide')} The EMPLOYEE/CONTRACTOR represents and acknowledges that during his/her employment is loaned a Equipment/Laptop computer by WESTSIDE RISING ("WR") and is signing this Equipment/Laptop Acceptance Form.
+        ${field('equip_employee_name', saved, staffEdit, 'Employee/Contractor name', 'doc-field-wide')} The EMPLOYEE/CONTRACTOR represents and acknowledges that during his/her employment is loaned a Equipment/Laptop computer by WESTSIDE RISING ("WR") and is signing this Equipment/Laptop Acceptance Form.
     </li>
     <li style="margin-bottom:1rem;">
         In any case of separation from WR, The EMPLOYEE/CONTRACTOR will return the Equipment/Laptop within three (3) days of the Separation Date to WESTSIDE RISING all property of WESTSIDE RISING in his/her possession or under his control, including but not limited to files, Equipment/Laptop computer, all related software, data collected from canvassers, office keys and storage unit keys.
