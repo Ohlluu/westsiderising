@@ -252,7 +252,8 @@ function createEmployeeTimesheetCard(employee) {
     card.className = 'employee-timesheet';
 
     // Pay calculation
-    const HOURLY_RATE = 18;
+    const EMPLOYEE_RATES = { 'VZdD61oB7daZay6Ywp930xsUQod2': 23 };
+    const HOURLY_RATE = EMPLOYEE_RATES[employee.userId] || 18;
     const period = allPayPeriods.find(p => p.id === currentPeriodId);
     const week1Start = period ? new Date(period.start) : null;
     const week2Start = period ? new Date(period.start) : null;
