@@ -89,21 +89,25 @@ async function checkUserRole(user) {
 function configureUIForRole(role) {
     const timeclockTab = document.querySelector('[data-tab="timeclock"]');
     const timesheetsTab = document.querySelector('[data-tab="timesheets"]');
+    const contractsTab = document.querySelector('[data-tab="contracts"]');
 
     const eventMgmtLink = document.getElementById('event-mgmt-link');
 
     if (role === 'superadmin') {
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'block';
+        if (contractsTab) contractsTab.style.display = 'block';
         if (eventMgmtLink) eventMgmtLink.style.display = 'inline-block';
     } else if (role === 'manager') {
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'none';
+        if (contractsTab) contractsTab.style.display = 'block';
         if (eventMgmtLink) eventMgmtLink.style.display = 'inline-block';
     } else {
-        // Employee — time clock only, no admin links
+        // Employee
         timeclockTab.style.display = 'block';
         timesheetsTab.style.display = 'none';
+        if (contractsTab) contractsTab.style.display = 'block';
         if (eventMgmtLink) eventMgmtLink.style.display = 'none';
     }
 
@@ -151,6 +155,11 @@ function switchTab(tabName) {
         case 'timesheets':
             if (typeof initializeTimesheets === 'function') {
                 initializeTimesheets();
+            }
+            break;
+        case 'contracts':
+            if (typeof initializeContracts === 'function') {
+                initializeContracts();
             }
             break;
     }
