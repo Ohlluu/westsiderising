@@ -15,6 +15,8 @@ const BASE_CONTRACT_DOCS = [
     { id: 'equip', label: 'Equipment Agreement' },
     { id: 'sev',   label: 'Severance Agreement' },
     { id: 'coi',   label: 'Conflict of Interest' },
+    { id: 'media', label: 'Media Release Agreement' },
+    { id: 'email', label: 'Email Use Policy' },
 ];
 
 function getDocList(staffUid) {
@@ -290,6 +292,8 @@ function renderDocument(docId) {
         case 'sev':   docHTML = buildSevDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'coi':     docHTML = buildCOIDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'service': docHTML = buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'media':   docHTML = buildMediaReleaseDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'email':   docHTML = buildEmailPolicyDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
     }
 
     docContent.innerHTML = `
@@ -1193,5 +1197,388 @@ During the 45-day probationary orientation period, the Contractor/Employee must 
 
 <div class="doc-section-heading">8. ACKNOWLEDGMENT</div>
 <p class="doc-paragraph">By signing below, both parties acknowledge that they have read, understand, and agree to the terms and conditions outlined in this Agreement.</p>
+`;
+}
+
+function buildMediaReleaseDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">Media Release Agreement</div>
+
+<p class="doc-paragraph">I ${field('media_name', saved, staffEdit, 'Full Name', 'doc-field-wide')} hereby grant WESTSIDE RISING! and its representatives the irrevocable, perpetual, worldwide right to use, reproduce, edit, publish, distribute, and display my image, likeness, voice, name, and any quotes or statements I provide, in whole or in part, in any media format or platform now known or later developed, for any lawful purpose including but not limited to promotional, commercial, educational, or informational use.</p>
+<p class="doc-paragraph">I waive any right to inspect or approve the finished product or any use to which it may be applied. I affirm that I am over 18 years of age and competent to sign this release (or that a legal guardian has signed on my behalf), and I release WESTSIDE RISING from any and all claims or liability arising from the use of the materials as described above.</p>
+`;
+}
+
+function buildEmailPolicyDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">EMAIL USE POLICY AND PROTOCOL</div>
+
+<div class="doc-section-heading">1. PURPOSE AND SCOPE</div>
+<p class="doc-paragraph">This Email Use Policy ("Policy") establishes guidelines for the use of all email accounts issued by or associated with WESTSIDE RISING ("Organization"). This Policy applies to all employees, contractors, consultants, interns, volunteers, and any other individuals with access to Organization email systems.</p>
+<p class="doc-paragraph">All email accounts issued by the Organization remain the exclusive property of the Organization.</p>
+
+<div class="doc-section-heading">2. AUTHORIZED USE</div>
+<div class="doc-sub-heading">2.1 Permitted Uses</div>
+<p class="doc-paragraph">Organization email accounts may be used exclusively for authorized business purposes, including:</p>
+<ul class="doc-list">
+    <li>Communication related to assigned job responsibilities and duties</li>
+    <li>Internal coordination with staff, volunteers, and contractors</li>
+    <li>External communication with clients, partners, funders, and stakeholders on behalf of the Organization</li>
+    <li>Scheduling meetings and events related to Organization business</li>
+    <li>Sharing work documents and materials necessary for job performance</li>
+    <li>Participation in authorized Organization mailing lists and groups</li>
+</ul>
+
+<div class="doc-sub-heading">2.2 Business Purpose Requirement</div>
+<p class="doc-paragraph">Every email sent from an organization account must serve a legitimate business purpose. Personal use, even if occasional or brief, is strictly prohibited.</p>
+
+<div class="doc-section-heading">3. PROHIBITED USES</div>
+<p class="doc-paragraph">Organization email accounts shall NOT be used for:</p>
+
+<div class="doc-sub-heading">3.1 Personal Communication</div>
+<ul class="doc-list">
+    <li>Personal correspondence with family, friends, or acquaintances unrelated to Organization business</li>
+    <li>Personal shopping, banking, or financial transactions</li>
+    <li>Social media account management or personal social networking</li>
+    <li>Personal calendar or scheduling unrelated to work</li>
+    <li>Personal entertainment or leisure activities</li>
+</ul>
+
+<div class="doc-sub-heading">3.2 Commercial and Business Activities</div>
+<ul class="doc-list">
+    <li>Conducting or promoting a personal business or side business</li>
+    <li>Soliciting or selling products or services (personal or otherwise)</li>
+    <li>Freelance work or consulting unrelated to the Organization</li>
+    <li>Marketing personal services or credentials</li>
+    <li>Operating an alternative business using Organization email</li>
+</ul>
+
+<div class="doc-sub-heading">3.3 Inappropriate Content</div>
+<ul class="doc-list">
+    <li>Harassing, threatening, or abusive communications directed at any individual</li>
+    <li>Discriminatory content based on race, color, religion, gender, sexual orientation, national origin, age, disability, or any other protected characteristic</li>
+    <li>Sexually explicit, obscene, or pornographic materials</li>
+    <li>Defamatory or libelous statements</li>
+    <li>Violence, hate speech, or extremist content</li>
+    <li>Profane or vulgar language used to demean or insult others</li>
+</ul>
+
+<div class="doc-sub-heading">3.4 Confidential and Sensitive Information</div>
+<ul class="doc-list">
+    <li>Forwarding or disclosing Confidential Information to unauthorized recipients</li>
+    <li>Sharing participant, client, or beneficiary data outside proper channels</li>
+    <li>Revealing strategic plans, financial information, or donor data to external parties</li>
+    <li>Transmitting sensitive personal information (Social Security numbers, bank account details, passwords) via email</li>
+    <li>Discussing confidential matters in a manner visible to unauthorized parties</li>
+</ul>
+
+<div class="doc-sub-heading">3.5 Security Violations</div>
+<ul class="doc-list">
+    <li>Sharing passwords or login credentials with others</li>
+    <li>Forwarding emails from Organization accounts to personal email accounts</li>
+    <li>Downloading attachments from unknown or untrusted sources</li>
+    <li>Clicking suspicious links or opening attachments from unfamiliar senders</li>
+    <li>Accessing email accounts on unsecured public networks without VPN protection</li>
+</ul>
+
+<div class="doc-sub-heading">3.6 Competitive or Conflicted Activities</div>
+<ul class="doc-list">
+    <li>Marketing competing services or organizations</li>
+    <li>Soliciting Organization clients, partners, or funders for personal or competing purposes using Organization email</li>
+    <li>Recruiting Organization staff for competing organizations</li>
+    <li>Promoting outside employment opportunities (unless authorized for recruitment purposes)</li>
+    <li>Communicating with competitors in a manner that reveals Organization strategies or information</li>
+</ul>
+
+<div class="doc-sub-heading">3.7 Legal and Regulatory Violations</div>
+<ul class="doc-list">
+    <li>Fraud, misrepresentation, or deception</li>
+    <li>Violation of intellectual property rights (copyrights, trademarks, patents)</li>
+    <li>Violation of any applicable laws, regulations, or industry standards</li>
+    <li>Chain letters, spam, or mass unsolicited communications</li>
+    <li>Impersonation of others or misrepresentation of identity</li>
+</ul>
+
+<div class="doc-section-heading">4. EMAIL ACCOUNT OWNERSHIP AND ACCESS</div>
+<div class="doc-sub-heading">4.1 Organization Property</div>
+<p class="doc-paragraph">The email account, including all messages, attachments, folders, and data, is the exclusive property of WESTSIDE RISING. The individual user has no expectation of privacy with respect to Organization email accounts.</p>
+
+<div class="doc-sub-heading">4.2 Monitoring and Inspection</div>
+<p class="doc-paragraph">The Organization reserves the right to monitor, access, review, and inspect Organization email accounts at any time, with or without notice, including:</p>
+<ul class="doc-list">
+    <li>Reading sent and received messages</li>
+    <li>Reviewing attachments and file transfers</li>
+    <li>Checking forwarding rules and filters</li>
+    <li>Monitoring email storage and backup systems</li>
+    <li>Conducting forensic analysis if suspected of misconduct</li>
+</ul>
+<p class="doc-paragraph">This monitoring may be conducted by:</p>
+<ul class="doc-list">
+    <li>IT Department staff</li>
+    <li>Human Resources</li>
+    <li>Executive leadership</li>
+    <li>Law enforcement or legal counsel (as legally permitted)</li>
+</ul>
+
+<div class="doc-sub-heading">4.3 No Personal Privacy Rights</div>
+<p class="doc-paragraph">Users waive any expectation of privacy in Organization email accounts. Even if an email account is customized with a personal name or nickname, it remains Organization property subject to full monitoring and access.</p>
+
+<div class="doc-sub-heading">4.4 Personal Email Accounts</div>
+<p class="doc-paragraph">The Organization prohibits the use of personal email accounts (Gmail, Yahoo, Outlook, etc.) for Organization business. If you receive a request to use a personal email for Organization matters, do not comply — instead, report the request to ${field('email_hr_contact', saved, adminEdit, 'HR Contact Name')}.</p>
+
+<div class="doc-section-heading">5. EMAIL SECURITY REQUIREMENTS</div>
+<div class="doc-sub-heading">5.1 Password Protection</div>
+<ul class="doc-list">
+    <li>Create a strong, unique password containing at least 12 characters, including uppercase, lowercase, numbers, and special characters</li>
+    <li>Change your password every 90 days</li>
+    <li>Never share your password with anyone, including IT staff or supervisors (the Organization can reset your password without needing it)</li>
+    <li>Never write down your password or store it in unsecured locations</li>
+</ul>
+
+<div class="doc-sub-heading">5.2 Logout and Device Security</div>
+<ul class="doc-list">
+    <li>Always logout of email when using shared or public computers</li>
+    <li>Lock your computer when stepping away from your desk</li>
+    <li>Do not access Organization email on unsecured public Wi-Fi networks without VPN protection</li>
+    <li>Report suspected unauthorized access immediately to IT</li>
+</ul>
+
+<div class="doc-sub-heading">5.3 Phishing and Suspicious Messages</div>
+<ul class="doc-list">
+    <li>Do not click links or download attachments from unfamiliar senders</li>
+    <li>Verify sender identity before opening attachments or clicking links, even if the message appears to be from a known contact</li>
+    <li>Report suspicious emails immediately to Executives or Support</li>
+    <li>Never provide passwords or credentials in response to email requests</li>
+</ul>
+
+<div class="doc-sub-heading">5.4 Secure Data Handling</div>
+<ul class="doc-list">
+    <li>Do not send sensitive information (passwords, financial data, SSNs) via email; Use encrypted channels</li>
+    <li>Use encryption when sending Confidential Information outside the Organization</li>
+    <li>Limit email attachments to necessary business documents only</li>
+    <li>Delete sensitive information securely after use</li>
+</ul>
+
+<div class="doc-section-heading">6. APPROPRIATE TONE AND PROFESSIONALISM</div>
+<div class="doc-sub-heading">6.1 Professional Communication Standards</div>
+<p class="doc-paragraph">All Organization email communications must:</p>
+<ul class="doc-list">
+    <li>Reflect professional, respectful, and courteous tone</li>
+    <li>Represent the Organization positively in all external communications</li>
+    <li>Use clear, grammatically correct language</li>
+    <li>Avoid slang, excessive informality, or unprofessional humor</li>
+    <li>Maintain confidentiality and discretion when discussing sensitive matters</li>
+</ul>
+
+<div class="doc-sub-heading">6.2 External Communications</div>
+<p class="doc-paragraph">When communicating with external parties (funders, partners, clients, government officials), email communications:</p>
+<ul class="doc-list">
+    <li>Must be reviewed and approved by the Executive Director or designated supervisor for important matters</li>
+    <li>Should follow Organization templates and communication standards</li>
+    <li>Must accurately represent Organization positions and information</li>
+    <li>Should maintain professional boundaries and avoid personal commentary</li>
+</ul>
+
+<div class="doc-sub-heading">6.3 Internal Communications</div>
+<p class="doc-paragraph">While internal email may be somewhat more casual, it must still:</p>
+<ul class="doc-list">
+    <li>Remain respectful and professional</li>
+    <li>Avoid gossip, rumors, or derogatory comments about colleagues</li>
+    <li>Not contain offensive humor or inappropriate jokes</li>
+    <li>Maintain confidentiality of sensitive discussions</li>
+</ul>
+
+<div class="doc-section-heading">7. RETENTION AND DELETION OF EMAILS</div>
+<div class="doc-sub-heading">7.1 Retention Requirements</div>
+<p class="doc-paragraph">Users must retain all emails related to:</p>
+<ul class="doc-list">
+    <li>Funding agreements and grants</li>
+    <li>Financial transactions and budgets</li>
+    <li>Legal matters and compliance</li>
+    <li>Program participant information</li>
+    <li>Strategic planning and governance</li>
+    <li>Donor communications</li>
+    <li>Any emails specifically marked for retention</li>
+</ul>
+<p class="doc-paragraph">Users should retain emails for a minimum of seven (7) years unless otherwise instructed.</p>
+
+<div class="doc-sub-heading">7.2 Deletion Guidelines</div>
+<p class="doc-paragraph">Personal organizational emails (calendar invitations, casual internal communications) may be deleted once no longer needed, provided they do not contain:</p>
+<ul class="doc-list">
+    <li>Confidential Information</li>
+    <li>Contractual or financial records</li>
+    <li>Donor or participant data</li>
+    <li>Strategic information</li>
+</ul>
+
+<div class="doc-sub-heading">7.3 Archiving</div>
+<p class="doc-paragraph">The Organization may automatically archive emails after a designated period (typically 90 days). Archived emails remain accessible but may be subject to longer retrieval times.</p>
+
+<div class="doc-sub-heading">7.4 Email Backup and Recovery</div>
+<p class="doc-paragraph">The Organization maintains backup systems to protect against data loss. Users should not rely on the Organization's backup systems for personal data recovery. If you inadvertently delete an important email, contact support immediately.</p>
+
+<div class="doc-section-heading">8. TERMINATION AND ACCOUNT DEACTIVATION</div>
+<div class="doc-sub-heading">8.1 Upon Separation</div>
+<p class="doc-paragraph">When an employee, contractor, or other user separates from the Organization, their email account will be:</p>
+<ul class="doc-list">
+    <li>Immediately deactivated or transferred to an archive status</li>
+    <li>Transferred to the Organization for ongoing management and access as needed</li>
+    <li>Monitored to prevent unauthorized forwarding of emails to personal accounts</li>
+</ul>
+
+<div class="doc-sub-heading">8.2 Data Transition</div>
+<p class="doc-paragraph">Prior to account deactivation, the user must:</p>
+<ul class="doc-list">
+    <li>Notify all external contacts of their departure and, if applicable, provide a new contact for ongoing matters</li>
+    <li>Transfer or delegate emails related to unfinished projects to designated staff members</li>
+    <li>Delete personal information (if any exists) that is not business-related</li>
+    <li>Provide IT with any forwarding preferences for critical business emails</li>
+</ul>
+
+<div class="doc-sub-heading">8.3 Access After Separation</div>
+<p class="doc-paragraph">The Organization retains full access to all email accounts after a user's departure. Former users have no right to access their former Organization email accounts after separation.</p>
+
+<div class="doc-section-heading">9. VIOLATION CONSEQUENCES</div>
+<div class="doc-sub-heading">9.1 Serious Violations</div>
+<p class="doc-paragraph">Serious violations may result in immediate termination, including:</p>
+<ul class="doc-list">
+    <li>Transmitting Confidential Information or trade secrets to unauthorized parties</li>
+    <li>Harassment, discrimination, or threatening behavior via email</li>
+    <li>Deliberate security breaches or password sharing</li>
+    <li>Using email for illegal activities (fraud, threats, illegal business)</li>
+    <li>Impersonation of other staff members or the Organization</li>
+    <li>Soliciting Organization clients, partners, or funders for competitive purposes</li>
+</ul>
+
+<div class="doc-sub-heading">9.2 Legal Action</div>
+<p class="doc-paragraph">In addition to disciplinary action, the Organization may pursue legal remedies, including:</p>
+<ul class="doc-list">
+    <li>Civil litigation for damages caused by email misuse</li>
+    <li>Injunctive relief to prevent further violations</li>
+    <li>Criminal prosecution if email misuse involves illegal activity</li>
+    <li>Recovery of costs associated with investigating violations</li>
+</ul>
+
+<div class="doc-section-heading">10. LEGAL COMPLIANCE</div>
+<div class="doc-sub-heading">10.1 Regulatory Requirements</div>
+<p class="doc-paragraph">Use of Organization email systems must comply with all applicable laws and regulations, including:</p>
+<ul class="doc-list">
+    <li>Title VII of the Civil Rights Act (prohibition of discrimination)</li>
+    <li>Americans with Disabilities Act (ADA) (accessibility requirements)</li>
+    <li>Health Insurance Portability and Accountability Act (HIPAA) (if applicable)</li>
+    <li>Family Educational Rights and Privacy Act (FERPA) (if applicable)</li>
+    <li>Illinois employment laws and privacy statutes</li>
+</ul>
+
+<div class="doc-sub-heading">10.2 Email as Evidence</div>
+<p class="doc-paragraph">Users acknowledge that Organization emails may be discoverable in legal proceedings, audits, or investigations. The Organization may be required to produce emails in response to subpoenas or legal discovery requests.</p>
+
+<div class="doc-sub-heading">10.3 Records Retention</div>
+<p class="doc-paragraph">The Organization maintains email archiving and backup systems to ensure compliance with legal retention requirements. Users should not attempt to circumvent these systems through deletion or forwarding to personal accounts.</p>
+
+<div class="doc-section-heading">11. TECHNOLOGY AND SYSTEM REQUIREMENTS</div>
+<div class="doc-sub-heading">11.1 Approved Devices</div>
+<p class="doc-paragraph">Organization email may only be accessed on:</p>
+<ul class="doc-list">
+    <li>Organization-issued computers and laptops</li>
+    <li>Organization-approved mobile devices</li>
+    <li>Organization-approved secure systems</li>
+    <li>Personal devices only with prior written approval and security compliance</li>
+</ul>
+
+<div class="doc-sub-heading">11.2 Approved Email Clients</div>
+<p class="doc-paragraph">Email must be accessed through:</p>
+<ul class="doc-list">
+    <li>Outlook Web Access (OWA)</li>
+    <li>Organization-approved email clients (Google, Microsoft Outlook, Apple Mail, etc.)</li>
+    <li>Not through forwarding to personal email accounts or unauthorized services</li>
+</ul>
+
+<div class="doc-sub-heading">11.3 Multi-Factor Authentication</div>
+<p class="doc-paragraph">Users with access to sensitive information must enable multi-factor authentication (MFA) on their email accounts.</p>
+
+<div class="doc-sub-heading">11.4 Updates and Security Patches</div>
+<p class="doc-paragraph">Users must:</p>
+<ul class="doc-list">
+    <li>Install security updates promptly when notified by IT</li>
+    <li>Update passwords after any security incidents</li>
+    <li>Report any suspected compromises immediately to IT</li>
+</ul>
+
+<div class="doc-sub-heading">12.2 Legal Holds and Litigation</div>
+<p class="doc-paragraph">If the Organization is involved in litigation, regulatory investigation, or legal dispute, users must:</p>
+<ul class="doc-list">
+    <li>Preserve all relevant emails (do not delete)</li>
+    <li>Notify IT and legal counsel of the situation</li>
+    <li>Comply with any "litigation hold" notices issued by legal counsel</li>
+    <li>Continue to use email normally (avoid attempts to conceal or destroy evidence)</li>
+</ul>
+
+<div class="doc-section-heading">13. ACKNOWLEDGMENT AND AGREEMENT</div>
+<div class="doc-sub-heading">13.1 Agreement to Policy</div>
+<p class="doc-paragraph">By signing below, you acknowledge that you:</p>
+<ul class="doc-list">
+    <li>Have read and understood this Email Use Policy in its entirety</li>
+    <li>Agree to comply with all terms and conditions outlined herein</li>
+    <li>Understand the consequences of violating this policy</li>
+    <li>Acknowledge that Organization email accounts are Organization property with no expectation of privacy</li>
+    <li>Consent to monitoring and inspection of email accounts as described</li>
+    <li>Understand that violations may result in discipline, termination, and legal action</li>
+</ul>
+
+<div class="doc-sub-heading">13.2 Continued Employment/Engagement</div>
+<p class="doc-paragraph">Continued employment or engagement with the Organization is contingent upon compliance with this Email Use Policy. The Organization reserves the right to update or modify this policy at any time, and users will be notified of material changes.</p>
+
+<div class="doc-section-heading" style="text-decoration:underline;">SIGNATURE PAGE</div>
+<div class="doc-sub-heading">ACKNOWLEDGMENT AND AGREE TO THIS ORGANIZATIONAL EMAIL USE POLICY</div>
+<p class="doc-paragraph">I acknowledge that I have received, read, and fully understand the Organizational Email Use Policy for WESTSIDE RISING. I agree to comply with all terms and conditions outlined in this policy and acknowledge my understanding of the consequences of non-compliance.</p>
+<p class="doc-paragraph">I further acknowledge that:</p>
+<ul class="doc-list">
+    <li>I understand that Organization email accounts are organizational property with no personal privacy rights</li>
+    <li>I will use my email account exclusively for authorized business purposes</li>
+    <li>I understand the prohibited uses outlined in Section 3</li>
+    <li>I will comply with all security requirements outlined in Section 5</li>
+    <li>I understand that my email may be monitored, accessed, and inspected without notice</li>
+    <li>I understand that violations may result in discipline, termination, and legal action</li>
+    <li>I will immediately report any suspected security breaches or email misuse</li>
+</ul>
+
+<div class="doc-section-heading">USER INFORMATION:</div>
+<div style="display:grid;grid-template-columns:160px 1fr;gap:0.6rem 1rem;align-items:center;margin-bottom:1.5rem;">
+    <label style="font-weight:600;font-size:0.9rem;">Name (Print):</label>
+    ${field('email_name', saved, staffEdit, 'Full Name', 'doc-field-wide')}
+    <label style="font-weight:600;font-size:0.9rem;">Email Address:</label>
+    ${field('email_address', saved, staffEdit, 'Email Address', 'doc-field-wide')}
+    <label style="font-weight:600;font-size:0.9rem;">Position/Title:</label>
+    ${field('email_position', saved, staffEdit, 'Position/Title', 'doc-field-wide')}
+    <label style="font-weight:600;font-size:0.9rem;">Department:</label>
+    ${field('email_department', saved, staffEdit, 'Department', 'doc-field-wide')}
+    <label style="font-weight:600;font-size:0.9rem;">Start Date:</label>
+    ${field('email_start_date', saved, staffEdit, 'Start Date', 'doc-field-wide')}
+</div>
+
+<div class="doc-section-heading">APPENDIX: QUICK REFERENCE GUIDE</div>
+<div class="doc-sub-heading">DO:</div>
+<ul class="doc-list">
+    <li>✅ Use Organization email for authorized business purposes only</li>
+    <li>✅ Maintain strong, unique passwords and update every 90 days</li>
+    <li>✅ Report suspicious emails or security concerns immediately</li>
+    <li>✅ Logout when using shared computers</li>
+    <li>✅ Verify sender identity before opening attachments</li>
+    <li>✅ Retain emails related to significant business matters</li>
+    <li>✅ Communicate professionally and respectfully</li>
+    <li>✅ Follow all Organization email policies and procedures</li>
+</ul>
+<div class="doc-sub-heading">DON'T:</div>
+<ul class="doc-list">
+    <li>❌ Use Organization email for personal communication</li>
+    <li>❌ Share passwords with anyone</li>
+    <li>❌ Forward Organization emails to personal accounts</li>
+    <li>❌ Access email on unsecured public Wi-Fi</li>
+    <li>❌ Share Confidential Information with unauthorized parties</li>
+    <li>❌ Click links or download attachments from unknown senders</li>
+    <li>❌ Use email for harassing, discriminatory, or inappropriate communications</li>
+    <li>❌ Conduct personal business using Organization email</li>
+</ul>
 `;
 }
