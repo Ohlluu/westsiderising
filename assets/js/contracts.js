@@ -1132,13 +1132,13 @@ function buildServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
 <p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Young Leaders Coordinator/Contracted Paid Intern.</p>
 
 <div class="doc-section-heading">1. POSITION AND DUTIES</div>
-<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of <strong>Young Leaders Coordinator</strong> Employee/<strong>Contractor</strong> and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
+<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of <strong>Young Leaders Coordinator</strong> Employee/<strong>Contractor</strong> and Social Media Manager; and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
 
 <div class="doc-section-heading">2. COMPENSATION AND HOURS</div>
 <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:0.92rem;">
     <tr style="border-bottom:1px solid #e9ecef;">
         <td style="padding:0.6rem 0.5rem;width:40%;color:#555;">Role</td>
-        <td style="padding:0.6rem 0.5rem;">Young Leaders Coordinator/Contracted Paid Intern</td>
+        <td style="padding:0.6rem 0.5rem;">Young Leaders Coordinator/Contracted Paid Intern &amp; Social Media Manager</td>
     </tr>
     <tr style="border-bottom:1px solid #e9ecef;">
         <td style="padding:0.6rem 0.5rem;color:#555;">Hourly Rate</td>
@@ -1193,13 +1193,23 @@ During the 45-day probationary orientation period, the Contractor/Employee must 
     <li>Reports to the Director</li>
 </ul>
 
-<div class="doc-section-heading">6. AT-WILL EMPLOYMENT</div>
+<div class="doc-section-heading">6. Social Media Manager</div>
+<ul class="doc-list">
+    <li>Create content to promote the organization and its vision</li>
+    <li>Post on all social media platforms</li>
+    <li>Manage content and engagement</li>
+    <li>Utilize email marketing platform to reach constituents</li>
+    <li>Create and develop newsletter, press releases and other relevant marketing matrials</li>
+    <li>Other related duties</li>
+</ul>
+
+<div class="doc-section-heading">7. AT-WILL EMPLOYMENT</div>
 <p class="doc-paragraph">This Contractor/Employee is at-will, meaning either party may terminate the agreement with written notice. During the probationary period, the Organization may terminate the agreement with minimal notice if performance is unsatisfactory.</p>
 
-<div class="doc-section-heading">7. CONFIDENTIALITY AND CONDUCT</div>
+<div class="doc-section-heading">8. CONFIDENTIALITY AND CONDUCT</div>
 <p class="doc-paragraph">The Contractor/Employee agrees to maintain confidentiality regarding all proprietary Organization information and to conduct themselves professionally at all times. The Contractor/Employee is expected to adhere to all Organization policies and procedures.</p>
 
-<div class="doc-section-heading">8. ACKNOWLEDGMENT</div>
+<div class="doc-section-heading">9. ACKNOWLEDGMENT</div>
 <p class="doc-paragraph">By signing below, both parties acknowledge that they have read, understand, and agree to the terms and conditions outlined in this Agreement.</p>
 `;
 }
