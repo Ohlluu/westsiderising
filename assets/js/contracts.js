@@ -1134,11 +1134,11 @@ function buildServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
     </tr>
     <tr style="border-bottom:1px solid #e9ecef;">
         <td style="padding:0.6rem 0.5rem;color:#555;">Hourly Rate</td>
-        <td style="padding:0.6rem 0.5rem;">$23.00 per hour/Contractor. Benefits are not provided, Taxes are contractor's responsibility</td>
+        <td style="padding:0.6rem 0.5rem;">$24.00 per hour/Contractor. Benefits are not provided, Taxes are contractor's responsibility</td>
     </tr>
     <tr style="border-bottom:1px solid #e9ecef;">
         <td style="padding:0.6rem 0.5rem;color:#555;">Scheduled Hours</td>
-        <td style="padding:0.6rem 0.5rem;">20 hours per week</td>
+        <td style="padding:0.6rem 0.5rem;">20 - 30 hours per week</td>
     </tr>
     <tr style="border-bottom:1px solid #e9ecef;">
         <td style="padding:0.6rem 0.5rem;color:#555;">Additional Hours</td>
