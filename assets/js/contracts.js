@@ -9,6 +9,10 @@ let contractsListenerUnsubscribe = null;
 
 const NKOYA_UID = 'VZdD61oB7daZay6Ywp930xsUQod2';
 
+const DISPLAY_NAME_OVERRIDES = {
+    'VZdD61oB7daZay6Ywp930xsUQod2': 'Nkoya Kidd',
+};
+
 const BASE_CONTRACT_DOCS = [
     { id: 'pp',    label: 'Policies & Procedures' },
     { id: 'nda',   label: 'Non-Disclosure Agreement' },
@@ -97,8 +101,8 @@ function renderStaffContractRows() {
     list.innerHTML = contractsAllUsers.map(user => {
         const data = contractsData[user.uid] || {};
         const status = getOverallStatus(data, user.uid);
-        const initials = getInitials(user.displayname || user.email);
-        const name = user.displayname || user.email;
+        const name = DISPLAY_NAME_OVERRIDES[user.uid] || user.displayname || user.email;
+        const initials = getInitials(name);
         return `
             <div class="staff-contract-row" onclick="openStaffContracts('${user.uid}')">
                 <div class="staff-contract-info">
