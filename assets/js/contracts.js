@@ -1126,13 +1126,12 @@ function buildCOIDoc(saved, adminEdit, staffEdit, locked) {
 function buildServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
     return `
 <div class="doc-title">SERVICE AGREEMENT CONTRACT</div>
-
-<div class="doc-sub-heading" style="text-decoration:underline;">NKOYA KIDD</div>
+<div class="doc-title">NKOYA KIDD</div>
 
 <p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Young Leaders Coordinator/Contracted Paid Intern.</p>
 
 <div class="doc-section-heading">1. POSITION AND DUTIES</div>
-<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of <strong>Young Leaders Coordinator</strong> Employee/<strong>Contractor</strong> and Social Media Manager; and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
+<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Young Leaders Coordinator Employee/Contractor and Social Media Manager; and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
 
 <div class="doc-section-heading">2. COMPENSATION AND HOURS</div>
 <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:0.92rem;">
@@ -1170,11 +1169,11 @@ During the 45-day probationary orientation period, the Contractor/Employee must 
     <li>Support all executive and administrative duties as assigned by Executive Director</li>
     <li>Review and learn Community Organizing concepts and terminology (provided)</li>
     <li>Learn and administer phone banking, outreach, and turnout efforts for meetings and events</li>
-    <li>Provide support for WR meetings and events (<strong>mandatory attendance Monthly Partners &amp; Leaders (P &amp; L) meeting - the last Tuesday of each month, team meetings, etc.</strong>)</li>
+    <li>Provide support for WR meetings and events (mandatory attendance Monthly Partners &amp; Leaders (P &amp; L) meeting - the last Tuesday of each month, team meetings, etc.)</li>
     <li>Identify all the West Side Public Official: Alderpersons, Federal and State Representatives, Senators (how many, who they are, their office location, and all contact information).</li>
     <li>Research Community Organizing. Write 1.5-page report about your findings highlighting 3 elements involved in effective Community Organizing, and how you can use Community Organizing strategies</li>
     <li>Conduct 6 one-on-ones with key leaders (in-person preferred). Write a 1 – 2 paragraph write-up about your findings for each person (ID their self-interest, level of commitment to WR, point of alignment with WR work, area of engagement interest, volunteer time commitment, if any, and any other interesting fact, skill or ability.)</li>
-    <li><strong>Finally, compile ALL of the information you have gathered into 1 report.</strong> This report should include the write up about Community Organizing, the information about the West Side Public Officials, the compiled One-on-ones information, a summary of ALL of the work you have done during the orientation period. include your key accomplishments and your SMART goals for your role. The report should be a minimum of 4 pages. You will present your report to the Director, and then to key WR leaders.</li>
+    <li>Finally, compile ALL of the information you have gathered into 1 report. This report should include the write up about Community Organizing, the information about the West Side Public Officials, the compiled One-on-ones information, a summary of ALL of the work you have done during the orientation period. include your key accomplishments and your SMART goals for your role. The report should be a minimum of 4 pages. You will present your report to the Director, and then to key WR leaders.</li>
 </ul>
 
 <div class="doc-section-heading">4. EVALUATION AND CONTINUATION</div>
