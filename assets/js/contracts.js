@@ -405,48 +405,41 @@ function printDocument() {
     const docBody = document.querySelector('.document-body');
     if (!docBody) return;
 
-    const printWindow = window.open('', '_blank', 'width=860,height=700');
-    printWindow.document.write(`<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Westside Rising — Onboarding Document</title>
-    <style>
-        body { font-family: Arial, Helvetica, sans-serif; padding: 2rem 3rem; color: #222; font-size: 11pt; line-height: 1.7; }
-        .doc-title { text-align: center; font-weight: 700; font-size: 1rem; text-decoration: underline; margin-bottom: 1.2rem; letter-spacing: 0.5px; }
-        .doc-section-heading { font-weight: 700; margin: 1.2rem 0 0.4rem; }
-        .doc-sub-heading { font-weight: 700; margin: 0.8rem 0 0.3rem; }
-        .doc-paragraph { margin-bottom: 0.8rem; }
-        .doc-list { margin: 0.4rem 0 0.8rem 1.5rem; padding: 0; }
-        .doc-list li { margin-bottom: 0.3rem; }
-        .doc-sub-list { margin: 0.2rem 0 0.2rem 1.5rem; list-style-type: circle; }
-        .doc-field { display: inline-block; border: none; border-bottom: 1px solid #333; background: transparent; font-family: inherit; font-size: inherit; color: #222; min-width: 120px; padding: 0 2px; }
-        .doc-field-wide { min-width: 220px; }
-        .doc-field-narrow { min-width: 80px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 10.5pt; }
-        td { padding: 0.4rem 0.5rem; border-bottom: 1px solid #ddd; }
-        .signature-block { margin-top: 2rem; padding-top: 1.2rem; border-top: 2px solid #ddd; page-break-inside: avoid; }
-        .signature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        .signature-party-label { font-weight: 700; font-size: 0.85rem; border-bottom: 1px solid #ddd; padding-bottom: 0.4rem; margin-bottom: 0.8rem; }
-        .signature-row { margin-bottom: 0.6rem; }
-        .signature-row label { display: block; font-size: 0.75rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 0.2rem; }
-        .signature-name-display { font-family: 'Brush Script MT', 'Segoe Script', cursive; font-size: 1.4rem; color: #1a1a4e; border-bottom: 1px solid #333; min-height: 1.8rem; padding: 0.1rem 0; }
-        .signature-name-input { font-family: 'Brush Script MT', 'Segoe Script', cursive; font-size: 1.4rem; color: #1a1a4e; border: none; border-bottom: 1px solid #333; background: transparent; width: 100%; }
-        .signature-date-display { font-size: 0.85rem; border-bottom: 1px solid #ccc; min-height: 1.2rem; padding: 0.1rem 0; }
-        .signature-locked-badge { display: none; }
-        @media print { body { padding: 1rem 2rem; } }
-    </style>
-</head>
-<body>
-    ${docBody.innerHTML}
-    <script>
-        window.onload = function() {
-            setTimeout(function() { window.print(); }, 500);
-        };
-    <\/script>
-</body>
-</html>`);
-    printWindow.document.close();
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none;';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+        body{font-family:Arial,Helvetica,sans-serif;padding:2rem 3rem;color:#222;font-size:11pt;line-height:1.7;}
+        .doc-title{text-align:center;font-weight:700;font-size:1rem;text-decoration:underline;margin-bottom:1.2rem;}
+        .doc-section-heading{font-weight:700;margin:1.2rem 0 0.4rem;}
+        .doc-sub-heading{font-weight:700;margin:0.8rem 0 0.3rem;}
+        .doc-paragraph{margin-bottom:0.8rem;}
+        .doc-list{margin:0.4rem 0 0.8rem 1.5rem;padding:0;}
+        .doc-list li{margin-bottom:0.3rem;}
+        .doc-field{display:inline-block;border:none;border-bottom:1px solid #333;background:transparent;font-family:inherit;font-size:inherit;color:#222;min-width:120px;padding:0 2px;}
+        .doc-field-wide{min-width:220px;}
+        .doc-field-narrow{min-width:80px;}
+        table{width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:10.5pt;}
+        td{padding:0.4rem 0.5rem;border-bottom:1px solid #ddd;}
+        .signature-block{margin-top:2rem;padding-top:1.2rem;border-top:2px solid #ddd;page-break-inside:avoid;}
+        .signature-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+        .signature-party-label{font-weight:700;font-size:0.85rem;border-bottom:1px solid #ddd;padding-bottom:0.4rem;margin-bottom:0.8rem;}
+        .signature-row{margin-bottom:0.6rem;}
+        .signature-row label{display:block;font-size:0.75rem;font-weight:600;color:#555;text-transform:uppercase;margin-bottom:0.2rem;}
+        .signature-name-display{font-family:'Brush Script MT',cursive;font-size:1.4rem;color:#1a1a4e;border-bottom:1px solid #333;min-height:1.8rem;padding:0.1rem 0;}
+        .signature-name-input{font-family:'Brush Script MT',cursive;font-size:1.4rem;color:#1a1a4e;border:none;border-bottom:1px solid #333;background:transparent;width:100%;}
+        .signature-date-display{font-size:0.85rem;border-bottom:1px solid #ccc;min-height:1.2rem;padding:0.1rem 0;}
+        .signature-locked-badge{display:none;}
+    </style></head><body>${docBody.innerHTML}</body></html>`);
+    doc.close();
+
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    setTimeout(() => document.body.removeChild(iframe), 1000);
 }
 
 // ==================== Auto-Save ====================
