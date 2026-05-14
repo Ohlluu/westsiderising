@@ -312,6 +312,12 @@ function renderDocument(docId) {
         </div>
     `;
 
+    // Print button
+    const printBtn = docContent.querySelector('.print-doc-btn');
+    if (printBtn) {
+        printBtn.addEventListener('click', () => window.print());
+    }
+
     // Auto-save on field change
     if (!locked) {
         docContent.querySelectorAll('.doc-field, .signature-name-input').forEach(input => {
@@ -369,7 +375,7 @@ function renderSignatureBlock(docId, wrSig, staffSig, locked, wrSigned, isAdmin,
 }
 
 function renderActionButtons(docId, locked, wrSigned, staffSigned, isAdmin, adminCanEdit, staffCanEdit) {
-    const printBtn = `<button class="contract-save-btn" onclick="printDocument()"><i class="fas fa-print"></i> Print / Save PDF</button>`;
+    const printBtn = `<button class="contract-save-btn print-doc-btn"><i class="fas fa-print"></i> Print / Save PDF</button>`;
     if (locked) {
         return `${printBtn}<div class="contract-locked-notice"><i class="fas fa-check-circle"></i> Fully signed and locked</div>`;
     }
