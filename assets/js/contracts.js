@@ -369,25 +369,28 @@ function renderSignatureBlock(docId, wrSig, staffSig, locked, wrSigned, isAdmin,
 }
 
 function renderActionButtons(docId, locked, wrSigned, staffSigned, isAdmin, adminCanEdit, staffCanEdit) {
+    const printBtn = `<button class="contract-save-btn" onclick="window.print()"><i class="fas fa-print"></i> Print / Save PDF</button>`;
     if (locked) {
-        return `<div class="contract-locked-notice"><i class="fas fa-check-circle"></i> Fully signed and locked</div>`;
+        return `${printBtn}<div class="contract-locked-notice"><i class="fas fa-check-circle"></i> Fully signed and locked</div>`;
     }
     if (isAdmin && adminCanEdit) {
         return `
+            ${printBtn}
             <button class="contract-save-btn" onclick="autoSaveFields('${docId}')"><i class="fas fa-save"></i> Save Progress</button>
             <button class="contract-sign-btn" onclick="submitWRSignature('${docId}')"><i class="fas fa-pen-nib"></i> Sign as Westside Rising</button>
         `;
     }
     if (isAdmin && wrSigned && !staffSigned) {
-        return `<div style="color:#888;font-size:0.9rem;"><i class="fas fa-clock"></i> Waiting for staff to sign</div>`;
+        return `${printBtn}<div style="color:#888;font-size:0.9rem;"><i class="fas fa-clock"></i> Waiting for staff to sign</div>`;
     }
     if (!isAdmin && staffCanEdit) {
         return `
+            ${printBtn}
             <button class="contract-save-btn" onclick="autoSaveFields('${docId}')"><i class="fas fa-save"></i> Save Progress</button>
             <button class="contract-sign-btn" onclick="submitStaffSignature('${docId}')"><i class="fas fa-pen-nib"></i> Sign Document</button>
         `;
     }
-    return '';
+    return printBtn;
 }
 
 // ==================== Auto-Save ====================
