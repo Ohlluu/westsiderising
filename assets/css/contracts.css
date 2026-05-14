@@ -500,42 +500,43 @@
 
 /* ==================== Print Styles ==================== */
 @media print {
-    .navbar,
-    .dashboard-tabs,
-    .doc-tabs,
-    .contracts-back-btn,
-    .contracts-header-bar,
-    .contract-action-bar,
-    .doc-status-banner,
-    .signature-locked-badge {
-        display: none !important;
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
     }
 
-    body, section {
-        padding: 0 !important;
-        margin: 0 !important;
-        background: #fff !important;
-    }
-
-    .container {
-        max-width: 100% !important;
-        padding: 0 1rem !important;
+    /* Show only the document card and its contents */
+    .document-card,
+    .document-card * {
+        visibility: visible;
     }
 
     .document-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         box-shadow: none !important;
         border: none !important;
-        margin: 0 !important;
+    }
+
+    /* Hide action bar and status banner inside the card */
+    .contract-action-bar,
+    .doc-status-banner {
+        display: none !important;
     }
 
     .document-body {
-        padding: 1rem 0 !important;
+        padding: 1rem 2rem !important;
         font-size: 11pt !important;
         line-height: 1.6 !important;
     }
 
     .doc-field {
         background: transparent !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
         border-bottom: 1px solid #333 !important;
         border-radius: 0 !important;
     }
@@ -544,6 +545,10 @@
     .signature-name-input {
         border-bottom: 1px solid #333 !important;
         background: transparent !important;
+    }
+
+    .signature-locked-badge {
+        display: none !important;
     }
 
     .signature-block {

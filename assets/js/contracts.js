@@ -369,7 +369,7 @@ function renderSignatureBlock(docId, wrSig, staffSig, locked, wrSigned, isAdmin,
 }
 
 function renderActionButtons(docId, locked, wrSigned, staffSigned, isAdmin, adminCanEdit, staffCanEdit) {
-    const printBtn = `<button class="contract-save-btn" onclick="window.print()"><i class="fas fa-print"></i> Print / Save PDF</button>`;
+    const printBtn = `<button class="contract-save-btn" onclick="printDocument()"><i class="fas fa-print"></i> Print / Save PDF</button>`;
     if (locked) {
         return `${printBtn}<div class="contract-locked-notice"><i class="fas fa-check-circle"></i> Fully signed and locked</div>`;
     }
@@ -391,6 +391,12 @@ function renderActionButtons(docId, locked, wrSigned, staffSigned, isAdmin, admi
         `;
     }
     return printBtn;
+}
+
+// ==================== Print ====================
+
+function printDocument() {
+    window.print();
 }
 
 // ==================== Auto-Save ====================
