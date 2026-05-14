@@ -14,21 +14,18 @@ const DISPLAY_NAME_OVERRIDES = {
 };
 
 const BASE_CONTRACT_DOCS = [
-    { id: 'pp',    label: 'Policies & Procedures' },
-    { id: 'nda',   label: 'Non-Disclosure Agreement' },
-    { id: 'equip', label: 'Equipment Agreement' },
-    { id: 'sev',   label: 'Severance Agreement' },
-    { id: 'coi',   label: 'Conflict of Interest' },
-    { id: 'media', label: 'Media Release Agreement' },
-    { id: 'email', label: 'Email Use Policy' },
+    { id: 'pp',      label: 'Policies & Procedures' },
+    { id: 'nda',     label: 'Non-Disclosure Agreement' },
+    { id: 'equip',   label: 'Equipment Agreement' },
+    { id: 'sev',     label: 'Severance Agreement' },
+    { id: 'coi',     label: 'Conflict of Interest' },
+    { id: 'media',   label: 'Media Release Agreement' },
+    { id: 'email',   label: 'Email Use Policy' },
+    { id: 'service', label: 'Service Agreement' },
 ];
 
 function getDocList(staffUid) {
-    const docs = [...BASE_CONTRACT_DOCS];
-    if (staffUid === NKOYA_UID) {
-        docs.push({ id: 'service', label: 'Service Agreement' });
-    }
-    return docs;
+    return [...BASE_CONTRACT_DOCS];
 }
 
 // ==================== Entry Point ====================
@@ -295,9 +292,11 @@ function renderDocument(docId) {
         case 'equip': docHTML = buildEquipDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'sev':   docHTML = buildSevDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'coi':     docHTML = buildCOIDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
-        case 'service': docHTML = buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'media':   docHTML = buildMediaReleaseDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'email':   docHTML = buildEmailPolicyDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'service': docHTML = contractsCurrentStaffId === NKOYA_UID
+            ? buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
+            : buildStaffServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
     }
 
     docContent.innerHTML = `
@@ -1592,6 +1591,61 @@ function buildEmailPolicyDoc(saved, adminEdit, staffEdit, locked) {
     <li>❌ Click links or download attachments from unknown senders</li>
     <li>❌ Use email for harassing, discriminatory, or inappropriate communications</li>
     <li>❌ Conduct personal business using Organization email</li>
+</ul>
+`;
+}
+
+function buildStaffServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">Community Engagement Ambassador (CEA)</div>
+<div class="doc-title">SERVICE AGREEMENT</div>
+
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Community Engagement Ambassador.</p>
+
+<div class="doc-section-heading">1. POSITION AND DUTIES</div>
+<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Community Engagement Ambassador for WESTSIDE RISING and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
+
+<div class="doc-section-heading">2. COMPENSATION AND HOURS</div>
+<table style="width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:0.92rem;">
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;width:40%;color:#555;">Role</td>
+        <td style="padding:0.6rem 0.5rem;">Community Engagement Ambassador</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Hourly Rate</td>
+        <td style="padding:0.6rem 0.5rem;">$18.00 per hour/Contractor. Benefits are not provided, Taxes are contractor's responsibility</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Scheduled Hours</td>
+        <td style="padding:0.6rem 0.5rem;">10 – 12 hours per week</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Additional Hours</td>
+        <td style="padding:0.6rem 0.5rem;">Must be approved in advance by the Executive Director. Compensation at the same hourly rate applies</td>
+    </tr>
+    <tr>
+        <td style="padding:0.6rem 0.5rem;color:#555;">Pay Period</td>
+        <td style="padding:0.6rem 0.5rem;">To be determined by Organization</td>
+    </tr>
+</table>
+
+<p class="doc-paragraph">About the Role: WESTSIDE RISING is offering a contracted Community Engagement Ambassador position. This position provides direct support to the YL Coordinator and Organizer. The preferred person has basic knowledge of community outreach and engagement practices and will have a key role in the life cycle of WR organizing campaigns.</p>
+
+<p class="doc-paragraph">Responsibilities:</p>
+<ul class="doc-list">
+    <li>Work with the YL Coordinator, WR Organizer and other support staff to assist with external activities.</li>
+    <li>Conduct boots-on-the-ground and other outreach and engagement efforts in the community.</li>
+    <li>Attend events, conduct door-knocking, flyering, surveying, phone banking, etc.</li>
+    <li>Support Fundraising efforts</li>
+    <li>Assist with the life cycle of a community organizing campaign, from identification, base-building, and conducting action to beneficial resolutions.</li>
+    <li>Conduct one-on-ones</li>
+    <li>Recruit and engage community members and leaders to work with WESTSIDE RISING.</li>
+    <li>Establishing and building working reciprocating relationships with community members, leaders, and organizations to develop partnerships</li>
+    <li>Help conduct issue-based research.</li>
+    <li>Provide turnout, phone banking, advocacy, engagement and other organizing efforts</li>
+    <li>Submit brief reports about work and progress</li>
+    <li>Must be able to work some evenings and some weekends</li>
+    <li>Other duties, as requested</li>
 </ul>
 `;
 }
