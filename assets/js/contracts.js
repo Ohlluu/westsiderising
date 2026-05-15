@@ -9,8 +9,9 @@ let contractsListenerUnsubscribe = null;
 
 const NKOYA_UID = 'VZdD61oB7daZay6Ywp930xsUQod2';
 
+const KENDRA_UID = '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2';
+
 const SUMMER_YOUTH_UIDS = new Set([
-    '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2',
     'WbyPWW3M2adPCxW427OgccobV512',
     'bnxVbku9G6Q4uLa0p4J8GfvPfm33',
     'KD8JLN2ZALTJXbU7iCadbsodi1t2',
@@ -310,9 +311,11 @@ function renderDocument(docId) {
         case 'email':   docHTML = buildEmailPolicyDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'service': docHTML = contractsCurrentStaffId === NKOYA_UID
             ? buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
-            : SUMMER_YOUTH_UIDS.has(contractsCurrentStaffId)
-                ? buildSummerYouthServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
-                : buildStaffServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+            : contractsCurrentStaffId === KENDRA_UID
+                ? buildKendraServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
+                : SUMMER_YOUTH_UIDS.has(contractsCurrentStaffId)
+                    ? buildSummerYouthServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
+                    : buildStaffServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
     }
 
     docContent.innerHTML = `
@@ -1769,5 +1772,63 @@ function buildSummerYouthServiceAgreementDoc(saved, adminEdit, staffEdit, locked
     <li>Must attend and recruit people for the WR mandatory monthly meeting on the last Tuesday of each month</li>
     <li>Other duties, as requested</li>
 </ul>
+`;
+}
+
+function buildKendraServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">SERVICE AGREEMENT CONTRACT</div>
+
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} to serve as the Young Leaders Summer Support.</p>
+
+<div class="doc-section-heading">1. POSITION AND DUTIES</div>
+<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Young Leaders Summer Support Employee/Contractor and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
+
+<div class="doc-section-heading">2. COMPENSATION AND HOURS</div>
+<table style="width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:0.92rem;">
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;width:40%;color:#555;">Role</td>
+        <td style="padding:0.6rem 0.5rem;">Young Leaders Summer Support</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Hourly Rate</td>
+        <td style="padding:0.6rem 0.5rem;">$20.00 per hour/Contractor. Benefits are not provided, Taxes are contractor's responsibility</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Scheduled Hours</td>
+        <td style="padding:0.6rem 0.5rem;">10 - 12 hours per week</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Additional Hours</td>
+        <td style="padding:0.6rem 0.5rem;">Must be approved in advance by the Executive Director. Compensation at the same hourly rate applies</td>
+    </tr>
+    <tr>
+        <td style="padding:0.6rem 0.5rem;color:#555;">Pay Period</td>
+        <td style="padding:0.6rem 0.5rem;">To be determined by Organization</td>
+    </tr>
+</table>
+
+<div class="doc-section-heading">3. CONTRACTOR/EMPLOYEES DURATION AND PROBATIONARY PERIOD</div>
+
+<div class="doc-section-heading">5. Young Leaders Summer Support Key Responsibilities</div>
+<ul class="doc-list">
+    <li>Provide support in planning, coordinating, and managing the logistics summer leadership program.</li>
+    <li>Engage and support training sessions and activities that foster civic engagement and leadership skills.</li>
+    <li>Provide support in collecting program data</li>
+    <li>Create reports on program activities and outcomes.</li>
+    <li>Build relationships and partnerships with community members</li>
+    <li>Represent WR in meetings and at events using critical and strategic thinking, planning, and reporting to identify opportunities and connections</li>
+    <li>Conduct 5 one-on -ones with community leaders</li>
+    <li>Reports to the Young Leaders Coordinator and Executive Director</li>
+</ul>
+
+<div class="doc-section-heading">6. AT-WILL EMPLOYMENT</div>
+<p class="doc-paragraph">This Contractor/Employee is at-will, meaning either party may terminate the agreement with written notice. During the probationary period, the Organization may terminate the agreement with minimal notice if performance is unsatisfactory.</p>
+
+<div class="doc-section-heading">7. CONFIDENTIALITY AND CONDUCT</div>
+<p class="doc-paragraph">The Contractor/Employee agrees to maintain confidentiality regarding all proprietary Organization information and to conduct themselves professionally at all times. The Contractor/Employee is expected to adhere to all Organization policies and procedures.</p>
+
+<div class="doc-section-heading">8. ACKNOWLEDGMENT</div>
+<p class="doc-paragraph">By signing below, both parties acknowledge that they have read, understand, and agree to the terms and conditions outlined in this Agreement.</p>
 `;
 }

@@ -254,7 +254,7 @@ function createEmployeeTimesheetCard(employee) {
     // Pay calculation
     const EMPLOYEE_RATES = {
         'VZdD61oB7daZay6Ywp930xsUQod2': 24,
-        '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2': 16,
+        '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2': 20,
         'WbyPWW3M2adPCxW427OgccobV512': 16,
         'bnxVbku9G6Q4uLa0p4J8GfvPfm33': 16,
         'KD8JLN2ZALTJXbU7iCadbsodi1t2': 16,
