@@ -11,6 +11,12 @@ const NKOYA_UID = 'VZdD61oB7daZay6Ywp930xsUQod2';
 
 const DISPLAY_NAME_OVERRIDES = {
     'VZdD61oB7daZay6Ywp930xsUQod2': 'Nkoya Kidd',
+    '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2': 'Kendra Clayton',
+    'b8DV9T7zHLbRlLQmuS6nQcbDxI73': 'Dijana Reedfields',
+    'WbyPWW3M2adPCxW427OgccobV512': 'Franklyn Hughes',
+    'bnxVbku9G6Q4uLa0p4J8GfvPfm33': 'Mariah Jordan',
+    'KD8JLN2ZALTJXbU7iCadbsodi1t2': 'Ivan Grant',
+    'inNsPd91xoXzzhp01Xk9id3deAn1': 'Mekylah Endsley',
 };
 
 const BASE_CONTRACT_DOCS = [
