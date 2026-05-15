@@ -9,6 +9,15 @@ let contractsListenerUnsubscribe = null;
 
 const NKOYA_UID = 'VZdD61oB7daZay6Ywp930xsUQod2';
 
+const SUMMER_YOUTH_UIDS = new Set([
+    '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2',
+    'b8DV9T7zHLbRlLQmuS6nQcbDxI73',
+    'WbyPWW3M2adPCxW427OgccobV512',
+    'bnxVbku9G6Q4uLa0p4J8GfvPfm33',
+    'KD8JLN2ZALTJXbU7iCadbsodi1t2',
+    'inNsPd91xoXzzhp01Xk9id3deAn1',
+]);
+
 const DISPLAY_NAME_OVERRIDES = {
     'VZdD61oB7daZay6Ywp930xsUQod2': 'Nkoya Kidd',
     '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2': 'Kendra Clayton',
@@ -302,7 +311,9 @@ function renderDocument(docId) {
         case 'email':   docHTML = buildEmailPolicyDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'service': docHTML = contractsCurrentStaffId === NKOYA_UID
             ? buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
-            : buildStaffServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+            : SUMMER_YOUTH_UIDS.has(contractsCurrentStaffId)
+                ? buildSummerYouthServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
+                : buildStaffServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
     }
 
     docContent.innerHTML = `
@@ -1703,6 +1714,60 @@ function buildStaffServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
     <li>Provide turnout, phone banking, advocacy, engagement and other organizing efforts</li>
     <li>Submit brief reports about work and progress</li>
     <li>Must be able to work some evenings and some weekends</li>
+    <li>Other duties, as requested</li>
+</ul>
+`;
+}
+
+function buildSummerYouthServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">Summer Youth Ambassador</div>
+<div class="doc-title">SERVICE AGREEMENT</div>
+
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Community Engagement Ambassador.</p>
+
+<div class="doc-section-heading">1. POSITION AND DUTIES</div>
+<p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Community Engagement Ambassador for WESTSIDE RISING and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
+
+<div class="doc-section-heading">2. COMPENSATION AND HOURS</div>
+<table style="width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:0.92rem;">
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;width:40%;color:#555;">Role</td>
+        <td style="padding:0.6rem 0.5rem;">Community Engagement Ambassador</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Hourly Rate</td>
+        <td style="padding:0.6rem 0.5rem;">$16.00 per hour/Contractor. Benefits are not provided, Taxes are contractor's responsibility</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Scheduled Hours</td>
+        <td style="padding:0.6rem 0.5rem;">10 – 12 hours per week</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e9ecef;">
+        <td style="padding:0.6rem 0.5rem;color:#555;">Additional Hours</td>
+        <td style="padding:0.6rem 0.5rem;">Must be approved in advance by the Executive Director. Compensation at the same hourly rate applies</td>
+    </tr>
+    <tr>
+        <td style="padding:0.6rem 0.5rem;color:#555;">Pay Period</td>
+        <td style="padding:0.6rem 0.5rem;">To be determined by Organization</td>
+    </tr>
+</table>
+
+<p class="doc-paragraph">About the Role: WESTSIDE RISING is offering a Summer Youth Ambassador position. This position provides direct support to the Young Leaders Coordinator and the Community Organizer. The preferred person is passionate about Social Justice, has basic knowledge of their community and has interest in participating in outreach and engagement practices to support the life cycle of WR organizing campaigns.</p>
+
+<p class="doc-paragraph">Responsibilities:</p>
+<ul class="doc-list">
+    <li>Must learn about and be able to present information about Westside Rising</li>
+    <li>Work with the WR YL Coordinator, Organizer, a other support staff to assist with external activities.</li>
+    <li>Conduct boots-on-the-ground and other outreach and engagement efforts in the community.</li>
+    <li>Conduct community surveys, polling, and interviews</li>
+    <li>Conduct 2  one-on-ones per month</li>
+    <li>Attend and support community meetings and events</li>
+    <li>Provide turnout, phone banking and engagement efforts</li>
+    <li>Conduct door-knocking, flyering, surveying, phone banking, etc.</li>
+    <li>Submit brief reports about work and progress</li>
+    <li>Must be able to work some evenings and some weekends</li>
+    <li>Must attend and recruit people for the WR mandatory monthly meeting on the last Tuesday of each month</li>
     <li>Other duties, as requested</li>
 </ul>
 `;

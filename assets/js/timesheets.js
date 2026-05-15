@@ -252,7 +252,15 @@ function createEmployeeTimesheetCard(employee) {
     card.className = 'employee-timesheet';
 
     // Pay calculation
-    const EMPLOYEE_RATES = { 'VZdD61oB7daZay6Ywp930xsUQod2': 24 };
+    const EMPLOYEE_RATES = {
+        'VZdD61oB7daZay6Ywp930xsUQod2': 24,
+        '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2': 16,
+        'b8DV9T7zHLbRlLQmuS6nQcbDxI73': 16,
+        'WbyPWW3M2adPCxW427OgccobV512': 16,
+        'bnxVbku9G6Q4uLa0p4J8GfvPfm33': 16,
+        'KD8JLN2ZALTJXbU7iCadbsodi1t2': 16,
+        'inNsPd91xoXzzhp01Xk9id3deAn1': 16,
+    };
     const HOURLY_RATE = EMPLOYEE_RATES[employee.userId] || 18;
     const period = allPayPeriods.find(p => p.id === currentPeriodId);
     const week1Start = period ? new Date(period.start) : null;
