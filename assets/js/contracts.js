@@ -11,7 +11,6 @@ const NKOYA_UID = 'VZdD61oB7daZay6Ywp930xsUQod2';
 
 const SUMMER_YOUTH_UIDS = new Set([
     '4MgSx1ni3xYYaiGV5ZLC5JEpwuf2',
-    'b8DV9T7zHLbRlLQmuS6nQcbDxI73',
     'WbyPWW3M2adPCxW427OgccobV512',
     'bnxVbku9G6Q4uLa0p4J8GfvPfm33',
     'KD8JLN2ZALTJXbU7iCadbsodi1t2',
