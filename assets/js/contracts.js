@@ -334,7 +334,7 @@ function renderDocument(docId) {
     // Print button
     const printBtn = docContent.querySelector('.print-doc-btn');
     if (printBtn) {
-        printBtn.addEventListener('click', () => window.print());
+        printBtn.addEventListener('click', () => printDocument());
     }
 
     // Auto-save on field change
@@ -424,20 +424,24 @@ function printDocument() {
     const docBody = document.querySelector('.document-body');
     if (!docBody) return;
 
-    const iframe = document.createElement('iframe');
-    iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none;';
-    document.body.appendChild(iframe);
+    const printWin = window.open('', '_blank');
+    if (!printWin) {
+        alert('Please allow popups for this site to print documents.');
+        return;
+    }
 
-    const doc = iframe.contentWindow.document;
-    doc.open();
-    doc.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
-        body{font-family:Arial,Helvetica,sans-serif;padding:2rem 3rem;color:#222;font-size:11pt;line-height:1.7;}
+    printWin.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body{font-family:Arial,Helvetica,sans-serif;padding:2rem 3rem;color:#222;font-size:11pt;line-height:1.7;margin:0;}
         .doc-title{text-align:center;font-weight:700;font-size:1rem;text-decoration:underline;margin-bottom:1.2rem;}
         .doc-section-heading{font-weight:700;margin:1.2rem 0 0.4rem;}
         .doc-sub-heading{font-weight:700;margin:0.8rem 0 0.3rem;}
         .doc-paragraph{margin-bottom:0.8rem;}
         .doc-list{margin:0.4rem 0 0.8rem 1.5rem;padding:0;}
         .doc-list li{margin-bottom:0.3rem;}
+        .doc-sub-list{margin:0.3rem 0 0.3rem 1.5rem;list-style-type:circle;}
         .doc-field{display:inline-block;border:none;border-bottom:1px solid #333;background:transparent;font-family:inherit;font-size:inherit;color:#222;min-width:120px;padding:0 2px;}
         .doc-field-wide{min-width:220px;}
         .doc-field-narrow{min-width:80px;}
@@ -448,17 +452,17 @@ function printDocument() {
         .signature-party-label{font-weight:700;font-size:0.85rem;border-bottom:1px solid #ddd;padding-bottom:0.4rem;margin-bottom:0.8rem;}
         .signature-row{margin-bottom:0.6rem;}
         .signature-row label{display:block;font-size:0.75rem;font-weight:600;color:#555;text-transform:uppercase;margin-bottom:0.2rem;}
-        .signature-name-display{font-family:'Brush Script MT',cursive;font-size:1.4rem;color:#1a1a4e;border-bottom:1px solid #333;min-height:1.8rem;padding:0.1rem 0;}
-        .signature-name-input{font-family:'Brush Script MT',cursive;font-size:1.4rem;color:#1a1a4e;border:none;border-bottom:1px solid #333;background:transparent;width:100%;}
+        .signature-name-display{font-family:'Dancing Script','Brush Script MT',cursive;font-size:1.4rem;color:#1a1a4e;border-bottom:1px solid #333;min-height:1.8rem;padding:0.1rem 0;}
+        .signature-name-input{font-family:'Dancing Script','Brush Script MT',cursive;font-size:1.4rem;color:#1a1a4e;border:none;border-bottom:1px solid #333;background:transparent;width:100%;}
         .signature-date-display{font-size:0.85rem;border-bottom:1px solid #ccc;min-height:1.2rem;padding:0.1rem 0;}
         .signature-locked-badge{display:none;}
-    </style></head><body>${docBody.innerHTML}</body></html>`);
-    doc.close();
-
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
-
-    setTimeout(() => document.body.removeChild(iframe), 1000);
+        .contract-action-bar{display:none;}
+        .doc-status-banner{display:none;}
+    </style>
+    </head><body>${docBody.innerHTML}</body></html>`);
+    printWin.document.close();
+    printWin.focus();
+    printWin.print();
 }
 
 // ==================== Auto-Save ====================
