@@ -508,30 +508,37 @@
 
 /* ==================== Print Styles ==================== */
 @media print {
-    /* Hide everything by default */
-    body * {
-        visibility: hidden;
-    }
-
-    /* Show only the document card and its contents */
-    .document-card,
-    .document-card * {
-        visibility: visible;
-    }
-
-    .document-card {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    /* Hide action bar and status banner inside the card */
-    .contract-action-bar,
-    .doc-status-banner {
+    /* Hide non-document elements so they are fully removed from layout */
+    .navbar,
+    .dashboard-tabs,
+    .contracts-back-btn,
+    .contracts-header-bar,
+    .doc-tabs,
+    .doc-status-banner,
+    .contract-action-bar {
         display: none !important;
+    }
+
+    /* Remove section padding so document starts at the top */
+    #dashboard-section {
+        padding: 0 !important;
+    }
+
+    /* Hide the page title/subtitle above the tabs */
+    #dashboard-section > .container > div:first-child {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* Clean document card */
+    .document-card {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
     }
 
     .document-body {
