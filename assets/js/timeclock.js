@@ -264,14 +264,16 @@ async function updateTimeclockUI() {
         stopLiveTimer();
     }
 
-    // Reset stat cards — they load on click
-    ['hours-today', 'hours-week', 'hours-period', 'hours-last-period'].forEach(id => {
-        document.getElementById(id).textContent = '—';
-    });
     activeStatType = null;
     document.querySelectorAll('.stat-card-btn').forEach(c => c.classList.remove('stat-card-active'));
     const panel = document.getElementById('stat-detail-panel');
     if (panel) panel.style.display = 'none';
+
+    // Load all stat values automatically
+    loadDailyHours(currentUser.uid);
+    loadWeeklyHours(currentUser.uid);
+    loadPayPeriodHours(currentUser.uid, getCurrentPayPeriod());
+    loadLastPayPeriodHours(currentUser.uid);
 
     await loadRecentEntries(currentUser.uid);
 }
