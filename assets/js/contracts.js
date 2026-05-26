@@ -34,9 +34,10 @@ const BASE_CONTRACT_DOCS = [
     { id: 'equip',   label: 'Equipment Agreement' },
     { id: 'sev',     label: 'Severance Agreement' },
     { id: 'coi',     label: 'Conflict of Interest' },
-    { id: 'media',   label: 'Media Release Agreement' },
-    { id: 'email',   label: 'Email Use Policy' },
-    { id: 'service', label: 'Service Agreement' },
+    { id: 'media',    label: 'Media Release Agreement' },
+    { id: 'email',    label: 'Email Use Policy' },
+    { id: 'outreach', label: 'Outreach & Protocols' },
+    { id: 'service',  label: 'Service Agreement' },
 ];
 
 function getDocList(staffUid) {
@@ -307,8 +308,9 @@ function renderDocument(docId) {
         case 'equip': docHTML = buildEquipDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'sev':   docHTML = buildSevDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'coi':     docHTML = buildCOIDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
-        case 'media':   docHTML = buildMediaReleaseDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
-        case 'email':   docHTML = buildEmailPolicyDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'media':    docHTML = buildMediaReleaseDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'email':    docHTML = buildEmailPolicyDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
+        case 'outreach': docHTML = buildOutreachDoc(savedFields, adminCanEdit, staffCanEdit, locked); break;
         case 'service': docHTML = contractsCurrentStaffId === NKOYA_UID
             ? buildServiceAgreementDoc(savedFields, adminCanEdit, staffCanEdit, locked)
             : contractsCurrentStaffId === KENDRA_UID
@@ -1284,6 +1286,40 @@ During the 45-day probationary orientation period, the Contractor/Employee must 
 
 <div class="doc-section-heading">9. ACKNOWLEDGMENT</div>
 <p class="doc-paragraph">By signing below, both parties acknowledge that they have read, understand, and agree to the terms and conditions outlined in this Agreement.</p>
+`;
+}
+
+function buildOutreachDoc(saved, adminEdit, staffEdit, locked) {
+    return `
+<div class="doc-title">Outreach & Boots on the Ground Protocols</div>
+
+<p class="doc-paragraph">These protocols must be adhered to at ALL TIMES during any outreach effort.</p>
+
+<div class="doc-section-heading">Tasks</div>
+<ul class="doc-list">
+    <li>Goal of the day: Explanation</li>
+    <li>Assigned to teams,</li>
+    <li>Establish the communication systems.</li>
+    <li>Clearly map and understand the route for the day's outreach efforts.</li>
+</ul>
+
+<div class="doc-section-heading">Protocols</div>
+<ul class="doc-list">
+    <li>Stay in pairs do not leave your partner's eyesight. you should be seen at all times for safety purposes.</li>
+    <li>Do not walk in the streets while distributing literature</li>
+    <li>Do not enter anyone's home.</li>
+    <li>Be respectful and polite at all times when speaking with residents.</li>
+    <li>Do not put any information in mailboxes or slide items under the doors. It is against the law – Mail Fraud.</li>
+    <li>Put flyers on gates, cars and house windows in a visible, noticeable spot so it can be seen and photographed from the street.</li>
+</ul>
+<p class="doc-paragraph">This is important to provide proof of work and to justify funding.</p>
+<ul class="doc-list">
+    <li>Be sure you take pictures of flyers and any literature distributed and placed for work.</li>
+    <li>Respect people who are in tents. Do not touch their property. Maintain respectful interaction and distance.</li>
+    <li>You must adhere to group leaders' instructions. Be with and stay visible when in your assigned group. If you get ahead of the group, wait on group leader.</li>
+</ul>
+
+<p class="doc-paragraph">I, ${field('outreach_name', saved, staffEdit, 'Full Name', 'doc-field-wide')}, will adhere to the above stated protocols at all times when performing any outreach duties for the organization.</p>
 `;
 }
 
