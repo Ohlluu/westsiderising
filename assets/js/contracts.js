@@ -1293,12 +1293,18 @@ function buildOutreachDoc(saved, adminEdit, staffEdit, locked) {
     return `
 <div class="doc-title">Outreach & Boots on the Ground Protocols</div>
 
-<p class="doc-paragraph">These protocols must be adhered to at ALL TIMES during any outreach effort.</p>
+<div class="doc-section-heading">What To Expect</div>
+<p class="doc-paragraph">We will meet at predetermined locations (shared via email). We will gather and provide an overview of the process and protocols. We will establish the goals for the day, and participants will be assigned to teams, areas, and provided safety vests. Once we've completed the designated area, all teams will reconvene, submit reflections, and debrief. We provide clipboards, pens, bags, literature</p>
+<p class="doc-paragraph">Note: Pictures and videos are captured while we are in the community.</p>
+<div class="doc-section-heading">Considerations</div>
+<p class="doc-paragraph">Our outreach efforts cover large community areas and require a lot of walking. Please wear comfortable shoes and dress appropriately for the weather.</p>
 
-<div class="doc-section-heading">Tasks</div>
+<p class="doc-paragraph">The following protocols must be adhered to at ALL TIMES during any WESTSIDE RISING outreach effort.</p>
+
+<div class="doc-section-heading">Preliminary Brief</div>
 <ul class="doc-list">
-    <li>Goal of the day: Explanation</li>
-    <li>Assigned to teams,</li>
+    <li>Goal of the day: Explain in detail what we want to accomplish today</li>
+    <li>Assign teams</li>
     <li>Establish the communication systems.</li>
     <li>Clearly map and understand the route for the day's outreach efforts.</li>
 </ul>
@@ -1307,7 +1313,7 @@ function buildOutreachDoc(saved, adminEdit, staffEdit, locked) {
 <ul class="doc-list">
     <li>Stay in pairs do not leave your partner's eyesight. you should be seen at all times for safety purposes.</li>
     <li>Do not walk in the streets while distributing literature</li>
-    <li>Do not enter anyone's home.</li>
+    <li>Do not enter anyone's home or car.</li>
     <li>Be respectful and polite at all times when speaking with residents.</li>
     <li>Do not put any information in mailboxes or slide items under the doors. It is against the law – Mail Fraud.</li>
     <li>Put flyers on gates, cars and house windows in a visible, noticeable spot so it can be seen and photographed from the street.</li>
@@ -1316,10 +1322,12 @@ function buildOutreachDoc(saved, adminEdit, staffEdit, locked) {
 <ul class="doc-list">
     <li>Be sure you take pictures of flyers and any literature distributed and placed for work.</li>
     <li>Respect people who are in tents. Do not touch their property. Maintain respectful interaction and distance.</li>
-    <li>You must adhere to group leaders' instructions. Be with and stay visible when in your assigned group. If you get ahead of the group, wait on group leader.</li>
+    <li>You must adhere to leaders' instructions. Be with and stay visible when in your assigned group. If you get ahead of the group, wait on group leader.</li>
 </ul>
 
-<p class="doc-paragraph">I, ${field('outreach_name', saved, staffEdit, 'Full Name', 'doc-field-wide')}, will adhere to the above stated protocols at all times when performing any outreach duties for the organization.</p>
+<p class="doc-paragraph"><strong>Health Considerations:</strong> If you have any health/medical condition that restrict extended physical activity of any kind, do not participate in WESTSIDE RISING's outreach efforts. <strong>Waiver:</strong> I agree that WESTSIDE RISING is not responsible or liable for harm, injury or medical incident of any sort incurred in association with these volunteer activities. Furthermore, I affirm that I am in good health and am fully capable of performing the duties and activities required.</p>
+
+<p class="doc-paragraph">I, ${field('outreach_name', saved, staffEdit, 'Full Name', 'doc-field-wide')}, acknowledge and agree to adhere to the above stated protocols at all times. Furthermore, I affirm the above health considerations and waiver statements.</p>
 `;
 }
 
