@@ -55,6 +55,7 @@
                     <p>Access the event management dashboard</p>
                 </div>
 
+                <!-- Login Form -->
                 <form class="login-form" id="admin-login-form">
                     <div class="form-group">
                         <label for="email">Email Address</label>
@@ -81,7 +82,40 @@
                         <i class="fas fa-sign-in-alt"></i>
                         Sign In
                     </button>
+
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <a href="#" id="forgot-password-link" style="font-size: 0.9rem; color: var(--primary-color); text-decoration: none;">Forgot Password?</a>
+                    </div>
                 </form>
+
+                <!-- Forgot Password Form -->
+                <div id="forgot-password-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="reset-email">Enter your email address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="reset-email" placeholder="admin@westsiderising.org">
+                        </div>
+                    </div>
+
+                    <div class="form-error" id="reset-error" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="reset-error-text"></span>
+                    </div>
+
+                    <div id="reset-success" style="display: none; background: #d4edda; color: #155724; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle"></i> Reset link sent! Check your email.
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="reset-btn" onclick="sendResetEmail()">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Reset Link
+                    </button>
+
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <a href="#" id="back-to-login-link" style="font-size: 0.9rem; color: var(--primary-color); text-decoration: none;"><i class="fas fa-arrow-left"></i> Back to Login</a>
+                    </div>
+                </div>
 
                 <div class="login-footer">
                     <p><i class="fas fa-info-circle"></i> Admin access only. Contact support if you need access.</p>
@@ -167,6 +201,6 @@
     </button>
 
     <script src="assets/js/main.js?v=1"></script>
-    <script type="module" src="assets/js/admin-login.js?v=10"></script>
+    <script type="module" src="assets/js/admin-login.js?v=11"></script>
 </body>
 </html>

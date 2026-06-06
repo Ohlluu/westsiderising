@@ -1,11 +1,62 @@
 import { auth, db } from './firebase-config.js?v=5';
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const loginForm = document.getElementById('admin-login-form');
 const errorMessage = document.getElementById('error-message');
 const errorText = document.getElementById('error-text');
 const loginBtn = document.getElementById('login-btn');
+
+// Forgot password toggle
+document.getElementById('forgot-password-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    loginForm.style.display = 'none';
+    document.getElementById('forgot-password-form').style.display = 'block';
+});
+
+document.getElementById('back-to-login-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('forgot-password-form').style.display = 'none';
+    document.getElementById('reset-success').style.display = 'none';
+    document.getElementById('reset-error').style.display = 'none';
+    document.getElementById('reset-email').value = '';
+    loginForm.style.display = 'block';
+});
+
+async function sendResetEmail() {
+    const email = document.getElementById('reset-email').value.trim();
+    const resetBtn = document.getElementById('reset-btn');
+    const resetError = document.getElementById('reset-error');
+    const resetSuccess = document.getElementById('reset-success');
+
+    resetError.style.display = 'none';
+    resetSuccess.style.display = 'none';
+
+    if (!email) {
+        document.getElementById('reset-error-text').textContent = 'Please enter your email address.';
+        resetError.style.display = 'flex';
+        return;
+    }
+
+    resetBtn.disabled = true;
+    resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+    try {
+        await sendPasswordResetEmail(auth, email);
+        resetSuccess.style.display = 'block';
+        resetBtn.innerHTML = '<i class="fas fa-check"></i> Sent';
+    } catch (error) {
+        let msg = 'Failed to send reset email. Please try again.';
+        if (error.code === 'auth/user-not-found') msg = 'No account found with that email address.';
+        if (error.code === 'auth/invalid-email') msg = 'Invalid email address format.';
+        document.getElementById('reset-error-text').textContent = msg;
+        resetError.style.display = 'flex';
+        resetBtn.disabled = false;
+        resetBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reset Link';
+    }
+}
+
+window.sendResetEmail = sendResetEmail;
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
