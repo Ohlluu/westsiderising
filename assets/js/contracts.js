@@ -976,7 +976,7 @@ function buildCOIDoc(saved, adminEdit, staffEdit, locked) {
     return `
 <div class="doc-title">CONFLICT OF INTEREST AND NON-COMPETE AGREEMENT</div>
 
-<p class="doc-paragraph"><strong>This Conflict of Interest and Non-Compete Agreement</strong> ("Agreement") is entered into as of ${field('coi_date', saved, adminEdit, 'Date')} (date), between <strong>WESTSIDE RISING</strong> ("Organization"), located at 5100 W. Harrison, Chicago, IL, and ${field('coi_employee_name', saved, staffEdit, 'Employee/Contractor name', 'doc-field-wide')} ("Employee/Contractor").</p>
+<p class="doc-paragraph"><strong>This Conflict of Interest and Non-Compete Agreement</strong> ("Agreement") is entered into as of ${field('coi_date', saved, adminEdit, 'Date')} (date), between <strong>WESTSIDE RISING</strong> ("Organization"), located in Chicago, IL, and ${field('coi_employee_name', saved, staffEdit, 'Employee/Contractor name', 'doc-field-wide')} ("Employee/Contractor").</p>
 
 <div class="doc-section-heading">1. PURPOSE AND SCOPE</div>
 <p class="doc-paragraph">This Agreement is designed to protect the Organization's interests, maintain the integrity of its operations, and ensure that the Employee/Contractor performs their duties with undivided loyalty and without competing interests.</p>
@@ -1204,7 +1204,7 @@ function buildServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
 <div class="doc-title">SERVICE AGREEMENT CONTRACT</div>
 <div class="doc-title">NKOYA KIDD</div>
 
-<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Young Leaders Coordinator/Contracted Paid Intern.</p>
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located in Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Young Leaders Coordinator/Contracted Paid Intern.</p>
 
 <div class="doc-section-heading">1. POSITION AND DUTIES</div>
 <p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Young Leaders Coordinator Employee/Contractor and Social Media Manager; and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
@@ -1719,7 +1719,7 @@ function buildStaffServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
 <div class="doc-title">Community Engagement Ambassador (CEA)</div>
 <div class="doc-title">SERVICE AGREEMENT</div>
 
-<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Community Engagement Ambassador.</p>
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located in Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Community Engagement Ambassador.</p>
 
 <div class="doc-section-heading">1. POSITION AND DUTIES</div>
 <p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Community Engagement Ambassador for WESTSIDE RISING and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
@@ -1774,7 +1774,7 @@ function buildSummerYouthServiceAgreementDoc(saved, adminEdit, staffEdit, locked
 <div class="doc-title">Summer Youth Ambassador</div>
 <div class="doc-title">SERVICE AGREEMENT</div>
 
-<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Community Engagement Ambassador.</p>
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located in Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} Community Engagement Ambassador.</p>
 
 <div class="doc-section-heading">1. POSITION AND DUTIES</div>
 <p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Community Engagement Ambassador for WESTSIDE RISING and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
@@ -1827,7 +1827,7 @@ function buildKendraServiceAgreementDoc(saved, adminEdit, staffEdit, locked) {
     return `
 <div class="doc-title">SERVICE AGREEMENT CONTRACT</div>
 
-<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located at 5100 W. Harrison, Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} to serve as the Young Leaders Summer Support.</p>
+<p class="doc-paragraph">Service Agreement is entered into as of ${field('svc_date', saved, adminEdit, 'Date')} (date), between WESTSIDE RISING Organization, located in Chicago, IL 60644, and ${field('svc_employee_name', saved, staffEdit, 'Full name', 'doc-field-wide')} to serve as the Young Leaders Summer Support.</p>
 
 <div class="doc-section-heading">1. POSITION AND DUTIES</div>
 <p class="doc-paragraph">The Employee/Contractor agrees to serve in the capacity of Young Leaders Summer Support Employee/Contractor and shall perform duties as assigned by the Supervisor/Executive Director, including but not limited to those outlined in the attached job description document.</p>
