@@ -1,0 +1,385 @@
+/* ==========================================================================
+   5TH ANNIVERSARY CELEBRATION SOIRÉE — ticket promotion components
+   Three distinct treatments sharing one set of tokens:
+     1. .soiree-modal      → homepage popup
+     2. .support-paths     → donate page dual-path layout
+     3. .soiree-card       → leadership awards inline card
+   ========================================================================== */
+
+:root {
+    --soiree-gold: #C9A227;
+    --soiree-gold-light: #E8C547;
+    --soiree-ink: #1A1A1A;
+}
+
+/* Shared: anniversary badge -------------------------------------------------- */
+.soiree-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--soiree-gold);
+    border: 1px solid var(--soiree-gold);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+}
+.soiree-badge i {
+    font-size: 0.8rem;
+}
+
+/* Shared: meta rows (date / venue / price) --------------------------------- */
+.soiree-meta {
+    list-style: none;
+    margin: 1.25rem 0;
+    padding: 0;
+}
+.soiree-meta li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-family: var(--font-secondary);
+    font-size: 0.97rem;
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+    color: var(--dark-gray);
+}
+.soiree-meta i {
+    color: var(--primary-red);
+    width: 1.1rem;
+    text-align: center;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   1. HOMEPAGE POPUP
+   ========================================================================== */
+.soiree-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.soiree-modal-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.soiree-modal {
+    position: relative;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.soiree-modal-overlay.is-visible .soiree-modal {
+    transform: translateY(0) scale(1);
+}
+
+.soiree-modal-banner {
+    background: linear-gradient(135deg, var(--soiree-ink), #3A2A2A 60%, var(--burgundy));
+    border-radius: 16px 16px 0 0;
+    padding: 2rem 2rem 1.75rem;
+    text-align: center;
+}
+.soiree-modal-banner .soiree-badge {
+    color: var(--soiree-gold-light);
+    border-color: var(--soiree-gold-light);
+    margin-bottom: 1rem;
+}
+.soiree-modal-banner h2 {
+    font-family: var(--font-primary);
+    font-size: 1.85rem;
+    line-height: 1.15;
+    color: var(--white);
+    margin: 0;
+}
+.soiree-modal-banner p {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0.6rem 0 0;
+}
+
+.soiree-modal-body {
+    padding: 1.75rem 2rem 2rem;
+}
+.soiree-modal-body > p {
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--medium-gray);
+    margin: 0;
+}
+
+.soiree-modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+}
+.soiree-modal-dismiss {
+    background: none;
+    border: none;
+    font-family: var(--font-secondary);
+    font-size: 0.9rem;
+    color: var(--warm-gray);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--transition);
+}
+.soiree-modal-dismiss:hover {
+    color: var(--dark-gray);
+    text-decoration: underline;
+}
+
+.soiree-modal-close {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 2;
+}
+.soiree-modal-close:hover {
+    background: rgba(255, 255, 255, 0.32);
+    transform: rotate(90deg);
+}
+
+/* ==========================================================================
+   2. DONATE PAGE — dual support paths
+   ========================================================================== */
+.support-paths-section {
+    padding: 3.5rem 0 1rem;
+    background: var(--light-gray);
+}
+.support-paths-intro {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+}
+.support-paths-intro h2 {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.6rem;
+}
+.support-paths-intro p {
+    font-family: var(--font-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--medium-gray);
+    margin: 0;
+}
+
+.support-paths {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
+    align-items: stretch;
+}
+
+.support-path {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 2.25rem 2rem;
+    border-top: 4px solid var(--primary-red);
+    transition: var(--transition);
+}
+.support-path:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+.support-path--event {
+    border-top-color: var(--soiree-gold);
+}
+
+.support-path-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-red);
+    color: var(--white);
+    font-size: 1.35rem;
+    margin-bottom: 1.25rem;
+}
+.support-path--event .support-path-icon {
+    background: linear-gradient(135deg, var(--soiree-gold-light), var(--soiree-gold));
+}
+
+.support-path h3 {
+    font-family: var(--font-primary);
+    font-size: 1.45rem;
+    color: var(--dark-gray);
+    margin: 0 0 0.65rem;
+}
+.support-path > p {
+    font-family: var(--font-secondary);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--medium-gray);
+    margin: 0;
+}
+.support-path .btn {
+    margin-top: auto;
+    align-self: flex-start;
+}
+.support-path .soiree-meta {
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   3. LEADERSHIP AWARDS — inline card
+   ========================================================================== */
+.soiree-card-section {
+    padding: 2.5rem 0 0.5rem;
+}
+.soiree-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    background: var(--white);
+    border: 1px solid rgba(201, 162, 39, 0.35);
+    border-left: 5px solid var(--soiree-gold);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1.75rem 2rem;
+}
+
+.soiree-card-date {
+    text-align: center;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
+.soiree-card-month {
+    display: block;
+    font-family: var(--font-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--primary-red);
+}
+.soiree-card-day {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 2.75rem;
+    line-height: 1;
+    color: var(--dark-gray);
+}
+.soiree-card-year {
+    display: block;
+    font-family: var(--font-secondary);
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+}
+
+.soiree-card-body .soiree-badge {
+    margin-bottom: 0.7rem;
+}
+.soiree-card-body h3 {
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    color: var(--dark-gray);
+    margin: 0 0 0.4rem;
+}
+.soiree-card-body p {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--medium-gray);
+    margin: 0;
+}
+.soiree-card-body .soiree-card-details {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-top: 0.5rem;
+}
+.soiree-card-body .soiree-card-details i {
+    color: var(--primary-red);
+    margin-right: 0.4rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .soiree-modal-banner {
+        padding: 1.75rem 1.5rem 1.5rem;
+    }
+    .soiree-modal-banner h2 {
+        font-size: 1.5rem;
+    }
+    .soiree-modal-body {
+        padding: 1.5rem;
+    }
+    .support-paths-intro h2 {
+        font-size: 1.6rem;
+    }
+    .support-path {
+        padding: 1.75rem 1.5rem;
+    }
+
+    .soiree-card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    .soiree-card-date {
+        padding-right: 0;
+        padding-bottom: 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .soiree-card .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .soiree-modal-overlay,
+    .soiree-modal,
+    .support-path,
+    .soiree-modal-close {
+        transition: none;
+    }
+    .soiree-modal {
+        transform: none;
+    }
+}

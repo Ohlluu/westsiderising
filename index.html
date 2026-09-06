@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/index-colors.css">
+    <link rel="stylesheet" href="assets/css/soiree.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
@@ -440,7 +441,46 @@
         </div>
     </a> -->
 
+    <!-- 5th Anniversary Soirée Popup -->
+    <div class="soiree-modal-overlay" id="soiree-modal" role="dialog" aria-modal="true"
+         aria-labelledby="soiree-modal-title" aria-hidden="true">
+        <div class="soiree-modal">
+            <button class="soiree-modal-close" data-soiree-close aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="soiree-modal-banner">
+                <span class="soiree-badge"><i class="fas fa-star"></i> 5th Anniversary</span>
+                <h2 id="soiree-modal-title">Celebration Soirée</h2>
+                <p>Five years of building resident leadership</p>
+            </div>
+
+            <div class="soiree-modal-body">
+                <p>
+                    Join us for an evening of celebration and community on Chicago's Greater West Side,
+                    featuring our annual Leadership Awards.
+                </p>
+
+                <ul class="soiree-meta">
+                    <li><i class="fas fa-calendar-day"></i> <span>Thursday, November 12, 2026 at 5:30 PM</span></li>
+                    <li><i class="fas fa-map-marker-alt"></i> <span>3020 W Carroll Ave, Chicago, IL 60612</span></li>
+                    <li><i class="fas fa-ticket-alt"></i> <span>$65 &mdash; includes food, music, and program</span></li>
+                </ul>
+
+                <div class="soiree-modal-actions">
+                    <a href="https://www.zeffy.com/en-US/ticketing/annual-gala-7298" target="_blank" rel="noopener"
+                       class="btn btn-primary" data-soiree-cta>
+                        Get Your Tickets
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <button class="soiree-modal-dismiss" data-soiree-close>Maybe later</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/js/main.js"></script>
     <script type="module" src="assets/js/newsletter-form.js"></script>
+    <script src="assets/js/soiree-modal.js"></script>
 </body>
 </html>
