@@ -49,8 +49,8 @@ async function renderBODRoster() {
                 <div>
                     <h2 class="bod-title">Board of Directors</h2>
                     <p class="bod-subtitle">
-                        Signed governance documents. Each director receives a private link &mdash;
-                        these pages are not linked anywhere on the website.
+                        Signed governance documents. Each director receives a private link,
+                        and these pages are not linked anywhere on the website.
                     </p>
                 </div>
                 <button class="bod-add-btn" onclick="showBODAddForm()">

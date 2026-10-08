@@ -155,7 +155,7 @@ function renderBoardPortal() {
                 <div class="board-banner">
                     <i class="fas fa-info-circle"></i>
                     Please review and sign each document below. You can complete these over multiple
-                    visits using the same link &mdash; your entries are saved as you go.
+                    visits using the same link, and your entries are saved as you go.
                 </div>`}
 
             <div class="doc-tabs" id="board-doc-tabs"></div>
@@ -197,7 +197,7 @@ function renderBoardDocument(docId) {
     const sig = docData.signature || {};
 
     const banner = signed
-        ? `<div class="doc-status-banner fully-signed"><i class="fas fa-lock"></i> Signed on ${formatBoardDate(sig.date)} &mdash; this document is locked.</div>`
+        ? `<div class="doc-status-banner fully-signed"><i class="fas fa-lock"></i> Signed on ${formatBoardDate(sig.date)}. This document is locked.</div>`
         : `<div class="doc-status-banner pending-staff"><i class="fas fa-pen"></i> Complete the highlighted fields, then sign at the bottom.</div>`;
 
     content.innerHTML = `
@@ -244,7 +244,7 @@ function renderBoardSignatureBlock(docId, sig, signed) {
                     <div class="signature-date-display">${dateDisplay}</div>
                 </div>
             </div>
-            ${signed ? '<div style="margin-top:1rem;"><span class="signature-locked-badge"><i class="fas fa-lock"></i> Signed &mdash; Locked</span></div>' : ''}
+            ${signed ? '<div style="margin-top:1rem;"><span class="signature-locked-badge"><i class="fas fa-lock"></i> Signed and Locked</span></div>' : ''}
         </div>
     `;
 }
