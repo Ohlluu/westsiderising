@@ -33,6 +33,121 @@ function bdField(id, saved, canEdit, placeholder, extraClass) {
     return `<input class="${cls}" id="${id}" value="${val}" placeholder="${bdEscape(placeholder || '________________')}" autocomplete="off">`;
 }
 
+// Dates use a native picker so directors tap a calendar instead of typing a date.
+// The stored value is always YYYY-MM-DD; it is only formatted for display.
+function bdDateField(id, saved, canEdit) {
+    const raw = saved[id] || '';
+    if (!canEdit) {
+        return `<span class="doc-field doc-date-field signed-field" id="${id}" data-value="${bdEscape(raw)}">${bdEscape(bdFormatDateValue(raw)) || '&nbsp;'}</span>`;
+    }
+    return `<input type="date" class="doc-field doc-date-field" id="${id}" value="${bdEscape(raw)}">`;
+}
+
+// Parsed as local time on purpose. `new Date('2026-06-03')` is treated as UTC and
+// renders as June 2 for anyone west of Greenwich, which includes Chicago.
+function bdFormatDateValue(value) {
+    if (!value) return '';
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    if (!m) return value;
+    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return isNaN(d.getTime()) ? value : d.toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
+}
+
+// ==================== PDF Download ====================
+//
+// Renders the on-screen document to a canvas and slices it across A4 pages.
+// The result is a visual copy, so its text is not selectable — Print > Save as PDF
+// produces selectable text if that matters. This exists because "Download" should
+// hand you a file directly instead of routing through a print dialog.
+
+function bdFilename(docLabel, memberName, ext) {
+    const slug = s => String(s || '')
+        .replace(/[^a-zA-Z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    const parts = [slug(docLabel), slug(memberName)].filter(Boolean);
+    return `${parts.join('-')}.${ext}`;
+}
+
+// Returns the document's HTML with every <input> replaced by its rendered value.
+// Both print and PDF need this: a live `<input type="date">` would otherwise print
+// as a calendar widget showing "mm/dd/yyyy" instead of the date the director picked.
+function bdStaticHTML(bodyEl) {
+    const clone = bodyEl.cloneNode(true);
+
+    clone.querySelectorAll('input').forEach(input => {
+        const span = document.createElement('span');
+        span.className = input.className;
+        span.textContent = input.type === 'date'
+            ? bdFormatDateValue(input.value)
+            : input.value;
+        if (!span.textContent) span.innerHTML = '&nbsp;';
+        input.parentNode.replaceChild(span, input);
+    });
+
+    clone.querySelectorAll('.doc-status-banner, .contract-action-bar').forEach(el => el.remove());
+    return clone.innerHTML;
+}
+
+async function bdDownloadPDF(bodyEl, filename, btn) {
+    if (typeof html2canvas !== 'function' || !window.jspdf || !window.jspdf.jsPDF) {
+        alert('The PDF library did not load. Please refresh the page and try again, or use Print and choose "Save as PDF".');
+        return;
+    }
+
+    const original = btn ? btn.innerHTML : null;
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing…';
+    }
+
+    // Render off-screen at a fixed width so the PDF does not inherit the
+    // viewport width of whatever device the director happens to be using.
+    const stage = document.createElement('div');
+    stage.style.cssText = 'position:fixed;left:-10000px;top:0;width:820px;background:#fff;padding:40px;';
+    stage.className = 'bd-pdf-stage';
+    stage.innerHTML = bdStaticHTML(bodyEl);
+
+    document.body.appendChild(stage);
+
+    try {
+        const canvas = await html2canvas(stage, {
+            scale: 2,
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false
+        });
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const pageW = 210, pageH = 297, margin = 12;
+        const usableW = pageW - margin * 2;
+        const usableH = pageH - margin * 2;
+        const imgH = (canvas.height * usableW) / canvas.width;
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+
+        pdf.addImage(imgData, 'JPEG', margin, margin, usableW, imgH);
+
+        let heightLeft = imgH - usableH;
+        while (heightLeft > 0) {
+            pdf.addPage();
+            // Shift the same image up so the next slice lands in the page window.
+            pdf.addImage(imgData, 'JPEG', margin, margin - (imgH - heightLeft), usableW, imgH);
+            heightLeft -= usableH;
+        }
+
+        pdf.save(filename);
+    } catch (err) {
+        console.error('PDF download error:', err);
+        alert('We could not build the PDF. Please try Print and choose "Save as PDF" instead.');
+    } finally {
+        stage.remove();
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
+    }
+}
+
 // ==================== Document Builder Dispatch ====================
 
 function buildBoardDocument(docId, saved, canEdit) {
@@ -199,6 +314,8 @@ function buildBoardServiceAgreement(saved, canEdit) {
 
     <p class="doc-paragraph">Board Member Name: ${bdField('bsa_name', saved, canEdit, 'Full name', 'doc-field-wide')}</p>
 
+    <p class="doc-paragraph">Date: ${bdDateField('bsa_date', saved, canEdit)}</p>
+
     <div class="doc-closing">
         <div>Executive Director</div>
         <div><strong>Dr. Angelique Orr</strong></div>
@@ -215,7 +332,7 @@ function buildBoardNDA(saved, canEdit) {
     <div class="doc-title">BOARD OF DIRECTORS<br>NON-DISCLOSURE AGREEMENT</div>
 
     <p class="doc-paragraph">This Non-Disclosure Agreement ("Agreement") is made and effective as of
-    ${bdField('nda_effective_date', saved, canEdit, 'Date')},
+    ${bdDateField('nda_effective_date', saved, canEdit)},
     by and between <strong>WESTSIDE RISING</strong> ("Organization" or "Owner"), an Illinois not-for-profit
     corporation located in Chicago, IL, and
     ${bdField('nda_member_name', saved, canEdit, 'Board member name', 'doc-field-wide')},
@@ -269,7 +386,7 @@ function buildBoardCOI(saved, canEdit) {
     <div class="doc-title">CONFLICT OF INTEREST AGREEMENT<br>AND ANNUAL DISCLOSURE STATEMENT</div>
 
     <p class="doc-paragraph">This Conflict of Interest Agreement ("Agreement") is made and effective as of
-    ${bdField('coi_effective_date', saved, canEdit, 'Date')},
+    ${bdDateField('coi_effective_date', saved, canEdit)},
     by and between <strong>WESTSIDE RISING</strong> (the "Corporation"), an Illinois not-for-profit
     corporation located in Chicago, IL, and
     ${bdField('coi_member_name', saved, canEdit, 'Board member name', 'doc-field-wide')},

@@ -378,13 +378,23 @@ function renderBODDocument(docId) {
                 ${sigBlock}
             </div>
             <div class="contract-action-bar">
-                <button class="contract-save-btn print-doc-btn"><i class="fas fa-print"></i> Print / Save PDF</button>
+                <button class="contract-save-btn print-doc-btn"><i class="fas fa-print"></i> Print</button>
+                <button class="contract-save-btn download-doc-btn"><i class="fas fa-download"></i> Download PDF</button>
             </div>
         </div>
     `;
 
     const printBtn = content.querySelector('.print-doc-btn');
     if (printBtn) printBtn.addEventListener('click', () => printBODDocument(docId));
+
+    const downloadBtn = content.querySelector('.download-doc-btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            const member = bodMembers.find(m => m.code === bodCurrentCode) || { name: '' };
+            const body = content.querySelector('.document-body');
+            bdDownloadPDF(body, bdFilename(boardDocLabel(docId), member.name, 'pdf'), downloadBtn);
+        });
+    }
 }
 
 function printBODDocument(docId) {
@@ -425,7 +435,7 @@ function printBODDocument(docId) {
         .signature-date-display{font-size:0.85rem;border-bottom:1px solid #ccc;min-height:1.2rem;padding:0.1rem 0;max-width:220px;}
         .doc-status-banner,.contract-action-bar{display:none;}
     </style>
-    </head><body>${body.innerHTML}</body></html>`);
+    </head><body>${bdStaticHTML(body)}</body></html>`);
     win.document.close();
     win.focus();
     win.print();

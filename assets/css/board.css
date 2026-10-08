@@ -235,6 +235,31 @@ body {
     margin-bottom: 0.65rem;
 }
 
+/* Native date picker, styled to match the other inline fields. */
+.doc-date-field {
+    min-width: 0;
+    width: auto;
+    max-width: 220px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+input.doc-date-field::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+}
+
+input.doc-date-field:hover::-webkit-calendar-picker-indicator { opacity: 0.9; }
+
+/* Off-screen stage used to render the PDF at a fixed width. */
+.bd-pdf-stage {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #222;
+}
+
 .doc-closing {
     margin-top: 2rem;
     font-size: 0.92rem;

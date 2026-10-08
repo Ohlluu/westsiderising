@@ -216,6 +216,14 @@ function renderBoardDocument(docId) {
     const printBtn = content.querySelector('.print-doc-btn');
     if (printBtn) printBtn.addEventListener('click', () => printBoardDocument(docId));
 
+    const downloadBtn = content.querySelector('.download-doc-btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            const body = content.querySelector('.document-body');
+            bdDownloadPDF(body, bdFilename(boardDocLabel(docId), boardMember.name, 'pdf'), downloadBtn);
+        });
+    }
+
     if (!signed) {
         content.querySelectorAll('.doc-field').forEach(input => {
             input.addEventListener('change', () => autoSaveBoardFields(docId));
@@ -250,12 +258,14 @@ function renderBoardSignatureBlock(docId, sig, signed) {
 }
 
 function renderBoardActions(docId, signed) {
-    const printBtn = `<button class="contract-save-btn print-doc-btn"><i class="fas fa-print"></i> Print / Save PDF</button>`;
+    const printBtn = `<button class="contract-save-btn print-doc-btn"><i class="fas fa-print"></i> Print</button>`;
+    const downloadBtn = `<button class="contract-save-btn download-doc-btn"><i class="fas fa-download"></i> Download PDF</button>`;
     if (signed) {
-        return `${printBtn}<div class="contract-locked-notice"><i class="fas fa-check-circle"></i> Signed and submitted</div>`;
+        return `${printBtn}${downloadBtn}<div class="contract-locked-notice"><i class="fas fa-check-circle"></i> Signed and submitted</div>`;
     }
     return `
         ${printBtn}
+        ${downloadBtn}
         <button class="contract-save-btn" onclick="autoSaveBoardFields('${docId}')"><i class="fas fa-save"></i> Save Progress</button>
         <button class="contract-sign-btn" onclick="submitBoardSignature('${docId}')"><i class="fas fa-pen-nib"></i> Sign Document</button>
     `;
@@ -380,7 +390,7 @@ function printBoardDocument(docId) {
         .signature-date-display{font-size:0.85rem;border-bottom:1px solid #ccc;min-height:1.2rem;padding:0.1rem 0;max-width:220px;}
         .signature-locked-badge,.doc-status-banner,.contract-action-bar{display:none;}
     </style>
-    </head><body>${body.innerHTML}</body></html>`);
+    </head><body>${bdStaticHTML(body)}</body></html>`);
     win.document.close();
     win.focus();
     win.print();

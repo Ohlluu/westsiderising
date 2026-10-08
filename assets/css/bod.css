@@ -202,6 +202,23 @@
     max-width: 420px;
 }
 
+/* Date fields render as read-only text in the BOD view, but keep the same metrics. */
+.doc-date-field {
+    min-width: 0;
+    width: auto;
+    max-width: 220px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Off-screen stage used to render the PDF at a fixed width. */
+.bd-pdf-stage {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #222;
+}
+
 @media (max-width: 640px) {
     .bod-header { flex-direction: column; align-items: stretch; }
     .bod-add-btn { width: 100%; }
