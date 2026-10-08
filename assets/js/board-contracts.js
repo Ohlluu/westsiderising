@@ -31,6 +31,12 @@ boardAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(err => {
 
 // ==================== State ====================
 
+// The code is kept in sessionStorage so a refresh, or a tap on the browser's back
+// button, does not drop the director back to the access-code screen. It is cleared
+// when the tab closes, so the code is never left on disk — on a shared or family
+// computer, the next person cannot reopen the documents.
+const BOARD_CODE_KEY = 'wr_board_code';
+
 let boardCode = null;        // access code === boardMembers doc id
 let boardMember = null;      // { name, revoked, ... }
 let boardData = { documents: {} };
@@ -60,10 +66,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // leaked via the Referer header on any outbound link.
         window.history.replaceState({}, document.title, window.location.pathname);
         unlockBoardPortal(codeFromUrl);
+        return;
+    }
+
+    // No code in the URL: this is a refresh or a back-navigation. Reuse the code
+    // from this tab's session rather than asking for it again.
+    let storedCode = null;
+    try {
+        storedCode = sessionStorage.getItem(BOARD_CODE_KEY);
+    } catch (e) {
+        // Private browsing modes can block sessionStorage; fall through to the gate.
+    }
+
+    if (storedCode) {
+        unlockBoardPortal(storedCode);
     } else {
         showGate();
     }
 });
+
+function rememberBoardCode(code) {
+    try { sessionStorage.setItem(BOARD_CODE_KEY, code); } catch (e) { /* non-fatal */ }
+}
+
+function forgetBoardCode() {
+    try { sessionStorage.removeItem(BOARD_CODE_KEY); } catch (e) { /* non-fatal */ }
+}
 
 function showGate() {
     document.getElementById('board-gate').style.display = 'block';
@@ -93,6 +121,7 @@ async function unlockBoardPortal(code) {
 
         const snap = await boardDb.collection('boardMembers').doc(code).get();
         if (!snap.exists) {
+            forgetBoardCode();
             showGate();
             showCodeError('That access code was not recognized. Please check the link you were sent.');
             return;
@@ -100,6 +129,7 @@ async function unlockBoardPortal(code) {
 
         const member = snap.data();
         if (member.revoked === true) {
+            forgetBoardCode();
             showGate();
             showCodeError('This access code is no longer active. Please contact Westside Rising.');
             return;
@@ -107,6 +137,7 @@ async function unlockBoardPortal(code) {
 
         boardCode = code;
         boardMember = member;
+        rememberBoardCode(code);
 
         const contractSnap = await boardDb.collection('boardContracts').doc(code).get();
         boardData = contractSnap.exists ? contractSnap.data() : { documents: {} };
