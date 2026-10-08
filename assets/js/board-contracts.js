@@ -308,7 +308,8 @@ function collectBoardFields() {
     const fields = {};
     document.querySelectorAll('#board-doc-content .doc-field').forEach(el => {
         if (!el.id) return;
-        fields[el.id] = el.tagName === 'INPUT' ? el.value : (el.dataset.value || '');
+        const isControl = el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA';
+        fields[el.id] = isControl ? el.value : (el.dataset.value || '');
     });
     return fields;
 }
@@ -336,6 +337,26 @@ async function submitBoardSignature(docId) {
     if (!sigInput || !sigInput.value.trim()) {
         alert('Please type your full name in the signature field before signing.');
         return;
+    }
+
+    // The Service Agreement records which seat the director holds, so it cannot be
+    // signed without one. "Other" is only meaningful once it has been filled in.
+    if (docId === 'bsa') {
+        const roleEl = document.getElementById('bsa_role');
+        const role = roleEl ? roleEl.value.trim() : '';
+        if (!role) {
+            alert('Please select your Role before signing.');
+            if (roleEl) roleEl.focus();
+            return;
+        }
+        if (role === 'Other') {
+            const otherEl = document.getElementById('bsa_role_other');
+            if (!otherEl || !otherEl.value.trim()) {
+                alert('Please specify your role before signing.');
+                if (otherEl) otherEl.focus();
+                return;
+            }
+        }
     }
 
     const typedName = sigInput.value.trim();

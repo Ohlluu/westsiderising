@@ -43,6 +43,49 @@ function bdDateField(id, saved, canEdit) {
     return `<input type="date" class="doc-field doc-date-field" id="${id}" value="${bdEscape(raw)}">`;
 }
 
+const BSA_ROLE_OPTIONS = [
+    'Director',
+    'President',
+    'Vice President',
+    'Chairman',
+    'Co-chairman',
+    'Secretary',
+    'Treasurer',
+    'Other',
+];
+
+// Role picker for the Service Agreement. Choosing "Other" reveals a free-text box.
+function bdRoleField(saved, canEdit) {
+    const role = saved['bsa_role'] || '';
+    const other = saved['bsa_role_other'] || '';
+
+    if (!canEdit) {
+        const shown = role === 'Other' ? (other || 'Other') : role;
+        return `<span class="doc-field doc-role-field signed-field" id="bsa_role" data-value="${bdEscape(role)}">${bdEscape(shown) || '&nbsp;'}</span>`
+             + `<span class="doc-field bd-hidden" id="bsa_role_other" data-value="${bdEscape(other)}"></span>`;
+    }
+
+    const options = ['<option value="">Select your role</option>']
+        .concat(BSA_ROLE_OPTIONS.map(o =>
+            `<option value="${bdEscape(o)}"${o === role ? ' selected' : ''}>${bdEscape(o)}</option>`))
+        .join('');
+
+    return `
+        <select class="doc-field doc-role-field" id="bsa_role" onchange="bdToggleRoleOther()">${options}</select>
+        <span id="bsa_role_other_wrap" class="bd-role-other-wrap${role === 'Other' ? '' : ' bd-hidden'}">
+            <input class="doc-field doc-field-wide" id="bsa_role_other" value="${bdEscape(other)}"
+                   placeholder="Please specify your role" autocomplete="off">
+        </span>
+    `;
+}
+
+function bdToggleRoleOther() {
+    const select = document.getElementById('bsa_role');
+    const wrap = document.getElementById('bsa_role_other_wrap');
+    if (!select || !wrap) return;
+    wrap.classList.toggle('bd-hidden', select.value !== 'Other');
+}
+
 // Parsed as local time on purpose. `new Date('2026-06-03')` is treated as UTC and
 // renders as June 2 for anyone west of Greenwich, which includes Chicago.
 function bdFormatDateValue(value) {
@@ -74,19 +117,28 @@ function bdFilename(docLabel, memberName, ext) {
 // Both print and PDF need this: a live `<input type="date">` would otherwise print
 // as a calendar widget showing "mm/dd/yyyy" instead of the date the director picked.
 function bdStaticHTML(bodyEl) {
-    const clone = bodyEl.cloneNode(true);
-
-    clone.querySelectorAll('input').forEach(input => {
-        const span = document.createElement('span');
-        span.className = input.className;
-        span.textContent = input.type === 'date'
-            ? bdFormatDateValue(input.value)
-            : input.value;
-        if (!span.textContent) span.innerHTML = '&nbsp;';
-        input.parentNode.replaceChild(span, input);
+    // Read the live values first. cloneNode copies attributes, not current state:
+    // a <select> loses whatever the user picked, and a typed-but-unsaved <input>
+    // loses its text. Both would otherwise print blank.
+    const values = {};
+    bodyEl.querySelectorAll('input, select, textarea').forEach(el => {
+        if (el.id) values[el.id] = el.value;
     });
 
-    clone.querySelectorAll('.doc-status-banner, .contract-action-bar').forEach(el => el.remove());
+    const clone = bodyEl.cloneNode(true);
+
+    clone.querySelectorAll('input, select, textarea').forEach(el => {
+        const raw = (el.id && el.id in values) ? values[el.id] : el.value;
+        const span = document.createElement('span');
+        span.className = el.className;
+        span.textContent = (el.tagName === 'INPUT' && el.type === 'date')
+            ? bdFormatDateValue(raw)
+            : raw;
+        if (!span.textContent) span.innerHTML = '&nbsp;';
+        el.parentNode.replaceChild(span, el);
+    });
+
+    clone.querySelectorAll('.doc-status-banner, .contract-action-bar, .bd-hidden').forEach(el => el.remove());
     return clone.innerHTML;
 }
 
@@ -313,6 +365,8 @@ function buildBoardServiceAgreement(saved, canEdit) {
     <p class="doc-paragraph">I understand the responsibilities associated with serving on the Westside Rising Board of Directors and commit to fulfilling these expectations to the best of my ability.</p>
 
     <p class="doc-paragraph">Board Member Name: ${bdField('bsa_name', saved, canEdit, 'Full name', 'doc-field-wide')}</p>
+
+    <p class="doc-paragraph">Role: ${bdRoleField(saved, canEdit)}</p>
 
     <p class="doc-paragraph">Date: ${bdDateField('bsa_date', saved, canEdit)}</p>
 

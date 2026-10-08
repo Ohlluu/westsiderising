@@ -252,6 +252,21 @@ input.doc-date-field::-webkit-calendar-picker-indicator {
 
 input.doc-date-field:hover::-webkit-calendar-picker-indicator { opacity: 0.9; }
 
+/* Role picker on the Service Agreement. */
+.bd-hidden { display: none !important; }
+
+select.doc-role-field {
+    min-width: 180px;
+    width: auto;
+    max-width: 260px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    padding: 0.1rem 0.2rem;
+}
+
+.bd-role-other-wrap { margin-left: 0.5rem; }
+
 /* Off-screen stage used to render the PDF at a fixed width. */
 .bd-pdf-stage {
     font-family: 'Inter', Arial, Helvetica, sans-serif;

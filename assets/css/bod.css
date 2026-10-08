@@ -211,6 +211,16 @@
     font-size: inherit;
 }
 
+/* Role renders as read-only text in the BOD view. */
+.bd-hidden { display: none !important; }
+
+.doc-role-field {
+    min-width: 0;
+    width: auto;
+    font-family: inherit;
+    font-size: inherit;
+}
+
 /* Off-screen stage used to render the PDF at a fixed width. */
 .bd-pdf-stage {
     font-family: 'Inter', Arial, Helvetica, sans-serif;
