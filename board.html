@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Unlisted page: not linked from the site, and excluded from search engines. -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <title>Board of Directors Documents | Westside Rising</title>
+
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/contracts.css?v=5">
+    <link rel="stylesheet" href="assets/css/board.css?v=1">
+</head>
+<body>
+
+    <header class="board-topbar">
+        <div class="board-topbar-inner">
+            <img src="assets/images/logo.jpg" alt="Westside Rising" class="board-logo">
+            <span class="board-topbar-title">Board of Directors</span>
+        </div>
+    </header>
+
+    <main class="board-main">
+
+        <!-- Access code gate -->
+        <section id="board-gate" class="board-gate" style="display:none;">
+            <div class="board-gate-card">
+                <i class="fas fa-user-shield board-gate-icon"></i>
+                <h1>Board of Directors Documents</h1>
+                <p class="board-gate-text">
+                    Please enter the access code that was sent to you by Westside Rising.
+                </p>
+                <form id="board-code-form" autocomplete="off">
+                    <input type="text" id="board-code-input" class="board-code-input"
+                           placeholder="Access code" autocomplete="off" spellcheck="false">
+                    <div id="board-code-error" class="board-code-error" style="display:none;"></div>
+                    <button type="submit" id="board-code-submit" class="board-code-submit">Continue</button>
+                </form>
+                <p class="board-gate-help">
+                    Trouble getting in? Contact Westside Rising and we will reissue your link.
+                </p>
+            </div>
+        </section>
+
+        <!-- Loading -->
+        <section id="board-loading" class="board-loading" style="display:none;">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Verifying your access&hellip;</span>
+        </section>
+
+        <!-- Portal (rendered by board-contracts.js) -->
+        <section id="board-portal" style="display:none;"></section>
+
+    </main>
+
+    <footer class="board-footer">
+        &copy; Westside Rising &bull; This page is private and intended only for members of the Board of Directors.
+    </footer>
+
+    <!-- Firebase (compat build, matching the rest of the site) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script src="assets/js/board-documents.js?v=1"></script>
+    <script src="assets/js/board-contracts.js?v=1"></script>
+</body>
+</html>

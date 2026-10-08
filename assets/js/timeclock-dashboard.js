@@ -33,6 +33,15 @@ auth.onAuthStateChanged(async (user) => {
     }
 
     if (user) {
+        // Board members sign in anonymously on board.html. They have no users/{uid}
+        // document, and checkUserRole would try to create one from a null email.
+        // Never let an anonymous session into the staff portal.
+        if (user.isAnonymous) {
+            await auth.signOut();
+            window.location.href = 'admin-login.html';
+            return;
+        }
+
         currentUser = user;
         document.getElementById('user-email').textContent = user.email;
 
@@ -90,8 +99,13 @@ function configureUIForRole(role) {
     const timeclockTab = document.querySelector('[data-tab="timeclock"]');
     const timesheetsTab = document.querySelector('[data-tab="timesheets"]');
     const contractsTab = document.querySelector('[data-tab="contracts"]');
+    const bodTab = document.querySelector('[data-tab="bod"]');
 
     const eventMgmtLink = document.getElementById('event-mgmt-link');
+
+    // Board of Directors records are superadmin-only. Keep the tab hidden for
+    // everyone else; initializeBOD() and the Firestore rules enforce it for real.
+    if (bodTab) bodTab.style.display = role === 'superadmin' ? 'block' : 'none';
 
     if (role === 'superadmin') {
         timeclockTab.style.display = 'block';
@@ -160,6 +174,11 @@ function switchTab(tabName) {
         case 'contracts':
             if (typeof initializeContracts === 'function') {
                 initializeContracts();
+            }
+            break;
+        case 'bod':
+            if (typeof initializeBOD === 'function') {
+                initializeBOD();
             }
             break;
     }

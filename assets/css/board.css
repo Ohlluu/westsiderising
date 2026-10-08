@@ -1,0 +1,268 @@
+/* board.html — private Board of Directors signing page.
+   Loaded after contracts.css, which supplies the document and signature styles. */
+
+:root {
+    --board-ink: #1a1a4e;
+    --board-accent: #c8102e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f4f4f8;
+    color: #222;
+    line-height: 1.6;
+}
+
+/* ---------- Top bar ---------- */
+
+.board-topbar {
+    background: var(--board-ink);
+    padding: 0.9rem 1.5rem;
+}
+
+.board-topbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.board-logo {
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.board-topbar-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+}
+
+.board-main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    min-height: 60vh;
+}
+
+/* ---------- Access gate ---------- */
+
+.board-gate {
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5rem;
+}
+
+.board-gate-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 2rem;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+}
+
+.board-gate-icon {
+    font-size: 2.2rem;
+    color: var(--board-ink);
+    margin-bottom: 1rem;
+}
+
+.board-gate-card h1 {
+    font-size: 1.25rem;
+    margin: 0 0 0.6rem;
+    color: #222;
+}
+
+.board-gate-text {
+    color: #666;
+    font-size: 0.92rem;
+    margin: 0 0 1.4rem;
+}
+
+.board-code-input {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font-size: 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    letter-spacing: 0.06em;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.board-code-input:focus {
+    outline: none;
+    border-color: var(--board-ink);
+    box-shadow: 0 0 0 3px rgba(26, 26, 78, 0.12);
+}
+
+.board-code-submit {
+    width: 100%;
+    margin-top: 0.9rem;
+    padding: 0.75rem;
+    background: var(--board-ink);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.board-code-submit:hover:not(:disabled) { background: #2a2a6e; }
+.board-code-submit:disabled { opacity: 0.6; cursor: default; }
+
+.board-code-error {
+    color: #b3261e;
+    font-size: 0.86rem;
+    margin-top: 0.8rem;
+    text-align: left;
+}
+
+.board-gate-help {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 1.3rem 0 0;
+}
+
+/* ---------- Loading ---------- */
+
+.board-loading {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: #777;
+}
+
+.board-loading i { margin-right: 0.5rem; }
+
+/* ---------- Portal ---------- */
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+}
+
+.board-welcome {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.board-subtitle {
+    color: #888;
+    font-size: 0.88rem;
+}
+
+.board-progress {
+    background: #fff;
+    border: 1px solid #e0e0ea;
+    border-radius: 20px;
+    padding: 0.4rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+    white-space: nowrap;
+}
+
+.board-progress.complete {
+    background: #eaf6ec;
+    border-color: #a6d6b0;
+    color: #1e7b34;
+}
+
+.board-banner {
+    background: #eef1fa;
+    border-left: 4px solid var(--board-ink);
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.9rem;
+    color: #44486b;
+    margin-bottom: 1.5rem;
+}
+
+.board-banner.complete {
+    background: #eaf6ec;
+    border-left-color: #1e7b34;
+    color: #1e5b2c;
+}
+
+.board-banner i { margin-right: 0.45rem; }
+
+/* ---------- Document extras not covered by contracts.css ---------- */
+
+.doc-subtitle {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1.3rem;
+    color: #444;
+}
+
+.doc-checklist {
+    margin: 0.5rem 0 1rem 1.3rem;
+    padding: 0;
+    list-style: none;
+}
+
+.doc-checklist li { margin-bottom: 0.35rem; }
+.doc-checklist li::before { content: "\2610"; margin-right: 0.5rem; color: #555; }
+
+.doc-disclosure-box {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+    background: #fcfcfe;
+}
+
+.doc-field-block {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.65rem;
+}
+
+.doc-closing {
+    margin-top: 2rem;
+    font-size: 0.92rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* Signed fields render as text, not inputs — keep the underline for print parity. */
+.signed-field {
+    border-bottom: 1px solid #333;
+    background: transparent;
+    padding: 0 2px;
+}
+
+.doc-tab-check { margin-right: 0.4rem; color: #1e7b34; }
+
+.signature-party.single { max-width: 420px; }
+
+/* ---------- Footer ---------- */
+
+.board-footer {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #999;
+    padding: 1.5rem 1.25rem 2.5rem;
+}
+
+@media (max-width: 640px) {
+    .board-header { flex-direction: column; align-items: flex-start; }
+    .board-main { padding: 1.25rem 0.9rem 3rem; }
+}

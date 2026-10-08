@@ -1,0 +1,208 @@
+/* Board of Directors tab — superadmin view inside time-clock.html.
+   Builds on contracts.css, which supplies .staff-contract-row, .doc-tabs,
+   .document-card, .signature-block and the status badges. */
+
+.bod-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.bod-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+}
+
+.bod-subtitle {
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0;
+    max-width: 48ch;
+}
+
+.bod-add-btn {
+    background: #1a1a4e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.bod-add-btn:hover { background: #2a2a6e; }
+
+/* ---------- Add form ---------- */
+
+.bod-add-form {
+    background: #f7f7fb;
+    border: 1px solid #e2e2ee;
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.bod-add-form label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #555;
+    margin-bottom: 0.4rem;
+}
+
+.bod-add-form input[type="text"] {
+    width: 100%;
+    max-width: 380px;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.bod-add-form input[type="text"]:focus {
+    outline: none;
+    border-color: #1a1a4e;
+    box-shadow: 0 0 0 3px rgba(26, 26, 78, 0.1);
+}
+
+.bod-add-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.bod-save-btn,
+.bod-cancel-btn {
+    border: none;
+    border-radius: 6px;
+    padding: 0.55rem 1rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.bod-save-btn { background: #1a1a4e; color: #fff; }
+.bod-save-btn:hover { background: #2a2a6e; }
+
+.bod-cancel-btn { background: #e8e8ef; color: #444; }
+.bod-cancel-btn:hover { background: #dcdce6; }
+
+.bod-add-error {
+    color: #b3261e;
+    font-size: 0.85rem;
+    margin-top: 0.7rem;
+}
+
+/* ---------- Roster rows ---------- */
+
+.bod-row .staff-contract-info {
+    cursor: pointer;
+    flex: 1;
+}
+
+.bod-chevron {
+    color: #ccc;
+    margin-left: 0.4rem;
+    cursor: pointer;
+}
+
+.bod-icon-btn {
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    margin-left: 0.4rem;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.15s ease;
+}
+
+.bod-icon-btn:hover { background: #f0f0f5; color: #1a1a4e; border-color: #bbb; }
+.bod-icon-btn.danger:hover { background: #fdeceb; color: #b3261e; border-color: #e8a9a4; }
+.bod-icon-btn.restore:hover { background: #eaf6ec; color: #1e7b34; border-color: #a6d6b0; }
+
+.contract-status-badge.badge-revoked {
+    background: #fdeceb;
+    color: #b3261e;
+}
+
+/* ---------- Link modal ---------- */
+
+.bod-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9000;
+    padding: 1.5rem;
+}
+
+.bod-modal-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.6rem 1.8rem;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.bod-modal-card h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1.1rem;
+    color: #1a1a4e;
+}
+
+.bod-modal-note {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.55;
+    margin: 0 0 1rem;
+}
+
+.bod-link-box {
+    width: 100%;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #f7f7fb;
+    resize: vertical;
+    word-break: break-all;
+    color: #222;
+}
+
+.bod-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+/* ---------- Single-party signature block ---------- */
+
+.signature-party.single {
+    max-width: 420px;
+}
+
+@media (max-width: 640px) {
+    .bod-header { flex-direction: column; align-items: stretch; }
+    .bod-add-btn { width: 100%; }
+}
