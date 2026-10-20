@@ -942,6 +942,45 @@ ul {
     box-shadow: var(--shadow-lg);
 }
 
+/* Sponsorship CTA. Purple to match the Zeffy sponsorship checkout it opens,
+   so the button and the page it lands on read as the same flow. */
+.btn-sponsor {
+    background: #6C2BD9;
+    color: var(--white);
+    border: 2px solid #6C2BD9;
+}
+
+.btn-sponsor:hover {
+    background: #581FB5;
+    border-color: #581FB5;
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Ticket + sponsor pair. Side by side with equal widths where there is room,
+   stacked full-width once the two no longer fit without wrapping mid-label. */
+.soiree-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.soiree-cta-row .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    text-align: center;
+    padding: 0.9rem 1.25rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .soiree-cta-row { flex-direction: column; gap: 0.6rem; }
+    .soiree-cta-row .btn { width: 100%; flex: 0 0 auto; }
+}
+
 .btn-secondary {
     background: transparent;
     color: var(--primary-red);
