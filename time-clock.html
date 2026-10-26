@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/timeclock.css?v=12">
     <link rel="stylesheet" href="assets/css/contracts.css?v=5">
     <link rel="stylesheet" href="assets/css/bod.css?v=1">
+    <link rel="stylesheet" href="assets/css/contractor.css?v=1">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -51,6 +52,9 @@
                 </button>
                 <button class="tab-btn" data-tab="bod" style="display: none;">
                     <i class="fas fa-users-rectangle"></i> BOD
+                </button>
+                <button class="tab-btn" data-tab="contractors" style="display: none;">
+                    <i class="fas fa-file-signature"></i> Contractors
                 </button>
             </div>
 
@@ -154,6 +158,11 @@
             <!-- Board of Directors Tab Content (superadmin only) -->
             <div id="bod-tab" class="tab-content">
                 <div class="contracts-loading"><i class="fas fa-spinner fa-spin"></i> Loading board records...</div>
+            </div>
+
+            <!-- Contractors Tab Content (superadmin only) -->
+            <div id="contractors-tab" class="tab-content">
+                <div class="contracts-loading"><i class="fas fa-spinner fa-spin"></i> Loading contractors...</div>
             </div>
         </div>
     </section>
@@ -280,5 +289,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="assets/js/board-documents.js?v=3"></script>
     <script src="assets/js/bod-admin.js?v=3"></script>
+    <script src="assets/js/contractor-documents.js?v=1"></script>
+    <script src="assets/js/contractor-admin.js?v=1"></script>
 </body>
 </html>

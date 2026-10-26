@@ -100,12 +100,14 @@ function configureUIForRole(role) {
     const timesheetsTab = document.querySelector('[data-tab="timesheets"]');
     const contractsTab = document.querySelector('[data-tab="contracts"]');
     const bodTab = document.querySelector('[data-tab="bod"]');
+    const contractorsTab = document.querySelector('[data-tab="contractors"]');
 
     const eventMgmtLink = document.getElementById('event-mgmt-link');
 
     // Board of Directors records are superadmin-only. Keep the tab hidden for
     // everyone else; initializeBOD() and the Firestore rules enforce it for real.
     if (bodTab) bodTab.style.display = role === 'superadmin' ? 'block' : 'none';
+    if (contractorsTab) contractorsTab.style.display = role === 'superadmin' ? 'block' : 'none';
 
     if (role === 'superadmin') {
         timeclockTab.style.display = 'block';
@@ -179,6 +181,11 @@ function switchTab(tabName) {
         case 'bod':
             if (typeof initializeBOD === 'function') {
                 initializeBOD();
+            }
+            break;
+        case 'contractors':
+            if (typeof initializeContractors === 'function') {
+                initializeContractors();
             }
             break;
     }

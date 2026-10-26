@@ -1,0 +1,275 @@
+/* Contractor portal and Contractors tab.
+   Loaded after contracts.css and board.css; overrides the board's navy with the
+   purple from WESTSIDE_RISING_Contractor_Agreement_Fillable.pdf so the page and
+   the document people already received read as the same thing. */
+
+:root {
+    --contractor-purple: #5B1A6B;
+    --contractor-purple-dark: #46144F;
+    --contractor-tint: #F6F0F8;
+}
+
+/* ---------- Page chrome ---------- */
+
+.contractor-page .board-topbar,
+.contractor-topbar {
+    background: var(--contractor-purple);
+}
+
+.contractor-page body,
+.contractor-page {
+    background: var(--contractor-tint);
+}
+
+.contractor-page .board-gate-icon { color: var(--contractor-purple); }
+
+.contractor-page .board-code-input:focus {
+    border-color: var(--contractor-purple);
+    box-shadow: 0 0 0 3px rgba(91, 26, 107, 0.12);
+}
+
+.contractor-page .board-code-submit { background: var(--contractor-purple); }
+.contractor-page .board-code-submit:hover:not(:disabled) { background: var(--contractor-purple-dark); }
+
+.contractor-page a { color: var(--contractor-purple); }
+
+/* ---------- Portal header ---------- */
+
+.contractor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+}
+
+.contractor-welcome {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.contractor-subtitle {
+    color: #888;
+    font-size: 0.88rem;
+}
+
+.contractor-progress {
+    background: #fff;
+    border: 1px solid #e3dae6;
+    border-radius: 20px;
+    padding: 0.4rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+    white-space: nowrap;
+}
+
+.contractor-progress.complete {
+    background: #eaf6ec;
+    border-color: #a6d6b0;
+    color: #1e7b34;
+}
+
+.contractor-banner {
+    background: #f1e9f4;
+    border-left: 4px solid var(--contractor-purple);
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.9rem;
+    color: #4a3350;
+    margin-bottom: 1.5rem;
+}
+
+.contractor-banner.complete {
+    background: #eaf6ec;
+    border-left-color: #1e7b34;
+    color: #1e5b2c;
+}
+
+.contractor-banner i { margin-right: 0.45rem; }
+
+.contractor-container { max-width: 100%; }
+
+/* ---------- Document chrome, matching the PDF ---------- */
+
+.contractor-page .doc-title,
+#contractors-tab .doc-title {
+    text-align: left;
+    text-decoration: none;
+    font-size: 1.25rem;
+    color: var(--contractor-purple);
+    margin-bottom: 0.25rem;
+}
+
+.contractor-page .doc-subtitle,
+#contractors-tab .doc-subtitle {
+    text-align: left;
+    font-weight: 400;
+    font-size: 0.92rem;
+    color: #777;
+    border-bottom: 1px solid #e0d8e3;
+    padding-bottom: 0.7rem;
+    margin-bottom: 1.3rem;
+}
+
+.doc-heading-accent { color: var(--contractor-purple); }
+
+/* ---------- Label / field rows ---------- */
+
+.doc-rows { margin: 1.2rem 0; }
+
+.doc-row {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+.doc-row-label {
+    font-size: 0.88rem;
+    color: #555;
+}
+
+.doc-row-field { min-width: 0; }
+
+.doc-row-field .doc-field {
+    width: 100%;
+    max-width: 100%;
+    background: var(--contractor-tint);
+    border: 1px solid #ded2e2;
+    border-radius: 4px;
+    padding: 0.5rem 0.6rem;
+}
+
+.doc-row-field .doc-field.signed-field {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    border-radius: 0;
+    display: block;
+}
+
+/* ---------- Textareas ---------- */
+
+.doc-textarea {
+    display: block;
+    width: 100%;
+    background: var(--contractor-tint);
+    border: 1px solid #ded2e2;
+    border-radius: 4px;
+    padding: 0.7rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    margin-bottom: 1.2rem;
+}
+
+.doc-textarea.signed-field {
+    background: #fff;
+    border: 1px solid #ccc;
+    white-space: pre-wrap;
+    min-height: 4rem;
+}
+
+.doc-textarea:focus {
+    outline: none;
+    border-color: var(--contractor-purple);
+    box-shadow: 0 0 0 3px rgba(91, 26, 107, 0.1);
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 640px) {
+    .doc-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+        margin-bottom: 0.9rem;
+    }
+    .doc-row-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: #666;
+    }
+    .contractor-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- Single-document packet ---------- */
+
+.doc-section { scroll-margin-top: 1rem; }
+
+.doc-page-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a08aa8;
+    margin-bottom: 0.6rem;
+}
+
+/* Divider between the three parts, echoing the PDF's page breaks. */
+.doc-page-break {
+    border-top: 2px dashed #ded2e2;
+    margin: 2.75rem 0 2rem;
+}
+
+/* ---------- Sign area ---------- */
+
+.contractor-sign-area {
+    width: 100%;
+    background: var(--contractor-tint);
+    border: 1px solid #ded2e2;
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.contractor-sign-area label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--contractor-purple);
+    margin-bottom: 0.5rem;
+}
+
+.contractor-sign-area .signature-name-input {
+    width: 100%;
+    max-width: 420px;
+    border: none;
+    border-bottom: 1px solid #8a6f93;
+    background: transparent;
+}
+
+.contractor-sign-note {
+    font-size: 0.82rem;
+    color: #6b5a71;
+    line-height: 1.55;
+    margin: 0.8rem 0 0;
+}
+
+.contractor-action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+/* The action bar holds the sign box above the buttons, so let it stack. */
+.contractor-page .contract-action-bar,
+#contractors-tab .contract-action-bar {
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .contractor-action-buttons { flex-direction: column; }
+    .contractor-action-buttons .contract-save-btn,
+    .contractor-action-buttons .contract-sign-btn { width: 100%; justify-content: center; }
+    .doc-page-break { margin: 2rem 0 1.5rem; }
+}
