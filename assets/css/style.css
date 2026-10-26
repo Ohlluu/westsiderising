@@ -967,12 +967,15 @@ ul {
     width: 100%;
 }
 
+/* flex-basis auto + min-width max-content so a button can never shrink below
+   its own label. .btn sets overflow:hidden, so shrinking clips the text
+   outright rather than wrapping it. */
 .soiree-cta-row .btn {
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 1 1 auto;
+    min-width: max-content;
     justify-content: center;
     text-align: center;
-    padding: 0.9rem 1.25rem;
+    padding: 0.9rem 1.5rem;
     white-space: nowrap;
 }
 
