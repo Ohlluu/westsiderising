@@ -142,6 +142,10 @@ function renderContractorRows() {
                             onclick="toggleContractorRevoked(event, '${m.code}', ${!m.revoked})">
                         <i class="fas fa-${m.revoked ? 'rotate-left' : 'ban'}"></i>
                     </button>
+                    <button class="bod-icon-btn danger" title="Delete contractor"
+                            onclick="deleteContractorMember(event, '${m.code}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
                     <i class="fas fa-chevron-right bod-chevron" onclick="openContractorMember('${m.code}')"></i>
                 </div>
             </div>
@@ -221,6 +225,49 @@ async function toggleContractorRevoked(event, code, revoked) {
     } catch (err) {
         console.error('Error updating contractor:', err);
         alert('Could not update access. Please try again.');
+    }
+}
+
+// Deletes the contractor and their documents outright. Intended for fixing a
+// mistyped name right after creating it. If the agreement has been signed, the
+// confirmation escalates to typing the name, because this destroys an executed
+// contract rather than just cutting off access — revoke does that.
+async function deleteContractorMember(event, code) {
+    event.stopPropagation();
+
+    const member = contractorMembers.find(m => m.code === code);
+    const name = (member && member.name) || 'this contractor';
+    const data = contractorContracts[code] || { documents: {} };
+    const hasSigned = !!data.documents?.service?.contractorSigned;
+    const wrSigned = !!data.documents?.service?.wrSigned;
+
+    if (hasSigned) {
+        const state = wrSigned
+            ? 'This agreement is FULLY EXECUTED — both parties have signed.'
+            : 'This contractor has already signed. Your countersignature is still pending.';
+        const typed = prompt(
+            `WARNING: ${state}\n\n` +
+            `Deleting removes the signed Service Agreement, NDA, and Conflict of Interest ` +
+            `permanently. This cannot be undone.\n` +
+            `If you only want to stop their access, cancel and use Revoke instead.\n\n` +
+            `To delete anyway, type the name exactly: ${name}`
+        );
+        if (typed === null) return;
+        if (typed.trim() !== name.trim()) {
+            alert('The name did not match. Nothing was deleted.');
+            return;
+        }
+    } else if (!confirm(`Delete ${name}?\n\nThey have not signed anything yet. Their link will stop working. This cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        await db.collection('contractorContracts').doc(code).delete();
+        await db.collection('contractorMembers').doc(code).delete();
+        await renderContractorRoster();
+    } catch (err) {
+        console.error('Error deleting contractor:', err);
+        alert('Could not delete this contractor. Please try again.');
     }
 }
 

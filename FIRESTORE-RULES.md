@@ -236,7 +236,10 @@ ever created by hand without that field, its link will stop working** — add
   countersigning the Service Agreement and Conflict of Interest requires it.
 - Revoking a code blocks all further reads and writes immediately, while preserving
   everything already signed.
-- Neither board nor contractor records can be deleted from the browser.
+- Contractors and directors cannot delete their own records; `allow delete: if false`
+  blocks them. Superadmin **can** delete, because `allow read, write: if isSuperAdmin()`
+  already covers delete and rules are a permissive union. That is deliberate so Dr. Orr
+  can remove a record created with the wrong name.
 
 **Not protected — worth knowing**
 

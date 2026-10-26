@@ -143,6 +143,10 @@ function renderBODRows() {
                             onclick="toggleBODRevoked(event, '${m.code}', ${!m.revoked})">
                         <i class="fas fa-${m.revoked ? 'rotate-left' : 'ban'}"></i>
                     </button>
+                    <button class="bod-icon-btn danger" title="Delete board member"
+                            onclick="deleteBODMember(event, '${m.code}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
                     <i class="fas fa-chevron-right bod-chevron" onclick="openBODMember('${m.code}')"></i>
                 </div>
             </div>
@@ -230,6 +234,45 @@ async function toggleBODRevoked(event, code, revoked) {
     } catch (err) {
         console.error('Error updating board member:', err);
         alert('Could not update access. Please try again.');
+    }
+}
+
+// Deletes the member and their documents outright. Intended for fixing a
+// mistyped name right after creating it. If anything has already been signed,
+// the confirmation escalates to typing the name, because this destroys an
+// executed record rather than just cutting off access — revoke does that.
+async function deleteBODMember(event, code) {
+    event.stopPropagation();
+
+    const member = bodMembers.find(m => m.code === code);
+    const name = (member && member.name) || 'this board member';
+    const data = bodContracts[code] || { documents: {} };
+    const signedDocs = BOARD_DOCS.filter(d => data.documents?.[d.id]?.signed);
+
+    if (signedDocs.length) {
+        const typed = prompt(
+            `WARNING: ${name} has already signed ${signedDocs.length} document(s):\n` +
+            signedDocs.map(d => `  • ${d.label}`).join('\n') +
+            `\n\nDeleting removes those signed records permanently. This cannot be undone.\n` +
+            `If you only want to stop their access, cancel and use Revoke instead.\n\n` +
+            `To delete anyway, type the name exactly: ${name}`
+        );
+        if (typed === null) return;
+        if (typed.trim() !== name.trim()) {
+            alert('The name did not match. Nothing was deleted.');
+            return;
+        }
+    } else if (!confirm(`Delete ${name}?\n\nThey have not signed anything yet. Their link will stop working. This cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        await db.collection('boardContracts').doc(code).delete();
+        await db.collection('boardMembers').doc(code).delete();
+        await renderBODRoster();
+    } catch (err) {
+        console.error('Error deleting board member:', err);
+        alert('Could not delete this board member. Please try again.');
     }
 }
 
