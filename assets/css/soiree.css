@@ -265,9 +265,10 @@
 .soiree-card-section {
     padding: 2.5rem 0 0.5rem;
 }
+/* Outer grid: flyer on the left, everything else on the right. */
 .soiree-card {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr;
     align-items: center;
     gap: 2rem;
     background: var(--white);
@@ -276,6 +277,65 @@
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     padding: 1.75rem 2rem;
+}
+
+/* Inner grid: date block beside the copy, buttons spanning the full width
+   underneath so they are not squeezed into a third column. */
+.soiree-card-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.25rem 2rem;
+    min-width: 0;
+}
+
+.soiree-card-main .soiree-cta-row {
+    grid-column: 1 / -1;
+}
+
+/* Flyer sits in the card's left column at a fixed, readable size. */
+.soiree-card .soiree-flyer-link {
+    width: 300px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+/* Honorees card mirrors the ticket card: copy left, flyer right. Alternating the
+   image side keeps two tall portrait flyers from stacking into one heavy column. */
+.soiree-honorees-section {
+    padding-top: 1.5rem;
+}
+
+.soiree-card--honorees {
+    grid-template-columns: 1fr auto;
+}
+
+.honoree-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 1.5rem;
+}
+
+.honoree-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    color: var(--dark-gray);
+}
+
+.honoree-list li::before {
+    content: "\f005";               /* Font Awesome star */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    font-size: 0.6rem;
+    color: var(--soiree-gold);
 }
 
 .soiree-card-date {
@@ -358,6 +418,28 @@
         gap: 1.25rem;
         padding: 1.5rem;
         text-align: center;
+        justify-items: center;
+    }
+    .soiree-card-main {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        width: 100%;
+    }
+    .soiree-card .soiree-flyer-link {
+        width: 100%;
+        max-width: 420px;
+    }
+    /* Lead with the flyer on mobile, names underneath. */
+    .soiree-card--honorees {
+        grid-template-columns: 1fr;
+    }
+    .soiree-card--honorees .soiree-flyer-link { order: -1; }
+    .honoree-list {
+        grid-template-columns: 1fr;
+        text-align: left;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .soiree-card-date {
         padding-right: 0;

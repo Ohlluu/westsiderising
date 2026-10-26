@@ -724,20 +724,10 @@
 
 /* ==================== Soirée Flyer ==================== */
 
-.soiree-flyer-section {
-    padding: 3rem 0 1rem;
-}
-
-.soiree-flyer-wrap {
-    display: flex;
-    justify-content: center;
-}
-
+/* The flyer lives inside .soiree-card; its width is set there so it stays in
+   step with the card's two-column layout. These rules are presentation only. */
 .soiree-flyer-link {
     display: block;
-    /* Flyer is 927x1200 portrait. Capping the width keeps it from dominating a
-       wide desktop screen; on mobile it fills the column. */
-    max-width: min(100%, 520px);
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
@@ -757,8 +747,7 @@
 }
 
 @media (max-width: 768px) {
-    .soiree-flyer-section { padding: 2rem 0 0.5rem; }
-    .soiree-flyer-link { max-width: 100%; border-radius: 10px; }
+    .soiree-flyer-link { border-radius: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
