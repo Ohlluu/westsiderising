@@ -754,3 +754,110 @@
     .soiree-flyer-link { transition: none; }
     .soiree-flyer-link:hover { transform: none; }
 }
+
+/* Compact overview alongside the presentation or introduction. */
+.awardees-media-row,
+.awardees-showcase--intro-flyer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.awardees-overview {
+    width: 100%;
+    max-width: 220px;
+    margin: 0;
+}
+
+.awardees-overview .showcase-image {
+    display: block;
+    margin: 0;
+}
+
+.awardees-media-row .showcase-video {
+    min-width: 0;
+    margin: 0;
+}
+
+.awardees-showcase--intro-flyer .showcase-intro {
+    text-align: left;
+    margin: 0;
+}
+
+.awardees-overview a:focus-visible {
+    outline: 3px solid var(--primary-red);
+    outline-offset: 5px;
+}
+
+@media (max-width: 640px) {
+    .awardees-media-row,
+    .awardees-showcase--intro-flyer {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+    }
+
+    .awardees-overview {
+        max-width: 180px;
+        justify-self: center;
+    }
+
+    .awardees-showcase--intro-flyer .showcase-intro {
+        text-align: center;
+    }
+}
+
+/* Give the video and flyer a shared, readable presentation area. */
+.awardees-showcase--presentation {
+    max-width: 1100px;
+}
+
+.awardees-showcase--presentation .awardees-media-row {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 1.5rem;
+}
+
+.awardees-showcase--presentation .awardees-overview {
+    max-width: none;
+}
+
+.awardees-showcase--presentation .showcase-video h3 {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 760px) {
+    .awardees-showcase--presentation .awardees-media-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .awardees-showcase--presentation .awardees-overview {
+        max-width: 420px;
+        justify-self: center;
+    }
+}
+
+/* Give the 2026 flyer more room alongside its introduction. */
+.awardees-showcase--intro-flyer {
+    max-width: 1100px;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+
+.awardees-showcase--intro-flyer .awardees-overview {
+    max-width: 420px;
+}
+
+@media (max-width: 760px) {
+    .awardees-showcase--intro-flyer {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .awardees-showcase--intro-flyer .showcase-intro {
+        text-align: center;
+    }
+
+    .awardees-showcase--intro-flyer .awardees-overview {
+        justify-self: center;
+    }
+}
