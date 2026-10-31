@@ -1,45 +1,13 @@
-# Firestore Rules — Board of Directors & Contractors
+# Firestore Rules — Source of Truth
 
-Your live ruleset plus four collections: `boardMembers`, `boardContracts`,
-`contractorMembers`, and `contractorContracts`. Nothing above them changed, so
-pasting this whole block will not affect Onboarding, timesheets, or any form.
+Copy the complete contents of `firestore.rules` into Firebase Console → Firestore Database → Rules and publish.
+This does not deploy automatically with GitHub Pages.
 
-> `FIRESTORE-SECURITY-RULES.md` in this repo is **stale** — it predates the
-> `contracts` collection. Use this file instead.
+This version removes duplicate grants from the supplied live rules and adds basic application field and server timestamp checks matched to current form scripts. It preserves optional Community Voices contact information and existing staff permissions. It does not validate every field or detect random prose, rate-limit submissions, or enable CAPTCHA/App Check.
 
----
+App Check must be configured separately. Monitor legitimate forms, staff, board, and contractor requests before enabling Firestore enforcement. Anonymous Authentication must remain enabled for board and contractor signing.
 
-## Before you publish: enable Anonymous Auth
-
-Board members and contractors have no accounts, but every Firestore rule requires
-`request.auth != null`. `board.html` and `contractor.html` sign the browser in
-anonymously purely to satisfy that — no email, no password, no account is created.
-
-1. Firebase Console → **Authentication** → **Sign-in method**
-2. Enable **Anonymous**
-
-**If you skip this, no board or contractor link will work.**
-
----
-
-## How access works
-
-The access code **is** the Firestore document ID. That makes it an unguessable
-capability — 24 random characters from a 31-character alphabet.
-
-The security turns on a distinction in Firestore rules:
-
-- `allow get` — fetch **one** document, by exact ID
-- `allow list` — **query** the collection
-- `allow read` — grants **both**
-
-Board members and contractors get `get` only. They can open the document whose ID
-they already know, and cannot enumerate the collection to discover anyone else's
-code. Dr. Orr gets full `read`, so she can list both rosters.
-
----
-
-## Rules
+Signed board/contractor sections remain frozen for access-code holders. Superadmin retains full access, including countersigning and deletion. Document IDs in the immutability functions must be updated if signing documents are added.
 
 ```javascript
 rules_version = '2';
@@ -47,15 +15,41 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isSuperAdmin() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'superadmin';
+      return request.auth != null
+          && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'superadmin';
     }
 
     function isManagerOrAdmin() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['manager', 'superadmin'];
+      return request.auth != null
+          && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['manager', 'superadmin'];
     }
 
     function isAuthenticated() {
       return request.auth != null;
+    }
+
+    // Basic validation; bot verification is configured through App Check.
+    function text(value, minimum, maximum) {
+      return value is string
+          && value.size() >= minimum && value.size() <= maximum;
+    }
+
+    function email(value) {
+      return text(value, 3, 254)
+          && value.matches('[^@\\s]+@[^@\\s]+[.][^@\\s]+');
+    }
+
+    function newSubmission(data, type) {
+      return data.status == 'new'
+          && data.formType == type
+          && data.submittedAt is timestamp
+          && data.submittedAt == request.time;
+    }
+
+    function applicant(data) {
+      return text(data.fullName, 1, 200)
+          && email(data.email)
+          && text(data.phone, 1, 80);
     }
 
     function boardCodeIsActive(code) {
@@ -110,64 +104,107 @@ service cloud.firestore {
 
     match /events/{eventId} {
       allow read: if true;
-      allow create: if request.resource.data.status == 'pending';
+      allow create: if request.resource.data.status == 'pending'
+          && text(request.resource.data.eventTitle, 1, 300)
+          && email(request.resource.data.organizerEmail)
+          && text(request.resource.data.organizerName, 1, 200);
       allow update, delete: if isManagerOrAdmin();
     }
 
     match /volunteerApplications/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Volunteer Application')
+          && text(request.resource.data.firstName, 1, 200)
+          && text(request.resource.data.lastName, 1, 200)
+          && email(request.resource.data.email)
+          && text(request.resource.data.phone, 1, 80)
+          && request.resource.data.interests is list
+          && request.resource.data.interests.size() > 0
+          && request.resource.data.interests.size() <= 30;
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /partnershipApplications/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Partnership Application')
+          && email(request.resource.data.email)
+          && text(request.resource.data.entityName, 1, 300)
+          && request.resource.data.partnershipType is list
+          && request.resource.data.partnershipType.size() > 0
+          && request.resource.data.partnershipType.size() <= 30;
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /joinTeamApplications/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Employment Application')
+          && applicant(request.resource.data)
+          && request.resource.data.positions is list
+          && request.resource.data.positions.size() > 0
+          && request.resource.data.positions.size() <= 20
+          && text(request.resource.data.employmentType, 1, 300)
+          && text(request.resource.data.signature, 1, 200);
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /youngLeadersApplications/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Young Leaders Power Academy Application')
+          && applicant(request.resource.data)
+          && text(request.resource.data.position, 1, 300)
+          && text(request.resource.data.signature, 1, 200);
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /powerLabApplications/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Community Power Lab Application')
+          && applicant(request.resource.data)
+          && text(request.resource.data.signature, 1, 200);
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /communityVoicesSurveys/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Community Voices Survey')
+          && text(request.resource.data.contactName, 0, 200)
+          && text(request.resource.data.contactPhone, 0, 80)
+          && (request.resource.data.contactEmail == ''
+              || email(request.resource.data.contactEmail))
+          && request.resource.data.getInvolved is list
+          && request.resource.data.getInvolved.size() <= 30;
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /assessmentSubmissions/{docId} {
-      allow create: if request.resource.data.status == 'new';
+      allow create: if newSubmission(request.resource.data, 'Candidate Assessment')
+          && text(request.resource.data.candidateName, 1, 200)
+          && text(request.resource.data.positionApplied, 1, 300)
+          && request.resource.data.accountability is map
+          && request.resource.data.teamwork is map
+          && request.resource.data.initiative is map
+          && request.resource.data.criticalThinking is map
+          && request.resource.data.situational is map;
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /subscribers/{docId} {
-      allow create: if true;
+      allow create: if request.resource.data.keys().hasOnly(['name', 'phone', 'email', 'subscribedAt'])
+          && text(request.resource.data.name, 1, 200)
+          && text(request.resource.data.phone, 0, 80)
+          && email(request.resource.data.email)
+          && request.resource.data.subscribedAt == request.time;
       allow read, update, delete: if isManagerOrAdmin();
     }
 
     match /users/{userId} {
-      allow read: if request.auth.uid == userId || isSuperAdmin();
+      allow read: if (isAuthenticated() && request.auth.uid == userId) || isSuperAdmin();
       allow write: if isSuperAdmin();
     }
 
     match /timeEntries/{entryId} {
-      allow read: if resource.data.userId == request.auth.uid || isSuperAdmin();
-      allow create: if (request.auth.uid != null && request.resource.data.userId == request.auth.uid) || isSuperAdmin();
-      allow update: if resource.data.userId == request.auth.uid || isSuperAdmin();
+      allow read: if (isAuthenticated() && resource.data.userId == request.auth.uid) || isSuperAdmin();
+      allow create: if (isAuthenticated() && request.resource.data.userId == request.auth.uid) || isSuperAdmin();
+      allow update: if (isAuthenticated() && resource.data.userId == request.auth.uid) || isSuperAdmin();
       allow delete: if isSuperAdmin();
     }
 
     match /currentStatus/{userId} {
-      allow read, write: if request.auth.uid == userId || isSuperAdmin();
+      allow read, write: if (isAuthenticated() && request.auth.uid == userId) || isSuperAdmin();
     }
 
     match /contracts/{staffUid} {
@@ -205,58 +242,3 @@ service cloud.firestore {
   }
 }
 ```
-
----
-
-## Notes on syntax
-
-An earlier draft used `.get('revoked', false)` and `.get('documents', {})` with map
-defaults, which the rules compiler rejected. This version uses plain field reads and
-`'key' in map` membership checks instead, and declares every function above the
-`match` blocks.
-
-`boardCodeIsActive` / `contractorCodeIsActive` read `.revoked` directly rather than
-defaulting it. That is safe because `createBODMember` and `createContractorMember`
-both always write `revoked: false` when generating a code. **If a member document is
-ever created by hand without that field, its link will stop working** — add
-`revoked: false` and it resumes.
-
----
-
-## What this does and does not protect
-
-**Protected**
-
-- Board and contractor records are invisible to managers and employees; only
-  `isSuperAdmin()` can read or list them.
-- Codes cannot be enumerated: anonymous users have `get` but never `list`.
-- A signed document is frozen. The `...SignaturesImmutable()` checks reject any
-  update that alters a section already marked signed.
-- Contractor records stay writable by superadmin after signing, because
-  countersigning the Service Agreement and Conflict of Interest requires it.
-- Revoking a code blocks all further reads and writes immediately, while preserving
-  everything already signed.
-- Contractors and directors cannot delete their own records; `allow delete: if false`
-  blocks them. Superadmin **can** delete, because `allow read, write: if isSuperAdmin()`
-  already covers delete and rules are a permissive union. That is deliberate so Dr. Orr
-  can remove a record created with the wrong name.
-
-**Not protected — worth knowing**
-
-- The link is the credential. Anyone it is forwarded to can sign as that person.
-  That is inherent to signing without accounts; it is why each person gets a separate
-  code and why the copy-link dialog warns against forwarding.
-- The immutability functions hardcode their document IDs. **If you add a document to
-  `BOARD_DOCS` or `CONTRACTOR_DOCS`, add a matching `...DocPreserved('<id>')` line
-  here**, or that document's signature will not be frozen.
-- A typed-name signature is not a cryptographic signature. It matches how your
-  employee contracts already work, but it is not notarization.
-
----
-
-## How to apply
-
-1. Firebase Console → **Authentication** → **Sign-in method** → enable **Anonymous**
-2. Firebase Console → **Firestore Database** → **Rules**
-3. Replace everything with the block above, click **Publish**
-4. Wait ~30 seconds for propagation

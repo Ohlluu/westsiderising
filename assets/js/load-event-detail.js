@@ -1,4 +1,4 @@
-import { db } from './firebase-config.js';
+import { db } from './firebase-config.js?v=6';
 import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Helper function to format time from 24-hour to 12-hour format with AM/PM

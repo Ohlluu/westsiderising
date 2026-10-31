@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     try {
         const [configModule, firestoreModule] = await Promise.all([
-            import('./firebase-config.js'),
+            import('./firebase-config.js?v=6'),
             import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js")
         ]);
         db = configModule.db;

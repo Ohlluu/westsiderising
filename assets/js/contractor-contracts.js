@@ -23,6 +23,7 @@ const contractorFirebaseConfig = {
 };
 
 const contractorApp = firebase.initializeApp(contractorFirebaseConfig, 'contractor');
+wrActivateAppCheck(contractorApp);
 const contractorAuth = contractorApp.auth();
 const contractorDb = contractorApp.firestore();
 

@@ -22,6 +22,7 @@ const boardFirebaseConfig = {
 };
 
 const boardApp = firebase.initializeApp(boardFirebaseConfig, 'board');
+wrActivateAppCheck(boardApp);
 const boardAuth = boardApp.auth();
 const boardDb = boardApp.firestore();
 
