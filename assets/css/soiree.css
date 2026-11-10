@@ -471,3 +471,60 @@
         transform: none;
     }
 }
+
+/* Auction joins the ticket and sponsorship actions on every Soiree promotion. */
+.soiree-cta-row .btn-auction {
+    background: var(--soiree-gold);
+    border: 2px solid var(--soiree-gold);
+    color: var(--soiree-ink);
+    gap: 0.6rem;
+    min-height: 48px;
+}
+
+.soiree-cta-row .btn-auction:hover {
+    background: var(--soiree-gold-light);
+    border-color: var(--soiree-gold-light);
+    color: var(--soiree-ink);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.soiree-cta-row .btn:focus-visible {
+    outline: 3px solid var(--soiree-ink);
+    outline-offset: 3px;
+}
+
+/* The popup is narrower than the page cards: give the auction its own row. */
+.soiree-modal .btn-auction {
+    flex-basis: 100%;
+}
+
+@media (max-width: 600px) {
+    .soiree-cta-row .btn {
+        min-height: 48px;
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .soiree-cta-row .btn-auction:hover {
+        transform: none;
+    }
+}
+
+/* Lead the awards page with the event flyer and actions below the fixed nav. */
+.soiree-card-section--lead {
+    margin-top: 70px;
+}
+
+.page-hero.soiree-awards-intro {
+    margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .soiree-card-section--lead {
+        padding-top: 1rem;
+    }
+}
